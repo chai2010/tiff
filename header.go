@@ -37,78 +37,7 @@ func NewHeader(isBigTiff bool, offset uint64) *Header {
 	}
 }
 
-func (p *Header) Valid() bool {
-	if x := p.ByteOrder; x != binary.LittleEndian && x != binary.BigEndian {
-		return false
-	}
-	if x := p.Version; x != ClassicTIFF && x != BigTIFF {
-		return false
-	}
-	return true
-}
-
-func (p *Header) HeadSize() int {
-	if p.Version == ClassicTIFF {
-		return 8
-	}
-	if p.Version == BigTIFF {
-		return 16
-	}
-	return 0
-}
-
-func (p *Header) IsBigTiff() bool {
-	return p.Version == BigTIFF
-}
-
-func (p *Header) String() string {
-	orderTag := "Unknown"
-	switch p.ByteOrder {
-	case binary.LittleEndian:
-		orderTag = "LittleEndian"
-	case binary.BigEndian:
-		orderTag = "BigEndian"
-	}
-	return fmt.Sprintf(`
-tiff.Header {
-	ByteOrder: %s
-	Version:   %d
-	Offset:    %d
-}
-`[1:],
-		orderTag,
-		p.Version,
-		p.Offset,
-	)
-}
-
-func (p *Header) Bytes() []byte {
-	if !p.Valid() {
-		return nil
-	}
-
-	var d [16]byte
-	switch p.ByteOrder {
-	case binary.LittleEndian:
-		d[0], d[1] = 'I', 'I'
-	case binary.BigEndian:
-		d[0], d[1] = 'M', 'M'
-	}
-
-	if p.Version == ClassicTIFF {
-		p.ByteOrder.PutUint16(d[2:4], p.Version)
-		p.ByteOrder.PutUint32(d[4:8], uint32(p.Offset))
-		return d[:8]
-	} else {
-		p.ByteOrder.PutUint16(d[2:4], p.Version)
-		p.ByteOrder.PutUint16(d[4:6], 8)
-		p.ByteOrder.PutUint16(d[6:8], 0)
-		p.ByteOrder.PutUint64(d[8:], p.Offset)
-		return d[:16]
-	}
-}
-
-func DecodeHeader(r io.Reader) (header *Header, err error) {
+func ReadHeader(r io.Reader) (header *Header, err error) {
 	var data [8]byte
 
 	// read classic TIFF header
@@ -155,12 +84,75 @@ func DecodeHeader(r io.Reader) (header *Header, err error) {
 	return
 }
 
-func EncodeHeader(p *Header, w io.Writer) (err error) {
+func (p *Header) Bytes() []byte {
 	if !p.Valid() {
-		return fmt.Errorf("tiff.go: EncodeHeader, invalid header: %v", p)
+		return nil
 	}
-	_, err = w.Write(p.Bytes())
-	return
+
+	var d [16]byte
+	switch p.ByteOrder {
+	case binary.LittleEndian:
+		d[0], d[1] = 'I', 'I'
+	case binary.BigEndian:
+		d[0], d[1] = 'M', 'M'
+	}
+
+	if p.Version == ClassicTIFF {
+		p.ByteOrder.PutUint16(d[2:4], p.Version)
+		p.ByteOrder.PutUint32(d[4:8], uint32(p.Offset))
+		return d[:8]
+	} else {
+		p.ByteOrder.PutUint16(d[2:4], p.Version)
+		p.ByteOrder.PutUint16(d[4:6], 8)
+		p.ByteOrder.PutUint16(d[6:8], 0)
+		p.ByteOrder.PutUint64(d[8:], p.Offset)
+		return d[:16]
+	}
+}
+
+func (p *Header) Valid() bool {
+	if x := p.ByteOrder; x != binary.LittleEndian && x != binary.BigEndian {
+		return false
+	}
+	if x := p.Version; x != ClassicTIFF && x != BigTIFF {
+		return false
+	}
+	return true
+}
+
+func (p *Header) HeadSize() int {
+	if p.Version == ClassicTIFF {
+		return 8
+	}
+	if p.Version == BigTIFF {
+		return 16
+	}
+	return 0
+}
+
+func (p *Header) IsBigTiff() bool {
+	return p.Version == BigTIFF
+}
+
+func (p *Header) String() string {
+	orderTag := "Unknown"
+	switch p.ByteOrder {
+	case binary.LittleEndian:
+		orderTag = "LittleEndian"
+	case binary.BigEndian:
+		orderTag = "BigEndian"
+	}
+	return fmt.Sprintf(`
+tiff.Header {
+	ByteOrder: %s
+	Version:   %d
+	Offset:    %d
+}
+`[1:],
+		orderTag,
+		p.Version,
+		p.Offset,
+	)
 }
 
 const (

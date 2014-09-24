@@ -27,7 +27,7 @@ func TestHeader_DecodeHeader(t *testing.T) {
 		if err != nil {
 			t.Fatalf("%d: ", i, err)
 		}
-		_, err = DecodeHeader(bytes.NewReader(data))
+		_, err = ReadHeader(bytes.NewReader(data))
 		if err != nil {
 			t.Fatalf("%d: ", i, err)
 		}
@@ -43,12 +43,7 @@ func TestHeader_decodeAndEncode(t *testing.T) {
 		NewHeader(true, 0),
 	}
 	for i := 0; i < len(headers); i++ {
-		var buf bytes.Buffer
-		err := EncodeHeader(headers[i], &buf)
-		if err != nil {
-			t.Fatalf("%d: ", i, err)
-		}
-		h, err := DecodeHeader(&buf)
+		h, err := ReadHeader(bytes.NewReader(headers[i].Bytes()))
 		if err != nil {
 			t.Fatalf("%d: ", i, err)
 		}
