@@ -8,6 +8,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
+	"math"
 )
 
 const (
@@ -117,6 +118,11 @@ func (p *Header) Valid() bool {
 	if x := p.Version; x != ClassicTIFF && x != BigTIFF {
 		return false
 	}
+	if p.Version == ClassicTIFF {
+		if p.Offset > math.MaxUint32 {
+			return false
+		}
+	}
 	return true
 }
 
@@ -135,23 +141,16 @@ func (p *Header) IsBigTiff() bool {
 }
 
 func (p *Header) String() string {
-	orderTag := "Unknown"
+	orderName := "Unknown"
 	switch p.ByteOrder {
 	case binary.LittleEndian:
-		orderTag = "LittleEndian"
+		orderName = "LittleEndian"
 	case binary.BigEndian:
-		orderTag = "BigEndian"
+		orderName = "BigEndian"
 	}
-	return fmt.Sprintf(`
-tiff.Header {
-	ByteOrder: %s
-	Version:   %d
-	Offset:    %d
-}
-`[1:],
-		orderTag,
-		p.Version,
-		p.Offset,
+	return fmt.Sprintf(
+		`tiff.Header{ ByteOrder:%s; Version:%d; Offset:%d }`,
+		orderName, p.Version, p.Offset,
 	)
 }
 
