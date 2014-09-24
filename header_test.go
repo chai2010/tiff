@@ -11,7 +11,7 @@ import (
 	"testing"
 )
 
-func TestHeader_DecodeHeader(t *testing.T) {
+func TestHeader_decodeAndEncode_files(t *testing.T) {
 	files := []string{
 		"BigTIFF.tif",
 		"BigTIFFLong.tif",
@@ -27,9 +27,16 @@ func TestHeader_DecodeHeader(t *testing.T) {
 		if err != nil {
 			t.Fatalf("%d: ", i, err)
 		}
-		_, err = ReadHeader(bytes.NewReader(data))
+		h0, err := ReadHeader(bytes.NewReader(data))
 		if err != nil {
 			t.Fatalf("%d: ", i, err)
+		}
+		h1, err := ReadHeader(bytes.NewReader(h0.Bytes()))
+		if err != nil {
+			t.Fatalf("%d: ", i, err)
+		}
+		if !reflect.DeepEqual(h0, h1) {
+			t.Fatalf("%d: not equal: %v != %v", i, h0, h1)
 		}
 	}
 }
