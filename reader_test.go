@@ -6,20 +6,16 @@ package tiff
 
 import (
 	"image"
+	_ "image/png"
 	"io/ioutil"
 	"os"
 	"strings"
 	"testing"
 
-	_ "image/png"
+	"github.com/chai2010/tiff.go/internal/bufio"
 )
 
 const testdataDir = "./testdata/"
-
-// Read makes *buffer implements io.Reader, so that we can pass one to Decode.
-func (*buffer) Read([]byte) (int, error) {
-	panic("unimplemented")
-}
 
 func load(name string) (image.Image, error) {
 	f, err := os.Open(testdataDir + name)
@@ -169,7 +165,7 @@ func benchmarkDecode(b *testing.B, filename string) {
 	if err != nil {
 		panic(err)
 	}
-	r := &buffer{buf: contents}
+	r := bufio.NewReaderAtFromBuf(contents)
 	b.StartTimer()
 	for i := 0; i < b.N; i++ {
 		_, err := Decode(r)

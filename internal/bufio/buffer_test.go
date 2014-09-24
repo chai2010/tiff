@@ -1,8 +1,8 @@
-// Copyright 2011 The Go Authors. All rights reserved.
+// Copyright 2014 <chaishushan{AT}gmail.com>. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package tiff
+package bufio
 
 import (
 	"io"
@@ -24,7 +24,7 @@ var readAtTests = []struct {
 }
 
 func TestReadAt(t *testing.T) {
-	r := newReaderAt(strings.NewReader("abcdef"))
+	r := NewReaderAt(strings.NewReader("abcdef"))
 	b := make([]byte, 10)
 	for _, test := range readAtTests {
 		n, err := r.ReadAt(b[:test.n], test.off)

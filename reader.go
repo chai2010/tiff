@@ -16,6 +16,7 @@ import (
 	"io"
 	"io/ioutil"
 
+	"github.com/chai2010/tiff.go/internal/bufio"
 	"github.com/chai2010/tiff.go/internal/lzw"
 )
 
@@ -343,7 +344,7 @@ func (d *decoder) decode(dst image.Image, xmin, ymin, xmax, ymax int) error {
 
 func newDecoder(r io.Reader) (*decoder, error) {
 	d := &decoder{
-		r:        newReaderAt(r),
+		r:        bufio.NewReaderAt(r),
 		features: make(map[int][]uint),
 	}
 
@@ -560,7 +561,7 @@ func Decode(r io.Reader) (img image.Image, err error) {
 			// but some tools interpret a missing Compression value as none so we do
 			// the same.
 			case cNone, 0:
-				if b, ok := d.r.(*buffer); ok {
+				if b, ok := d.r.(*bufio.Buffer); ok {
 					d.buf, err = b.Slice(int(offset), int(n))
 				} else {
 					d.buf = make([]byte, n)
