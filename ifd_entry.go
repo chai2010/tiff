@@ -66,3 +66,49 @@ func (p *IFDEntry) GetBytes() (data []byte) {
 func (p *IFDEntry) GetString() (data string) {
 	return
 }
+
+func (p *IFDEntry) SetInt8s(...int8) {
+	return
+}
+func (p *IFDEntry) SetInt16s(...int16) {
+	return
+}
+func (p *IFDEntry) SetInt32s(...int32) {
+	return
+}
+func (p *IFDEntry) SetInt64s(...int64) {
+	return
+}
+func (p *IFDEntry) SetRationals(...[2]int32) {
+	return
+}
+
+func (p *IFDEntry) SetUInt8s(...uint8) {
+	return
+}
+func (p *IFDEntry) SetUInt16s(...uint16) {
+	return
+}
+func (p *IFDEntry) SetUInt32s(...uint32) {
+	return
+}
+func (p *IFDEntry) SetUInt64s(...uint64) {
+	return
+}
+func (p *IFDEntry) SetURationals(...[2]uint32) {
+	return
+}
+
+func (p *IFDEntry) SetFloat32s(...float32) {
+	return
+}
+func (p *IFDEntry) SetFloat64s(...float64) {
+	return
+}
+
+func (p *IFDEntry) SetBytes(data []byte) {
+	return
+}
+func (p *IFDEntry) SetString(data string) {
+	return
+}
