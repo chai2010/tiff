@@ -16,17 +16,13 @@ import (
 
 var roundtripTests = []struct {
 	filename string
-	opts     *Options
 }{
-	{"video-001.tiff", nil},
-	{"video-001-16bit.tiff", nil},
-	{"video-001-gray.tiff", nil},
-	{"video-001-gray-16bit.tiff", nil},
-	{"video-001-paletted.tiff", nil},
-	{"bw-packbits.tiff", nil},
-	{"video-001.tiff", &Options{Predictor: true}},
-	{"video-001.tiff", &Options{Compression: Deflate}},
-	{"video-001.tiff", &Options{Predictor: true, Compression: Deflate}},
+	{"video-001.tiff"},
+	{"video-001-16bit.tiff"},
+	{"video-001-gray.tiff"},
+	{"video-001-gray-16bit.tiff"},
+	{"video-001-paletted.tiff"},
+	{"bw-packbits.tiff"},
 }
 
 func openImage(filename string) (image.Image, error) {
@@ -45,7 +41,7 @@ func TestRoundtrip(t *testing.T) {
 			t.Fatal(err)
 		}
 		out := new(bytes.Buffer)
-		err = Encode(out, img, rt.opts)
+		err = Encode(out, img)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -66,7 +62,7 @@ func TestRoundtrip2(t *testing.T) {
 		m0.Pix[i] = byte(i)
 	}
 	out := new(bytes.Buffer)
-	if err := Encode(out, m0, nil); err != nil {
+	if err := Encode(out, m0); err != nil {
 		t.Fatal(err)
 	}
 	m1, err := Decode(bufio.NewReaderAtFromBuf(out.Bytes()))
@@ -85,7 +81,7 @@ func benchmarkEncode(b *testing.B, name string, pixelSize int) {
 	b.SetBytes(int64(s.X * s.Y * pixelSize))
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		Encode(ioutil.Discard, img, nil)
+		Encode(ioutil.Discard, img)
 	}
 }
 

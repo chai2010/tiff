@@ -273,31 +273,14 @@ func writeIFD(w io.Writer, ifdOffset int, d []ifdEntry) error {
 	return err
 }
 
-// Options are the encoding parameters.
-type Options struct {
-	// Compression is the type of compression used.
-	Compression CompressionType
-	// Predictor determines whether a differencing predictor is used;
-	// if true, instead of each pixel's color, the color difference to the
-	// preceding one is saved.  This improves the compression for certain
-	// types of images and compressors. For example, it works well for
-	// photos with Deflate compression.
-	Predictor bool
-}
-
 // Encode writes the image m to w. opt determines the options used for
 // encoding, such as the compression type. If opt is nil, an uncompressed
 // image is written.
-func Encode(w io.Writer, m image.Image, opt *Options) error {
+func Encode(w io.Writer, m image.Image) error {
 	d := m.Bounds().Size()
 
 	compression := uint32(cNone)
 	predictor := false
-	if opt != nil {
-		compression = opt.Compression.specValue()
-		// The predictor field is only used with LZW. See page 64 of the spec.
-		predictor = opt.Predictor && compression == cLZW
-	}
 
 	_, err := io.WriteString(w, leHeader)
 	if err != nil {
