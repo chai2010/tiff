@@ -8,8 +8,6 @@ import (
 	"io"
 )
 
-type TagType uint16
-
 type IFDEntry struct {
 	IFD      *IFD
 	Tag      TagType
@@ -19,99 +17,46 @@ type IFDEntry struct {
 	Data     []byte
 }
 
-func (p *IFDEntry) ReadValue(r io.ReaderAt) (err error) {
-	// if data size < sizeof(offset)
+func (p *IFDEntry) ReadValue(r io.ReadSeeker) (err error) {
 	return
 }
 
-func (p *IFDEntry) GetInt8s() (data []int8) {
-	return
-}
-func (p *IFDEntry) GetInt16s() (data []int16) {
-	return
-}
-func (p *IFDEntry) GetInt32s() (data []int32) {
-	return
-}
-func (p *IFDEntry) GetInt64s() (data []int64) {
-	return
-}
-func (p *IFDEntry) GetRationals() (data [][2]int32) {
+func (p *IFDEntry) EncodeValue() (value []byte) {
 	return
 }
 
-func (p *IFDEntry) GetUInt8s() (data []uint8) {
-	return
-}
-func (p *IFDEntry) GetUInt16s() (data []uint16) {
-	return
-}
-func (p *IFDEntry) GetUInt32s() (data []uint32) {
-	return
-}
-func (p *IFDEntry) GetUInt64s() (data []uint64) {
-	return
-}
-func (p *IFDEntry) GetURationals() (data [][2]uint32) {
-	return
-}
-
-func (p *IFDEntry) GetFloat32s() (data []float32) {
-	return
-}
-func (p *IFDEntry) GetFloat64s() (data []float64) {
-	return
+func (p *IFDEntry) String() string {
+	return p.Tag.String()
 }
 
 func (p *IFDEntry) GetBytes() (data []byte) {
 	return
 }
-func (p *IFDEntry) GetString() (data string) {
+func (p *IFDEntry) GetInts() (data []int64) {
 	return
 }
-
-func (p *IFDEntry) SetInt8s(...int8) {
+func (p *IFDEntry) GetUInts() (data []uint64) {
 	return
 }
-func (p *IFDEntry) SetInt16s(...int16) {
+func (p *IFDEntry) GetFloats() (data []float64) {
 	return
 }
-func (p *IFDEntry) SetInt32s(...int32) {
-	return
-}
-func (p *IFDEntry) SetInt64s(...int64) {
-	return
-}
-func (p *IFDEntry) SetRationals(...[2]int32) {
-	return
-}
-
-func (p *IFDEntry) SetUInt8s(...uint8) {
-	return
-}
-func (p *IFDEntry) SetUInt16s(...uint16) {
-	return
-}
-func (p *IFDEntry) SetUInt32s(...uint32) {
-	return
-}
-func (p *IFDEntry) SetUInt64s(...uint64) {
-	return
-}
-func (p *IFDEntry) SetURationals(...[2]uint32) {
-	return
-}
-
-func (p *IFDEntry) SetFloat32s(...float32) {
-	return
-}
-func (p *IFDEntry) SetFloat64s(...float64) {
+func (p *IFDEntry) GetRationals() (data [][2]uint32) {
 	return
 }
 
 func (p *IFDEntry) SetBytes(data []byte) {
 	return
 }
-func (p *IFDEntry) SetString(data string) {
+func (p *IFDEntry) SetInts(...int64) {
+	return
+}
+func (p *IFDEntry) SetUInts(...uint64) {
+	return
+}
+func (p *IFDEntry) SetFloats(...float64) {
+	return
+}
+func (p *IFDEntry) SetURationals(...[2]uint32) {
 	return
 }

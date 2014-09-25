@@ -5,6 +5,7 @@
 package tiff
 
 import (
+	"bytes"
 	"encoding/binary"
 	"fmt"
 	"io"
@@ -12,16 +13,21 @@ import (
 
 type IFD struct {
 	Header   *Header
+	Offset   uint64
 	EntryMap map[TagType]*IFDEntry
-	Next     int64
+	Next     uint64
 }
 
-func ReadIFD(r io.ReadSeeker, h *Header, offset int64) (ifd *IFD, err error) {
+func ReadIFD(r io.ReadSeeker, h *Header, offset uint64) (ifd *IFD, err error) {
 	if !h.Valid() {
 		err = fmt.Errorf("tiff.go: ReadIFD, invalid header: %v", h)
 		return
 	}
-	ifd = &IFD{Header: h}
+	ifd = &IFD{
+		Header:   h,
+		Offset:   offset,
+		EntryMap: make(map[TagType]*IFDEntry),
+	}
 	if h.Version == ClassicTIFF {
 		if err = ifd.readIFD(r, offset); err != nil {
 			return
@@ -34,8 +40,8 @@ func ReadIFD(r io.ReadSeeker, h *Header, offset int64) (ifd *IFD, err error) {
 	return
 }
 
-func (p *IFD) readIFD(r io.ReadSeeker, offset int64) (err error) {
-	if _, err = r.Seek(offset, 0); err != nil {
+func (p *IFD) readIFD(r io.ReadSeeker, offset uint64) (err error) {
+	if _, err = r.Seek(int64(offset), 0); err != nil {
 		return
 	}
 
@@ -56,13 +62,13 @@ func (p *IFD) readIFD(r io.ReadSeeker, offset int64) (err error) {
 	if err = binary.Read(r, p.Header.ByteOrder, &nextIfdOffset); err != nil {
 		return
 	}
-	p.Next = int64(nextIfdOffset)
+	p.Next = uint64(nextIfdOffset)
 
 	return
 }
 
-func (p *IFD) readIFD8(r io.ReadSeeker, offset int64) (err error) {
-	if _, err = r.Seek(offset, 0); err != nil {
+func (p *IFD) readIFD8(r io.ReadSeeker, offset uint64) (err error) {
+	if _, err = r.Seek(int64(offset), 0); err != nil {
 		return
 	}
 
@@ -83,7 +89,7 @@ func (p *IFD) readIFD8(r io.ReadSeeker, offset int64) (err error) {
 	if err = binary.Read(r, p.Header.ByteOrder, &nextIfdOffset); err != nil {
 		return
 	}
-	p.Next = int64(nextIfdOffset)
+	p.Next = nextIfdOffset
 
 	return
 }
@@ -146,6 +152,18 @@ func (p *IFD) readIFDEntry8(r io.ReadSeeker) (entry *IFDEntry, err error) {
 		Offset:   elemOffset,
 	}
 	return
+}
+
+func (p *IFD) String() string {
+	var buf bytes.Buffer
+	fmt.Fprintf(&buf, "tiff.IFD {\n")
+	fmt.Fprintf(&buf, "  Offset: 0x%08x,\n", p.Offset)
+	for _, v := range p.EntryMap {
+		fmt.Fprintf(&buf, "  %v,\n", v)
+	}
+	fmt.Fprintf(&buf, "  Next: 0x%08x,\n", p.Next)
+	fmt.Fprintf(&buf, "}\n")
+	return buf.String()
 }
 
 func (p *IFD) Valid() bool {

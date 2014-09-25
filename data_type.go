@@ -39,53 +39,54 @@ func (d DataType) Valid() bool {
 	return true
 }
 
-func (d DataType) Name() string {
-	if !d.Valid() {
-	}
+func (d DataType) Size() int {
 	switch d {
 	case DataType_Nil:
-		return "DataType_Nil"
+		return 0
 	case DataType_Byte:
-		return "DataType_Byte"
+		return 1
 	case DataType_ASCII:
-		return "DataType_ASCII"
+		return 1
 	case DataType_Short:
-		return "DataType_Short"
+		return 2
 	case DataType_Long:
-		return "DataType_Long"
+		return 4
 	case DataType_Rational:
-		return "DataType_Rational"
+		return 8
 	case DataType_SByte:
-		return "DataType_SByte"
+		return 1
 	case DataType_Undefined:
-		return "DataType_Undefined"
+		return 1
 	case DataType_SShort:
-		return "DataType_SShort"
+		return 2
 	case DataType_SLong:
-		return "DataType_SLong"
+		return 4
 	case DataType_SRational:
-		return "DataType_SRational"
+		return 8
 	case DataType_Float:
-		return "DataType_Float"
+		return 4
 	case DataType_Double:
-		return "DataType_Double"
+		return 8
 	case DataType_IFD:
-		return "DataType_IFD"
+		return 0
 	case DataType_Unicode:
-		return "DataType_Unicode"
+		return 1
 	case DataType_Complex:
-		return "DataType_Complex"
+		return 8
 	case DataType_Long8:
-		return "DataType_Long8"
+		return 8
 	case DataType_SLong8:
-		return "DataType_SLong8"
+		return 8
 	case DataType_IFD8:
-		return "DataType_IFD8"
+		return 0
 	default:
-		return fmt.Sprintf("DataType_Unknow(%d)", uint16(d))
+		return 0
 	}
 }
 
-func (d DataType) String() string {
-	return d.Name()
+func (t DataType) String() string {
+	if name, ok := _DataTypeTable[t]; ok {
+		return name
+	}
+	return fmt.Sprintf("DataType_Unknown(%d)", uint16(t))
 }

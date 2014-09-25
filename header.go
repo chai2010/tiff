@@ -149,7 +149,7 @@ func (p *Header) String() string {
 		orderName = "BigEndian"
 	}
 	return fmt.Sprintf(
-		`tiff.Header{ ByteOrder:%s; Version:%d; Offset:%d }`,
+		`tiff.Header{ ByteOrder:%s; Version:%d; Offset:0x%08x }`,
 		orderName, p.Version, p.Offset,
 	)
 }
