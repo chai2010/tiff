@@ -5,7 +5,9 @@
 /*
 Package tiff implements a TIFF image decoder and encoder.
 
-The TIFF specification is at http://partners.adobe.com/public/developer/en/tiff/TIFF6.pdf
+The Classic TIFF specification is at http://partners.adobe.com/public/developer/en/tiff/TIFF6.pdf
+
+The Big TIFF specification is at http://www.remotesensing.org/libtiff/bigtiffdesign.html
 
 Classic TIFF Structure:
 
