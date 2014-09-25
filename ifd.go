@@ -5,43 +5,146 @@
 package tiff
 
 import (
+	"encoding/binary"
 	"fmt"
 	"io"
 )
 
 type IFD struct {
-	Header *Header
-	Entry  []IFDEntry
-	Next   uint64
+	Header   *Header
+	EntryMap map[TagType]*IFDEntry
+	Next     int64
 }
 
-func ReadIFD(r io.ReaderAt, h *Header) (ifd *IFD, err error) {
+func ReadIFD(r io.ReadSeeker, h *Header, offset int64) (ifd *IFD, err error) {
 	if !h.Valid() {
 		err = fmt.Errorf("tiff.go: ReadIFD, invalid header: %v", h)
 		return
 	}
 	ifd = &IFD{Header: h}
 	if h.Version == ClassicTIFF {
-		if err = ifd.readIFD(r); err != nil {
+		if err = ifd.readIFD(r, offset); err != nil {
 			return
 		}
 	} else {
-		if err = ifd.readIFD8(r); err != nil {
+		if err = ifd.readIFD8(r, offset); err != nil {
 			return
 		}
 	}
 	return
 }
 
-func (p *IFD) readIFD(r io.ReaderAt) (err error) {
+func (p *IFD) readIFD(r io.ReadSeeker, offset int64) (err error) {
+	if _, err = r.Seek(offset, 0); err != nil {
+		return
+	}
+
+	var entryNum uint16
+	if err = binary.Read(r, p.Header.ByteOrder, &entryNum); err != nil {
+		return
+	}
+
+	for i := 0; i < int(entryNum); i++ {
+		var entry *IFDEntry
+		if entry, err = p.readIFDEntry(r); err != nil {
+			return
+		}
+		p.EntryMap[entry.Tag] = entry
+	}
+
+	var nextIfdOffset uint32
+	if err = binary.Read(r, p.Header.ByteOrder, &nextIfdOffset); err != nil {
+		return
+	}
+	p.Next = int64(nextIfdOffset)
+
 	return
 }
 
-func (p *IFD) readIFD8(r io.ReaderAt) (err error) {
+func (p *IFD) readIFD8(r io.ReadSeeker, offset int64) (err error) {
+	if _, err = r.Seek(offset, 0); err != nil {
+		return
+	}
+
+	var entryNum uint32
+	if err = binary.Read(r, p.Header.ByteOrder, &entryNum); err != nil {
+		return
+	}
+
+	for i := 0; i < int(entryNum); i++ {
+		var entry *IFDEntry
+		if entry, err = p.readIFDEntry8(r); err != nil {
+			return
+		}
+		p.EntryMap[entry.Tag] = entry
+	}
+
+	var nextIfdOffset uint64
+	if err = binary.Read(r, p.Header.ByteOrder, &nextIfdOffset); err != nil {
+		return
+	}
+	p.Next = int64(nextIfdOffset)
+
 	return
 }
 
-func (p *IFD) readIFDEntry(r io.ReaderAt, offset uint64) (entry IFDEntry, err error) {
+func (p *IFD) readIFDEntry(r io.ReadSeeker) (entry *IFDEntry, err error) {
+	var entryTag TagType
+	if err = binary.Read(r, p.Header.ByteOrder, &entryTag); err != nil {
+		return
+	}
+
+	var entryDataType DataType
+	if err = binary.Read(r, p.Header.ByteOrder, &entryDataType); err != nil {
+		return
+	}
+
+	var elemCount uint32
+	if err = binary.Read(r, p.Header.ByteOrder, &elemCount); err != nil {
+		return
+	}
+
+	var elemOffset uint32
+	if err = binary.Read(r, p.Header.ByteOrder, &elemOffset); err != nil {
+		return
+	}
+	entry = &IFDEntry{
+		IFD:      p,
+		Tag:      entryTag,
+		DataType: entryDataType,
+		Count:    uint64(elemCount),
+		Offset:   uint64(elemOffset),
+	}
+	return
+}
+
+func (p *IFD) readIFDEntry8(r io.ReadSeeker) (entry *IFDEntry, err error) {
+	var entryTag TagType
+	if err = binary.Read(r, p.Header.ByteOrder, &entryTag); err != nil {
+		return
+	}
+
+	var entryDataType DataType
+	if err = binary.Read(r, p.Header.ByteOrder, &entryDataType); err != nil {
+		return
+	}
+
+	var elemCount uint64
+	if err = binary.Read(r, p.Header.ByteOrder, &elemCount); err != nil {
+		return
+	}
+
+	var elemOffset uint64
+	if err = binary.Read(r, p.Header.ByteOrder, &elemOffset); err != nil {
+		return
+	}
+	entry = &IFDEntry{
+		IFD:      p,
+		Tag:      entryTag,
+		DataType: entryDataType,
+		Count:    elemCount,
+		Offset:   elemOffset,
+	}
 	return
 }
 
@@ -57,8 +160,8 @@ func (p *IFD) IfdSize() int {
 		return 0
 	}
 	if p.Header.Version == ClassicTIFF {
-		return 2 + len(p.Entry)*12 + 4
+		return 2 + len(p.EntryMap)*12 + 4
 	} else {
-		return 8 + len(p.Entry)*20 + 8
+		return 8 + len(p.EntryMap)*20 + 8
 	}
 }

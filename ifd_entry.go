@@ -8,16 +8,19 @@ import (
 	"io"
 )
 
+type TagType uint16
+
 type IFDEntry struct {
 	IFD      *IFD
-	Tag      uint16
+	Tag      TagType
 	DataType DataType
-	Count    uint32
+	Count    uint64
 	Offset   uint64
 	Data     []byte
 }
 
 func (p *IFDEntry) ReadValue(r io.ReaderAt) (err error) {
+	// if data size < sizeof(offset)
 	return
 }
 
