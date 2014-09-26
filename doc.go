@@ -9,6 +9,8 @@ The Classic TIFF specification is at http://partners.adobe.com/public/developer/
 
 The Big TIFF specification is at http://www.remotesensing.org/libtiff/bigtiffdesign.html
 
+The Geo TIFF specification is at http://www.remotesensing.org/geotiff/spec/geotiffhome.html
+
 Classic TIFF Structure:
 
 	+------------------------------------------------------------------------------+
