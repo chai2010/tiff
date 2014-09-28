@@ -13,8 +13,8 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/chai2010/tiff.go/internal/bufio"
-	"github.com/chai2010/tiff.go/internal/lzw"
+	"github.com/chai2010/tiff/internal/bufio"
+	"github.com/chai2010/tiff/internal/lzw"
 )
 
 // A FormatError reports that the input is not a valid TIFF image.

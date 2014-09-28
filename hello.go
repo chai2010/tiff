@@ -12,7 +12,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	"github.com/chai2010/tiff.go"
+	"github.com/chai2010/tiff"
 )
 
 func main() {
@@ -32,7 +32,7 @@ func main() {
 	}
 
 	// Encode tiff
-	if err = tiff.Encode(&buf, m, nil); err != nil {
+	if err = tiff.Encode(&buf, m); err != nil {
 		log.Fatal(err)
 	}
 	if err = ioutil.WriteFile("output.tiff", buf.Bytes(), 0666); err != nil {
