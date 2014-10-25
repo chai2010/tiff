@@ -1,13 +1,13 @@
 TIFF for Go
 ===========
 
-PkgDoc: [http://godoc.org/github.com/chai2010/tiff.go](http://godoc.org/github.com/chai2010/tiff.go)
+PkgDoc: [http://godoc.org/github.com/chai2010/tiff](http://godoc.org/github.com/chai2010/tiff)
 
 Install
 =======
 
-1. `go get -d github.com/chai2010/tiff.go`
-2. `cd github.com/chai2010/tiff.go && go install`
+1. `go get -d github.com/chai2010/tiff`
+2. `cd github.com/chai2010/tiff && go install`
 3. `go run hello.go`
 
 Example
@@ -22,7 +22,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	"github.com/chai2010/tiff.go"
+	"github.com/chai2010/tiff"
 )
 
 func main() {
