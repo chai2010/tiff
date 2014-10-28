@@ -59,7 +59,7 @@ set(TIFF_SRC
 	./libtiff/tif_predict.c
 	./libtiff/tif_print.c
 	./libtiff/tif_read.c
-	./libtiff/tif_stream.cxx
+	#./libtiff/tif_stream.cxx
 	./libtiff/tif_swab.c
 	./libtiff/tif_strip.c
 	./libtiff/tif_thunder.c
