@@ -28,7 +28,7 @@ var enc = binary.LittleEndian
 // A value of type DataType_Rational is composed of two 32-bit values,
 // thus data contains two uints (numerator and denominator) for a single number.
 type ifdEntry struct {
-	tag      int
+	tag      TagType
 	datatype DataType
 	data     []uint32
 }
@@ -392,29 +392,29 @@ func Encode(w io.Writer, m image.Image) error {
 	}
 
 	ifd := []ifdEntry{
-		{tImageWidth, DataType_Short, []uint32{uint32(d.X)}},
-		{tImageLength, DataType_Short, []uint32{uint32(d.Y)}},
-		{tBitsPerSample, DataType_Short, bitsPerSample},
-		{tCompression, DataType_Short, []uint32{compression}},
-		{tPhotometricInterpretation, DataType_Short, []uint32{photometricInterpretation}},
-		{tStripOffsets, DataType_Long, []uint32{8}},
-		{tSamplesPerPixel, DataType_Short, []uint32{samplesPerPixel}},
-		{tRowsPerStrip, DataType_Short, []uint32{uint32(d.Y)}},
-		{tStripByteCounts, DataType_Long, []uint32{uint32(imageLen)}},
+		{TagType_ImageWidth, DataType_Short, []uint32{uint32(d.X)}},
+		{TagType_ImageLength, DataType_Short, []uint32{uint32(d.Y)}},
+		{TagType_BitsPerSample, DataType_Short, bitsPerSample},
+		{TagType_Compression, DataType_Short, []uint32{compression}},
+		{TagType_PhotometricInterpretation, DataType_Short, []uint32{photometricInterpretation}},
+		{TagType_StripOffsets, DataType_Long, []uint32{8}},
+		{TagType_SamplesPerPixel, DataType_Short, []uint32{samplesPerPixel}},
+		{TagType_RowsPerStrip, DataType_Short, []uint32{uint32(d.Y)}},
+		{TagType_StripByteCounts, DataType_Long, []uint32{uint32(imageLen)}},
 		// There is currently no support for storing the image
 		// resolution, so give a bogus value of 72x72 dpi.
-		{tXResolution, DataType_Rational, []uint32{72, 1}},
-		{tYResolution, DataType_Rational, []uint32{72, 1}},
-		{tResolutionUnit, DataType_Short, []uint32{resPerInch}},
+		{TagType_XResolution, DataType_Rational, []uint32{72, 1}},
+		{TagType_YResolution, DataType_Rational, []uint32{72, 1}},
+		{TagType_ResolutionUnit, DataType_Short, []uint32{resPerInch}},
 	}
 	if pr != prNone {
-		ifd = append(ifd, ifdEntry{tPredictor, DataType_Short, []uint32{pr}})
+		ifd = append(ifd, ifdEntry{TagType_Predictor, DataType_Short, []uint32{pr}})
 	}
 	if len(colorMap) != 0 {
-		ifd = append(ifd, ifdEntry{tColorMap, DataType_Short, colorMap})
+		ifd = append(ifd, ifdEntry{TagType_ColorMap, DataType_Short, colorMap})
 	}
 	if extraSamples > 0 {
-		ifd = append(ifd, ifdEntry{tExtraSamples, DataType_Short, []uint32{extraSamples}})
+		ifd = append(ifd, ifdEntry{TagType_ExtraSamples, DataType_Short, []uint32{extraSamples}})
 	}
 
 	return writeIFD(w, imageLen+8, ifd)

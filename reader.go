@@ -42,7 +42,7 @@ type decoder struct {
 	config    image.Config
 	mode      imageMode
 	bpp       uint
-	features  map[int][]uint
+	features  map[TagType][]uint
 	palette   []color.Color
 
 	buf   []byte
@@ -53,7 +53,7 @@ type decoder struct {
 
 // firstVal returns the first uint of the features entry with the given tag,
 // or 0 if the tag does not exist.
-func (d *decoder) firstVal(tag int) uint {
+func (d *decoder) firstVal(tag TagType) uint {
 	f := d.features[tag]
 	if len(f) == 0 {
 		return 0
@@ -101,28 +101,28 @@ func (d *decoder) ifdUint(p []byte) (u []uint, err error) {
 // parseIFD decides whether the the IFD entry in p is "interesting" and
 // stows away the data in the decoder.
 func (d *decoder) parseIFD(p []byte) error {
-	tag := d.byteOrder.Uint16(p[0:2])
+	tag := TagType(d.byteOrder.Uint16(p[0:2]))
 	switch tag {
-	case tBitsPerSample,
-		tExtraSamples,
-		tPhotometricInterpretation,
-		tCompression,
-		tPredictor,
-		tStripOffsets,
-		tStripByteCounts,
-		tRowsPerStrip,
-		tTileWidth,
-		tTileLength,
-		tTileOffsets,
-		tTileByteCounts,
-		tImageLength,
-		tImageWidth:
+	case TagType_BitsPerSample,
+		TagType_ExtraSamples,
+		TagType_PhotometricInterpretation,
+		TagType_Compression,
+		TagType_Predictor,
+		TagType_StripOffsets,
+		TagType_StripByteCounts,
+		TagType_RowsPerStrip,
+		TagType_TileWidth,
+		TagType_TileLength,
+		TagType_TileOffsets,
+		TagType_TileByteCounts,
+		TagType_ImageLength,
+		TagType_ImageWidth:
 		val, err := d.ifdUint(p)
 		if err != nil {
 			return err
 		}
-		d.features[int(tag)] = val
-	case tColorMap:
+		d.features[tag] = val
+	case TagType_ColorMap:
 		val, err := d.ifdUint(p)
 		if err != nil {
 			return err
@@ -140,7 +140,7 @@ func (d *decoder) parseIFD(p []byte) error {
 				0xffff,
 			}
 		}
-	case tSampleFormat:
+	case TagType_SampleFormat:
 		// Page 27 of the spec: If the SampleFormat is present and
 		// the value is not 1 [= unsigned integer data], a Baseline
 		// TIFF reader that cannot handle the SampleFormat value
@@ -195,11 +195,11 @@ func (d *decoder) decode(dst image.Image, xmin, ymin, xmax, ymax int) error {
 	// Apply horizontal predictor if necessary.
 	// In this case, p contains the color difference to the preceding pixel.
 	// See page 64-65 of the spec.
-	if d.firstVal(tPredictor) == prHorizontal {
+	if d.firstVal(TagType_Predictor) == prHorizontal {
 		if d.bpp == 16 {
 			var off int
-			spp := len(d.features[tBitsPerSample]) // samples per pixel
-			bpp := spp * 2                         // bytes per pixel
+			spp := len(d.features[TagType_BitsPerSample]) // samples per pixel
+			bpp := spp * 2                                // bytes per pixel
 			for y := ymin; y < ymax; y++ {
 				off += spp * 2
 				for x := 0; x < (xmax-xmin-1)*bpp; x += 2 {
@@ -211,7 +211,7 @@ func (d *decoder) decode(dst image.Image, xmin, ymin, xmax, ymax int) error {
 			}
 		} else if d.bpp == 8 {
 			var off int
-			spp := len(d.features[tBitsPerSample]) // samples per pixel
+			spp := len(d.features[TagType_BitsPerSample]) // samples per pixel
 			for y := ymin; y < ymax; y++ {
 				off += spp
 				for x := 0; x < (xmax-xmin-1)*spp; x++ {
@@ -339,7 +339,7 @@ func (d *decoder) decode(dst image.Image, xmin, ymin, xmax, ymax int) error {
 func newDecoder(r io.Reader) (*decoder, error) {
 	d := &decoder{
 		r:        newReaderAt(r),
-		features: make(map[int][]uint),
+		features: make(map[TagType][]uint),
 	}
 
 	p := make([]byte, 8)
@@ -375,25 +375,25 @@ func newDecoder(r io.Reader) (*decoder, error) {
 		}
 	}
 
-	d.config.Width = int(d.firstVal(tImageWidth))
-	d.config.Height = int(d.firstVal(tImageLength))
+	d.config.Width = int(d.firstVal(TagType_ImageWidth))
+	d.config.Height = int(d.firstVal(TagType_ImageLength))
 
-	if _, ok := d.features[tBitsPerSample]; !ok {
+	if _, ok := d.features[TagType_BitsPerSample]; !ok {
 		return nil, FormatError("BitsPerSample tag missing")
 	}
-	d.bpp = d.firstVal(tBitsPerSample)
+	d.bpp = d.firstVal(TagType_BitsPerSample)
 
 	// Determine the image mode.
-	switch d.firstVal(tPhotometricInterpretation) {
+	switch d.firstVal(TagType_PhotometricInterpretation) {
 	case pRGB:
 		if d.bpp == 16 {
-			for _, b := range d.features[tBitsPerSample] {
+			for _, b := range d.features[TagType_BitsPerSample] {
 				if b != 16 {
 					return nil, FormatError("wrong number of samples for 16bit RGB")
 				}
 			}
 		} else {
-			for _, b := range d.features[tBitsPerSample] {
+			for _, b := range d.features[TagType_BitsPerSample] {
 				if b != 8 {
 					return nil, FormatError("wrong number of samples for 8bit RGB")
 				}
@@ -405,7 +405,7 @@ func newDecoder(r io.Reader) (*decoder, error) {
 		//
 		// This implementation does not support extra samples
 		// of an unspecified type.
-		switch len(d.features[tBitsPerSample]) {
+		switch len(d.features[TagType_BitsPerSample]) {
 		case 3:
 			d.mode = mRGB
 			if d.bpp == 16 {
@@ -414,7 +414,7 @@ func newDecoder(r io.Reader) (*decoder, error) {
 				d.config.ColorModel = color.RGBAModel
 			}
 		case 4:
-			switch d.firstVal(tExtraSamples) {
+			switch d.firstVal(TagType_ExtraSamples) {
 			case 1:
 				d.mode = mRGBA
 				if d.bpp == 16 {
@@ -485,27 +485,27 @@ func Decode(r io.Reader) (img image.Image, err error) {
 
 	var blockOffsets, blockCounts []uint
 
-	if int(d.firstVal(tTileWidth)) != 0 {
+	if int(d.firstVal(TagType_TileWidth)) != 0 {
 		blockPadding = true
 
-		blockWidth = int(d.firstVal(tTileWidth))
-		blockHeight = int(d.firstVal(tTileLength))
+		blockWidth = int(d.firstVal(TagType_TileWidth))
+		blockHeight = int(d.firstVal(TagType_TileLength))
 
 		blocksAcross = (d.config.Width + blockWidth - 1) / blockWidth
 		blocksDown = (d.config.Height + blockHeight - 1) / blockHeight
 
-		blockCounts = d.features[tTileByteCounts]
-		blockOffsets = d.features[tTileOffsets]
+		blockCounts = d.features[TagType_TileByteCounts]
+		blockOffsets = d.features[TagType_TileOffsets]
 
 	} else {
-		if int(d.firstVal(tRowsPerStrip)) != 0 {
-			blockHeight = int(d.firstVal(tRowsPerStrip))
+		if int(d.firstVal(TagType_RowsPerStrip)) != 0 {
+			blockHeight = int(d.firstVal(TagType_RowsPerStrip))
 		}
 
 		blocksDown = (d.config.Height + blockHeight - 1) / blockHeight
 
-		blockOffsets = d.features[tStripOffsets]
-		blockCounts = d.features[tStripByteCounts]
+		blockOffsets = d.features[TagType_StripOffsets]
+		blockCounts = d.features[TagType_StripByteCounts]
 	}
 
 	// Check if we have the right number of strips/tiles, offsets and counts.
@@ -549,7 +549,7 @@ func Decode(r io.Reader) (img image.Image, err error) {
 			}
 			offset := int64(blockOffsets[j*blocksAcross+i])
 			n := int64(blockCounts[j*blocksAcross+i])
-			switch d.firstVal(tCompression) {
+			switch d.firstVal(TagType_Compression) {
 
 			// According to the spec, Compression does not have a default value,
 			// but some tools interpret a missing Compression value as none so we do
@@ -575,7 +575,7 @@ func Decode(r io.Reader) (img image.Image, err error) {
 			case cPackBits:
 				d.buf, err = unpackBits(io.NewSectionReader(d.r, offset, n))
 			default:
-				err = UnsupportedError(fmt.Sprintf("compression value %d", d.firstVal(tCompression)))
+				err = UnsupportedError(fmt.Sprintf("compression value %d", d.firstVal(TagType_Compression)))
 			}
 			if err != nil {
 				return nil, err
