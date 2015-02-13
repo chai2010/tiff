@@ -6,9 +6,8 @@ PkgDoc: [http://godoc.org/github.com/chai2010/tiff](http://godoc.org/github.com/
 Install
 =======
 
-1. `go get -d github.com/chai2010/tiff`
-2. `cd github.com/chai2010/tiff && go install`
-3. `go run hello.go`
+1. `go get github.com/chai2010/tiff`
+2. `go run hello.go`
 
 Example
 =======

@@ -4,9 +4,51 @@
 
 package tiff
 
-import (
-	"fmt"
+type CompressType uint16
+
+const (
+	CompressType_None       CompressType = 1     //
+	CompressType_CCITT      CompressType = 2     //
+	CompressType_G3         CompressType = 3     // Group 3 Fax.
+	CompressType_G4         CompressType = 4     // Group 4 Fax.
+	CompressType_LZW        CompressType = 5     //
+	CompressType_JPEGOld    CompressType = 6     // Superseded by cJPEG.
+	CompressType_JPEG       CompressType = 7     //
+	CompressType_Deflate    CompressType = 8     // zlib compression.
+	CompressType_PackBits   CompressType = 32773 //
+	CompressType_DeflateOld CompressType = 32946 // Superseded by cDeflate.
 )
+
+type DataType uint16
+
+const (
+	DataType_Nil       DataType = iota //  0, invalid
+	DataType_Byte                      //  1
+	DataType_ASCII                     //  2
+	DataType_Short                     //  3
+	DataType_Long                      //  4
+	DataType_Rational                  //  5
+	DataType_SByte                     //  6
+	DataType_Undefined                 //  7
+	DataType_SShort                    //  8
+	DataType_SLong                     //  9
+	DataType_SRational                 // 10
+	DataType_Float                     // 11
+	DataType_Double                    // 12
+	DataType_IFD                       // 13
+	DataType_Unicode                   // 14
+	DataType_Complex                   // 15
+	DataType_Long8                     // 16
+	DataType_SLong8                    // 17
+	DataType_IFD8                      // 18
+)
+
+func (d DataType) Valid() bool {
+	if d <= DataType_Nil || d > DataType_IFD8 {
+		return false
+	}
+	return true
+}
 
 type TagType uint16
 
@@ -97,10 +139,3 @@ const (
 	TagType_ModelTransformationTag TagType = 34264 // DOUBLE, 16
 	TagType_IntergraphMatrixTag    TagType = 33920 // DOUBLE, 17
 )
-
-func (t TagType) String() string {
-	if name, ok := _TagTypeTable[t]; ok {
-		return name
-	}
-	return fmt.Sprintf("TagType_Unknown(%d)", uint16(t))
-}
