@@ -12,11 +12,11 @@ import (
 	"io/ioutil"
 	"log"
 
-	tiff "."
+	tiff "github.com/chai2010/tiff"
 )
 
 func main() {
-	data, err := ioutil.ReadFile("./testdata/no_compress.tiff")
+	data, err := ioutil.ReadFile("../testdata/no_compress.tiff")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -12,7 +12,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	tiff "."
+	tiff "github.com/chai2010/tiff"
 )
 
 func main() {
