@@ -11,7 +11,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/chai2010/tiff/internal/bufio"
+	"./internal/bufio"
 )
 
 var roundtripTests = []struct {

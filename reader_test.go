@@ -12,7 +12,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chai2010/tiff/internal/bufio"
+	"./internal/bufio"
 )
 
 const testdataDir = "./testdata/"
