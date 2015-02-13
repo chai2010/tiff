@@ -16,9 +16,6 @@ package tiff
 // The presence of a length means that each IFD is effectively an array.
 
 const (
-	leHeader = "II\x2A\x00" // Header for little-endian files.
-	beHeader = "MM\x00\x2A" // Header for big-endian files.
-
 	ifdLen = 12 // Length of an IFD entry in bytes.
 )
 

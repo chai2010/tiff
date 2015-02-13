@@ -282,7 +282,7 @@ func Encode(w io.Writer, m image.Image) error {
 	compression := uint32(cNone)
 	predictor := false
 
-	_, err := io.WriteString(w, leHeader)
+	_, err := io.WriteString(w, classicTiffLittleEnding)
 	if err != nil {
 		return err
 	}

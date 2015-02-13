@@ -347,9 +347,9 @@ func newDecoder(r io.Reader) (*decoder, error) {
 		return nil, err
 	}
 	switch string(p[0:4]) {
-	case leHeader:
+	case classicTiffLittleEnding:
 		d.byteOrder = binary.LittleEndian
-	case beHeader:
+	case classicTiffBigEnding:
 		d.byteOrder = binary.BigEndian
 	default:
 		return nil, FormatError("malformed header")
@@ -595,6 +595,6 @@ func Decode(r io.Reader) (img image.Image, err error) {
 }
 
 func init() {
-	image.RegisterFormat("tiff", leHeader, Decode, DecodeConfig)
-	image.RegisterFormat("tiff", beHeader, Decode, DecodeConfig)
+	image.RegisterFormat("tiff", classicTiffLittleEnding, Decode, DecodeConfig)
+	image.RegisterFormat("tiff", classicTiffBigEnding, Decode, DecodeConfig)
 }
