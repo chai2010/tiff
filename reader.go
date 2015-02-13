@@ -67,7 +67,7 @@ func (d *decoder) ifdUint(p []byte) (u []uint, err error) {
 	var raw []byte
 	datatype := DataType(d.byteOrder.Uint16(p[2:4]))
 	count := d.byteOrder.Uint32(p[4:8])
-	if datalen := lengths[datatype] * count; datalen > 4 {
+	if datalen := uint32(datatype.ByteSize()) * count; datalen > 4 {
 		// The IFD contains a pointer to the real value.
 		raw = make([]byte, datalen)
 		_, err = d.r.ReadAt(raw, int64(d.byteOrder.Uint32(p[8:12])))

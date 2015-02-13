@@ -243,7 +243,7 @@ func writeIFD(w io.Writer, ifdOffset int, d []ifdEntry) error {
 			count /= 2
 		}
 		enc.PutUint32(buf[4:8], count)
-		datalen := int(count * lengths[ent.datatype])
+		datalen := int(count * uint32(ent.datatype.ByteSize()))
 		if datalen <= 4 {
 			ent.putData(buf[8:12])
 		} else {

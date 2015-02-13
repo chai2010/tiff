@@ -19,9 +19,6 @@ const (
 	ifdLen = 12 // Length of an IFD entry in bytes.
 )
 
-// The length of one instance of each data type in bytes.
-var lengths = [...]uint32{0, 1, 1, 2, 4, 8}
-
 // imageMode represents the mode of the image.
 type imageMode int
 

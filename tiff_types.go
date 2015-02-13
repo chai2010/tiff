@@ -52,6 +52,48 @@ func (d DataType) Valid() bool {
 	return true
 }
 
+func (d DataType) ByteSize() int {
+	switch d {
+	case DataType_Byte:
+		return 1
+	case DataType_ASCII:
+		return 1
+	case DataType_Short:
+		return 2
+	case DataType_Long:
+		return 4
+	case DataType_Rational:
+		return 8
+	case DataType_SByte:
+		return 1
+	case DataType_Undefined:
+		return 12 // ?
+	case DataType_SShort:
+		return 2
+	case DataType_SLong:
+		return 4
+	case DataType_SRational:
+		return 8
+	case DataType_Float:
+		return 4
+	case DataType_Double:
+		return 8
+	case DataType_IFD:
+		return 0 // ?
+	case DataType_Unicode:
+		return 0 // ?
+	case DataType_Complex:
+		return 8
+	case DataType_Long8:
+		return 8
+	case DataType_SLong8:
+		return 8
+	case DataType_IFD8:
+		return 20
+	}
+	return 0
+}
+
 type TagType uint16
 
 // Tags (see p. 28-41 of the spec).
