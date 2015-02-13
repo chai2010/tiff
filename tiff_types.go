@@ -142,3 +142,28 @@ const (
 	TagType_ModelTransformationTag TagType = 34264 // DOUBLE, 16
 	TagType_IntergraphMatrixTag    TagType = 33920 // DOUBLE, 17
 )
+
+// Photometric interpretation values (see p. 37 of the spec).
+const (
+	TagValue_Photometric_WhiteIsZero = 0
+	TagValue_Photometric_BlackIsZero = 1
+	TagValue_Photometric_RGB         = 2
+	TagValue_Photometric_Paletted    = 3
+	TagValue_Photometric_TransMask   = 4 // transparency mask
+	TagValue_Photometric_CMYK        = 5
+	TagValue_Photometric_YCbCr       = 6
+	TagValue_Photometric_CIELab      = 8
+)
+
+// Values for the tPredictor tag (page 64-65 of the spec).
+const (
+	TagValue_Predictor_None       = 1
+	TagValue_Predictor_Horizontal = 2
+)
+
+// Values for the tResolutionUnit tag (page 18).
+const (
+	TagValue_ResolutionUnit_None    = 1
+	TagValue_ResolutionUnit_PerInch = 2 // Dots per inch.
+	TagValue_ResolutionUnit_PerCM   = 3 // Dots per centimeter.
+)

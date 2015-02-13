@@ -323,19 +323,19 @@ func Encode(w io.Writer, m image.Image) error {
 		dst = zlib.NewWriter(&buf)
 	}
 
-	pr := uint32(prNone)
-	photometricInterpretation := uint32(pRGB)
+	pr := uint32(TagValue_Predictor_None)
+	photometricInterpretation := uint32(TagValue_Photometric_RGB)
 	samplesPerPixel := uint32(4)
 	bitsPerSample := []uint32{8, 8, 8, 8}
 	extraSamples := uint32(0)
 	colorMap := []uint32{}
 
 	if predictor {
-		pr = prHorizontal
+		pr = TagValue_Predictor_Horizontal
 	}
 	switch m := m.(type) {
 	case *image.Paletted:
-		photometricInterpretation = pPaletted
+		photometricInterpretation = TagValue_Photometric_Paletted
 		samplesPerPixel = 1
 		bitsPerSample = []uint32{8}
 		colorMap = make([]uint32, 256*3)
@@ -347,12 +347,12 @@ func Encode(w io.Writer, m image.Image) error {
 		}
 		err = encodeGray(dst, m.Pix, d.X, d.Y, m.Stride, predictor)
 	case *image.Gray:
-		photometricInterpretation = pBlackIsZero
+		photometricInterpretation = TagValue_Photometric_BlackIsZero
 		samplesPerPixel = 1
 		bitsPerSample = []uint32{8}
 		err = encodeGray(dst, m.Pix, d.X, d.Y, m.Stride, predictor)
 	case *image.Gray16:
-		photometricInterpretation = pBlackIsZero
+		photometricInterpretation = TagValue_Photometric_BlackIsZero
 		samplesPerPixel = 1
 		bitsPerSample = []uint32{16}
 		err = encodeGray16(dst, m.Pix, d.X, d.Y, m.Stride, predictor)
@@ -405,9 +405,9 @@ func Encode(w io.Writer, m image.Image) error {
 		// resolution, so give a bogus value of 72x72 dpi.
 		{TagType_XResolution, DataType_Rational, []uint32{72, 1}},
 		{TagType_YResolution, DataType_Rational, []uint32{72, 1}},
-		{TagType_ResolutionUnit, DataType_Short, []uint32{resPerInch}},
+		{TagType_ResolutionUnit, DataType_Short, []uint32{TagValue_ResolutionUnit_PerInch}},
 	}
-	if pr != prNone {
+	if pr != TagValue_Predictor_None {
 		ifd = append(ifd, ifdEntry{TagType_Predictor, DataType_Short, []uint32{pr}})
 	}
 	if len(colorMap) != 0 {

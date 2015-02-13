@@ -22,31 +22,6 @@ const (
 // The length of one instance of each data type in bytes.
 var lengths = [...]uint32{0, 1, 1, 2, 4, 8}
 
-// Photometric interpretation values (see p. 37 of the spec).
-const (
-	pWhiteIsZero = 0
-	pBlackIsZero = 1
-	pRGB         = 2
-	pPaletted    = 3
-	pTransMask   = 4 // transparency mask
-	pCMYK        = 5
-	pYCbCr       = 6
-	pCIELab      = 8
-)
-
-// Values for the tPredictor tag (page 64-65 of the spec).
-const (
-	prNone       = 1
-	prHorizontal = 2
-)
-
-// Values for the tResolutionUnit tag (page 18).
-const (
-	resNone    = 1
-	resPerInch = 2 // Dots per inch.
-	resPerCM   = 3 // Dots per centimeter.
-)
-
 // imageMode represents the mode of the image.
 type imageMode int
 
