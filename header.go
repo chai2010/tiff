@@ -16,6 +16,13 @@ const (
 	BigTIFF     = 43
 )
 
+const (
+	classicTiffLittleEnding = "II\x2A\x00"
+	classicTiffBigEnding    = "MM\x00\x2A"
+	bigTiffLittleEnding     = "II\x2B\x00"
+	bigTiffBigEnding        = "MM\x00\x2B"
+)
+
 type Header struct {
 	ByteOrder binary.ByteOrder
 	Version   uint16
@@ -153,10 +160,3 @@ func (p *Header) String() string {
 		orderName, p.Version, p.Offset,
 	)
 }
-
-const (
-	classicTiffLittleEnding = "II\x2A\x00"
-	classicTiffBigEnding    = "MM\x00\x2A"
-	bigTiffLittleEnding     = "II\x2B\x00"
-	bigTiffBigEnding        = "MM\x00\x2B"
-)

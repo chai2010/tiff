@@ -11,11 +11,14 @@ import (
 	"os"
 	"strings"
 	"testing"
-
-	"./internal/bufio"
 )
 
 const testdataDir = "./testdata/"
+
+// Read makes *buffer implements io.Reader, so that we can pass one to Decode.
+func (*buffer) Read([]byte) (int, error) {
+	panic("unimplemented")
+}
 
 func load(name string) (image.Image, error) {
 	f, err := os.Open(testdataDir + name)
@@ -165,7 +168,7 @@ func benchmarkDecode(b *testing.B, filename string) {
 	if err != nil {
 		panic(err)
 	}
-	r := bufio.NewReaderAtFromBuf(contents)
+	r := &buffer{buf: contents}
 	b.StartTimer()
 	for i := 0; i < b.N; i++ {
 		_, err := Decode(r)

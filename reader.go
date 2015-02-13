@@ -12,9 +12,6 @@ import (
 	"image/color"
 	"io"
 	"io/ioutil"
-
-	"./internal/bufio"
-	"./internal/lzw"
 )
 
 // A FormatError reports that the input is not a valid TIFF image.
@@ -341,7 +338,7 @@ func (d *decoder) decode(dst image.Image, xmin, ymin, xmax, ymax int) error {
 
 func newDecoder(r io.Reader) (*decoder, error) {
 	d := &decoder{
-		r:        bufio.NewReaderAt(r),
+		r:        newReaderAt(r),
 		features: make(map[int][]uint),
 	}
 
@@ -558,14 +555,14 @@ func Decode(r io.Reader) (img image.Image, err error) {
 			// but some tools interpret a missing Compression value as none so we do
 			// the same.
 			case cNone, 0:
-				if b, ok := d.r.(*bufio.Buffer); ok {
+				if b, ok := d.r.(*buffer); ok {
 					d.buf, err = b.Slice(int(offset), int(n))
 				} else {
 					d.buf = make([]byte, n)
 					_, err = d.r.ReadAt(d.buf, offset)
 				}
 			case cLZW:
-				r := lzw.NewReader(io.NewSectionReader(d.r, offset, n), lzw.MSB, 8)
+				r := newLzwReader(io.NewSectionReader(d.r, offset, n), lzwMSB, 8)
 				d.buf, err = ioutil.ReadAll(r)
 				r.Close()
 			case cDeflate, cDeflateOld:
