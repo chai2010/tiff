@@ -279,7 +279,7 @@ func writeIFD(w io.Writer, ifdOffset int, d []ifdEntry) error {
 func Encode(w io.Writer, m image.Image) error {
 	d := m.Bounds().Size()
 
-	compression := uint32(cNone)
+	compression := CompressType_None
 	predictor := false
 
 	_, err := io.WriteString(w, classicTiffLittleEnding)
@@ -298,7 +298,7 @@ func Encode(w io.Writer, m image.Image) error {
 	var imageLen int
 
 	switch compression {
-	case cNone:
+	case CompressType_None:
 		dst = w
 		// Write IFD offset before outputting pixel data.
 		switch m.(type) {
@@ -319,7 +319,7 @@ func Encode(w io.Writer, m image.Image) error {
 		if err != nil {
 			return err
 		}
-	case cDeflate:
+	case CompressType_Deflate:
 		dst = zlib.NewWriter(&buf)
 	}
 
@@ -378,7 +378,7 @@ func Encode(w io.Writer, m image.Image) error {
 		return err
 	}
 
-	if compression != cNone {
+	if compression != CompressType_None {
 		if err = dst.(io.Closer).Close(); err != nil {
 			return err
 		}
@@ -395,7 +395,7 @@ func Encode(w io.Writer, m image.Image) error {
 		{TagType_ImageWidth, DataType_Short, []uint32{uint32(d.X)}},
 		{TagType_ImageLength, DataType_Short, []uint32{uint32(d.Y)}},
 		{TagType_BitsPerSample, DataType_Short, bitsPerSample},
-		{TagType_Compression, DataType_Short, []uint32{compression}},
+		{TagType_Compression, DataType_Short, []uint32{uint32(compression)}},
 		{TagType_PhotometricInterpretation, DataType_Short, []uint32{photometricInterpretation}},
 		{TagType_StripOffsets, DataType_Long, []uint32{8}},
 		{TagType_SamplesPerPixel, DataType_Short, []uint32{samplesPerPixel}},

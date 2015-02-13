@@ -22,20 +22,6 @@ const (
 // The length of one instance of each data type in bytes.
 var lengths = [...]uint32{0, 1, 1, 2, 4, 8}
 
-// Compression types (defined in various places in the spec and supplements).
-const (
-	cNone       = 1
-	cCCITT      = 2
-	cG3         = 3 // Group 3 Fax.
-	cG4         = 4 // Group 4 Fax.
-	cLZW        = 5
-	cJPEGOld    = 6 // Superseded by cJPEG.
-	cJPEG       = 7
-	cDeflate    = 8 // zlib compression.
-	cPackBits   = 32773
-	cDeflateOld = 32946 // Superseded by cDeflate.
-)
-
 // Photometric interpretation values (see p. 37 of the spec).
 const (
 	pWhiteIsZero = 0
@@ -73,21 +59,3 @@ const (
 	mRGBA
 	mNRGBA
 )
-
-// CompressionType describes the type of compression used in Options.
-type CompressionType int
-
-const (
-	Uncompressed CompressionType = iota
-	Deflate
-)
-
-// specValue returns the compression type constant from the TIFF spec that
-// is equivalent to c.
-func (c CompressionType) specValue() uint32 {
-	switch c {
-	case Deflate:
-		return cDeflate
-	}
-	return cNone
-}

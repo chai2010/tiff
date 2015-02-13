@@ -549,30 +549,30 @@ func Decode(r io.Reader) (img image.Image, err error) {
 			}
 			offset := int64(blockOffsets[j*blocksAcross+i])
 			n := int64(blockCounts[j*blocksAcross+i])
-			switch d.firstVal(TagType_Compression) {
+			switch CompressType(d.firstVal(TagType_Compression)) {
 
 			// According to the spec, Compression does not have a default value,
 			// but some tools interpret a missing Compression value as none so we do
 			// the same.
-			case cNone, 0:
+			case CompressType_None, 0:
 				if b, ok := d.r.(*buffer); ok {
 					d.buf, err = b.Slice(int(offset), int(n))
 				} else {
 					d.buf = make([]byte, n)
 					_, err = d.r.ReadAt(d.buf, offset)
 				}
-			case cLZW:
+			case CompressType_LZW:
 				r := newLzwReader(io.NewSectionReader(d.r, offset, n), lzwMSB, 8)
 				d.buf, err = ioutil.ReadAll(r)
 				r.Close()
-			case cDeflate, cDeflateOld:
+			case CompressType_Deflate, CompressType_DeflateOld:
 				r, err := zlib.NewReader(io.NewSectionReader(d.r, offset, n))
 				if err != nil {
 					return nil, err
 				}
 				d.buf, err = ioutil.ReadAll(r)
 				r.Close()
-			case cPackBits:
+			case CompressType_PackBits:
 				d.buf, err = unpackBits(io.NewSectionReader(d.r, offset, n))
 			default:
 				err = UnsupportedError(fmt.Sprintf("compression value %d", d.firstVal(TagType_Compression)))
