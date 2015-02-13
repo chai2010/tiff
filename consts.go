@@ -16,7 +16,8 @@ package tiff
 // The presence of a length means that each IFD is effectively an array.
 
 const (
-	ifdLen = 12 // Length of an IFD entry in bytes.
+	ifdLen  = 12 // Length of an IFD entry in bytes.
+	ifd8Len = 20
 )
 
 // imageMode represents the mode of the image.
