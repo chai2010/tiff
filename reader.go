@@ -65,7 +65,7 @@ func (d *decoder) firstVal(tag int) uint {
 // or Long type, and returns the decoded uint values.
 func (d *decoder) ifdUint(p []byte) (u []uint, err error) {
 	var raw []byte
-	datatype := d.byteOrder.Uint16(p[2:4])
+	datatype := DataType(d.byteOrder.Uint16(p[2:4]))
 	count := d.byteOrder.Uint32(p[4:8])
 	if datalen := lengths[datatype] * count; datalen > 4 {
 		// The IFD contains a pointer to the real value.
@@ -80,15 +80,15 @@ func (d *decoder) ifdUint(p []byte) (u []uint, err error) {
 
 	u = make([]uint, count)
 	switch datatype {
-	case dtByte:
+	case DataType_Byte:
 		for i := uint32(0); i < count; i++ {
 			u[i] = uint(raw[i])
 		}
-	case dtShort:
+	case DataType_Short:
 		for i := uint32(0); i < count; i++ {
 			u[i] = uint(d.byteOrder.Uint16(raw[2*i : 2*(i+1)]))
 		}
-	case dtLong:
+	case DataType_Long:
 		for i := uint32(0); i < count; i++ {
 			u[i] = uint(d.byteOrder.Uint32(raw[4*i : 4*(i+1)]))
 		}

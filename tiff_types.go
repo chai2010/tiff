@@ -6,6 +6,7 @@ package tiff
 
 type CompressType uint16
 
+// Compression types (defined in various places in the spec and supplements).
 const (
 	CompressType_None       CompressType = 1     //
 	CompressType_CCITT      CompressType = 2     //
@@ -21,6 +22,7 @@ const (
 
 type DataType uint16
 
+// Data types (p. 14-16 of the spec).
 const (
 	DataType_Nil       DataType = iota //  0, invalid
 	DataType_Byte                      //  1
@@ -52,6 +54,7 @@ func (d DataType) Valid() bool {
 
 type TagType uint16
 
+// Tags (see p. 28-41 of the spec).
 const (
 	_                                  TagType = 0     // Type, Num
 	TagType_NewSubfileType             TagType = 254   // LONG, 1

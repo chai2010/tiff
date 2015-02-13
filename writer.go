@@ -25,24 +25,24 @@ import (
 var enc = binary.LittleEndian
 
 // An ifdEntry is a single entry in an Image File Directory.
-// A value of type dtRational is composed of two 32-bit values,
+// A value of type DataType_Rational is composed of two 32-bit values,
 // thus data contains two uints (numerator and denominator) for a single number.
 type ifdEntry struct {
 	tag      int
-	datatype int
+	datatype DataType
 	data     []uint32
 }
 
 func (e ifdEntry) putData(p []byte) {
 	for _, d := range e.data {
 		switch e.datatype {
-		case dtByte, dtASCII:
+		case DataType_Byte, DataType_ASCII:
 			p[0] = byte(d)
 			p = p[1:]
-		case dtShort:
+		case DataType_Short:
 			enc.PutUint16(p, uint16(d))
 			p = p[2:]
-		case dtLong, dtRational:
+		case DataType_Long, DataType_Rational:
 			enc.PutUint32(p, uint32(d))
 			p = p[4:]
 		}
@@ -239,7 +239,7 @@ func writeIFD(w io.Writer, ifdOffset int, d []ifdEntry) error {
 		enc.PutUint16(buf[0:2], uint16(ent.tag))
 		enc.PutUint16(buf[2:4], uint16(ent.datatype))
 		count := uint32(len(ent.data))
-		if ent.datatype == dtRational {
+		if ent.datatype == DataType_Rational {
 			count /= 2
 		}
 		enc.PutUint32(buf[4:8], count)
@@ -392,29 +392,29 @@ func Encode(w io.Writer, m image.Image) error {
 	}
 
 	ifd := []ifdEntry{
-		{tImageWidth, dtShort, []uint32{uint32(d.X)}},
-		{tImageLength, dtShort, []uint32{uint32(d.Y)}},
-		{tBitsPerSample, dtShort, bitsPerSample},
-		{tCompression, dtShort, []uint32{compression}},
-		{tPhotometricInterpretation, dtShort, []uint32{photometricInterpretation}},
-		{tStripOffsets, dtLong, []uint32{8}},
-		{tSamplesPerPixel, dtShort, []uint32{samplesPerPixel}},
-		{tRowsPerStrip, dtShort, []uint32{uint32(d.Y)}},
-		{tStripByteCounts, dtLong, []uint32{uint32(imageLen)}},
+		{tImageWidth, DataType_Short, []uint32{uint32(d.X)}},
+		{tImageLength, DataType_Short, []uint32{uint32(d.Y)}},
+		{tBitsPerSample, DataType_Short, bitsPerSample},
+		{tCompression, DataType_Short, []uint32{compression}},
+		{tPhotometricInterpretation, DataType_Short, []uint32{photometricInterpretation}},
+		{tStripOffsets, DataType_Long, []uint32{8}},
+		{tSamplesPerPixel, DataType_Short, []uint32{samplesPerPixel}},
+		{tRowsPerStrip, DataType_Short, []uint32{uint32(d.Y)}},
+		{tStripByteCounts, DataType_Long, []uint32{uint32(imageLen)}},
 		// There is currently no support for storing the image
 		// resolution, so give a bogus value of 72x72 dpi.
-		{tXResolution, dtRational, []uint32{72, 1}},
-		{tYResolution, dtRational, []uint32{72, 1}},
-		{tResolutionUnit, dtShort, []uint32{resPerInch}},
+		{tXResolution, DataType_Rational, []uint32{72, 1}},
+		{tYResolution, DataType_Rational, []uint32{72, 1}},
+		{tResolutionUnit, DataType_Short, []uint32{resPerInch}},
 	}
 	if pr != prNone {
-		ifd = append(ifd, ifdEntry{tPredictor, dtShort, []uint32{pr}})
+		ifd = append(ifd, ifdEntry{tPredictor, DataType_Short, []uint32{pr}})
 	}
 	if len(colorMap) != 0 {
-		ifd = append(ifd, ifdEntry{tColorMap, dtShort, colorMap})
+		ifd = append(ifd, ifdEntry{tColorMap, DataType_Short, colorMap})
 	}
 	if extraSamples > 0 {
-		ifd = append(ifd, ifdEntry{tExtraSamples, dtShort, []uint32{extraSamples}})
+		ifd = append(ifd, ifdEntry{tExtraSamples, DataType_Short, []uint32{extraSamples}})
 	}
 
 	return writeIFD(w, imageLen+8, ifd)
