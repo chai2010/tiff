@@ -8,6 +8,7 @@ type CompressType uint16
 
 // Compression types (defined in various places in the spec and supplements).
 const (
+	CompressType_Nil        CompressType = 0     //
 	CompressType_None       CompressType = 1     //
 	CompressType_CCITT      CompressType = 2     //
 	CompressType_G3         CompressType = 3     // Group 3 Fax.

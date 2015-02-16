@@ -6,20 +6,102 @@ package tiff
 
 import (
 	"bufio"
+	"compress/zlib"
+	"fmt"
 	"io"
+	"io/ioutil"
 )
 
-type byteReader interface {
-	io.Reader
-	io.ByteReader
+func (p CompressType) ReadAll(r io.Reader) (data []byte, err error) {
+	switch p {
+	case CompressType_None, CompressType_Nil:
+		return p.readAll_None(r)
+	case CompressType_CCITT:
+		return p.readAll_CCITT(r)
+	case CompressType_G3:
+		return p.readAll_G3(r)
+	case CompressType_G4:
+		return p.readAll_G4(r)
+	case CompressType_LZW:
+		return p.readAll_LZW(r)
+	case CompressType_JPEGOld:
+		return p.readAll_JPEGOld(r)
+	case CompressType_JPEG:
+		return p.readAll_JPEG(r)
+	case CompressType_Deflate:
+		return p.readAll_Deflate(r)
+	case CompressType_PackBits:
+		return p.readAll_PackBits(r)
+	case CompressType_DeflateOld:
+		return p.readAll_DeflateOld(r)
+	}
+	err = UnsupportedError(fmt.Sprintf("compression value %d", int(p)))
+	return
 }
 
-// unpackBits decodes the PackBits-compressed data in src and returns the
-// uncompressed data.
-//
-// The PackBits compression format is described in section 9 (p. 42)
-// of the TIFF spec.
-func unpackBits(r io.Reader) ([]byte, error) {
+func (p CompressType) readAll_None(r io.Reader) (data []byte, err error) {
+	data, err = ioutil.ReadAll(r)
+	return
+}
+
+func (p CompressType) readAll_CCITT(r io.Reader) (data []byte, err error) {
+	err = UnsupportedError(fmt.Sprintf("compression value %d", int(p)))
+	return
+}
+
+func (p CompressType) readAll_G3(r io.Reader) (data []byte, err error) {
+	err = UnsupportedError(fmt.Sprintf("compression value %d", int(p)))
+	return
+}
+
+func (p CompressType) readAll_G4(r io.Reader) (data []byte, err error) {
+	err = UnsupportedError(fmt.Sprintf("compression value %d", int(p)))
+	return
+}
+
+func (p CompressType) readAll_LZW(r io.Reader) (data []byte, err error) {
+	lzwReader := newLzwReader(r, lzwMSB, 8)
+	data, err = ioutil.ReadAll(lzwReader)
+	lzwReader.Close()
+	return
+}
+
+func (p CompressType) readAll_JPEGOld(r io.Reader) (data []byte, err error) {
+	err = UnsupportedError(fmt.Sprintf("compression value %d", int(p)))
+	return
+}
+
+func (p CompressType) readAll_JPEG(r io.Reader) (data []byte, err error) {
+	err = UnsupportedError(fmt.Sprintf("compression value %d", int(p)))
+	return
+}
+
+func (p CompressType) readAll_Deflate(r io.Reader) (data []byte, err error) {
+	zlibReader, err := zlib.NewReader(r)
+	if err != nil {
+		return nil, err
+	}
+	data, err = ioutil.ReadAll(zlibReader)
+	zlibReader.Close()
+	return
+}
+
+func (p CompressType) readAll_DeflateOld(r io.Reader) (data []byte, err error) {
+	zlibReader, err := zlib.NewReader(r)
+	if err != nil {
+		return nil, err
+	}
+	data, err = ioutil.ReadAll(zlibReader)
+	zlibReader.Close()
+	return
+}
+
+func (p CompressType) readAll_PackBits(r io.Reader) (data []byte, err error) {
+	type byteReader interface {
+		io.Reader
+		io.ByteReader
+	}
+
 	buf := make([]byte, 128)
 	dst := make([]byte, 0, 1024)
 	br, ok := r.(byteReader)

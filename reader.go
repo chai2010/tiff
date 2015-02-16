@@ -5,13 +5,10 @@
 package tiff
 
 import (
-	"compress/zlib"
 	"encoding/binary"
-	"fmt"
 	"image"
 	"image/color"
 	"io"
-	"io/ioutil"
 )
 
 type decoder struct {
@@ -549,31 +546,10 @@ func Decode(r io.Reader) (m image.Image, err error) {
 			}
 			offset := int64(blockOffsets[j*blocksAcross+i])
 			n := int64(blockCounts[j*blocksAcross+i])
-			switch CompressType(d.firstVal(TagType_Compression)) {
+			compressType := CompressType(d.firstVal(TagType_Compression))
 
-			// According to the spec, Compression does not have a default value,
-			// but some tools interpret a missing Compression value as none so we do
-			// the same.
-			case CompressType_None, 0:
-				d.buf = make([]byte, n)
-				_, err = d.r.ReadAt(d.buf, offset)
-			case CompressType_LZW:
-				r := newLzwReader(io.NewSectionReader(d.r, offset, n), lzwMSB, 8)
-				d.buf, err = ioutil.ReadAll(r)
-				r.Close()
-			case CompressType_Deflate, CompressType_DeflateOld:
-				r, err := zlib.NewReader(io.NewSectionReader(d.r, offset, n))
-				if err != nil {
-					return nil, err
-				}
-				d.buf, err = ioutil.ReadAll(r)
-				r.Close()
-			case CompressType_PackBits:
-				d.buf, err = unpackBits(io.NewSectionReader(d.r, offset, n))
-			default:
-				err = UnsupportedError(fmt.Sprintf("compression value %d", d.firstVal(TagType_Compression)))
-			}
-			if err != nil {
+			sectionReader := io.NewSectionReader(d.r, offset, n)
+			if d.buf, err = compressType.ReadAll(sectionReader); err != nil {
 				return nil, err
 			}
 
