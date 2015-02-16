@@ -44,7 +44,7 @@ func TestRoundtrip(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		img2, err := Decode(&buffer{buf: out.Bytes()})
+		img2, err := Decode(bytes.NewReader(out.Bytes()))
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -63,7 +63,7 @@ func TestRoundtrip2(t *testing.T) {
 	if err := Encode(out, m0); err != nil {
 		t.Fatal(err)
 	}
-	m1, err := Decode(&buffer{buf: out.Bytes()})
+	m1, err := Decode(bytes.NewReader(out.Bytes()))
 	if err != nil {
 		t.Fatal(err)
 	}

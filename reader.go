@@ -14,30 +14,8 @@ import (
 	"io/ioutil"
 )
 
-// A FormatError reports that the input is not a valid TIFF image.
-type FormatError string
-
-func (e FormatError) Error() string {
-	return "tiff: invalid format: " + string(e)
-}
-
-// An UnsupportedError reports that the input uses a valid but
-// unimplemented feature.
-type UnsupportedError string
-
-func (e UnsupportedError) Error() string {
-	return "tiff: unsupported feature: " + string(e)
-}
-
-// An InternalError reports that an internal error was encountered.
-type InternalError string
-
-func (e InternalError) Error() string {
-	return "tiff: internal error: " + string(e)
-}
-
 type decoder struct {
-	r         io.ReaderAt
+	r         *seekioReader
 	byteOrder binary.ByteOrder
 	config    image.Config
 	mode      imageMode
@@ -49,6 +27,14 @@ type decoder struct {
 	off   int    // Current offset in buf.
 	v     uint32 // Buffer value for reading with arbitrary bit depths.
 	nbits uint   // Remaining number of bits in v.
+}
+
+func (d *decoder) Close() error {
+	if d.r != nil {
+		d.r.Close()
+	}
+	*d = decoder{}
+	return nil
 }
 
 // firstVal returns the first uint of the features entry with the given tag,
@@ -336,9 +322,9 @@ func (d *decoder) decode(dst image.Image, xmin, ymin, xmax, ymax int) error {
 	return nil
 }
 
-func newDecoder(r io.Reader) (*decoder, error) {
+func openDecoder(r io.Reader) (*decoder, error) {
 	d := &decoder{
-		r:        newReaderAt(r),
+		r:        openSeekioReader(r, -1),
 		features: make(map[TagType][]uint),
 	}
 
@@ -461,21 +447,28 @@ func newDecoder(r io.Reader) (*decoder, error) {
 
 // DecodeConfig returns the color model and dimensions of a TIFF image without
 // decoding the entire image.
-func DecodeConfig(r io.Reader) (image.Config, error) {
-	d, err := newDecoder(r)
+func DecodeConfig(r io.Reader) (cfg image.Config, err error) {
+	d, err := openDecoder(r)
 	if err != nil {
 		return image.Config{}, err
 	}
-	return d.config, nil
+	defer func() {
+		err = d.Close()
+	}()
+	cfg = d.config
+	return
 }
 
 // Decode reads a TIFF image from r and returns it as an image.Image.
 // The type of Image returned depends on the contents of the TIFF.
 func Decode(r io.Reader) (img image.Image, err error) {
-	d, err := newDecoder(r)
+	d, err := openDecoder(r)
 	if err != nil {
 		return
 	}
+	defer func() {
+		err = d.Close()
+	}()
 
 	blockPadding := false
 	blockWidth := d.config.Width
@@ -555,12 +548,8 @@ func Decode(r io.Reader) (img image.Image, err error) {
 			// but some tools interpret a missing Compression value as none so we do
 			// the same.
 			case CompressType_None, 0:
-				if b, ok := d.r.(*buffer); ok {
-					d.buf, err = b.Slice(int(offset), int(n))
-				} else {
-					d.buf = make([]byte, n)
-					_, err = d.r.ReadAt(d.buf, offset)
-				}
+				d.buf = make([]byte, n)
+				_, err = d.r.ReadAt(d.buf, offset)
 			case CompressType_LZW:
 				r := newLzwReader(io.NewSectionReader(d.r, offset, n), lzwMSB, 8)
 				d.buf, err = ioutil.ReadAll(r)
