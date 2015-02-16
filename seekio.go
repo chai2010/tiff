@@ -13,6 +13,15 @@ import (
 	"os"
 )
 
+var (
+	_ io.ReadSeeker  = (*seekioReader)(nil)
+	_ io.ReaderAt    = (*seekioReader)(nil)
+	_ io.ReadCloser  = (*seekioReader)(nil)
+	_ io.WriteSeeker = (*seekioWriter)(nil)
+	_ io.WriterAt    = (*seekioWriter)(nil)
+	_ io.WriteCloser = (*seekioReader)(nil)
+)
+
 type seekioReader struct {
 	r   io.Reader
 	rs  io.ReadSeeker
@@ -133,6 +142,34 @@ func (p *seekioWriter) Write(data []byte) (n int, err error) {
 	p.grow(p.off + len(data))
 	n = copy(p.buf[p.off:], data)
 	p.off += n
+	return
+}
+
+func (p *seekioWriter) WriteAt(data []byte, off int64) (n int, err error) {
+	if p.err != nil {
+		err = p.err
+		return
+	}
+	old, err := p.Seek(0, 1)
+	if err != nil {
+		return
+	}
+	newoff, err := p.Seek(off, 0)
+	if err != nil {
+		return
+	}
+	if newoff != off {
+		err = errors.New("tiff: seekioReader.ReadAt, seek to new offset failed!")
+		return
+	}
+	n, err = p.Write(data)
+	if err != nil {
+		return
+	}
+	if off, err = p.Seek(old, 0); off != old {
+		err = errors.New("tiff: seekioReader.ReadAt, seek to old offset failed!")
+		return
+	}
 	return
 }
 
