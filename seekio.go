@@ -159,7 +159,7 @@ func (p *seekioWriter) WriteAt(data []byte, off int64) (n int, err error) {
 		return
 	}
 	if newoff != off {
-		err = errors.New("tiff: seekioReader.ReadAt, seek to new offset failed!")
+		err = errors.New("tiff: seekioWriter.WriteAt, seek to new offset failed!")
 		return
 	}
 	n, err = p.Write(data)
@@ -167,7 +167,7 @@ func (p *seekioWriter) WriteAt(data []byte, off int64) (n int, err error) {
 		return
 	}
 	if off, err = p.Seek(old, 0); off != old {
-		err = errors.New("tiff: seekioReader.ReadAt, seek to old offset failed!")
+		err = errors.New("tiff: seekioWriter.WriteAt, seek to old offset failed!")
 		return
 	}
 	return
