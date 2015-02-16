@@ -19,6 +19,7 @@ var _CompressTypeTable = map[CompressType]string{
 	CompressType_JPEG:       `CompressType_JPEG`,
 	CompressType_JPEGOld:    `CompressType_JPEGOld`,
 	CompressType_LZW:        `CompressType_LZW`,
+	CompressType_Nil:        `CompressType_Nil`,
 	CompressType_None:       `CompressType_None`,
 	CompressType_PackBits:   `CompressType_PackBits`,
 }
@@ -27,7 +28,7 @@ func (p CompressType) String() string {
 	if name, ok := _CompressTypeTable[p]; ok {
 		return name
 	}
-	return fmt.Sprintf("CompressType_Unknown(%!d(MISSING))", uint16(p))
+	return fmt.Sprintf("CompressType_Unknown(%d)", uint16(p))
 }
 
 var _DataTypeTable = map[DataType]string{
@@ -56,7 +57,7 @@ func (p DataType) String() string {
 	if name, ok := _DataTypeTable[p]; ok {
 		return name
 	}
-	return fmt.Sprintf("DataType_Unknown(%!d(MISSING))", uint16(p))
+	return fmt.Sprintf("DataType_Unknown(%d)", uint16(p))
 }
 
 var _TagTypeTable = map[TagType]string{
@@ -147,5 +148,5 @@ func (p TagType) String() string {
 	if name, ok := _TagTypeTable[p]; ok {
 		return name
 	}
-	return fmt.Sprintf("TagType_Unknown(%!d(MISSING))", uint16(p))
+	return fmt.Sprintf("TagType_Unknown(%d)", uint16(p))
 }

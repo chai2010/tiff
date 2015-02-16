@@ -112,7 +112,7 @@ func (p %s) String() string {
 	if name, ok := _%sTable[p]; ok {
 		return name
 	}
-	return fmt.Sprintf("%s_Unknown(%d)", uint16(p))
+	return fmt.Sprintf("%s_Unknown(%%d)", uint16(p))
 }
 `,
 		p.TypeName,

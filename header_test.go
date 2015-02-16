@@ -25,15 +25,15 @@ func TestHeader_decodeAndEncode_files(t *testing.T) {
 	for i := 0; i < len(files); i++ {
 		data, err := ioutil.ReadFile("./testdata/" + files[i])
 		if err != nil {
-			t.Fatalf("%d: ", i, err)
+			t.Fatalf("%d: %v", i, err)
 		}
 		h0, err := ReadHeader(bytes.NewReader(data))
 		if err != nil {
-			t.Fatalf("%d: ", i, err)
+			t.Fatalf("%d: %v", i, err)
 		}
 		h1, err := ReadHeader(bytes.NewReader(h0.Bytes()))
 		if err != nil {
-			t.Fatalf("%d: ", i, err)
+			t.Fatalf("%d: %v", i, err)
 		}
 		if !reflect.DeepEqual(h0, h1) {
 			t.Fatalf("%d: not equal: %v != %v", i, h0, h1)
@@ -52,7 +52,7 @@ func TestHeader_decodeAndEncode(t *testing.T) {
 	for i := 0; i < len(headers); i++ {
 		h, err := ReadHeader(bytes.NewReader(headers[i].Bytes()))
 		if err != nil {
-			t.Fatalf("%d: ", i, err)
+			t.Fatalf("%d: %v", i, err)
 		}
 		if !reflect.DeepEqual(headers[i], h) {
 			t.Fatalf("%d: not equal: %v != %v", i, headers[i], h)
