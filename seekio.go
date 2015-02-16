@@ -19,7 +19,7 @@ var (
 	_ io.ReadCloser  = (*seekioReader)(nil)
 	_ io.WriteSeeker = (*seekioWriter)(nil)
 	_ io.WriterAt    = (*seekioWriter)(nil)
-	_ io.WriteCloser = (*seekioReader)(nil)
+	_ io.WriteCloser = (*seekioWriter)(nil)
 )
 
 type seekioReader struct {

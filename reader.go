@@ -173,9 +173,9 @@ func minInt(a, b int) int {
 	return b
 }
 
-// decode decodes the raw data of an image.
+// decodeBlock decodes the raw data of an image.
 // It reads from d.buf and writes the strip or tile into dst.
-func (d *decoder) decode(dst image.Image, xmin, ymin, xmax, ymax int) error {
+func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error {
 	d.off = 0
 
 	// Apply horizontal predictor if necessary.
@@ -322,15 +322,18 @@ func (d *decoder) decode(dst image.Image, xmin, ymin, xmax, ymax int) error {
 	return nil
 }
 
-func openDecoder(r io.Reader) (*decoder, error) {
+func openDecoder(r io.Reader) *decoder {
 	d := &decoder{
 		r:        openSeekioReader(r, -1),
 		features: make(map[TagType][]uint),
 	}
+	return d
+}
 
+func (d *decoder) Decode() error {
 	p := make([]byte, 8)
 	if _, err := d.r.ReadAt(p, 0); err != nil {
-		return nil, err
+		return err
 	}
 	switch string(p[0:4]) {
 	case classicTiffLittleEnding:
@@ -338,26 +341,26 @@ func openDecoder(r io.Reader) (*decoder, error) {
 	case classicTiffBigEnding:
 		d.byteOrder = binary.BigEndian
 	default:
-		return nil, FormatError("malformed header")
+		return FormatError("malformed header")
 	}
 
 	ifdOffset := int64(d.byteOrder.Uint32(p[4:8]))
 
 	// The first two bytes contain the number of entries (12 bytes each).
 	if _, err := d.r.ReadAt(p[0:2], ifdOffset); err != nil {
-		return nil, err
+		return err
 	}
 	numItems := int(d.byteOrder.Uint16(p[0:2]))
 
 	// All IFD entries are read in one chunk.
 	p = make([]byte, ifdLen*numItems)
 	if _, err := d.r.ReadAt(p, ifdOffset+2); err != nil {
-		return nil, err
+		return err
 	}
 
 	for i := 0; i < len(p); i += ifdLen {
 		if err := d.parseIFD(p[i : i+ifdLen]); err != nil {
-			return nil, err
+			return err
 		}
 	}
 
@@ -365,7 +368,7 @@ func openDecoder(r io.Reader) (*decoder, error) {
 	d.config.Height = int(d.firstVal(TagType_ImageLength))
 
 	if _, ok := d.features[TagType_BitsPerSample]; !ok {
-		return nil, FormatError("BitsPerSample tag missing")
+		return FormatError("BitsPerSample tag missing")
 	}
 	d.bpp = d.firstVal(TagType_BitsPerSample)
 
@@ -375,13 +378,13 @@ func openDecoder(r io.Reader) (*decoder, error) {
 		if d.bpp == 16 {
 			for _, b := range d.features[TagType_BitsPerSample] {
 				if b != 16 {
-					return nil, FormatError("wrong number of samples for 16bit RGB")
+					return FormatError("wrong number of samples for 16bit RGB")
 				}
 			}
 		} else {
 			for _, b := range d.features[TagType_BitsPerSample] {
 				if b != 8 {
-					return nil, FormatError("wrong number of samples for 8bit RGB")
+					return FormatError("wrong number of samples for 8bit RGB")
 				}
 			}
 		}
@@ -416,10 +419,10 @@ func openDecoder(r io.Reader) (*decoder, error) {
 					d.config.ColorModel = color.NRGBAModel
 				}
 			default:
-				return nil, FormatError("wrong number of samples for RGB")
+				return FormatError("wrong number of samples for RGB")
 			}
 		default:
-			return nil, FormatError("wrong number of samples for RGB")
+			return FormatError("wrong number of samples for RGB")
 		}
 	case TagValue_Photometric_Paletted:
 		d.mode = mPaletted
@@ -439,36 +442,40 @@ func openDecoder(r io.Reader) (*decoder, error) {
 			d.config.ColorModel = color.GrayModel
 		}
 	default:
-		return nil, UnsupportedError("color model")
+		return UnsupportedError("color model")
 	}
 
-	return d, nil
+	return nil
 }
 
 // DecodeConfig returns the color model and dimensions of a TIFF image without
 // decoding the entire image.
 func DecodeConfig(r io.Reader) (cfg image.Config, err error) {
-	d, err := openDecoder(r)
-	if err != nil {
+	d := openDecoder(r)
+	defer func() {
+		if x := d.Close(); x != nil && err == nil {
+			err = x
+		}
+	}()
+	if err = d.Decode(); err != nil {
 		return image.Config{}, err
 	}
-	defer func() {
-		err = d.Close()
-	}()
 	cfg = d.config
 	return
 }
 
 // Decode reads a TIFF image from r and returns it as an image.Image.
 // The type of Image returned depends on the contents of the TIFF.
-func Decode(r io.Reader) (img image.Image, err error) {
-	d, err := openDecoder(r)
-	if err != nil {
-		return
-	}
+func Decode(r io.Reader) (m image.Image, err error) {
+	d := openDecoder(r)
 	defer func() {
-		err = d.Close()
+		if x := d.Close(); x != nil && err == nil {
+			err = x
+		}
 	}()
+	if err = d.Decode(); err != nil {
+		return nil, err
+	}
 
 	blockPadding := false
 	blockWidth := d.config.Width
@@ -510,23 +517,23 @@ func Decode(r io.Reader) (img image.Image, err error) {
 	switch d.mode {
 	case mGray, mGrayInvert:
 		if d.bpp == 16 {
-			img = image.NewGray16(imgRect)
+			m = image.NewGray16(imgRect)
 		} else {
-			img = image.NewGray(imgRect)
+			m = image.NewGray(imgRect)
 		}
 	case mPaletted:
-		img = image.NewPaletted(imgRect, d.palette)
+		m = image.NewPaletted(imgRect, d.palette)
 	case mNRGBA:
 		if d.bpp == 16 {
-			img = image.NewNRGBA64(imgRect)
+			m = image.NewNRGBA64(imgRect)
 		} else {
-			img = image.NewNRGBA(imgRect)
+			m = image.NewNRGBA(imgRect)
 		}
 	case mRGB, mRGBA:
 		if d.bpp == 16 {
-			img = image.NewRGBA64(imgRect)
+			m = image.NewRGBA64(imgRect)
 		} else {
-			img = image.NewRGBA(imgRect)
+			m = image.NewRGBA(imgRect)
 		}
 	}
 
@@ -574,7 +581,7 @@ func Decode(r io.Reader) (img image.Image, err error) {
 			ymin := j * blockHeight
 			xmax := xmin + blkW
 			ymax := ymin + blkH
-			err = d.decode(img, xmin, ymin, xmax, ymax)
+			err = d.decodeBlock(m, xmin, ymin, xmax, ymax)
 			if err != nil {
 				return nil, err
 			}
