@@ -15,10 +15,10 @@ type IFD struct {
 	Header   *Header
 	Offset   int64
 	EntryMap map[TagType]*IFDEntry
-	Next     int64
+	Next     *IFD
 }
 
-func ReadIFD(r io.Reader, h *Header, offset int64) (ifds []*IFD, err error) {
+func ReadIFD(r io.Reader, h *Header, offset int64) (ifd *IFD, err error) {
 	var rs io.ReadSeeker
 	if rs, _ = r.(io.ReadSeeker); rs == nil {
 		seekioReader := openSeekioReader(r, 0)
@@ -30,29 +30,39 @@ func ReadIFD(r io.Reader, h *Header, offset int64) (ifds []*IFD, err error) {
 		err = fmt.Errorf("tiff: ReadIFD, invalid header: %v", h)
 		return
 	}
+
+	var ifds []*IFD
 	if h.Version == ClassicTIFF {
 		for offset != 0 {
-			var ifd *IFD
-			if ifd, err = readIFD(rs, h, offset); err != nil {
+			var p *IFD
+			var next int64
+			if p, next, err = readIFD(rs, h, offset); err != nil {
 				return
 			}
-			ifds = append(ifds, ifd)
-			offset = ifd.Next
+			ifds = append(ifds, p)
+			offset = next
 		}
 	} else {
 		for offset != 0 {
-			var ifd *IFD
-			if ifd, err = readIFD8(rs, h, offset); err != nil {
+			var p *IFD
+			var next int64
+			if p, next, err = readIFD8(rs, h, offset); err != nil {
 				return
 			}
-			ifds = append(ifds, ifd)
-			offset = ifd.Next
+			ifds = append(ifds, p)
+			offset = next
 		}
 	}
+
+	// make IFD link list
+	for i := 1; i < len(ifds); i++ {
+		ifds[i-1].Next = ifds[i]
+	}
+	ifd = ifds[0]
 	return
 }
 
-func readIFD(r io.ReadSeeker, h *Header, offset int64) (p *IFD, err error) {
+func readIFD(r io.ReadSeeker, h *Header, offset int64) (p *IFD, next int64, err error) {
 	if offset == 0 {
 		return
 	}
@@ -83,11 +93,11 @@ func readIFD(r io.ReadSeeker, h *Header, offset int64) (p *IFD, err error) {
 	if err = binary.Read(r, h.ByteOrder, &nextIfdOffset); err != nil {
 		return
 	}
-	p.Next = int64(nextIfdOffset)
+	next = int64(nextIfdOffset)
 	return
 }
 
-func readIFD8(r io.ReadSeeker, h *Header, offset int64) (p *IFD, err error) {
+func readIFD8(r io.ReadSeeker, h *Header, offset int64) (p *IFD, next int64, err error) {
 	if offset == 0 {
 		return
 	}
@@ -118,7 +128,7 @@ func readIFD8(r io.ReadSeeker, h *Header, offset int64) (p *IFD, err error) {
 	if err = binary.Read(r, h.ByteOrder, &nextIfdOffset); err != nil {
 		return
 	}
-	p.Next = int64(nextIfdOffset)
+	next = int64(nextIfdOffset)
 	return
 }
 
