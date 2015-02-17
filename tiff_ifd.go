@@ -13,144 +13,174 @@ import (
 
 type IFD struct {
 	Header   *Header
-	Offset   uint64
+	Offset   int64
 	EntryMap map[TagType]*IFDEntry
-	Next     uint64
+	Next     int64
 }
 
-func ReadIFD(r io.ReadSeeker, h *Header, offset uint64) (ifd *IFD, err error) {
+func ReadIFD(r io.Reader, h *Header, offset int64) (ifds []*IFD, err error) {
+	var rs io.ReadSeeker
+	if rs, _ = r.(io.ReadSeeker); rs == nil {
+		seekioReader := openSeekioReader(r, 0)
+		defer seekioReader.Close()
+		rs = seekioReader
+	}
+
 	if !h.Valid() {
-		err = fmt.Errorf("tiff.go: ReadIFD, invalid header: %v", h)
+		err = fmt.Errorf("tiff: ReadIFD, invalid header: %v", h)
 		return
 	}
-	ifd = &IFD{
-		Header:   h,
-		Offset:   offset,
-		EntryMap: make(map[TagType]*IFDEntry),
-	}
 	if h.Version == ClassicTIFF {
-		if err = ifd.readIFD(r, offset); err != nil {
-			return
+		for offset != 0 {
+			var ifd *IFD
+			if ifd, err = readIFD(rs, h, offset); err != nil {
+				return
+			}
+			ifds = append(ifds, ifd)
+			offset = ifd.Next
 		}
 	} else {
-		if err = ifd.readIFD8(r, offset); err != nil {
-			return
+		for offset != 0 {
+			var ifd *IFD
+			if ifd, err = readIFD8(rs, h, offset); err != nil {
+				return
+			}
+			ifds = append(ifds, ifd)
+			offset = ifd.Next
 		}
 	}
 	return
 }
 
-func (p *IFD) readIFD(r io.ReadSeeker, offset uint64) (err error) {
-	if _, err = r.Seek(int64(offset), 0); err != nil {
+func readIFD(r io.ReadSeeker, h *Header, offset int64) (p *IFD, err error) {
+	if offset == 0 {
+		return
+	}
+	if _, err = r.Seek(offset, 0); err != nil {
 		return
 	}
 
+	p = &IFD{
+		Header:   h,
+		Offset:   offset,
+		EntryMap: make(map[TagType]*IFDEntry),
+	}
+
 	var entryNum uint16
-	if err = binary.Read(r, p.Header.ByteOrder, &entryNum); err != nil {
+	if err = binary.Read(r, h.ByteOrder, &entryNum); err != nil {
 		return
 	}
 
 	for i := 0; i < int(entryNum); i++ {
 		var entry *IFDEntry
-		if entry, err = p.readIFDEntry(r); err != nil {
+		if entry, err = readIFDEntry(r, h); err != nil {
 			return
 		}
 		p.EntryMap[entry.Tag] = entry
 	}
 
 	var nextIfdOffset uint32
-	if err = binary.Read(r, p.Header.ByteOrder, &nextIfdOffset); err != nil {
+	if err = binary.Read(r, h.ByteOrder, &nextIfdOffset); err != nil {
 		return
 	}
-	p.Next = uint64(nextIfdOffset)
-
+	p.Next = int64(nextIfdOffset)
 	return
 }
 
-func (p *IFD) readIFD8(r io.ReadSeeker, offset uint64) (err error) {
-	if _, err = r.Seek(int64(offset), 0); err != nil {
+func readIFD8(r io.ReadSeeker, h *Header, offset int64) (p *IFD, err error) {
+	if offset == 0 {
+		return
+	}
+	if _, err = r.Seek(offset, 0); err != nil {
 		return
 	}
 
+	p = &IFD{
+		Header:   h,
+		Offset:   offset,
+		EntryMap: make(map[TagType]*IFDEntry),
+	}
+
 	var entryNum uint32
-	if err = binary.Read(r, p.Header.ByteOrder, &entryNum); err != nil {
+	if err = binary.Read(r, h.ByteOrder, &entryNum); err != nil {
 		return
 	}
 
 	for i := 0; i < int(entryNum); i++ {
 		var entry *IFDEntry
-		if entry, err = p.readIFDEntry8(r); err != nil {
+		if entry, err = readIFDEntry8(r, h); err != nil {
 			return
 		}
 		p.EntryMap[entry.Tag] = entry
 	}
 
 	var nextIfdOffset uint64
-	if err = binary.Read(r, p.Header.ByteOrder, &nextIfdOffset); err != nil {
+	if err = binary.Read(r, h.ByteOrder, &nextIfdOffset); err != nil {
 		return
 	}
-	p.Next = nextIfdOffset
-
+	p.Next = int64(nextIfdOffset)
 	return
 }
 
-func (p *IFD) readIFDEntry(r io.ReadSeeker) (entry *IFDEntry, err error) {
+func readIFDEntry(r io.Reader, h *Header) (entry *IFDEntry, err error) {
 	var entryTag TagType
-	if err = binary.Read(r, p.Header.ByteOrder, &entryTag); err != nil {
+	if err = binary.Read(r, h.ByteOrder, &entryTag); err != nil {
 		return
 	}
 
 	var entryDataType DataType
-	if err = binary.Read(r, p.Header.ByteOrder, &entryDataType); err != nil {
+	if err = binary.Read(r, h.ByteOrder, &entryDataType); err != nil {
 		return
 	}
 
 	var elemCount uint32
-	if err = binary.Read(r, p.Header.ByteOrder, &elemCount); err != nil {
+	if err = binary.Read(r, h.ByteOrder, &elemCount); err != nil {
 		return
 	}
 
 	var elemOffset uint32
-	if err = binary.Read(r, p.Header.ByteOrder, &elemOffset); err != nil {
+	if err = binary.Read(r, h.ByteOrder, &elemOffset); err != nil {
 		return
 	}
 	entry = &IFDEntry{
-		IFD:      p,
+		Header:   h,
 		Tag:      entryTag,
 		DataType: entryDataType,
 		Count:    uint64(elemCount),
 		Offset:   uint64(elemOffset),
 	}
+	err = entry.Read(r)
 	return
 }
 
-func (p *IFD) readIFDEntry8(r io.ReadSeeker) (entry *IFDEntry, err error) {
+func readIFDEntry8(r io.Reader, h *Header) (entry *IFDEntry, err error) {
 	var entryTag TagType
-	if err = binary.Read(r, p.Header.ByteOrder, &entryTag); err != nil {
+	if err = binary.Read(r, h.ByteOrder, &entryTag); err != nil {
 		return
 	}
 
 	var entryDataType DataType
-	if err = binary.Read(r, p.Header.ByteOrder, &entryDataType); err != nil {
+	if err = binary.Read(r, h.ByteOrder, &entryDataType); err != nil {
 		return
 	}
 
 	var elemCount uint64
-	if err = binary.Read(r, p.Header.ByteOrder, &elemCount); err != nil {
+	if err = binary.Read(r, h.ByteOrder, &elemCount); err != nil {
 		return
 	}
 
 	var elemOffset uint64
-	if err = binary.Read(r, p.Header.ByteOrder, &elemOffset); err != nil {
+	if err = binary.Read(r, h.ByteOrder, &elemOffset); err != nil {
 		return
 	}
 	entry = &IFDEntry{
-		IFD:      p,
+		Header:   h,
 		Tag:      entryTag,
 		DataType: entryDataType,
 		Count:    elemCount,
 		Offset:   elemOffset,
 	}
+	err = entry.Read(r)
 	return
 }
 
@@ -182,4 +212,48 @@ func (p *IFD) IfdSize() int {
 	} else {
 		return 8 + len(p.EntryMap)*20 + 8
 	}
+}
+
+func (p *IFD) ImageSize() (width, height int) {
+	return
+}
+
+func (p *IFD) BitsPerSample() int {
+	return 0
+}
+
+func (p *IFD) Compression() CompressType {
+	return CompressType_Nil
+}
+
+func (p *IFD) CellSize() (width, height float64) {
+	return
+}
+
+func (p *IFD) BlockSize() (width, height int) {
+	return
+}
+
+func (p *IFD) BlockOffsets() []int64 {
+	return nil
+}
+
+func (p *IFD) DocumentName() string {
+	return ""
+}
+
+func (p *IFD) ImageDescription() string {
+	return ""
+}
+
+func (p *IFD) Make() string {
+	return ""
+}
+
+func (p *IFD) Model() string {
+	return ""
+}
+
+func (p *IFD) Copyright() string {
+	return ""
 }

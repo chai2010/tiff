@@ -46,8 +46,8 @@ func TestHeader_decodeAndEncode(t *testing.T) {
 		NewHeader(true, 9527),
 		NewHeader(false, 9527),
 		NewHeader(true, 9527),
-		NewHeader(false, 0),
-		NewHeader(true, 0),
+		NewHeader(false, 8),
+		NewHeader(true, 16),
 	}
 	for i := 0; i < len(headers); i++ {
 		h, err := ReadHeader(bytes.NewReader(headers[i].Bytes()))
@@ -56,6 +56,24 @@ func TestHeader_decodeAndEncode(t *testing.T) {
 		}
 		if !reflect.DeepEqual(headers[i], h) {
 			t.Fatalf("%d: not equal: %v != %v", i, headers[i], h)
+		}
+	}
+}
+
+func TestHeader_decodeAndEncode_bad(t *testing.T) {
+	headers := []*Header{
+		NewHeader(true, 15),
+		NewHeader(true, 8),
+		NewHeader(true, 7),
+		NewHeader(true, 0),
+		NewHeader(false, 7),
+		NewHeader(false, 6),
+		NewHeader(false, 0),
+	}
+	for i := 0; i < len(headers); i++ {
+		_, err := ReadHeader(bytes.NewReader(headers[i].Bytes()))
+		if err == nil {
+			t.Fatalf("%d: expect err, got %v", i, err)
 		}
 	}
 }

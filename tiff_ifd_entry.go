@@ -9,7 +9,7 @@ import (
 )
 
 type IFDEntry struct {
-	IFD      *IFD
+	Header   *Header
 	Tag      TagType
 	DataType DataType
 	Count    uint64
@@ -17,12 +17,12 @@ type IFDEntry struct {
 	Data     []byte
 }
 
-func (p *IFDEntry) ReadValue(r io.ReadSeeker) (err error) {
+func (p *IFDEntry) Read(r io.Reader) (err error) {
 	return
 }
 
-func (p *IFDEntry) EncodeValue() (value []byte) {
-	return
+func (p *IFDEntry) Bytes() []byte {
+	return nil
 }
 
 func (p *IFDEntry) String() string {

@@ -16,20 +16,13 @@ const (
 	BigTIFF     = 43
 )
 
-const (
-	classicTiffLittleEnding = "II\x2A\x00"
-	classicTiffBigEnding    = "MM\x00\x2A"
-	bigTiffLittleEnding     = "II\x2B\x00"
-	bigTiffBigEnding        = "MM\x00\x2B"
-)
-
 type Header struct {
 	ByteOrder binary.ByteOrder
 	Version   uint16
-	Offset    uint64
+	Offset    int64
 }
 
-func NewHeader(isBigTiff bool, offset uint64) *Header {
+func NewHeader(isBigTiff bool, offset int64) *Header {
 	if isBigTiff {
 		return &Header{
 			ByteOrder: binary.LittleEndian,
@@ -46,10 +39,16 @@ func NewHeader(isBigTiff bool, offset uint64) *Header {
 }
 
 func ReadHeader(r io.Reader) (header *Header, err error) {
-	var data [8]byte
+	var ra io.ReaderAt
+	if ra, _ = r.(io.ReaderAt); ra == nil {
+		rs := openSeekioReader(r, 0)
+		defer rs.Close()
+		ra = rs
+	}
 
 	// read classic TIFF header
-	if _, err = r.Read(data[:8]); err != nil {
+	var data [8]byte
+	if _, err = ra.ReadAt(data[:8], 0); err != nil {
 		return
 	}
 	header = new(Header)
@@ -61,32 +60,36 @@ func ReadHeader(r io.Reader) (header *Header, err error) {
 	case data[0] == 'M' && data[1] == 'M':
 		header.ByteOrder = binary.BigEndian
 	default:
-		err = fmt.Errorf("tiff.go: DecodeHeader, bad order: %v", data[:2])
+		err = fmt.Errorf("tiff: ReadHeader, bad order: %v", data[:2])
 		return
 	}
 
 	// version: ClassicTIFF or BigTIFF
 	header.Version = header.ByteOrder.Uint16(data[2:4])
 	if v := header.Version; v != ClassicTIFF && v != BigTIFF {
-		err = fmt.Errorf("tiff.go: DecodeHeader, bad version: %v", data[2:4])
+		err = fmt.Errorf("tiff: ReadHeader, bad version: %v", data[2:4])
 		return
 	}
 
 	// offset
 	switch header.Version {
 	case ClassicTIFF:
-		header.Offset = uint64(header.ByteOrder.Uint32(data[4:8]))
+		header.Offset = int64(header.ByteOrder.Uint32(data[4:8]))
 	case BigTIFF:
-		x46 := header.ByteOrder.Uint16(data[4:6])
-		x68 := header.ByteOrder.Uint16(data[6:8])
-		if x46 != 8 || x68 != 0 {
-			err = fmt.Errorf("tiff.go: DecodeHeader, bad offset: %v", data[4:8])
+		byte46 := header.ByteOrder.Uint16(data[4:6])
+		byte68 := header.ByteOrder.Uint16(data[6:8])
+		if byte46 != 8 || byte68 != 0 {
+			err = fmt.Errorf("tiff: ReadHeader, bad offset: %v", data[4:8])
 			return
 		}
-		if _, err = r.Read(data[:8]); err != nil {
+		if _, err = ra.ReadAt(data[:8], 8); err != nil {
 			return
 		}
-		header.Offset = header.ByteOrder.Uint64(data[0:8])
+		header.Offset = int64(header.ByteOrder.Uint64(data[0:8]))
+	}
+	if header.Offset < int64(header.HeadSize()) {
+		err = fmt.Errorf("tiff: ReadHeader, bad offset: %v", data[4:8])
+		return
 	}
 
 	return
@@ -113,7 +116,7 @@ func (p *Header) Bytes() []byte {
 		p.ByteOrder.PutUint16(d[2:4], p.Version)
 		p.ByteOrder.PutUint16(d[4:6], 8)
 		p.ByteOrder.PutUint16(d[6:8], 0)
-		p.ByteOrder.PutUint64(d[8:], p.Offset)
+		p.ByteOrder.PutUint64(d[8:], uint64(p.Offset))
 		return d[:16]
 	}
 }
@@ -123,6 +126,9 @@ func (p *Header) Valid() bool {
 		return false
 	}
 	if x := p.Version; x != ClassicTIFF && x != BigTIFF {
+		return false
+	}
+	if p.Offset < int64(p.HeadSize()) {
 		return false
 	}
 	if p.Version == ClassicTIFF {
