@@ -32,7 +32,7 @@ func ReadIFD(r io.Reader, h *Header, offset int64) (ifd *IFD, err error) {
 	}
 
 	var ifds []*IFD
-	if h.Version == ClassicTIFF {
+	if h.TiffType == TiffType_ClassicTIFF {
 		for offset != 0 {
 			var p *IFD
 			var next int64
@@ -217,7 +217,7 @@ func (p *IFD) IfdSize() int {
 	if !p.Valid() {
 		return 0
 	}
-	if p.Header.Version == ClassicTIFF {
+	if p.Header.TiffType == TiffType_ClassicTIFF {
 		return 2 + len(p.EntryMap)*12 + 4
 	} else {
 		return 8 + len(p.EntryMap)*20 + 8

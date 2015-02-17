@@ -4,6 +4,31 @@
 
 package tiff
 
+import (
+	"fmt"
+)
+
+type TiffType uint16
+
+const (
+	TiffType_ClassicTIFF TiffType = 42
+	TiffType_BigTIFF     TiffType = 43
+)
+
+func (p TiffType) Valid() bool {
+	return p == TiffType_ClassicTIFF || p == TiffType_BigTIFF
+}
+
+func (p TiffType) String() string {
+	switch p {
+	case TiffType_ClassicTIFF:
+		return "ClassicTIFF"
+	case TiffType_BigTIFF:
+		return "BigTIFF"
+	}
+	return fmt.Sprintf("TiffType(%d)", int(p))
+}
+
 type CompressType uint16
 
 // Compression types (defined in various places in the spec and supplements).

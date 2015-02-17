@@ -11,14 +11,9 @@ import (
 	"math"
 )
 
-const (
-	ClassicTIFF = 42 // uint16, Header.Version
-	BigTIFF     = 43
-)
-
 type Header struct {
 	ByteOrder binary.ByteOrder
-	Version   uint16
+	TiffType  TiffType
 	Offset    int64
 }
 
@@ -26,13 +21,13 @@ func NewHeader(isBigTiff bool, offset int64) *Header {
 	if isBigTiff {
 		return &Header{
 			ByteOrder: binary.LittleEndian,
-			Version:   BigTIFF,
+			TiffType:  TiffType_BigTIFF,
 			Offset:    offset,
 		}
 	} else {
 		return &Header{
 			ByteOrder: binary.LittleEndian,
-			Version:   ClassicTIFF,
+			TiffType:  TiffType_ClassicTIFF,
 			Offset:    offset,
 		}
 	}
@@ -65,17 +60,17 @@ func ReadHeader(r io.Reader) (header *Header, err error) {
 	}
 
 	// version: ClassicTIFF or BigTIFF
-	header.Version = header.ByteOrder.Uint16(data[2:4])
-	if v := header.Version; v != ClassicTIFF && v != BigTIFF {
-		err = fmt.Errorf("tiff: ReadHeader, bad version: %v", data[2:4])
+	header.TiffType = TiffType(header.ByteOrder.Uint16(data[2:4]))
+	if v := header.TiffType; v != TiffType_ClassicTIFF && v != TiffType_BigTIFF {
+		err = fmt.Errorf("tiff: ReadHeader, bad version: %v", v)
 		return
 	}
 
 	// offset
-	switch header.Version {
-	case ClassicTIFF:
+	switch header.TiffType {
+	case TiffType_ClassicTIFF:
 		header.Offset = int64(header.ByteOrder.Uint32(data[4:8]))
-	case BigTIFF:
+	case TiffType_BigTIFF:
 		byte46 := header.ByteOrder.Uint16(data[4:6])
 		byte68 := header.ByteOrder.Uint16(data[6:8])
 		if byte46 != 8 || byte68 != 0 {
@@ -108,12 +103,12 @@ func (p *Header) Bytes() []byte {
 		d[0], d[1] = 'M', 'M'
 	}
 
-	if p.Version == ClassicTIFF {
-		p.ByteOrder.PutUint16(d[2:4], p.Version)
+	if p.TiffType == TiffType_ClassicTIFF {
+		p.ByteOrder.PutUint16(d[2:4], uint16(p.TiffType))
 		p.ByteOrder.PutUint32(d[4:8], uint32(p.Offset))
 		return d[:8]
 	} else {
-		p.ByteOrder.PutUint16(d[2:4], p.Version)
+		p.ByteOrder.PutUint16(d[2:4], uint16(p.TiffType))
 		p.ByteOrder.PutUint16(d[4:6], 8)
 		p.ByteOrder.PutUint16(d[6:8], 0)
 		p.ByteOrder.PutUint64(d[8:], uint64(p.Offset))
@@ -125,13 +120,13 @@ func (p *Header) Valid() bool {
 	if x := p.ByteOrder; x != binary.LittleEndian && x != binary.BigEndian {
 		return false
 	}
-	if x := p.Version; x != ClassicTIFF && x != BigTIFF {
+	if !p.TiffType.Valid() {
 		return false
 	}
 	if p.Offset < int64(p.HeadSize()) {
 		return false
 	}
-	if p.Version == ClassicTIFF {
+	if p.TiffType == TiffType_ClassicTIFF {
 		if p.Offset > math.MaxUint32 {
 			return false
 		}
@@ -140,17 +135,17 @@ func (p *Header) Valid() bool {
 }
 
 func (p *Header) HeadSize() int {
-	if p.Version == ClassicTIFF {
+	if p.TiffType == TiffType_ClassicTIFF {
 		return 8
 	}
-	if p.Version == BigTIFF {
+	if p.TiffType == TiffType_BigTIFF {
 		return 16
 	}
 	return 0
 }
 
 func (p *Header) IsBigTiff() bool {
-	return p.Version == BigTIFF
+	return p.TiffType == TiffType_BigTIFF
 }
 
 func (p *Header) String() string {
@@ -162,7 +157,7 @@ func (p *Header) String() string {
 		orderName = "BigEndian"
 	}
 	return fmt.Sprintf(
-		`tiff.Header{ ByteOrder:%s; Version:%d; Offset:0x%08x }`,
-		orderName, p.Version, p.Offset,
+		`tiff.Header{ ByteOrder:%s; TiffType:%v; Offset:0x%08x }`,
+		orderName, p.TiffType, p.Offset,
 	)
 }
