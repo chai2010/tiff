@@ -565,8 +565,3 @@ func Decode(r io.Reader) (m image.Image, err error) {
 	}
 	return
 }
-
-func init() {
-	image.RegisterFormat("tiff", classicTiffLittleEnding, Decode, DecodeConfig)
-	image.RegisterFormat("tiff", classicTiffBigEnding, Decode, DecodeConfig)
-}
