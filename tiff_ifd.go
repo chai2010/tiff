@@ -156,8 +156,8 @@ func readIFDEntry(r io.Reader, h *Header) (entry *IFDEntry, err error) {
 		Header:   h,
 		Tag:      entryTag,
 		DataType: entryDataType,
-		Count:    uint64(elemCount),
-		Offset:   uint64(elemOffset),
+		Count:    int(elemCount),
+		Offset:   int64(elemOffset),
 	}
 	err = entry.Read(r)
 	return
@@ -187,8 +187,8 @@ func readIFDEntry8(r io.Reader, h *Header) (entry *IFDEntry, err error) {
 		Header:   h,
 		Tag:      entryTag,
 		DataType: entryDataType,
-		Count:    elemCount,
-		Offset:   elemOffset,
+		Count:    int(elemCount),
+		Offset:   int64(elemOffset),
 	}
 	err = entry.Read(r)
 	return

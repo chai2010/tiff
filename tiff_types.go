@@ -78,6 +78,37 @@ func (d DataType) Valid() bool {
 	return true
 }
 
+func (d DataType) IsIntType() bool {
+	switch d {
+	case DataType_Byte, DataType_Short, DataType_Long:
+		return true
+	case DataType_SByte, DataType_SShort, DataType_SLong:
+		return true
+	}
+	return false
+}
+func (d DataType) IsFloatType() bool {
+	switch d {
+	case DataType_Float, DataType_Double:
+		return true
+	}
+	return false
+}
+func (d DataType) IsRationalType() bool {
+	switch d {
+	case DataType_Rational, DataType_SRational:
+		return true
+	}
+	return false
+}
+func (d DataType) IsStringType() bool {
+	switch d {
+	case DataType_ASCII, DataType_Unicode:
+		return true
+	}
+	return false
+}
+
 func (d DataType) ByteSize() int {
 	switch d {
 	case DataType_Byte:
@@ -93,7 +124,7 @@ func (d DataType) ByteSize() int {
 	case DataType_SByte:
 		return 1
 	case DataType_Undefined:
-		return 12 // ?
+		return 1
 	case DataType_SShort:
 		return 2
 	case DataType_SLong:
@@ -105,9 +136,9 @@ func (d DataType) ByteSize() int {
 	case DataType_Double:
 		return 8
 	case DataType_IFD:
-		return 0 // ?
+		return 12
 	case DataType_Unicode:
-		return 0 // ?
+		return 2 // UTF16 ?
 	case DataType_Complex:
 		return 8
 	case DataType_Long8:
