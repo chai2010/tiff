@@ -1,1 +1,1 @@
-http://www.fileformat.info/format/tiff/internal.htm
+http://www.fileformat.info/format/tiff/sample/
