@@ -1,0 +1,37 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.2
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         1871032.95       693358.668       0                
+      ModelPixelScaleTag (1,3):
+         154.749978       154.749978       0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      ProjCoordTransGeoKey (Short,1): CT_NewZealandMapGrid
+      ProjectionGeoKey (Short,1): User-Defined
+      GeogGeodeticDatumGeoKey (Short,1): Datum_New_Zealand_Geodetic_Datum_1949
+      GeogEllipsoidGeoKey (Short,1): Ellipse_International_1967
+      ProjNatOriginLongGeoKey (Double,1): 173              
+      ProjNatOriginLatGeoKey (Double,1): -41              
+      ProjFalseEastingGeoKey (Double,1): 2510000          
+      ProjFalseNorthingGeoKey (Double,1): 6023150          
+      PCSCitationGeoKey (Ascii,41): "New Zealand Map Grid Geodetic Datum 1949"
+      ProjectedCSTypeGeoKey (Short,1): User-Defined
+      ProjLinearUnitsGeoKey (Short,1): Linear_Meter
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+Projection Method: CT_NewZealandMapGrid
+Datum: 6272/(unknown)
+Ellipsoid: 7023/(unknown) (0.00,0.00)
+Projection Linear Units: 9001/meter (1.000000m)
+
+Corner Coordinates:
+Upper Left    (1871032.954, 693358.668)
+Lower Left    (1871032.954, 662408.673)
+Upper Right   (1901982.949, 693358.668)
+Lower Right   (1901982.949, 662408.673)

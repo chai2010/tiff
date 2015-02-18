@@ -1,0 +1,25 @@
+		GeoTIFF Samples
+		===============
+
+The following directories contain GeoTIFF samples from a variety of
+sources.  Just because a file is in this tree does not imply that
+it follows the standard correctly, or should be considered an 
+example of good practice.  However, a reader that aims for flexibility
+would be well advised to try and handle virtually all these files
+gracefully. 
+
+Most of the TIFF files have an .lgo file associated with them.  This
+is the output of listgeo for that file.  This includes the normalized
+form of the underlying projection and when possible the corners
+reprojected into lat/long.  The reprojection output of listgeo should
+not be considered authoritative.  If you believe that the reprojected
+results for any of the files is wrong, please contact me.  
+
+Over time I intend to prepare a set of samples which can be considered
+``best practice'', and which can be used as authoritative examples. 
+Any assistance in this task would be appreciated.
+
+If you have additional samples you would like to submit to this archive
+please contact me at warmerda@home.com (or warmerda@remotesensing.org).
+
+http://download.osgeo.org/geotiff/samples/

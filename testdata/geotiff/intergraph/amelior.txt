@@ -1,0 +1,24 @@
+* Fermeture des dialogues : probleme de rafraichissement
+* Les fonctions d'annulation de Palette:Seuillage et Palette:Contraste ne fonctionnent pas
+* Float exception sur certains traitements car il n'y a pas de test de validite des parametres saisis
+par l'utilisateur (ex : Histo equal from ROI)
+* pour certains traitements, il ne faut pas laisser l'utilisateur choisir la meme image source et
+destination (ex : certains filtres)
+* Conservation "intelligente" des valeurs saisies dans les dialogues (et non pas remettre la derniere
+valeur saisie quel que soit le dialogue, ou au pire, laisser le champ vide)
+* La selection des images devrait etre plus intuitive (clic direct sur les images ou vues reduites des
+images dans la fenetre de selection)
+* fenetre flottante "Mesg popup" : pas tres pratique
+* Possibilites de rotations manuelles
+* Dialoque d'attente/interruption pour les traitements longs
+* "resultats des traitements" dans une zone speciale
+* lecture des images : reconnaissance automatique du format + forcer ouverture en RAW
+* fonction permettant d'effacer toutes les images
+* Quand l'utilisateur clique sur <Annuler> dans un dialogue ayant rapport a un traitement qu'il a lance, 
+les dialogues suivants ne doivent pas etre affiches
+* Chargement de n images : pas intuitif
+* conservation de la position des fenetres d'une "session" a une autre
+* menu vertical pas pratique. de plus, n'est pas valable dans le cas de portage vers Win32. Mieux vaux
+avoir une interface commune a toutes les plateformes.
+* Beaucoup de traitements peuvent etre optimises facilement (boucles, divisions,...)
+* Mieux structurer/normaliser les sources (plus de bruno.c, dominique.c, olivier.c,...)

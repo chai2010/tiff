@@ -1,0 +1,39 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.2
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         613855.956       227479.878       0                
+      ModelPixelScaleTag (1,3):
+         50.77099         50.77099         0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      ProjCoordTransGeoKey (Short,1): CT_ObliqueMercator_Laborde
+      ProjectionGeoKey (Short,1): User-Defined
+      GeogGeodeticDatumGeoKey (Short,1): Datum_Afgooye
+      GeogEllipsoidGeoKey (Short,1): Ellipse_Krassowsky_1940
+      ProjNatOriginLongGeoKey (Double,1): 46.4372083       
+      ProjNatOriginLatGeoKey (Double,1): -18.9            
+      ProjFalseEastingGeoKey (Double,1): 400000           
+      ProjFalseNorthingGeoKey (Double,1): 800000           
+      ProjAzimuthAngleGeoKey (Double,1): 18.9             
+      ProjScaleAtNatOriginGeoKey (Double,1): 0.9995           
+      PCSCitationGeoKey (Ascii,22): "Laborde AFG (Afgooye)"
+      ProjectedCSTypeGeoKey (Short,1): User-Defined
+      ProjLinearUnitsGeoKey (Short,1): Linear_Meter
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+Projection Method: CT_ObliqueMercator_Laborde
+Datum: 6205/(unknown)
+Ellipsoid: 7024/(unknown) (0.00,0.00)
+Projection Linear Units: 9001/meter (1.000000m)
+
+Corner Coordinates:
+Upper Left    ( 613855.956, 227479.878)
+Lower Left    ( 613855.956, 217325.680)
+Upper Right   ( 624010.154, 227479.878)
+Lower Right   ( 624010.154, 217325.680)

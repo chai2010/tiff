@@ -1,0 +1,69 @@
+
+State Plane (International Feet), NAD83
+
+Note that the units of the projection coordinates are specified using
+ProjLinearUnitsGeoKey.  In addition to Linear_Foot_US_Survey we also 
+sometimes use Linear_Foot to indicate ``international feet'', or 
+Linear_Meter to indicate that the units are in meters.  It seems that
+we are supposed to convert the units and the tie point to the EPSG standard
+for each zone; however, this is difficult, and contrary to how many users
+want to work, so we always indicate a units override with the 
+ProjLinearUnitsGeoKey. 
+
+Frank Warmerdam
+warmerda@pci.on.ca
+
+
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.0
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         6138559.56       2274798.78       0                
+      ModelPixelScaleTag (1,3):
+         195.511697       198.32415        0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      GTCitationGeoKey (Ascii,17): "SPIF  406   D-02"
+      GeogAngularUnitsGeoKey (Short,1): Angular_Degree
+      ProjectedCSTypeGeoKey (Short,1): PCS_NAD83_California_6
+      ProjLinearUnitsGeoKey (Short,1): Linear_Foot
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+
+PROREP  Georeference Segment Report             V6.3 EASI/PACE  09:41 05-Mar-98
+ 
+SPIF.pix                                [S    1BIC     519P     512L] 05-Mar-98
+
+    1:GEOref  Type:150 [Georeferencing        ]   Last Update: 09:24 05-Mar-98
+      Contents: Master Georeferencing Segment for File                          
+
+ Output Georeferenced Units     :    SPIF 0406   D-02
+ Projection                     :    State Plane (International Feet) 0406   
+ Earth Ellipsoid                :                          
+ Upper Left  Corner             :         6138559.558 E         2274798.784 N  
+ Upper Right Corner             :         6240030.129 E         2274798.784 N  
+ Image Centre                   :         6189294.843 E         2224027.801 N  
+ Lower Left  Corner             :         6138559.558 E         2173256.819 N  
+ Lower Right Corner             :         6240030.129 E         2173256.819 N  
+ Pixel Size                     :             195.512 E             198.324 N  
+
+ Upper Left  Corner             :    117d38'39.91" W  Lon   33d54'08.43" N  Lat
+ Upper Right Corner             :    117d18'36.16" W  Lon   33d54'20.24" N  Lat
+ Image Centre                   :    117d28'30.97" W  Lon   33d45'52.51" N  Lat
+ Lower Left  Corner             :    117d38'23.85" W  Lon   33d37'23.98" N  Lat
+ Lower Right Corner             :    117d18'23.95" W  Lon   33d37'35.75" N  Lat
+
+
+
+In GXF terms:
+#MAP_PROJECTION
+"NAD83 / California zone 6"
+"GRS 1980",6378137,0.081819191,0.0000000
+"Lambert Conic Conformal (2SP)",33.8833333,32.7666667,32.1666667,-116.2333333,2000000,500000
+#UNIT_LENGTH
+"ft",0.3048

@@ -1,0 +1,38 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.2
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         1871032.95       693358.668       0                
+      ModelPixelScaleTag (1,3):
+         154.749978       154.749978       0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      ProjCoordTransGeoKey (Short,1): User-Defined
+      ProjectionGeoKey (Short,1): User-Defined
+      GeogGeodeticDatumGeoKey (Short,1): Datum_North_American_Datum_1927
+      GeogEllipsoidGeoKey (Short,1): Ellipse_Clarke_1866
+      ProjCenterLongGeoKey (Double,1): 102.25           
+      ProjCenterLatGeoKey (Double,1): 4                
+      ProjFalseEastingGeoKey (Double,1): 804671.3         
+      ProjFalseNorthingGeoKey (Double,1): 0                
+      ProjAzimuthAngleGeoKey (Double,1): -36.869898       
+      ProjScaleAtCenterGeoKey (Double,1): 0.99984          
+      PCSCitationGeoKey (Ascii,48): "Rectified Skew Orthomorphic North American 1927"
+      ProjectedCSTypeGeoKey (Short,1): User-Defined
+      ProjLinearUnitsGeoKey (Short,1): Linear_Meter
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+Datum: 6267/(unknown)
+Ellipsoid: 7008/(unknown) (0.00,0.00)
+Projection Linear Units: 9001/meter (1.000000m)
+
+Corner Coordinates:
+Upper Left    (1871032.954, 693358.668)
+Lower Left    (1871032.954, 662408.673)
+Upper Right   (1901982.949, 693358.668)
+Lower Right   (1901982.949, 662408.673)

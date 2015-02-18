@@ -1,0 +1,70 @@
+
+State Plane (US Survey Feet), NAD27
+
+Note that the units of the projection coordinates are specified using
+ProjLinearUnitsGeoKey.  In addition to Linear_Foot_US_Survey we also 
+sometimes use Linear_Foot to indicate ``international feet'', or 
+Linear_Meter to indicate that the units are in meters.  It seems that
+we are supposed to convert the units and the tie point to the EPSG standard
+for each zone; however, this is difficult, and contrary to how many users
+want to work, so we always indicate a units override with the 
+ProjLinearUnitsGeoKey. 
+
+Frank Warmerdam
+warmerda@pci.on.ca
+
+
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.0
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         1577139.71       634349.176       0                
+      ModelPixelScaleTag (1,3):
+         195.509321       198.32184        0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      GTCitationGeoKey (Ascii,17): "SPAF  406   E000"
+      GeogAngularUnitsGeoKey (Short,1): Angular_Degree
+      ProjectedCSTypeGeoKey (Short,1): PCS_NAD27_California_VI
+      ProjLinearUnitsGeoKey (Short,1): Linear_Foot_US_Survey
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+
+PROREP  Georeference Segment Report             V6.3 EASI/PACE  09:03 05-Mar-98
+ 
+SPAF.pix                                [S    1BIC     519P     512L] 05-Mar-98
+
+    1:GEOref  Type:150 [Georeferencing        ]   Last Update: 08:59 05-Mar-98
+      Contents: Master Georeferencing Segment for File                          
+
+ Output Georeferenced Units     :    SPAF 0406   E000
+ Projection                     :    State Plane (U.S. Survey Feet) Zone 0406
+ Earth Ellipsoid                :    Clarke 1866 (NAD 27)  
+ Upper Left  Corner             :         1577139.714 E          634349.176 N  
+ Upper Right Corner             :         1678609.052 E          634349.176 N  
+ Image Centre                   :         1627874.383 E          583578.785 N  
+ Lower Left  Corner             :         1577139.714 E          532808.394 N  
+ Lower Right Corner             :         1678609.052 E          532808.394 N  
+ Pixel Size                     :             195.509 E             198.322 N  
+
+ Upper Left  Corner             :    117d38'36.73" W  Lon   33d54'08.37" N  Lat
+ Upper Right Corner             :    117d18'33.01" W  Lon   33d54'20.18" N  Lat
+ Image Centre                   :    117d28'27.81" W  Lon   33d45'52.44" N  Lat
+ Lower Left  Corner             :    117d38'20.68" W  Lon   33d37'23.90" N  Lat
+ Lower Right Corner             :    117d18'20.81" W  Lon   33d37'35.67" N  Lat
+
+
+
+In GXF Terms:
+
+#MAP_PROJECTION
+"NAD27 / California zone VI"
+"Clarke 1866",6378206.4,0.082271854,0.0000000
+"Lambert Conic Conformal (2SP)",33.8833333,32.7666667,32.1666667,-116.2333333,2000000,0
+#UNIT_LENGTH
+"ftUS",0.30480061

@@ -1,0 +1,38 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.0
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         444650           4640510          0                
+      ModelPixelScaleTag (1,3):
+         10               10               0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      GTCitationGeoKey (Ascii,20): "UTM Zone 16N NAD27""
+      GeogCitationGeoKey (Ascii,24): "Clarke, 1866 by Default"
+      ProjectedCSTypeGeoKey (Short,1): PCS_NAD27_UTM_zone_16N
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+PCS = 26716 (NAD27 / UTM zone 16N)
+Projection = 16016 (UTM zone 16N)
+Projection Method: CT_TransverseMercator
+   ProjNatOriginLatGeoKey: 0.000000 (  0d 0' 0.00"N)
+   ProjNatOriginLongGeoKey: -87.000000 ( 87d 0' 0.00"W)
+   ProjScaleAtNatOriginGeoKey: 0.999600
+   ProjFalseEastingGeoKey: 500000.000000
+   ProjFalseNorthingGeoKey: 0.000000
+GCS: 4267/NAD27
+Datum: 6267/North American Datum 1927
+Ellipsoid: 7008/Clarke 1866 (6378206.40,6356583.80)
+Prime Meridian: 8901/Greenwich (0.000000/  0d 0' 0.00"E)
+Projection Linear Units: 9001/meter (1.000000m)
+
+Corner Coordinates:
+Upper Left    ( 444650.000,4640510.000)  ( 87d40' 2.80"W, 41d54'59.49"N)
+Lower Left    ( 444650.000,4631220.000)  ( 87d39'59.67"W, 41d49'58.28"N)
+Upper Right   ( 451640.000,4640510.000)  ( 87d34'59.37"W, 41d55' 1.14"N)
+Lower Right   ( 451640.000,4631220.000)  ( 87d34'56.64"W, 41d49'59.92"N)

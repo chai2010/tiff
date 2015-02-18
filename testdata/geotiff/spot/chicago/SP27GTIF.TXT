@@ -1,0 +1,18 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.0
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                  0                  0                  
+         681480             1913050            0                  
+      ModelPixelScaleTag (1,3):
+         32.8               32.8               0                  
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      GTCitationGeoKey (Ascii,24): "State Plane NAD27, Feet"
+      GeogCitationGeoKey (Ascii,24): "NAD27 in Feet default"
+      ProjectedCSTypeGeoKey (Short,1): PCS_NAD27_Illinois_East
+      End_Of_Keys.
+   End_Of_Geotiff.

@@ -1,0 +1,29 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.2
+   Tagged_Information:
+      ModelTiepointTag (8,3):
+         0                0                0                
+         92.33            -95.2275         0                
+         765              0                0                
+         1077.14          78.4175          0                
+         0                380              0                
+         17.16            906.9475         0                
+         765              380              0                
+         1001.97          1080.5925        0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): Undefined
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      ProjLinearUnitsGeoKey (Short,1): Linear_Meter
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+Projection Linear Units: 9001/metre (1.000000m)
+
+Corner Coordinates:
+Upper Left    (     92.330,    -95.228)
+Lower Left    (     17.160,    906.948)
+Upper Right   (   1077.140,     78.418)
+Lower Right   (   1001.970,   1080.593)
+Center        (    547.150,    492.683)

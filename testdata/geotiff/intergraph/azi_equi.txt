@@ -1,0 +1,42 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.2
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         613855.956       227479.878       0                
+      ModelPixelScaleTag (1,3):
+         50.77099         50.77099         0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      ProjCoordTransGeoKey (Short,1): CT_AzimuthalEquidistant
+      ProjectionGeoKey (Short,1): User-Defined
+      GeogGeodeticDatumGeoKey (Short,1): Datum_North_American_Datum_1983
+      GeogEllipsoidGeoKey (Short,1): Ellipse_GRS_1980
+      ProjNatOriginLongGeoKey (Double,1): -90              
+      ProjNatOriginLatGeoKey (Double,1): 30               
+      ProjFalseEastingGeoKey (Double,1): 0.001            
+      ProjFalseNorthingGeoKey (Double,1): 0.002            
+      ProjScaleAtNatOriginGeoKey (Double,1): 1.0001           
+      PCSCitationGeoKey (Ascii,42): "Azimuthal Equidistant North American 1983"
+      ProjectedCSTypeGeoKey (Short,1): User-Defined
+      ProjLinearUnitsGeoKey (Short,1): Linear_Meter
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+Projection Method: CT_AzimuthalEquidistant
+   ProjCenterLatGeoKey: 30.000000 ( 30d 0' 0.00"N)
+   ProjCenterLongGeoKey: -90.000000 ( 90d 0' 0.00"W)
+   ProjFalseEastingGeoKey: 0.001000
+   ProjFalseNorthingGeoKey: 0.002000
+Datum: 6269/(unknown)
+Ellipsoid: 7019/(unknown) (0.00,0.00)
+Projection Linear Units: 9001/meter (1.000000m)
+
+Corner Coordinates:
+Upper Left    ( 613855.956, 227479.878)  ( 83d30'31.70"W, 31d53'30.59"N)
+Lower Left    ( 613855.956, 217325.680)  ( 83d30'54.37"W, 31d48' 2.00"N)
+Upper Right   ( 624010.154, 227479.878)  ( 83d24' 6.05"W, 31d53'11.42"N)
+Lower Right   ( 624010.154, 217325.680)  ( 83d24'29.08"W, 31d47'42.86"N)

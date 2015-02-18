@@ -1,0 +1,38 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.2
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         480649.03        193411.32        0                
+      ModelPixelScaleTag (1,3):
+         0.69055          0.69055          0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      GeogGeodeticDatumGeoKey (Short,1): Datum_North_American_Datum_1927
+      GeogEllipsoidGeoKey (Short,1): Ellipse_Clarke_1866
+      ProjNatOriginLongGeoKey (Double,1): -87.5            
+      ProjNatOriginLatGeoKey (Double,1): 30               
+      ProjFalseEastingGeoKey (Double,1): 152400.305       
+      ProjFalseNorthingGeoKey (Double,1): 0                
+      ProjScaleAtNatOriginGeoKey (Double,1): 0.999933333      
+      PCSCitationGeoKey (Ascii,73): "State Plane Coordinate System 1927 North American 1927 Zone Alabama West"
+      ProjectedCSTypeGeoKey (Short,1): PCS_NAD27_Alabama_West
+      ProjLinearUnitsGeoKey (Short,1): Linear_Foot_US_Survey
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+PCS = 26730 (name unknown)
+Projection = 10102 ()
+GCS: 4267/(unknown)
+Datum: 6267/(unknown)
+Ellipsoid: 7008/(unknown) (0.00,0.00)
+Projection Linear Units: 9003/(null) (1.000000m)
+
+Corner Coordinates:
+Upper Left    ( 480649.030, 193411.320)
+Lower Left    ( 480649.030, 193273.210)
+Upper Right   ( 480787.140, 193411.320)
+Lower Right   ( 480787.140, 193273.210)

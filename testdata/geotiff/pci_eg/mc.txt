@@ -1,0 +1,60 @@
+
+Miller Cylindrical
+
+Frank Warmerdam
+warmerda@pci.on.ca
+
+
+
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.0
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         -18527.9281      3919152.53       0                
+      ModelPixelScaleTag (1,3):
+         60               60               0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      GTCitationGeoKey (Ascii,17): "MC          E000"
+      GeographicTypeGeoKey (Short,1): GCS_NAD27
+      GeogLinearUnitsGeoKey (Short,1): Linear_Meter
+      GeogAngularUnitsGeoKey (Short,1): Angular_Degree
+      ProjectedCSTypeGeoKey (Short,1): User-Defined
+      ProjectionGeoKey (Short,1): User-Defined
+      ProjCoordTransGeoKey (Short,1): CT_MillerCylindrical
+      ProjLinearUnitsGeoKey (Short,1): Linear_Meter
+      ProjFalseEastingGeoKey (Double,1): 0                
+      ProjFalseNorthingGeoKey (Double,1): 0                
+      ProjCenterLongGeoKey (Double,1): -117.474543      
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+
+PROREP  Georeference Segment Report             V6.2 EASI/PACE  14:08 12-Mar-96
+ 
+MC.pix                                  [S    1BIC     618P     579L] 12-Mar-96
+
+  1:GEOref    Type:150 [Georeferencing        ]   Last Update: 14:07 12-Mar-96
+    Contents: Master Georeferencing Segment for File                          
+
+ Output Georeferenced Units     :    MC          E000
+ Projection                     :    Miller Cylindrical                      
+ Earth Ellipsoid                :    Clarke 1866 (NAD 27)  
+ Upper Left  Corner             :          -18527.928 E         3919152.531 N  
+ Upper Right Corner             :           18552.072 E         3919152.531 N  
+ Image Centre                   :              12.072 E         3901782.531 N  
+ Lower Left  Corner             :          -18527.928 E         3884412.531 N  
+ Lower Right Corner             :           18552.072 E         3884412.531 N  
+ Pixel Size                     :              60.000 E              60.000 N  
+
+ Upper Left  Corner             :    117d38'28.21" W  Lon   33d54'13.08" N  Lat
+ Upper Right Corner             :    117d18'27.72" W  Lon   33d54'13.08" N  Lat
+ Image Centre                   :    117d28'27.96" W  Lon   33d45'52.31" N  Lat
+ Lower Left  Corner             :    117d38'28.21" W  Lon   33d37'31.05" N  Lat
+ Lower Right Corner             :    117d18'27.72" W  Lon   33d37'31.05" N  Lat
+
+ Reference Longitude/Latitude   :    117d28'28.35" W  Lon    0d00'00.00" N  Lat

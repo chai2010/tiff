@@ -1,0 +1,39 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.2
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         1871032.95       693358.668       0                
+      ModelPixelScaleTag (1,3):
+         154.749978       154.749978       0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      ProjCoordTransGeoKey (Short,1): CT_EquidistantConic
+      ProjectionGeoKey (Short,1): User-Defined
+      GeogGeodeticDatumGeoKey (Short,1): Datum_North_American_Datum_1927
+      GeogEllipsoidGeoKey (Short,1): Ellipse_Clarke_1866
+      ProjNatOriginLongGeoKey (Double,1): -90              
+      ProjNatOriginLatGeoKey (Double,1): 45               
+      ProjFalseEastingGeoKey (Double,1): 0.001            
+      ProjFalseNorthingGeoKey (Double,1): 0.002            
+      ProjStdParallel1GeoKey (Double,1): 40               
+      ProjStdParallel2GeoKey (Double,1): 50               
+      PCSCitationGeoKey (Ascii,53): "Equidistant Conic (Simple Conic) North American 1927"
+      ProjectedCSTypeGeoKey (Short,1): User-Defined
+      ProjLinearUnitsGeoKey (Short,1): Linear_Meter
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+Projection Method: CT_EquidistantConic
+Datum: 6267/(unknown)
+Ellipsoid: 7008/(unknown) (0.00,0.00)
+Projection Linear Units: 9001/meter (1.000000m)
+
+Corner Coordinates:
+Upper Left    (1871032.954, 693358.668)
+Lower Left    (1871032.954, 662408.673)
+Upper Right   (1901982.949, 693358.668)
+Lower Right   (1901982.949, 662408.673)

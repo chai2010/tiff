@@ -1,0 +1,49 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.0
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         78999            1439268          0                
+      ModelPixelScaleTag (1,3):
+         40               40               0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      GTCitationGeoKey (Ascii,218): "IMAGINE GeoTIFF Support
+Copyright 1991 - 1999 by ERDAS, Inc. All Rights Reserved
+@(#)$RCSfile: egtf.c $ $Revision: 1.2.1.2 $ $Date: 1999/07/28 17:47:43 $
+Projection Name = State Plane
+Units = feet
+GeoTIFF Units = feet"
+      ProjectedCSTypeGeoKey (Short,1): PCS_NAD83_Georgia_East
+      PCSCitationGeoKey (Ascii,185): "IMAGINE GeoTIFF Support
+Copyright 1991 - 1999 by ERDAS, Inc. All Rights Reserved
+@(#)$RCSfile: egtf.c $ $Revision: 1.2.1.2 $ $Date: 1999/07/28 17:47:43 $
+State Plane Zone 3651
+NAD = 83"
+      ProjLinearUnitsGeoKey (Short,1): Linear_Foot_US_Survey
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+PCS = 26966 (NAD83 / Georgia  East)
+Projection = 11031 (Georgia CS83 East zone)
+Projection Method: CT_TransverseMercator
+   ProjNatOriginLatGeoKey: 30.000000 ( 30d 0' 0.00"N)
+   ProjNatOriginLongGeoKey: -82.166667 ( 82d10' 0.00"W)
+   ProjScaleAtNatOriginGeoKey: 0.999900
+   ProjFalseEastingGeoKey: 200000.000000 m
+   ProjFalseNorthingGeoKey: 0.000000 m
+GCS: 4269/NAD83
+Datum: 6269/North American Datum 1983
+Ellipsoid: 7019/GRS 1980 (6378137.00,6356752.31)
+Prime Meridian: 8901/Greenwich (0.000000/  0d 0' 0.00"E)
+Projection Linear Units: 9003/US survey foot (0.304801m)
+
+Corner Coordinates:
+Upper Left    (  78999.000,1439268.000)  ( 84d 4'10.74"W, 33d56'30.79"N)
+Lower Left    (  78999.000,1412948.000)  ( 84d 4' 4.96"W, 33d52'10.54"N)
+Upper Right   ( 101839.000,1439268.000)  ( 83d59'39.76"W, 33d56'34.90"N)
+Lower Right   ( 101839.000,1412948.000)  ( 83d59'34.21"W, 33d52'14.63"N)
+Center        (  90419.000,1426108.000)  ( 84d 1'52.42"W, 33d54'22.73"N)

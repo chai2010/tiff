@@ -1,0 +1,68 @@
+Oblique Mercator (Hotine), NAD27
+
+Note that PCI software writes out ScaleAtNatOrigin instead of ProjAtCenter
+as is required for Oblique Mercator.  A prudent GeoTIFF read should likely
+look for either.  I have requested that PCI correct this problem.
+
+Frank Warmerdam
+warmerda@home.com
+
+
+
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.0
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         -15411.6303      15448.7742       0                
+      ModelPixelScaleTag (1,3):
+         60               60               0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      GTCitationGeoKey (Ascii,17): "OM          E000"
+      GeographicTypeGeoKey (Short,1): GCS_NAD27
+      GeogLinearUnitsGeoKey (Short,1): Linear_Meter
+      GeogAngularUnitsGeoKey (Short,1): Angular_Degree
+      ProjectedCSTypeGeoKey (Short,1): User-Defined
+      ProjectionGeoKey (Short,1): User-Defined
+      ProjCoordTransGeoKey (Short,1): CT_ObliqueMercator
+      ProjLinearUnitsGeoKey (Short,1): Linear_Meter
+      ProjFalseEastingGeoKey (Double,1): 0                
+      ProjFalseNorthingGeoKey (Double,1): 0                
+      ProjCenterLongGeoKey (Double,1): -117.474543      
+      ProjCenterLatGeoKey (Double,1): 33.764462        
+      ProjScaleAtNatOriginGeoKey (Double,1): 1                
+      ProjAzimuthAngleGeoKey (Double,1): 0                
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+
+
+PROREP  Georeference Segment Report             V6.0 EASI/PACE  14:49 28-Nov-95
+ 
+../projdemo/OM.pix                      [S    1BIC     515P     515L] 28-Nov-95
+
+    1:GEOref    Type:150 [Georeferencing        ]   Last Update: 12:23 28-Nov-95
+      Contents: Master Georeferencing Segment for File                          
+
+ Output Georeferenced Units     :    OM          E000
+ Projection                     :    Oblique Mercator                        
+ Earth Ellipsoid                :    Clarke 1866 (NAD 27)  
+ Upper Left  Corner             :          -15411.630 E           15448.774 N  
+ Upper Right Corner             :           15488.370 E           15448.774 N  
+ Image Centre                   :              38.370 E              -1.226 N  
+ Lower Left  Corner             :          -15411.630 E          -15451.226 N  
+ Lower Right Corner             :           15488.370 E          -15451.226 N  
+ Pixel Size                     :              60.000 E              60.000 N  
+
+ Upper Left  Corner             :    117d38'28.22" W  Lon   33d54'13.08" N  Lat
+ Upper Right Corner             :    117d18'25.51" W  Lon   33d54'13.07" N  Lat
+ Image Centre                   :    117d28'26.86" W  Lon   33d45'52.02" N  Lat
+ Lower Left  Corner             :    117d38'26.28" W  Lon   33d37'30.15" N  Lat
+ Lower Right Corner             :    117d18'27.45" W  Lon   33d37'30.15" N  Lat
+
+ Reference Longitude/Latitude   :    117d28'28.35" W  Lon   33d45'52.06" N  Lat
+ Central Scale Factor           :            1.000000

@@ -1,0 +1,38 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 0.2
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         681480           1913050          0                
+      ModelPixelScaleTag (1,3):
+         32.8             32.8             0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      GTCitationGeoKey (Ascii,24): "State Plane NAD27, Feet"
+      GeogCitationGeoKey (Ascii,23): "NAD27 in Feet default""
+      ProjectedCSTypeGeoKey (Short,1): PCS_NAD27_Illinois_East
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+PCS = 26771 (NAD27 / Illinois East)
+Projection = 11201 (Illinois CS27 East zone)
+Projection Method: CT_TransverseMercator
+   ProjNatOriginLatGeoKey: 36.666667 ( 36d40' 0.00"N)
+   ProjNatOriginLongGeoKey: -88.333333 ( 88d20' 0.00"W)
+   ProjScaleAtNatOriginGeoKey: 0.999975
+   ProjFalseEastingGeoKey: 152400.304801
+   ProjFalseNorthingGeoKey: 0.000000
+GCS: 4267/NAD27
+Datum: 6267/North American Datum 1927
+Ellipsoid: 7008/Clarke 1866 (6378206.40,6356583.80)
+Prime Meridian: 8901/Greenwich (0.000000/  0d 0' 0.00"E)
+Projection Linear Units: 9003/US survey foot (0.304801m)
+
+Corner Coordinates:
+Upper Left    ( 681480.000,1913050.000)  ( 87d39'59.59"W, 41d55' 1.56"N)
+Lower Left    ( 681480.000,1882578.800)  ( 87d40' 2.72"W, 41d50' 0.54"N)
+Upper Right   ( 704407.200,1913050.000)  ( 87d34'56.36"W, 41d54'59.69"N)
+Lower Right   ( 704407.200,1882578.800)  ( 87d34'59.88"W, 41d49'58.67"N)

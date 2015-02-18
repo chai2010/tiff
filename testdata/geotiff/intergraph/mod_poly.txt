@@ -1,0 +1,38 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.2
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         613855.956       227479.878       0                
+      ModelPixelScaleTag (1,3):
+         50.77099         50.77099         0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      ProjCoordTransGeoKey (Short,1): User-Defined
+      ProjectionGeoKey (Short,1): User-Defined
+      GeogGeodeticDatumGeoKey (Short,1): Datum_North_American_Datum_1983
+      GeogEllipsoidGeoKey (Short,1): Ellipse_GRS_1980
+      ProjNatOriginLongGeoKey (Double,1): -90              
+      ProjNatOriginLatGeoKey (Double,1): 30               
+      ProjFalseEastingGeoKey (Double,1): 0.001            
+      ProjFalseNorthingGeoKey (Double,1): 0.002            
+      ProjStdParallel1GeoKey (Double,1): 30               
+      ProjStdParallel2GeoKey (Double,1): 34               
+      PCSCitationGeoKey (Ascii,52): "Modified Polyconic (IMW Series) North American 1983"
+      ProjectedCSTypeGeoKey (Short,1): User-Defined
+      ProjLinearUnitsGeoKey (Short,1): Linear_Meter
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+Datum: 6269/(unknown)
+Ellipsoid: 7019/(unknown) (0.00,0.00)
+Projection Linear Units: 9001/meter (1.000000m)
+
+Corner Coordinates:
+Upper Left    ( 613855.956, 227479.878)
+Lower Left    ( 613855.956, 217325.680)
+Upper Right   ( 624010.154, 227479.878)
+Lower Right   ( 624010.154, 217325.680)

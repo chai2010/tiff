@@ -1,0 +1,54 @@
+Otherwise unspecified METER coordinates.  This is not a real projection,
+but is form that ungeoreferenced images that do have local meter 
+coordinates would be transported.  The key information to preserve from
+this file is the coordinates of this file, and the fact that it is in
+meters.
+
+The GeographicTypeGeoKey specification of GCS_NAD27 is an artifact of
+EASI/PACE and presumably should not be expected in this file.  Also the
+GeogAngularUnitsGeoKey need not have been provided, as no angular units
+are ever used.
+
+Frank Warmerdam
+warmerda@pci.on.ca
+
+
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.0
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         -15411.6299      15448.7744       0                
+      ModelPixelScaleTag (1,3):
+         60               60               0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): User-Defined
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      GTCitationGeoKey (Ascii,17): "METRE           "
+      GeographicTypeGeoKey (Short,1): GCS_NAD27
+      GeogLinearUnitsGeoKey (Short,1): Linear_Meter
+      GeogAngularUnitsGeoKey (Short,1): Angular_Degree
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+
+
+PROREP  Georeference Segment Report             V6.0 EASI/PACE  14:03 28-Nov-95
+ 
+meter.pix                               [S    1BIC     515P     515L] 07-Nov-95
+
+    1:GEOref    Type:150 [Georeferencing        ]   Last Update: 13:55 28-Nov-95
+      Contents: Master Georeferencing Segment for File                          
+
+ Output Georeferenced Units     :    METRE           
+ Projection                     :    METRE                                   
+ Earth Ellipsoid                :                          
+ Upper Left  Corner             :          -15411.630m X          15448.774m Y 
+ Upper Right Corner             :           15488.370m X          15448.774m Y 
+ Image Centre                   :              38.370m X             -1.226m Y 
+ Lower Left  Corner             :          -15411.630m X         -15451.226m Y 
+ Lower Right Corner             :           15488.370m X         -15451.226m Y 
+ Pixel Size                     :              60.000m X             60.000m Y 
+

@@ -1,0 +1,18 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.0
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                  0                  0                  
+         444650             4640510            0                  
+      ModelPixelScaleTag (1,3):
+         10.0               10.0               0                  
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      GTCitationGeoKey (Ascii,20): "UTM Zone 16N NAD27""
+      GeogCitationGeoKey (Ascii,24): "Clarke, 1866 by Default"
+      ProjectedCSTypeGeoKey (Short,1): PCS_NAD27_UTM_zone_16N
+      End_Of_Keys.
+   End_Of_Geotiff.

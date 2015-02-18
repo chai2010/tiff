@@ -1,0 +1,48 @@
+Geotiff_Information:
+   Version: 1
+   Key_Revision: 1.0
+   Tagged_Information:
+      ModelTiepointTag (2,3):
+         0                0                0                
+         -15411.6153      15448.7592       0                
+      ModelPixelScaleTag (1,3):
+         60               60               0                
+      End_Of_Tags.
+   Keyed_Information:
+      GTModelTypeGeoKey (Short,1): ModelTypeProjected
+      GTRasterTypeGeoKey (Short,1): RasterPixelIsArea
+      GTCitationGeoKey (Ascii,17): "ACEA        E000"
+      GeographicTypeGeoKey (Short,1): GCS_NAD27
+      GeogLinearUnitsGeoKey (Short,1): Linear_Meter
+      GeogAngularUnitsGeoKey (Short,1): Angular_Degree
+      ProjectedCSTypeGeoKey (Short,1): User-Defined
+      ProjectionGeoKey (Short,1): User-Defined
+      ProjCoordTransGeoKey (Short,1): CT_AlbersEqualArea
+      ProjLinearUnitsGeoKey (Short,1): Linear_Meter
+      ProjStdParallel1GeoKey (Double,1): 33.903634        
+      ProjStdParallel2GeoKey (Double,1): 33.62529         
+      ProjNatOriginLatGeoKey (Double,1): 33.764462        
+      ProjFalseEastingGeoKey (Double,1): 0                
+      ProjFalseNorthingGeoKey (Double,1): 0                
+      ProjCenterLongGeoKey (Double,1): -117.474543      
+      End_Of_Keys.
+   End_Of_Geotiff.
+
+Projection Method: CT_AlbersEqualArea
+   ProjStdParallel1GeoKey: 33.903634 ( 33d54'13.08"N)
+   ProjStdParallel1GeoKey: 33.625290 ( 33d37'31.04"N)
+   ProjNatOriginLatGeoKey: 33.764462 ( 33d45'52.06"N)
+   ProjNatOriginLongGeoKey: -117.474543 (117d28'28.35"W)
+   ProjFalseEastingGeoKey: 0.000000
+   ProjFalseNorthingGeoKey: 0.000000
+GCS: 4267/NAD27
+Datum: 6267/North American Datum 1927
+Ellipsoid: 7008/Clarke 1866 (6378206.40,6356583.80)
+Prime Meridian: 8901/Greenwich (0.000000/  0d 0' 0.00"E)
+Projection Linear Units: 9001/meter (1.000000m)
+
+Corner Coordinates:
+Upper Left    ( -15411.615,  15448.759)  (117d38'28.22"W, 33d54'13.08"N)
+Lower Left    ( -15411.615, -15451.241)  (117d38'26.28"W, 33d37'30.15"N)
+Upper Right   (  15488.385,  15448.759)  (117d18'25.50"W, 33d54'13.07"N)
+Lower Right   (  15488.385, -15451.241)  (117d18'27.45"W, 33d37'30.15"N)
