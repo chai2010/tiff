@@ -269,6 +269,22 @@ func (p *IFD) IfdSize() int {
 	}
 }
 
+func (p *IFD) IsBilevelMode() bool {
+	return false
+}
+
+func (p *IFD) IsRGBMode() bool {
+	return false
+}
+
+func (p *IFD) IsRGBAMode() bool {
+	return false
+}
+
+func (p *IFD) IsPalettedMode() bool {
+	return false
+}
+
 func (p *IFD) String() string {
 	var buf bytes.Buffer
 	fmt.Fprintf(&buf, "tiff.IFD {\n")
