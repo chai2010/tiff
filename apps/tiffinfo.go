@@ -11,15 +11,27 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 
 	tiff "github.com/chai2010/tiff"
 )
 
 func main() {
-	data, err := ioutil.ReadFile("../testdata/no_compress.tiff")
+	if len(os.Args) <= 1 {
+		fmt.Println("usage: tiffinfo filenames ...")
+		os.Exit(1)
+	}
+	for i := 1; i < len(os.Args); i++ {
+		printTiffInfo(os.Args[i])
+	}
+}
+
+func printTiffInfo(filename string) {
+	data, err := ioutil.ReadFile(filename)
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println("file:", filename)
 
 	header, err := tiff.ReadHeader(bytes.NewReader(data))
 	if err != nil {

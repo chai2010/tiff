@@ -7,7 +7,7 @@ package tiff
 import (
 	"bytes"
 	"encoding/binary"
-	"io"
+	"fmt"
 )
 
 type IFDEntry struct {
@@ -17,10 +17,6 @@ type IFDEntry struct {
 	Count    int
 	Offset   int64
 	Data     []byte
-}
-
-func (p *IFDEntry) Read(r io.Reader) (err error) {
-	return
 }
 
 func (p *IFDEntry) GetInts() []int64 {
@@ -200,5 +196,16 @@ func (p *IFDEntry) SetURationals(...[2]uint32) {
 }
 
 func (p *IFDEntry) String() string {
-	return p.Tag.String()
+	switch {
+	case p.DataType.IsIntType():
+		return fmt.Sprintf("%v: %v", p.Tag, p.GetInts())
+	case p.DataType.IsFloatType():
+		return fmt.Sprintf("%v: %v", p.Tag, p.GetFloats())
+	case p.DataType.IsRationalType():
+		return fmt.Sprintf("%v: %v", p.Tag, p.GetRationals())
+	case p.DataType.IsStringType():
+		return fmt.Sprintf("%v: %v", p.Tag, p.GetString())
+	default:
+		return fmt.Sprintf("%v: %v", p.Tag, p.Data)
+	}
 }

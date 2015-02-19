@@ -76,11 +76,11 @@ func readIFD(r io.ReadSeeker, h *Header, offset int64) (p *IFD, next int64, err 
 		EntryMap: make(map[TagType]*IFDEntry),
 	}
 
+	// read IFDEntry
 	var entryNum uint16
 	if err = binary.Read(r, h.ByteOrder, &entryNum); err != nil {
 		return
 	}
-
 	for i := 0; i < int(entryNum); i++ {
 		var entry *IFDEntry
 		if entry, err = readIFDEntry(r, h); err != nil {
@@ -88,12 +88,18 @@ func readIFD(r io.ReadSeeker, h *Header, offset int64) (p *IFD, next int64, err 
 		}
 		p.EntryMap[entry.Tag] = entry
 	}
-
 	var nextIfdOffset uint32
 	if err = binary.Read(r, h.ByteOrder, &nextIfdOffset); err != nil {
 		return
 	}
 	next = int64(nextIfdOffset)
+
+	// read IFDEntry Data
+	for _, entry := range p.EntryMap {
+		if entry.Data, err = readIFDEntryData(r, entry); err != nil {
+			return
+		}
+	}
 	return
 }
 
@@ -111,11 +117,11 @@ func readIFD8(r io.ReadSeeker, h *Header, offset int64) (p *IFD, next int64, err
 		EntryMap: make(map[TagType]*IFDEntry),
 	}
 
+	// read IFDEntry
 	var entryNum uint32
 	if err = binary.Read(r, h.ByteOrder, &entryNum); err != nil {
 		return
 	}
-
 	for i := 0; i < int(entryNum); i++ {
 		var entry *IFDEntry
 		if entry, err = readIFDEntry8(r, h); err != nil {
@@ -123,16 +129,23 @@ func readIFD8(r io.ReadSeeker, h *Header, offset int64) (p *IFD, next int64, err
 		}
 		p.EntryMap[entry.Tag] = entry
 	}
-
 	var nextIfdOffset uint64
 	if err = binary.Read(r, h.ByteOrder, &nextIfdOffset); err != nil {
 		return
 	}
 	next = int64(nextIfdOffset)
+
+	// read IFDEntry8 Data
+	for _, entry := range p.EntryMap {
+		if entry.Data, err = readIFDEntry8Data(r, entry); err != nil {
+			return
+		}
+	}
+
 	return
 }
 
-func readIFDEntry(r io.Reader, h *Header) (entry *IFDEntry, err error) {
+func readIFDEntry(r io.ReadSeeker, h *Header) (entry *IFDEntry, err error) {
 	var entryTag TagType
 	if err = binary.Read(r, h.ByteOrder, &entryTag); err != nil {
 		return
@@ -142,16 +155,15 @@ func readIFDEntry(r io.Reader, h *Header) (entry *IFDEntry, err error) {
 	if err = binary.Read(r, h.ByteOrder, &entryDataType); err != nil {
 		return
 	}
-
 	var elemCount uint32
 	if err = binary.Read(r, h.ByteOrder, &elemCount); err != nil {
 		return
 	}
-
 	var elemOffset uint32
 	if err = binary.Read(r, h.ByteOrder, &elemOffset); err != nil {
 		return
 	}
+
 	entry = &IFDEntry{
 		Header:   h,
 		Tag:      entryTag,
@@ -159,11 +171,10 @@ func readIFDEntry(r io.Reader, h *Header) (entry *IFDEntry, err error) {
 		Count:    int(elemCount),
 		Offset:   int64(elemOffset),
 	}
-	err = entry.Read(r)
 	return
 }
 
-func readIFDEntry8(r io.Reader, h *Header) (entry *IFDEntry, err error) {
+func readIFDEntry8(r io.ReadSeeker, h *Header) (entry *IFDEntry, err error) {
 	var entryTag TagType
 	if err = binary.Read(r, h.ByteOrder, &entryTag); err != nil {
 		return
@@ -173,16 +184,15 @@ func readIFDEntry8(r io.Reader, h *Header) (entry *IFDEntry, err error) {
 	if err = binary.Read(r, h.ByteOrder, &entryDataType); err != nil {
 		return
 	}
-
 	var elemCount uint64
 	if err = binary.Read(r, h.ByteOrder, &elemCount); err != nil {
 		return
 	}
-
 	var elemOffset uint64
 	if err = binary.Read(r, h.ByteOrder, &elemOffset); err != nil {
 		return
 	}
+
 	entry = &IFDEntry{
 		Header:   h,
 		Tag:      entryTag,
@@ -190,20 +200,55 @@ func readIFDEntry8(r io.Reader, h *Header) (entry *IFDEntry, err error) {
 		Count:    int(elemCount),
 		Offset:   int64(elemOffset),
 	}
-	err = entry.Read(r)
 	return
 }
 
-func (p *IFD) String() string {
-	var buf bytes.Buffer
-	fmt.Fprintf(&buf, "tiff.IFD {\n")
-	fmt.Fprintf(&buf, "  Offset: 0x%08x,\n", p.Offset)
-	for _, v := range p.EntryMap {
-		fmt.Fprintf(&buf, "  %v,\n", v)
+func readIFDEntryData(r io.ReadSeeker, entry *IFDEntry) (data []byte, err error) {
+	valSize := entry.DataType.ByteSize() * entry.Count
+	if valSize <= 4 {
+		var buf bytes.Buffer
+		var offset = uint32(entry.Offset)
+		binary.Write(&buf, entry.Header.ByteOrder, offset)
+		data = buf.Bytes()
+		return
 	}
-	fmt.Fprintf(&buf, "  Next: 0x%08x,\n", p.Next)
-	fmt.Fprintf(&buf, "}\n")
-	return buf.String()
+
+	if entry.Offset < int64(entry.Header.HeadSize()) {
+		err = fmt.Errorf("tiff: readIFDEntryData, bad offset %v", entry.Offset)
+		return
+	}
+	if _, err = r.Seek(entry.Offset, 0); err != nil {
+		return
+	}
+	data = make([]byte, valSize)
+	if _, err = r.Read(data); err != nil {
+		return
+	}
+	return
+}
+
+func readIFDEntry8Data(r io.ReadSeeker, entry *IFDEntry) (data []byte, err error) {
+	valSize := entry.DataType.ByteSize() * entry.Count
+	if valSize <= 8 {
+		var buf bytes.Buffer
+		var offset = uint64(entry.Offset)
+		binary.Write(&buf, entry.Header.ByteOrder, offset)
+		data = buf.Bytes()
+		return
+	}
+
+	if entry.Offset < int64(entry.Header.HeadSize()) {
+		err = fmt.Errorf("tiff: readIFDEntryData, bad offset %v", entry.Offset)
+		return
+	}
+	if _, err = r.Seek(entry.Offset, 0); err != nil {
+		return
+	}
+	data = make([]byte, valSize)
+	if _, err = r.Read(data); err != nil {
+		return
+	}
+	return
 }
 
 func (p *IFD) Valid() bool {
@@ -224,46 +269,14 @@ func (p *IFD) IfdSize() int {
 	}
 }
 
-func (p *IFD) ImageSize() (width, height int) {
-	return
-}
-
-func (p *IFD) BitsPerSample() int {
-	return 0
-}
-
-func (p *IFD) Compression() CompressType {
-	return CompressType_Nil
-}
-
-func (p *IFD) CellSize() (width, height float64) {
-	return
-}
-
-func (p *IFD) BlockSize() (width, height int) {
-	return
-}
-
-func (p *IFD) BlockOffsets() []int64 {
-	return nil
-}
-
-func (p *IFD) DocumentName() string {
-	return ""
-}
-
-func (p *IFD) ImageDescription() string {
-	return ""
-}
-
-func (p *IFD) Make() string {
-	return ""
-}
-
-func (p *IFD) Model() string {
-	return ""
-}
-
-func (p *IFD) Copyright() string {
-	return ""
+func (p *IFD) String() string {
+	var buf bytes.Buffer
+	fmt.Fprintf(&buf, "tiff.IFD {\n")
+	fmt.Fprintf(&buf, "  Offset: 0x%08x\n", p.Offset)
+	for _, v := range p.EntryMap {
+		fmt.Fprintf(&buf, "  %v\n", v)
+	}
+	fmt.Fprintf(&buf, "  Next: %v\n", p.Next)
+	fmt.Fprintf(&buf, "}\n")
+	return buf.String()
 }
