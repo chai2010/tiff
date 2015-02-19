@@ -12,7 +12,7 @@ import (
 )
 
 type decoder struct {
-	r         *seekioReader
+	r         seekReadCloser
 	byteOrder binary.ByteOrder
 	config    image.Config
 	mode      imageMode
@@ -53,7 +53,12 @@ func (d *decoder) ifdUint(p []byte) (u []uint, err error) {
 	if datalen := uint32(datatype.ByteSize()) * count; datalen > 4 {
 		// The IFD contains a pointer to the real value.
 		raw = make([]byte, datalen)
-		_, err = d.r.ReadAt(raw, int64(d.byteOrder.Uint32(p[8:12])))
+		if _, err = d.r.Seek(int64(d.byteOrder.Uint32(p[8:12])), 0); err != nil {
+			return
+		}
+		if _, err = d.r.Read(raw); err != nil {
+			return
+		}
 	} else {
 		raw = p[8 : 8+datalen]
 	}
@@ -327,10 +332,14 @@ func openDecoder(r io.Reader) *decoder {
 	return d
 }
 
-func (d *decoder) Decode() error {
+func (d *decoder) Decode() (err error) {
+	if _, err = d.r.Seek(0, 0); err != nil {
+		return
+	}
+
 	p := make([]byte, 8)
-	if _, err := d.r.ReadAt(p, 0); err != nil {
-		return err
+	if _, err = d.r.Read(p); err != nil {
+		return
 	}
 	switch string(p[0:4]) {
 	case classicTiffLittleEnding:
@@ -342,16 +351,19 @@ func (d *decoder) Decode() error {
 	}
 
 	ifdOffset := int64(d.byteOrder.Uint32(p[4:8]))
+	if _, err = d.r.Seek(ifdOffset, 0); err != nil {
+		return
+	}
 
 	// The first two bytes contain the number of entries (12 bytes each).
-	if _, err := d.r.ReadAt(p[0:2], ifdOffset); err != nil {
-		return err
+	if _, err = d.r.Read(p[0:2]); err != nil {
+		return
 	}
 	numItems := int(d.byteOrder.Uint16(p[0:2]))
 
 	// All IFD entries are read in one chunk.
 	p = make([]byte, ifdLen*numItems)
-	if _, err := d.r.ReadAt(p, ifdOffset+2); err != nil {
+	if _, err := d.r.Read(p); err != nil {
 		return err
 	}
 

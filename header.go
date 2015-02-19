@@ -34,16 +34,19 @@ func NewHeader(isBigTiff bool, offset int64) *Header {
 }
 
 func ReadHeader(r io.Reader) (header *Header, err error) {
-	var ra io.ReaderAt
-	if ra, _ = r.(io.ReaderAt); ra == nil {
+	var rs io.ReadSeeker
+	if rs, _ = r.(io.ReadSeeker); rs == nil {
 		rs := openSeekioReader(r, 0)
 		defer rs.Close()
-		ra = rs
+		rs = rs
+	}
+	if _, err = rs.Seek(0, 0); err != nil {
+		return
 	}
 
 	// read classic TIFF header
 	var data [8]byte
-	if _, err = ra.ReadAt(data[:8], 0); err != nil {
+	if _, err = rs.Read(data[:8]); err != nil {
 		return
 	}
 	header = new(Header)
@@ -77,7 +80,7 @@ func ReadHeader(r io.Reader) (header *Header, err error) {
 			err = fmt.Errorf("tiff: ReadHeader, bad offset: %v", data[4:8])
 			return
 		}
-		if _, err = ra.ReadAt(data[:8], 8); err != nil {
+		if _, err = rs.Read(data[:8]); err != nil {
 			return
 		}
 		header.Offset = int64(header.ByteOrder.Uint64(data[0:8]))

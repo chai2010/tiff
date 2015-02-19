@@ -7,20 +7,26 @@
 package tiff
 
 import (
-	"errors"
 	"io"
 	"io/ioutil"
 	"os"
 )
 
 var (
-	_ io.ReadSeeker  = (*seekioReader)(nil)
-	_ io.ReaderAt    = (*seekioReader)(nil)
-	_ io.ReadCloser  = (*seekioReader)(nil)
-	_ io.WriteSeeker = (*seekioWriter)(nil)
-	_ io.WriterAt    = (*seekioWriter)(nil)
-	_ io.WriteCloser = (*seekioWriter)(nil)
+	_ seekReadCloser  = (*seekioReader)(nil)
+	_ seekWriteCloser = (*seekioWriter)(nil)
 )
+
+type seekReadCloser interface {
+	io.Seeker
+	io.Reader
+	io.Closer
+}
+type seekWriteCloser interface {
+	io.Seeker
+	io.Writer
+	io.Closer
+}
 
 type seekioReader struct {
 	r   io.Reader
@@ -52,34 +58,6 @@ func (p *seekioReader) Read(data []byte) (n int, err error) {
 	}
 	n = copy(data, p.buf[p.off:])
 	p.off += n
-	return
-}
-
-func (p *seekioReader) ReadAt(data []byte, off int64) (n int, err error) {
-	if p.err != nil {
-		err = p.err
-		return
-	}
-	old, err := p.Seek(0, 1)
-	if err != nil {
-		return
-	}
-	newoff, err := p.Seek(off, 0)
-	if err != nil {
-		return
-	}
-	if newoff != off {
-		err = errors.New("tiff: seekioReader.ReadAt, seek to new offset failed!")
-		return
-	}
-	n, err = p.Read(data)
-	if err != nil {
-		return
-	}
-	if off, err = p.Seek(old, 0); off != old {
-		err = errors.New("tiff: seekioReader.ReadAt, seek to old offset failed!")
-		return
-	}
 	return
 }
 
@@ -142,34 +120,6 @@ func (p *seekioWriter) Write(data []byte) (n int, err error) {
 	p.grow(p.off + len(data))
 	n = copy(p.buf[p.off:], data)
 	p.off += n
-	return
-}
-
-func (p *seekioWriter) WriteAt(data []byte, off int64) (n int, err error) {
-	if p.err != nil {
-		err = p.err
-		return
-	}
-	old, err := p.Seek(0, 1)
-	if err != nil {
-		return
-	}
-	newoff, err := p.Seek(off, 0)
-	if err != nil {
-		return
-	}
-	if newoff != off {
-		err = errors.New("tiff: seekioWriter.WriteAt, seek to new offset failed!")
-		return
-	}
-	n, err = p.Write(data)
-	if err != nil {
-		return
-	}
-	if off, err = p.Seek(old, 0); off != old {
-		err = errors.New("tiff: seekioWriter.WriteAt, seek to old offset failed!")
-		return
-	}
 	return
 }
 
