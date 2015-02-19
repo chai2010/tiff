@@ -548,8 +548,11 @@ func Decode(r io.Reader) (m image.Image, err error) {
 			n := int64(blockCounts[j*blocksAcross+i])
 			compressType := CompressType(d.firstVal(TagType_Compression))
 
-			sectionReader := io.NewSectionReader(d.r, offset, n)
-			if d.buf, err = compressType.ReadAll(sectionReader); err != nil {
+			if _, err = d.r.Seek(offset, 0); err != nil {
+				return
+			}
+			limitReader := io.LimitReader(d.r, n)
+			if d.buf, err = compressType.ReadAll(limitReader); err != nil {
 				return nil, err
 			}
 
