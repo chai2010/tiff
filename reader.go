@@ -19,11 +19,7 @@ type decoder struct {
 	bpp       uint
 	features  map[TagType][]uint
 	palette   []color.Color
-
-	buf   []byte
-	off   int    // Current offset in buf.
-	v     uint32 // Buffer value for reading with arbitrary bit depths.
-	nbits uint   // Remaining number of bits in v.
+	buf       []byte
 }
 
 func (d *decoder) Close() error {
@@ -146,27 +142,6 @@ func (d *decoder) parseIFD(p []byte) error {
 	return nil
 }
 
-// readBits reads n bits from the internal buffer starting at the current offset.
-func (d *decoder) readBits(n uint) uint32 {
-	for d.nbits < n {
-		d.v <<= 8
-		d.v |= uint32(d.buf[d.off])
-		d.off++
-		d.nbits += 8
-	}
-	d.nbits -= n
-	rv := d.v >> d.nbits
-	d.v &^= rv << d.nbits
-	return rv
-}
-
-// flushBits discards the unread bits in the buffer used by readBits.
-// It is used at the end of a line.
-func (d *decoder) flushBits() {
-	d.v = 0
-	d.nbits = 0
-}
-
 // minInt returns the smaller of x or y.
 func minInt(a, b int) int {
 	if a <= b {
@@ -178,8 +153,6 @@ func minInt(a, b int) int {
 // decodeBlock decodes the raw data of an image.
 // It reads from d.buf and writes the strip or tile into dst.
 func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error {
-	d.off = 0
-
 	// Apply horizontal predictor if necessary.
 	// In this case, p contains the color difference to the preceding pixel.
 	// See page 64-65 of the spec.
@@ -215,11 +188,12 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 	switch d.mode {
 	case mGray, mGrayInvert:
 		if d.bpp == 16 {
+			var off int
 			img := dst.(*image.Gray16)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
-					v := d.byteOrder.Uint16(d.buf[d.off : d.off+2])
-					d.off += 2
+					v := d.byteOrder.Uint16(d.buf[off : off+2])
+					off += 2
 					if d.mode == mGrayInvert {
 						v = 0xffff - v
 					}
@@ -227,36 +201,37 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 				}
 			}
 		} else {
+			bitReader := newBitsReader(d.buf)
 			img := dst.(*image.Gray)
 			max := uint32((1 << d.bpp) - 1)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
-					v := uint8(d.readBits(d.bpp) * 0xff / max)
+					v := uint8(bitReader.ReadBits(d.bpp) * 0xff / max)
 					if d.mode == mGrayInvert {
 						v = 0xff - v
 					}
 					img.SetGray(x, y, color.Gray{v})
 				}
-				d.flushBits()
 			}
 		}
 	case mPaletted:
+		bitReader := newBitsReader(d.buf)
 		img := dst.(*image.Paletted)
 		for y := ymin; y < rMaxY; y++ {
 			for x := xmin; x < rMaxX; x++ {
-				img.SetColorIndex(x, y, uint8(d.readBits(d.bpp)))
+				img.SetColorIndex(x, y, uint8(bitReader.ReadBits(d.bpp)))
 			}
-			d.flushBits()
 		}
 	case mRGB:
 		if d.bpp == 16 {
+			var off int
 			img := dst.(*image.RGBA64)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
-					r := d.byteOrder.Uint16(d.buf[d.off+0 : d.off+2])
-					g := d.byteOrder.Uint16(d.buf[d.off+2 : d.off+4])
-					b := d.byteOrder.Uint16(d.buf[d.off+4 : d.off+6])
-					d.off += 6
+					r := d.byteOrder.Uint16(d.buf[off+0 : off+2])
+					g := d.byteOrder.Uint16(d.buf[off+2 : off+4])
+					b := d.byteOrder.Uint16(d.buf[off+4 : off+6])
+					off += 6
 					img.SetRGBA64(x, y, color.RGBA64{r, g, b, 0xffff})
 				}
 			}
@@ -277,14 +252,15 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 		}
 	case mNRGBA:
 		if d.bpp == 16 {
+			var off int
 			img := dst.(*image.NRGBA64)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
-					r := d.byteOrder.Uint16(d.buf[d.off+0 : d.off+2])
-					g := d.byteOrder.Uint16(d.buf[d.off+2 : d.off+4])
-					b := d.byteOrder.Uint16(d.buf[d.off+4 : d.off+6])
-					a := d.byteOrder.Uint16(d.buf[d.off+6 : d.off+8])
-					d.off += 8
+					r := d.byteOrder.Uint16(d.buf[off+0 : off+2])
+					g := d.byteOrder.Uint16(d.buf[off+2 : off+4])
+					b := d.byteOrder.Uint16(d.buf[off+4 : off+6])
+					a := d.byteOrder.Uint16(d.buf[off+6 : off+8])
+					off += 8
 					img.SetNRGBA64(x, y, color.NRGBA64{r, g, b, a})
 				}
 			}
@@ -299,14 +275,15 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 		}
 	case mRGBA:
 		if d.bpp == 16 {
+			var off int
 			img := dst.(*image.RGBA64)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
-					r := d.byteOrder.Uint16(d.buf[d.off+0 : d.off+2])
-					g := d.byteOrder.Uint16(d.buf[d.off+2 : d.off+4])
-					b := d.byteOrder.Uint16(d.buf[d.off+4 : d.off+6])
-					a := d.byteOrder.Uint16(d.buf[d.off+6 : d.off+8])
-					d.off += 8
+					r := d.byteOrder.Uint16(d.buf[off+0 : off+2])
+					g := d.byteOrder.Uint16(d.buf[off+2 : off+4])
+					b := d.byteOrder.Uint16(d.buf[off+4 : off+6])
+					a := d.byteOrder.Uint16(d.buf[off+6 : off+8])
+					off += 8
 					img.SetRGBA64(x, y, color.RGBA64{r, g, b, a})
 				}
 			}
