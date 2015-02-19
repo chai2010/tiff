@@ -23,15 +23,37 @@ func (p *IFD) ImageSize() (width, height int) {
 	return
 }
 
-func (p *IFD) BitsPerSample() (bits []int) {
+func (p *IFD) BitsPerSample() int {
 	if tag, ok := p.EntryMap[TagType_BitsPerSample]; ok {
 		v := tag.GetInts()
-		bits := make([]int, len(v))
-		for i := 0; i < len(v); i++ {
-			bits[i] = int(v[i])
+		for i := 1; i < len(v); i++ {
+			if v[i] != v[0] {
+				return 0
+			}
+		}
+		if len(v) > 0 {
+			return int(v[0])
 		}
 	}
-	return
+	return 0
+}
+
+func (p *IFD) SamplesPerPixel() int {
+	if tag, ok := p.EntryMap[TagType_SamplesPerPixel]; ok {
+		if v := tag.GetInts(); len(v) == 1 {
+			return int(v[0])
+		}
+	}
+	return 0
+}
+
+func (p *IFD) PhotometricInterpretation() TagValue_PhotometricType {
+	if tag, ok := p.EntryMap[TagType_PhotometricInterpretation]; ok {
+		if v := tag.GetInts(); len(v) == 1 {
+			return TagValue_PhotometricType(v[0])
+		}
+	}
+	return TagValue_PhotometricType_WhiteIsZero
 }
 
 func (p *IFD) Compression() CompressType {
@@ -41,6 +63,47 @@ func (p *IFD) Compression() CompressType {
 		}
 	}
 	return CompressType_Nil
+}
+
+func (p *IFD) ResolutionUnit() TagValue_ResolutionUnitType {
+	if tag, ok := p.EntryMap[TagType_ResolutionUnit]; ok {
+		if v := tag.GetInts(); len(v) == 1 {
+			return TagValue_ResolutionUnitType(v[0])
+		}
+	}
+	return TagValue_ResolutionUnitType_None
+}
+
+func (p *IFD) XYResolution() (x, y [2]int64) {
+	if tag, ok := p.EntryMap[TagType_XResolution]; ok {
+		if v := tag.GetRationals(); len(v) == 1 {
+			x = v[0]
+		}
+	}
+	if tag, ok := p.EntryMap[TagType_YResolution]; ok {
+		if v := tag.GetRationals(); len(v) == 1 {
+			y = v[0]
+		}
+	}
+	return
+}
+
+func (p *IFD) ColorMap() [][3]uint16 {
+	if tag, ok := p.EntryMap[TagType_ColorMap]; ok {
+		v := tag.GetInts()
+		if len(v) == 0 || len(v)%3 != 0 {
+			return nil
+		}
+		colorMap := make([][3]uint16, len(v)/3)
+		for i := 0; i < len(v); i += 3 {
+			colorMap[i/3] = [3]uint16{
+				uint16(v[i+0]),
+				uint16(v[i+1]),
+				uint16(v[i+2]),
+			}
+		}
+	}
+	return nil
 }
 
 func (p *IFD) CellSize() (width, height float64) {
@@ -116,7 +179,15 @@ func (p *IFD) BlockCounts() []int64 {
 		}
 	}
 	return nil
+}
 
+func (p *IFD) Predictor() TagValue_PredictorType {
+	if tag, ok := p.EntryMap[TagType_Predictor]; ok {
+		if v := tag.GetInts(); len(v) == 1 {
+			return TagValue_PredictorType(v[0])
+		}
+	}
+	return TagValue_PredictorType_None
 }
 
 func (p *IFD) DocumentName() string {

@@ -242,27 +242,30 @@ const (
 	TagType_IntergraphMatrixTag    TagType = 33920 // DOUBLE, 17
 )
 
-// Photometric interpretation values (see p. 37 of the spec).
+type TagValue_PhotometricType uint16
+
 const (
-	TagValue_Photometric_WhiteIsZero = 0
-	TagValue_Photometric_BlackIsZero = 1
-	TagValue_Photometric_RGB         = 2
-	TagValue_Photometric_Paletted    = 3
-	TagValue_Photometric_TransMask   = 4 // transparency mask
-	TagValue_Photometric_CMYK        = 5
-	TagValue_Photometric_YCbCr       = 6
-	TagValue_Photometric_CIELab      = 8
+	TagValue_PhotometricType_WhiteIsZero TagValue_PhotometricType = 0
+	TagValue_PhotometricType_BlackIsZero TagValue_PhotometricType = 1
+	TagValue_PhotometricType_RGB         TagValue_PhotometricType = 2
+	TagValue_PhotometricType_Paletted    TagValue_PhotometricType = 3
+	TagValue_PhotometricType_TransMask   TagValue_PhotometricType = 4 // transparency mask
+	TagValue_PhotometricType_CMYK        TagValue_PhotometricType = 5
+	TagValue_PhotometricType_YCbCr       TagValue_PhotometricType = 6
+	TagValue_PhotometricType_CIELab      TagValue_PhotometricType = 8
 )
 
-// Values for the tPredictor tag (page 64-65 of the spec).
+type TagValue_PredictorType uint16
+
 const (
-	TagValue_Predictor_None       = 1
-	TagValue_Predictor_Horizontal = 2
+	TagValue_PredictorType_None       TagValue_PredictorType = 1
+	TagValue_PredictorType_Horizontal TagValue_PredictorType = 2
 )
 
-// Values for the tResolutionUnit tag (page 18).
+type TagValue_ResolutionUnitType uint16
+
 const (
-	TagValue_ResolutionUnit_None    = 1
-	TagValue_ResolutionUnit_PerInch = 2 // Dots per inch.
-	TagValue_ResolutionUnit_PerCM   = 3 // Dots per centimeter.
+	TagValue_ResolutionUnitType_None    TagValue_ResolutionUnitType = 1
+	TagValue_ResolutionUnitType_PerInch TagValue_ResolutionUnitType = 2 // Dots per inch.
+	TagValue_ResolutionUnitType_PerCM   TagValue_ResolutionUnitType = 3 // Dots per centimeter.
 )

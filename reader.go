@@ -183,7 +183,7 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 	// Apply horizontal predictor if necessary.
 	// In this case, p contains the color difference to the preceding pixel.
 	// See page 64-65 of the spec.
-	if d.firstVal(TagType_Predictor) == TagValue_Predictor_Horizontal {
+	if TagValue_PredictorType(d.firstVal(TagType_Predictor)) == TagValue_PredictorType_Horizontal {
 		if d.bpp == 16 {
 			var off int
 			spp := len(d.features[TagType_BitsPerSample]) // samples per pixel
@@ -382,8 +382,8 @@ func (d *decoder) Decode() (err error) {
 	d.bpp = d.firstVal(TagType_BitsPerSample)
 
 	// Determine the image mode.
-	switch d.firstVal(TagType_PhotometricInterpretation) {
-	case TagValue_Photometric_RGB:
+	switch TagValue_PhotometricType(d.firstVal(TagType_PhotometricInterpretation)) {
+	case TagValue_PhotometricType_RGB:
 		if d.bpp == 16 {
 			for _, b := range d.features[TagType_BitsPerSample] {
 				if b != 16 {
@@ -433,17 +433,17 @@ func (d *decoder) Decode() (err error) {
 		default:
 			return FormatError("wrong number of samples for RGB")
 		}
-	case TagValue_Photometric_Paletted:
+	case TagValue_PhotometricType_Paletted:
 		d.mode = mPaletted
 		d.config.ColorModel = color.Palette(d.palette)
-	case TagValue_Photometric_WhiteIsZero:
+	case TagValue_PhotometricType_WhiteIsZero:
 		d.mode = mGrayInvert
 		if d.bpp == 16 {
 			d.config.ColorModel = color.Gray16Model
 		} else {
 			d.config.ColorModel = color.GrayModel
 		}
-	case TagValue_Photometric_BlackIsZero:
+	case TagValue_PhotometricType_BlackIsZero:
 		d.mode = mGray
 		if d.bpp == 16 {
 			d.config.ColorModel = color.Gray16Model
