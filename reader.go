@@ -15,7 +15,7 @@ type decoder struct {
 	r         seekReadCloser
 	byteOrder binary.ByteOrder
 	config    image.Config
-	mode      imageMode
+	mode      ImageType
 	bpp       uint
 	features  map[TagType][]uint
 	palette   []color.Color
@@ -186,7 +186,7 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 	rMaxX := minInt(xmax, dst.Bounds().Max.X)
 	rMaxY := minInt(ymax, dst.Bounds().Max.Y)
 	switch d.mode {
-	case mGray, mGrayInvert:
+	case ImageType_Gray, ImageType_GrayInvert:
 		if d.bpp == 16 {
 			var off int
 			img := dst.(*image.Gray16)
@@ -194,7 +194,7 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 				for x := xmin; x < rMaxX; x++ {
 					v := d.byteOrder.Uint16(d.buf[off : off+2])
 					off += 2
-					if d.mode == mGrayInvert {
+					if d.mode == ImageType_GrayInvert {
 						v = 0xffff - v
 					}
 					img.SetGray16(x, y, color.Gray16{v})
@@ -207,14 +207,14 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
 					v := uint8(bitReader.ReadBits(d.bpp) * 0xff / max)
-					if d.mode == mGrayInvert {
+					if d.mode == ImageType_GrayInvert {
 						v = 0xff - v
 					}
 					img.SetGray(x, y, color.Gray{v})
 				}
 			}
 		}
-	case mPaletted:
+	case ImageType_Paletted:
 		bitReader := newBitsReader(d.buf)
 		img := dst.(*image.Paletted)
 		for y := ymin; y < rMaxY; y++ {
@@ -222,7 +222,7 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 				img.SetColorIndex(x, y, uint8(bitReader.ReadBits(d.bpp)))
 			}
 		}
-	case mRGB:
+	case ImageType_RGB:
 		if d.bpp == 16 {
 			var off int
 			img := dst.(*image.RGBA64)
@@ -250,7 +250,7 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 				}
 			}
 		}
-	case mNRGBA:
+	case ImageType_NRGBA:
 		if d.bpp == 16 {
 			var off int
 			img := dst.(*image.NRGBA64)
@@ -273,7 +273,7 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 				copy(img.Pix[min:max], buf)
 			}
 		}
-	case mRGBA:
+	case ImageType_RGBA:
 		if d.bpp == 16 {
 			var off int
 			img := dst.(*image.RGBA64)
@@ -339,6 +339,7 @@ func (d *decoder) Decode() (err error) {
 	numItems := int(d.byteOrder.Uint16(p[0:2]))
 
 	// All IFD entries are read in one chunk.
+	const ifdLen = 12
 	p = make([]byte, ifdLen*numItems)
 	if _, err := d.r.Read(p); err != nil {
 		return err
@@ -382,7 +383,7 @@ func (d *decoder) Decode() (err error) {
 		// of an unspecified type.
 		switch len(d.features[TagType_BitsPerSample]) {
 		case 3:
-			d.mode = mRGB
+			d.mode = ImageType_RGB
 			if d.bpp == 16 {
 				d.config.ColorModel = color.RGBA64Model
 			} else {
@@ -391,14 +392,14 @@ func (d *decoder) Decode() (err error) {
 		case 4:
 			switch d.firstVal(TagType_ExtraSamples) {
 			case 1:
-				d.mode = mRGBA
+				d.mode = ImageType_RGBA
 				if d.bpp == 16 {
 					d.config.ColorModel = color.RGBA64Model
 				} else {
 					d.config.ColorModel = color.RGBAModel
 				}
 			case 2:
-				d.mode = mNRGBA
+				d.mode = ImageType_NRGBA
 				if d.bpp == 16 {
 					d.config.ColorModel = color.NRGBA64Model
 				} else {
@@ -411,17 +412,17 @@ func (d *decoder) Decode() (err error) {
 			return FormatError("wrong number of samples for RGB")
 		}
 	case TagValue_PhotometricType_Paletted:
-		d.mode = mPaletted
+		d.mode = ImageType_Paletted
 		d.config.ColorModel = color.Palette(d.palette)
 	case TagValue_PhotometricType_WhiteIsZero:
-		d.mode = mGrayInvert
+		d.mode = ImageType_GrayInvert
 		if d.bpp == 16 {
 			d.config.ColorModel = color.Gray16Model
 		} else {
 			d.config.ColorModel = color.GrayModel
 		}
 	case TagValue_PhotometricType_BlackIsZero:
-		d.mode = mGray
+		d.mode = ImageType_Gray
 		if d.bpp == 16 {
 			d.config.ColorModel = color.Gray16Model
 		} else {
@@ -501,21 +502,21 @@ func Decode(r io.Reader) (m image.Image, err error) {
 
 	imgRect := image.Rect(0, 0, d.config.Width, d.config.Height)
 	switch d.mode {
-	case mGray, mGrayInvert:
+	case ImageType_Gray, ImageType_GrayInvert:
 		if d.bpp == 16 {
 			m = image.NewGray16(imgRect)
 		} else {
 			m = image.NewGray(imgRect)
 		}
-	case mPaletted:
+	case ImageType_Paletted:
 		m = image.NewPaletted(imgRect, d.palette)
-	case mNRGBA:
+	case ImageType_NRGBA:
 		if d.bpp == 16 {
 			m = image.NewNRGBA64(imgRect)
 		} else {
 			m = image.NewNRGBA(imgRect)
 		}
-	case mRGB, mRGBA:
+	case ImageType_RGB, ImageType_RGBA:
 		if d.bpp == 16 {
 			m = image.NewRGBA64(imgRect)
 		} else {

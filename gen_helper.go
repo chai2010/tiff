@@ -28,6 +28,14 @@ type Type struct {
 func main() {
 	var types = []Type{
 		Type{
+			TypeName: "TiffType",
+			FileName: "tiff_types.go",
+		},
+		Type{
+			TypeName: "ImageType",
+			FileName: "tiff_types.go",
+		},
+		Type{
 			TypeName: "CompressType",
 			FileName: "tiff_types.go",
 		},
@@ -37,6 +45,19 @@ func main() {
 		},
 		Type{
 			TypeName: "TagType",
+			FileName: "tiff_types.go",
+		},
+
+		Type{
+			TypeName: "TagValue_PhotometricType",
+			FileName: "tiff_types.go",
+		},
+		Type{
+			TypeName: "TagValue_PredictorType",
+			FileName: "tiff_types.go",
+		},
+		Type{
+			TypeName: "TagValue_ResolutionUnitType",
 			FileName: "tiff_types.go",
 		},
 	}

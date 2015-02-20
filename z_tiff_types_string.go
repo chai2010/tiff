@@ -10,6 +10,36 @@ import (
 	"fmt"
 )
 
+var _TiffTypeTable = map[TiffType]string{
+	TiffType_BigTIFF:     `TiffType_BigTIFF`,
+	TiffType_ClassicTIFF: `TiffType_ClassicTIFF`,
+}
+
+func (p TiffType) String() string {
+	if name, ok := _TiffTypeTable[p]; ok {
+		return name
+	}
+	return fmt.Sprintf("TiffType_Unknown(%d)", uint16(p))
+}
+
+var _ImageTypeTable = map[ImageType]string{
+	ImageType_Bilevel:    `ImageType_Bilevel`,
+	ImageType_Gray:       `ImageType_Gray`,
+	ImageType_GrayInvert: `ImageType_GrayInvert`,
+	ImageType_NRGBA:      `ImageType_NRGBA`,
+	ImageType_Nil:        `ImageType_Nil`,
+	ImageType_Paletted:   `ImageType_Paletted`,
+	ImageType_RGB:        `ImageType_RGB`,
+	ImageType_RGBA:       `ImageType_RGBA`,
+}
+
+func (p ImageType) String() string {
+	if name, ok := _ImageTypeTable[p]; ok {
+		return name
+	}
+	return fmt.Sprintf("ImageType_Unknown(%d)", uint16(p))
+}
+
 var _CompressTypeTable = map[CompressType]string{
 	CompressType_CCITT:      `CompressType_CCITT`,
 	CompressType_Deflate:    `CompressType_Deflate`,
@@ -149,4 +179,47 @@ func (p TagType) String() string {
 		return name
 	}
 	return fmt.Sprintf("TagType_Unknown(%d)", uint16(p))
+}
+
+var _TagValue_PhotometricTypeTable = map[TagValue_PhotometricType]string{
+	TagValue_PhotometricType_BlackIsZero: `TagValue_PhotometricType_BlackIsZero`,
+	TagValue_PhotometricType_CIELab:      `TagValue_PhotometricType_CIELab`,
+	TagValue_PhotometricType_CMYK:        `TagValue_PhotometricType_CMYK`,
+	TagValue_PhotometricType_Paletted:    `TagValue_PhotometricType_Paletted`,
+	TagValue_PhotometricType_RGB:         `TagValue_PhotometricType_RGB`,
+	TagValue_PhotometricType_TransMask:   `TagValue_PhotometricType_TransMask`,
+	TagValue_PhotometricType_WhiteIsZero: `TagValue_PhotometricType_WhiteIsZero`,
+	TagValue_PhotometricType_YCbCr:       `TagValue_PhotometricType_YCbCr`,
+}
+
+func (p TagValue_PhotometricType) String() string {
+	if name, ok := _TagValue_PhotometricTypeTable[p]; ok {
+		return name
+	}
+	return fmt.Sprintf("TagValue_PhotometricType_Unknown(%d)", uint16(p))
+}
+
+var _TagValue_PredictorTypeTable = map[TagValue_PredictorType]string{
+	TagValue_PredictorType_Horizontal: `TagValue_PredictorType_Horizontal`,
+	TagValue_PredictorType_None:       `TagValue_PredictorType_None`,
+}
+
+func (p TagValue_PredictorType) String() string {
+	if name, ok := _TagValue_PredictorTypeTable[p]; ok {
+		return name
+	}
+	return fmt.Sprintf("TagValue_PredictorType_Unknown(%d)", uint16(p))
+}
+
+var _TagValue_ResolutionUnitTypeTable = map[TagValue_ResolutionUnitType]string{
+	TagValue_ResolutionUnitType_None:    `TagValue_ResolutionUnitType_None`,
+	TagValue_ResolutionUnitType_PerCM:   `TagValue_ResolutionUnitType_PerCM`,
+	TagValue_ResolutionUnitType_PerInch: `TagValue_ResolutionUnitType_PerInch`,
+}
+
+func (p TagValue_ResolutionUnitType) String() string {
+	if name, ok := _TagValue_ResolutionUnitTypeTable[p]; ok {
+		return name
+	}
+	return fmt.Sprintf("TagValue_ResolutionUnitType_Unknown(%d)", uint16(p))
 }

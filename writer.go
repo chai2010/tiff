@@ -221,6 +221,8 @@ func writePix(w io.Writer, pix []byte, nrows, length, stride int) error {
 }
 
 func writeIFD(w io.Writer, ifdOffset int, d []ifdEntry) error {
+	const ifdLen = 12
+
 	var buf [ifdLen]byte
 	// Make space for "pointer area" containing IFD entry data
 	// longer than 4 bytes.

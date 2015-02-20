@@ -4,10 +4,6 @@
 
 package tiff
 
-import (
-	"fmt"
-)
-
 type TiffType uint16
 
 const (
@@ -19,15 +15,18 @@ func (p TiffType) Valid() bool {
 	return p == TiffType_ClassicTIFF || p == TiffType_BigTIFF
 }
 
-func (p TiffType) String() string {
-	switch p {
-	case TiffType_ClassicTIFF:
-		return "ClassicTIFF"
-	case TiffType_BigTIFF:
-		return "BigTIFF"
-	}
-	return fmt.Sprintf("TiffType(%d)", int(p))
-}
+type ImageType uint16
+
+const (
+	ImageType_Nil ImageType = iota
+	ImageType_Bilevel
+	ImageType_Paletted
+	ImageType_Gray
+	ImageType_GrayInvert
+	ImageType_RGB
+	ImageType_RGBA
+	ImageType_NRGBA
+)
 
 type CompressType uint16
 
