@@ -13,7 +13,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"sort"
 	"strings"
 	"text/scanner"
 )
@@ -109,15 +108,13 @@ func (p *Type) Init() {
 	for tok := s.Scan(); tok != scanner.EOF; tok = s.Scan() {
 		if tok&scanner.ScanIdents != 0 {
 			if strings.HasPrefix(s.TokenText(), p.TypeName+"_") {
-				typeMap[s.TokenText()] = true
+				if _, ok := typeMap[s.TokenText()]; !ok {
+					p.TypeList = append(p.TypeList, s.TokenText())
+					typeMap[s.TokenText()] = true
+				}
 			}
 		}
 	}
-
-	for k, _ := range typeMap {
-		p.TypeList = append(p.TypeList, k)
-	}
-	sort.Strings(p.TypeList)
 }
 
 func (p *Type) GenMapCode() {
