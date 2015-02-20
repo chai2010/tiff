@@ -284,7 +284,7 @@ func Encode(w io.Writer, m image.Image) error {
 	compression := CompressType_None
 	predictor := false
 
-	_, err := io.WriteString(w, classicTiffLittleEnding)
+	_, err := io.WriteString(w, ClassicTiffLittleEnding)
 	if err != nil {
 		return err
 	}

@@ -319,9 +319,9 @@ func (d *decoder) Decode() (err error) {
 		return
 	}
 	switch string(p[0:4]) {
-	case classicTiffLittleEnding:
+	case ClassicTiffLittleEnding:
 		d.byteOrder = binary.LittleEndian
-	case classicTiffBigEnding:
+	case ClassicTiffBigEnding:
 		d.byteOrder = binary.BigEndian
 	default:
 		return FormatError("malformed header")
