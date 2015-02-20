@@ -41,17 +41,17 @@ func (p ImageType) String() string {
 }
 
 var _CompressTypeTable = map[CompressType]string{
-	CompressType_Nil:        `CompressType_Nil`,
-	CompressType_None:       `CompressType_None`,
-	CompressType_CCITT:      `CompressType_CCITT`,
-	CompressType_G3:         `CompressType_G3`,
-	CompressType_G4:         `CompressType_G4`,
-	CompressType_LZW:        `CompressType_LZW`,
-	CompressType_JPEGOld:    `CompressType_JPEGOld`,
-	CompressType_JPEG:       `CompressType_JPEG`,
-	CompressType_Deflate:    `CompressType_Deflate`,
-	CompressType_PackBits:   `CompressType_PackBits`,
-	CompressType_DeflateOld: `CompressType_DeflateOld`,
+	CompressType_Nil:        `CompressType_Nil`,        //
+	CompressType_None:       `CompressType_None`,       //
+	CompressType_CCITT:      `CompressType_CCITT`,      //
+	CompressType_G3:         `CompressType_G3`,         // Group 3 Fax.
+	CompressType_G4:         `CompressType_G4`,         // Group 4 Fax.
+	CompressType_LZW:        `CompressType_LZW`,        //
+	CompressType_JPEGOld:    `CompressType_JPEGOld`,    // Superseded by cJPEG.
+	CompressType_JPEG:       `CompressType_JPEG`,       //
+	CompressType_Deflate:    `CompressType_Deflate`,    // zlib compression.
+	CompressType_PackBits:   `CompressType_PackBits`,   //
+	CompressType_DeflateOld: `CompressType_DeflateOld`, // Superseded by cDeflate.
 }
 
 func (p CompressType) String() string {
@@ -62,25 +62,25 @@ func (p CompressType) String() string {
 }
 
 var _DataTypeTable = map[DataType]string{
-	DataType_Nil:       `DataType_Nil`,
-	DataType_Byte:      `DataType_Byte`,
-	DataType_ASCII:     `DataType_ASCII`,
-	DataType_Short:     `DataType_Short`,
-	DataType_Long:      `DataType_Long`,
-	DataType_Rational:  `DataType_Rational`,
-	DataType_SByte:     `DataType_SByte`,
-	DataType_Undefined: `DataType_Undefined`,
-	DataType_SShort:    `DataType_SShort`,
-	DataType_SLong:     `DataType_SLong`,
-	DataType_SRational: `DataType_SRational`,
-	DataType_Float:     `DataType_Float`,
-	DataType_Double:    `DataType_Double`,
-	DataType_IFD:       `DataType_IFD`,
-	DataType_Unicode:   `DataType_Unicode`,
-	DataType_Complex:   `DataType_Complex`,
-	DataType_Long8:     `DataType_Long8`,
-	DataType_SLong8:    `DataType_SLong8`,
-	DataType_IFD8:      `DataType_IFD8`,
+	DataType_Nil:       `DataType_Nil`,       //  0, invalid
+	DataType_Byte:      `DataType_Byte`,      //  1
+	DataType_ASCII:     `DataType_ASCII`,     //  2
+	DataType_Short:     `DataType_Short`,     //  3
+	DataType_Long:      `DataType_Long`,      //  4
+	DataType_Rational:  `DataType_Rational`,  //  5
+	DataType_SByte:     `DataType_SByte`,     //  6
+	DataType_Undefined: `DataType_Undefined`, //  7
+	DataType_SShort:    `DataType_SShort`,    //  8
+	DataType_SLong:     `DataType_SLong`,     //  9
+	DataType_SRational: `DataType_SRational`, // 10
+	DataType_Float:     `DataType_Float`,     // 11
+	DataType_Double:    `DataType_Double`,    // 12
+	DataType_IFD:       `DataType_IFD`,       // 13
+	DataType_Unicode:   `DataType_Unicode`,   // 14
+	DataType_Complex:   `DataType_Complex`,   // 15
+	DataType_Long8:     `DataType_Long8`,     // 16
+	DataType_SLong8:    `DataType_SLong8`,    // 17
+	DataType_IFD8:      `DataType_IFD8`,      // 18
 }
 
 func (p DataType) String() string {
@@ -91,87 +91,210 @@ func (p DataType) String() string {
 }
 
 var _TagTypeTable = map[TagType]string{
-	TagType_NewSubfileType:             `TagType_NewSubfileType`,
-	TagType_SubfileType:                `TagType_SubfileType`,
-	TagType_ImageWidth:                 `TagType_ImageWidth`,
-	TagType_ImageLength:                `TagType_ImageLength`,
-	TagType_BitsPerSample:              `TagType_BitsPerSample`,
-	TagType_Compression:                `TagType_Compression`,
-	TagType_PhotometricInterpretation:  `TagType_PhotometricInterpretation`,
-	TagType_Threshholding:              `TagType_Threshholding`,
-	TagType_CellWidth:                  `TagType_CellWidth`,
-	TagType_CellLenght:                 `TagType_CellLenght`,
-	TagType_FillOrder:                  `TagType_FillOrder`,
-	TagType_DocumentName:               `TagType_DocumentName`,
-	TagType_ImageDescription:           `TagType_ImageDescription`,
-	TagType_Make:                       `TagType_Make`,
-	TagType_Model:                      `TagType_Model`,
-	TagType_StripOffsets:               `TagType_StripOffsets`,
-	TagType_Orientation:                `TagType_Orientation`,
-	TagType_SamplesPerPixel:            `TagType_SamplesPerPixel`,
-	TagType_RowsPerStrip:               `TagType_RowsPerStrip`,
-	TagType_StripByteCounts:            `TagType_StripByteCounts`,
-	TagType_MinSampleValue:             `TagType_MinSampleValue`,
-	TagType_MaxSampleValue:             `TagType_MaxSampleValue`,
-	TagType_XResolution:                `TagType_XResolution`,
-	TagType_YResolution:                `TagType_YResolution`,
-	TagType_PlanarConfiguration:        `TagType_PlanarConfiguration`,
-	TagType_PageName:                   `TagType_PageName`,
-	TagType_XPosition:                  `TagType_XPosition`,
-	TagType_YPosition:                  `TagType_YPosition`,
-	TagType_FreeOffsets:                `TagType_FreeOffsets`,
-	TagType_FreeByteCounts:             `TagType_FreeByteCounts`,
-	TagType_GrayResponseUnit:           `TagType_GrayResponseUnit`,
-	TagType_GrayResponseCurve:          `TagType_GrayResponseCurve`,
-	TagType_T4Options:                  `TagType_T4Options`,
-	TagType_T6Options:                  `TagType_T6Options`,
-	TagType_ResolutionUnit:             `TagType_ResolutionUnit`,
-	TagType_PageNumber:                 `TagType_PageNumber`,
-	TagType_TransferFunction:           `TagType_TransferFunction`,
-	TagType_Software:                   `TagType_Software`,
-	TagType_DateTime:                   `TagType_DateTime`,
-	TagType_Artist:                     `TagType_Artist`,
-	TagType_HostComputer:               `TagType_HostComputer`,
-	TagType_Predictor:                  `TagType_Predictor`,
-	TagType_WhitePoint:                 `TagType_WhitePoint`,
-	TagType_PrimaryChromaticities:      `TagType_PrimaryChromaticities`,
-	TagType_ColorMap:                   `TagType_ColorMap`,
-	TagType_HalftoneHints:              `TagType_HalftoneHints`,
-	TagType_TileWidth:                  `TagType_TileWidth`,
-	TagType_TileLength:                 `TagType_TileLength`,
-	TagType_TileOffsets:                `TagType_TileOffsets`,
-	TagType_TileByteCounts:             `TagType_TileByteCounts`,
-	TagType_InkSet:                     `TagType_InkSet`,
-	TagType_InkNames:                   `TagType_InkNames`,
-	TagType_NumberOfInks:               `TagType_NumberOfInks`,
-	TagType_DotRange:                   `TagType_DotRange`,
-	TagType_TargetPrinter:              `TagType_TargetPrinter`,
-	TagType_ExtraSamples:               `TagType_ExtraSamples`,
-	TagType_SampleFormat:               `TagType_SampleFormat`,
-	TagType_SMinSampleValue:            `TagType_SMinSampleValue`,
-	TagType_SMaxSampleValue:            `TagType_SMaxSampleValue`,
-	TagType_TransferRange:              `TagType_TransferRange`,
-	TagType_JPEGProc:                   `TagType_JPEGProc`,
-	TagType_JPEGInterchangeFormat:      `TagType_JPEGInterchangeFormat`,
-	TagType_JPEGInterchangeFormatLngth: `TagType_JPEGInterchangeFormatLngth`,
-	TagType_JPEGRestartInterval:        `TagType_JPEGRestartInterval`,
-	TagType_JPEGLosslessPredictors:     `TagType_JPEGLosslessPredictors`,
-	TagType_JPEGPointTransforms:        `TagType_JPEGPointTransforms`,
-	TagType_JPEGQTables:                `TagType_JPEGQTables`,
-	TagType_JPEGDCTables:               `TagType_JPEGDCTables`,
-	TagType_JPEGACTables:               `TagType_JPEGACTables`,
-	TagType_YCbCrCoefficients:          `TagType_YCbCrCoefficients`,
-	TagType_YCbCrSubSampling:           `TagType_YCbCrSubSampling`,
-	TagType_YCbCrPositioning:           `TagType_YCbCrPositioning`,
-	TagType_ReferenceBlackWhite:        `TagType_ReferenceBlackWhite`,
-	TagType_Copyright:                  `TagType_Copyright`,
-	TagType_GeoKeyDirectoryTag:         `TagType_GeoKeyDirectoryTag`,
-	TagType_GeoDoubleParamsTag:         `TagType_GeoDoubleParamsTag`,
-	TagType_GeoAsciiParamsTag:          `TagType_GeoAsciiParamsTag`,
-	TagType_ModelTiepointTag:           `TagType_ModelTiepointTag`,
-	TagType_ModelPixelScaleTag:         `TagType_ModelPixelScaleTag`,
-	TagType_ModelTransformationTag:     `TagType_ModelTransformationTag`,
-	TagType_IntergraphMatrixTag:        `TagType_IntergraphMatrixTag`,
+	TagType_NewSubfileType:             `TagType_NewSubfileType`,             // LONG , 1, Required
+	TagType_SubfileType:                `TagType_SubfileType`,                // SHORT, 1, Required
+	TagType_ImageWidth:                 `TagType_ImageWidth`,                 // SHORT/LONG/LONG8, 1
+	TagType_ImageLength:                `TagType_ImageLength`,                // SHORT/LONG/LONG8, 1
+	TagType_BitsPerSample:              `TagType_BitsPerSample`,              // SHORT, *, # SamplesPerPixel
+	TagType_Compression:                `TagType_Compression`,                // SHORT, 1
+	TagType_PhotometricInterpretation:  `TagType_PhotometricInterpretation`,  // SHORT, 1
+	TagType_Threshholding:              `TagType_Threshholding`,              // SHORT, 1
+	TagType_CellWidth:                  `TagType_CellWidth`,                  // SHORT, 1
+	TagType_CellLenght:                 `TagType_CellLenght`,                 // SHORT, 1
+	TagType_FillOrder:                  `TagType_FillOrder`,                  // SHORT, 1
+	TagType_DocumentName:               `TagType_DocumentName`,               // ASCII
+	TagType_ImageDescription:           `TagType_ImageDescription`,           // ASCII
+	TagType_Make:                       `TagType_Make`,                       // ASCII
+	TagType_Model:                      `TagType_Model`,                      // ASCII
+	TagType_StripOffsets:               `TagType_StripOffsets`,               // SHORT/LONG/LONG8, *, # StripsPerImage
+	TagType_Orientation:                `TagType_Orientation`,                // SHORT, 1
+	TagType_SamplesPerPixel:            `TagType_SamplesPerPixel`,            // SHORT, 1
+	TagType_RowsPerStrip:               `TagType_RowsPerStrip`,               // SHORT/LONG/LONG8, 1,
+	TagType_StripByteCounts:            `TagType_StripByteCounts`,            // SHORT/LONG/LONG8, *, # StripsPerImage
+	TagType_MinSampleValue:             `TagType_MinSampleValue`,             // SHORT,    *, # SamplesPerPixel
+	TagType_MaxSampleValue:             `TagType_MaxSampleValue`,             // SHORT,    *, # SamplesPerPixel
+	TagType_XResolution:                `TagType_XResolution`,                // RATIONAL, 1, Required
+	TagType_YResolution:                `TagType_YResolution`,                // RATIONAL, 1, Required
+	TagType_PlanarConfiguration:        `TagType_PlanarConfiguration`,        // SHORT
+	TagType_PageName:                   `TagType_PageName`,                   // ASCII
+	TagType_XPosition:                  `TagType_XPosition`,                  // RATIONAL
+	TagType_YPosition:                  `TagType_YPosition`,                  // RATIONAL
+	TagType_FreeOffsets:                `TagType_FreeOffsets`,                // LONG/LONG8
+	TagType_FreeByteCounts:             `TagType_FreeByteCounts`,             // LONG/LONG8
+	TagType_GrayResponseUnit:           `TagType_GrayResponseUnit`,           // SHORT, 1,
+	TagType_GrayResponseCurve:          `TagType_GrayResponseCurve`,          // SHORT, *, # 2**BitPerSample
+	TagType_T4Options:                  `TagType_T4Options`,                  // LONG,  1,
+	TagType_T6Options:                  `TagType_T6Options`,                  // LONG,  1,
+	TagType_ResolutionUnit:             `TagType_ResolutionUnit`,             // SHORT, 1, Required
+	TagType_PageNumber:                 `TagType_PageNumber`,                 // SHORT, 2,
+	TagType_TransferFunction:           `TagType_TransferFunction`,           // SHORT, *, # {1 or SamplesPerPixel}*2**BitPerSample
+	TagType_Software:                   `TagType_Software`,                   // ASCII
+	TagType_DateTime:                   `TagType_DateTime`,                   // ASCII, 20
+	TagType_Artist:                     `TagType_Artist`,                     // ASCII
+	TagType_HostComputer:               `TagType_HostComputer`,               // ASCII
+	TagType_Predictor:                  `TagType_Predictor`,                  // SHORT, 1
+	TagType_WhitePoint:                 `TagType_WhitePoint`,                 // RATIONAL, 2
+	TagType_PrimaryChromaticities:      `TagType_PrimaryChromaticities`,      // RATIONAL, 6
+	TagType_ColorMap:                   `TagType_ColorMap`,                   // SHORT, *, # 3*(2**BitPerSample)
+	TagType_HalftoneHints:              `TagType_HalftoneHints`,              // SHORT, 2
+	TagType_TileWidth:                  `TagType_TileWidth`,                  // SHORT/LONG, 1
+	TagType_TileLength:                 `TagType_TileLength`,                 // SHORT/LONG, 1
+	TagType_TileOffsets:                `TagType_TileOffsets`,                // LONG/LONG8, *, # TilesPerImage
+	TagType_TileByteCounts:             `TagType_TileByteCounts`,             // SHORT/LONG, *, # TilesPerImage
+	TagType_InkSet:                     `TagType_InkSet`,                     // SHORT, 1
+	TagType_InkNames:                   `TagType_InkNames`,                   // ASCII
+	TagType_NumberOfInks:               `TagType_NumberOfInks`,               // SHORT
+	TagType_DotRange:                   `TagType_DotRange`,                   // BYTE/SHORT, *, # 2 or 2*NumberOfInks
+	TagType_TargetPrinter:              `TagType_TargetPrinter`,              // ASCII
+	TagType_ExtraSamples:               `TagType_ExtraSamples`,               // BYTE
+	TagType_SampleFormat:               `TagType_SampleFormat`,               // SHORT, # SamplesPerPixel
+	TagType_SMinSampleValue:            `TagType_SMinSampleValue`,            // *,     # SamplesPerPixel
+	TagType_SMaxSampleValue:            `TagType_SMaxSampleValue`,            // *,     # SamplesPerPixel
+	TagType_TransferRange:              `TagType_TransferRange`,              // SHORT, 6
+	TagType_JPEGProc:                   `TagType_JPEGProc`,                   // SHORT, 1
+	TagType_JPEGInterchangeFormat:      `TagType_JPEGInterchangeFormat`,      // LONG,  1
+	TagType_JPEGInterchangeFormatLngth: `TagType_JPEGInterchangeFormatLngth`, // LONG,  1
+	TagType_JPEGRestartInterval:        `TagType_JPEGRestartInterval`,        // SHORT, 1
+	TagType_JPEGLosslessPredictors:     `TagType_JPEGLosslessPredictors`,     // SHORT, *, # SamplesPerPixel
+	TagType_JPEGPointTransforms:        `TagType_JPEGPointTransforms`,        // SHORT, *, # SamplesPerPixel
+	TagType_JPEGQTables:                `TagType_JPEGQTables`,                // LONG,  *, # SamplesPerPixel
+	TagType_JPEGDCTables:               `TagType_JPEGDCTables`,               // LONG,  *, # SamplesPerPixel
+	TagType_JPEGACTables:               `TagType_JPEGACTables`,               // LONG,  *, # SamplesPerPixel
+	TagType_YCbCrCoefficients:          `TagType_YCbCrCoefficients`,          // RATIONAL, 3
+	TagType_YCbCrSubSampling:           `TagType_YCbCrSubSampling`,           // SHORT, 2
+	TagType_YCbCrPositioning:           `TagType_YCbCrPositioning`,           // SHORT, 1
+	TagType_ReferenceBlackWhite:        `TagType_ReferenceBlackWhite`,        // LONG , *, # 2*SamplesPerPixel
+	TagType_Copyright:                  `TagType_Copyright`,                  // ASCII
+	TagType_GeoKeyDirectoryTag:         `TagType_GeoKeyDirectoryTag`,         // SHORT, *, # >= 4
+	TagType_GeoDoubleParamsTag:         `TagType_GeoDoubleParamsTag`,         // DOUBLE
+	TagType_GeoAsciiParamsTag:          `TagType_GeoAsciiParamsTag`,          // ASCII
+	TagType_ModelTiepointTag:           `TagType_ModelTiepointTag`,           // DOUBLE
+	TagType_ModelPixelScaleTag:         `TagType_ModelPixelScaleTag`,         // DOUBLE
+	TagType_ModelTransformationTag:     `TagType_ModelTransformationTag`,     // DOUBLE, 16
+	TagType_IntergraphMatrixTag:        `TagType_IntergraphMatrixTag`,        // DOUBLE, 17
+}
+
+var _TagType_TypesTable = map[TagType][]DataType{
+	TagType_NewSubfileType:             []DataType{DataType_Long},
+	TagType_SubfileType:                []DataType{DataType_Short},
+	TagType_ImageWidth:                 []DataType{DataType_Short, DataType_Long, DataType_Long8},
+	TagType_ImageLength:                []DataType{DataType_Short, DataType_Long, DataType_Long8},
+	TagType_BitsPerSample:              []DataType{DataType_Short},
+	TagType_Compression:                []DataType{DataType_Short},
+	TagType_PhotometricInterpretation:  []DataType{DataType_Short},
+	TagType_Threshholding:              []DataType{DataType_Short},
+	TagType_CellWidth:                  []DataType{DataType_Short},
+	TagType_CellLenght:                 []DataType{DataType_Short},
+	TagType_FillOrder:                  []DataType{DataType_Short},
+	TagType_DocumentName:               []DataType{DataType_ASCII},
+	TagType_ImageDescription:           []DataType{DataType_ASCII},
+	TagType_Make:                       []DataType{DataType_ASCII},
+	TagType_Model:                      []DataType{DataType_ASCII},
+	TagType_StripOffsets:               []DataType{DataType_Short, DataType_Long, DataType_Long8},
+	TagType_Orientation:                []DataType{DataType_Short},
+	TagType_SamplesPerPixel:            []DataType{DataType_Short},
+	TagType_RowsPerStrip:               []DataType{DataType_Short, DataType_Long, DataType_Long8},
+	TagType_StripByteCounts:            []DataType{DataType_Short, DataType_Long, DataType_Long8},
+	TagType_MinSampleValue:             []DataType{DataType_Short},
+	TagType_MaxSampleValue:             []DataType{DataType_Short},
+	TagType_XResolution:                []DataType{DataType_Rational},
+	TagType_YResolution:                []DataType{DataType_Rational},
+	TagType_PlanarConfiguration:        []DataType{DataType_Short},
+	TagType_PageName:                   []DataType{DataType_ASCII},
+	TagType_XPosition:                  []DataType{DataType_Rational},
+	TagType_YPosition:                  []DataType{DataType_Rational},
+	TagType_FreeOffsets:                []DataType{DataType_Long, DataType_Long8},
+	TagType_FreeByteCounts:             []DataType{DataType_Long, DataType_Long8},
+	TagType_GrayResponseUnit:           []DataType{DataType_Short},
+	TagType_GrayResponseCurve:          []DataType{DataType_Short},
+	TagType_T4Options:                  []DataType{DataType_Long},
+	TagType_T6Options:                  []DataType{DataType_Long},
+	TagType_ResolutionUnit:             []DataType{DataType_Short},
+	TagType_PageNumber:                 []DataType{DataType_Short},
+	TagType_TransferFunction:           []DataType{DataType_Short},
+	TagType_Software:                   []DataType{DataType_ASCII},
+	TagType_DateTime:                   []DataType{DataType_ASCII},
+	TagType_Artist:                     []DataType{DataType_ASCII},
+	TagType_HostComputer:               []DataType{DataType_ASCII},
+	TagType_Predictor:                  []DataType{DataType_Short},
+	TagType_WhitePoint:                 []DataType{DataType_Rational},
+	TagType_PrimaryChromaticities:      []DataType{DataType_Rational},
+	TagType_ColorMap:                   []DataType{DataType_Short},
+	TagType_HalftoneHints:              []DataType{DataType_Short},
+	TagType_TileWidth:                  []DataType{DataType_Short, DataType_Long},
+	TagType_TileLength:                 []DataType{DataType_Short, DataType_Long},
+	TagType_TileOffsets:                []DataType{DataType_Long, DataType_Long8},
+	TagType_TileByteCounts:             []DataType{DataType_Short, DataType_Long},
+	TagType_InkSet:                     []DataType{DataType_Short},
+	TagType_InkNames:                   []DataType{DataType_ASCII},
+	TagType_NumberOfInks:               []DataType{DataType_Short},
+	TagType_DotRange:                   []DataType{DataType_Byte, DataType_Short},
+	TagType_TargetPrinter:              []DataType{DataType_ASCII},
+	TagType_ExtraSamples:               []DataType{DataType_Byte},
+	TagType_SampleFormat:               []DataType{DataType_Short},
+	TagType_TransferRange:              []DataType{DataType_Short},
+	TagType_JPEGProc:                   []DataType{DataType_Short},
+	TagType_JPEGInterchangeFormat:      []DataType{DataType_Long},
+	TagType_JPEGInterchangeFormatLngth: []DataType{DataType_Long},
+	TagType_JPEGRestartInterval:        []DataType{DataType_Short},
+	TagType_JPEGLosslessPredictors:     []DataType{DataType_Short},
+	TagType_JPEGPointTransforms:        []DataType{DataType_Short},
+	TagType_JPEGQTables:                []DataType{DataType_Long},
+	TagType_JPEGDCTables:               []DataType{DataType_Long},
+	TagType_JPEGACTables:               []DataType{DataType_Long},
+	TagType_YCbCrCoefficients:          []DataType{DataType_Rational},
+	TagType_YCbCrSubSampling:           []DataType{DataType_Short},
+	TagType_YCbCrPositioning:           []DataType{DataType_Short},
+	TagType_ReferenceBlackWhite:        []DataType{DataType_Long},
+	TagType_Copyright:                  []DataType{DataType_ASCII},
+	TagType_GeoKeyDirectoryTag:         []DataType{DataType_Short},
+	TagType_GeoDoubleParamsTag:         []DataType{DataType_Double},
+	TagType_GeoAsciiParamsTag:          []DataType{DataType_ASCII},
+	TagType_ModelTiepointTag:           []DataType{DataType_Double},
+	TagType_ModelPixelScaleTag:         []DataType{DataType_Double},
+	TagType_ModelTransformationTag:     []DataType{DataType_Double},
+	TagType_IntergraphMatrixTag:        []DataType{DataType_Double},
+}
+
+var _TagType_NumsTable = map[TagType][]int{
+	TagType_NewSubfileType:             []int{1},
+	TagType_SubfileType:                []int{1},
+	TagType_ImageWidth:                 []int{1},
+	TagType_ImageLength:                []int{1},
+	TagType_Compression:                []int{1},
+	TagType_PhotometricInterpretation:  []int{1},
+	TagType_Threshholding:              []int{1},
+	TagType_CellWidth:                  []int{1},
+	TagType_CellLenght:                 []int{1},
+	TagType_FillOrder:                  []int{1},
+	TagType_Orientation:                []int{1},
+	TagType_SamplesPerPixel:            []int{1},
+	TagType_RowsPerStrip:               []int{1},
+	TagType_XResolution:                []int{1},
+	TagType_YResolution:                []int{1},
+	TagType_GrayResponseUnit:           []int{1},
+	TagType_T4Options:                  []int{1},
+	TagType_T6Options:                  []int{1},
+	TagType_ResolutionUnit:             []int{1},
+	TagType_PageNumber:                 []int{2},
+	TagType_DateTime:                   []int{20},
+	TagType_Predictor:                  []int{1},
+	TagType_WhitePoint:                 []int{2},
+	TagType_PrimaryChromaticities:      []int{6},
+	TagType_HalftoneHints:              []int{2},
+	TagType_TileWidth:                  []int{1},
+	TagType_TileLength:                 []int{1},
+	TagType_InkSet:                     []int{1},
+	TagType_TransferRange:              []int{6},
+	TagType_JPEGProc:                   []int{1},
+	TagType_JPEGInterchangeFormat:      []int{1},
+	TagType_JPEGInterchangeFormatLngth: []int{1},
+	TagType_JPEGRestartInterval:        []int{1},
+	TagType_YCbCrCoefficients:          []int{3},
+	TagType_YCbCrSubSampling:           []int{2},
+	TagType_YCbCrPositioning:           []int{1},
+	TagType_ModelTransformationTag:     []int{16},
+	TagType_IntergraphMatrixTag:        []int{17},
 }
 
 func (p TagType) String() string {
@@ -186,7 +309,7 @@ var _TagValue_PhotometricTypeTable = map[TagValue_PhotometricType]string{
 	TagValue_PhotometricType_BlackIsZero: `TagValue_PhotometricType_BlackIsZero`,
 	TagValue_PhotometricType_RGB:         `TagValue_PhotometricType_RGB`,
 	TagValue_PhotometricType_Paletted:    `TagValue_PhotometricType_Paletted`,
-	TagValue_PhotometricType_TransMask:   `TagValue_PhotometricType_TransMask`,
+	TagValue_PhotometricType_TransMask:   `TagValue_PhotometricType_TransMask`, // transparency mask
 	TagValue_PhotometricType_CMYK:        `TagValue_PhotometricType_CMYK`,
 	TagValue_PhotometricType_YCbCr:       `TagValue_PhotometricType_YCbCr`,
 	TagValue_PhotometricType_CIELab:      `TagValue_PhotometricType_CIELab`,
@@ -213,8 +336,8 @@ func (p TagValue_PredictorType) String() string {
 
 var _TagValue_ResolutionUnitTypeTable = map[TagValue_ResolutionUnitType]string{
 	TagValue_ResolutionUnitType_None:    `TagValue_ResolutionUnitType_None`,
-	TagValue_ResolutionUnitType_PerInch: `TagValue_ResolutionUnitType_PerInch`,
-	TagValue_ResolutionUnitType_PerCM:   `TagValue_ResolutionUnitType_PerCM`,
+	TagValue_ResolutionUnitType_PerInch: `TagValue_ResolutionUnitType_PerInch`, // Dots per inch.
+	TagValue_ResolutionUnitType_PerCM:   `TagValue_ResolutionUnitType_PerCM`,   // Dots per centimeter.
 }
 
 func (p TagValue_ResolutionUnitType) String() string {

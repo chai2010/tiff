@@ -7,21 +7,26 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"fmt"
 	"go/format"
 	"io/ioutil"
 	"log"
-	"os"
+	"strconv"
 	"strings"
 	"text/scanner"
 )
 
 type Type struct {
-	TypeName string
-	FileName string
-	TypeList []string
-	MapCode  string
+	TypeName       string
+	FileName       string
+	FileData       []byte
+	TypeList       []string
+	TypeCommentMap map[string]string
+	TagTypeMap     map[string][]string
+	TagNumMap      map[string][]int
+	MapCode        string
 }
 
 func main() {
@@ -95,24 +100,116 @@ import (
 }
 
 func (p *Type) Init() {
-	f, err := os.Open(p.FileName)
+	if p.TypeCommentMap == nil {
+		p.TypeCommentMap = make(map[string]string)
+	}
+	if p.TagTypeMap == nil {
+		p.TagTypeMap = make(map[string][]string)
+	}
+	if p.TagNumMap == nil {
+		p.TagNumMap = make(map[string][]int)
+	}
+
+	data, err := ioutil.ReadFile(p.FileName)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer f.Close()
+	p.FileData = data
 
 	var s scanner.Scanner
-	var typeMap = make(map[string]bool)
+	s.Init(bytes.NewReader(p.FileData))
 
-	s.Init(f)
 	for tok := s.Scan(); tok != scanner.EOF; tok = s.Scan() {
 		if tok&scanner.ScanIdents != 0 {
 			if strings.HasPrefix(s.TokenText(), p.TypeName+"_") {
-				if _, ok := typeMap[s.TokenText()]; !ok {
-					p.TypeList = append(p.TypeList, s.TokenText())
-					typeMap[s.TokenText()] = true
+				typeName := s.TokenText()
+				if _, ok := p.TypeCommentMap[typeName]; !ok {
+					comment, _, _ := bufio.NewReader(bytes.NewReader(p.FileData[s.Pos().Offset:])).ReadLine()
+					if idx := bytes.Index(comment, []byte("//")); idx >= 0 {
+						comment = comment[idx:]
+					} else {
+						comment = nil
+					}
+					p.TypeList = append(p.TypeList, typeName)
+					p.TypeCommentMap[typeName] = string(comment)
 				}
 			}
+		}
+	}
+	if p.TypeName == "TagType" {
+		p.parseTagComment()
+	}
+}
+
+func (p *Type) parseTagComment() {
+	if p.TypeName != "TagType" {
+		return
+	}
+	// Type(A/B/C/*), Num(1/*), Required, # comment
+	for typeName, comment := range p.TypeCommentMap {
+		if strings.HasPrefix(comment, "//") {
+			comment = strings.TrimSpace(comment[len("//"):])
+		}
+		if idx := strings.Index(comment, "#"); idx >= 0 {
+			comment = comment[:idx]
+		}
+		if comment == "" {
+			continue
+		}
+
+		ss := strings.Split(comment, ",")
+		if len(ss) > 0 {
+			var types []string
+			for _, dataType := range strings.Split(strings.TrimSpace(ss[0]), "/") {
+				switch dataType {
+				case "BYTE":
+					types = append(types, "DataType_Byte")
+				case "ASCII":
+					types = append(types, "DataType_ASCII")
+				case "SHORT":
+					types = append(types, "DataType_Short")
+				case "LONG":
+					types = append(types, "DataType_Long")
+				case "RATIONAL":
+					types = append(types, "DataType_Rational")
+				case "SBYTE":
+					types = append(types, "DataType_SByte")
+				case "UNDEFINED":
+					types = append(types, "DataType_Undefined")
+				case "SSHORT":
+					types = append(types, "DataType_SShort")
+				case "SLONG":
+					types = append(types, "DataType_SLong")
+				case "SRATIONAL":
+					types = append(types, "DataType_SRational")
+				case "FLOAT":
+					types = append(types, "DataType_Float")
+				case "DOUBLE":
+					types = append(types, "DataType_Double")
+				case "IFD":
+					types = append(types, "DataType_IFD")
+				case "UNICODE":
+					types = append(types, "DataType_Unicode")
+				case "COMPLEX":
+					types = append(types, "DataType_Complex")
+				case "LONG8":
+					types = append(types, "DataType_Long8")
+				case "SLONG8":
+					types = append(types, "DataType_SLong8")
+				case "IFD8":
+					types = append(types, "DataType_IFD8")
+				}
+			}
+			p.TagTypeMap[typeName] = types
+		}
+		if len(ss) > 1 {
+			var nums []int
+			for _, numName := range strings.Split(strings.TrimSpace(ss[1]), "/") {
+				if v, err := strconv.Atoi(numName); err == nil {
+					nums = append(nums, v)
+				}
+			}
+			p.TagNumMap[typeName] = nums
 		}
 	}
 }
@@ -121,9 +218,37 @@ func (p *Type) GenMapCode() {
 	var buf bytes.Buffer
 	fmt.Fprintf(&buf, "var _%sTable = map[%s]string {\n", p.TypeName, p.TypeName)
 	for _, s := range p.TypeList {
-		fmt.Fprintf(&buf, "\t%s: `%s`,\n", s, s)
+		fmt.Fprintf(&buf, "\t%s: `%s`, %s\n", s, s, p.TypeCommentMap[s])
 	}
 	fmt.Fprintf(&buf, "}\n")
+
+	if p.TypeName == "TagType" && len(p.TagTypeMap) > 0 {
+		fmt.Fprintf(&buf, "\nvar _TagType_TypesTable = map[TagType][]DataType {\n")
+		for _, s := range p.TypeList {
+			if v, ok := p.TagTypeMap[s]; ok && len(v) > 0 {
+				fmt.Fprintf(&buf, "%s: []DataType{ ", s)
+				for j := 0; j < len(v); j++ {
+					fmt.Fprintf(&buf, `%s, `, v[j])
+				}
+				fmt.Fprintf(&buf, "},\n")
+			}
+		}
+		fmt.Fprintf(&buf, "}\n")
+
+	}
+	if p.TypeName == "TagType" && len(p.TagNumMap) > 0 {
+		fmt.Fprintf(&buf, "\nvar _TagType_NumsTable = map[TagType][]int {\n")
+		for _, s := range p.TypeList {
+			if v, ok := p.TagNumMap[s]; ok && len(v) > 0 {
+				fmt.Fprintf(&buf, "%s: []int{ ", s)
+				for j := 0; j < len(v); j++ {
+					fmt.Fprintf(&buf, `%d, `, v[j])
+				}
+				fmt.Fprintf(&buf, "},\n")
+			}
+		}
+		fmt.Fprintf(&buf, "}\n")
+	}
 
 	fmt.Fprintf(&buf, `
 func (p %s) String() string {
