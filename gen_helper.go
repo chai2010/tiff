@@ -253,18 +253,18 @@ func (p *Type) GenMapCode() {
 	if p.TypeName == "TagType" {
 		fmt.Fprintf(&buf, "\ntype TagGetter interface {\n")
 		for _, s := range p.TypeList {
-			fmt.Fprintf(&buf, "Get%s(tag TagType) (value %s, err error)\n", s[len("TagType_"):], p.getValueType(s))
+			fmt.Fprintf(&buf, "Get%s() (value %s, ok bool)\n", s[len("TagType_"):], p.getValueType(s))
 		}
-		fmt.Fprintf(&buf, "GetUnknown(tag TagType) (value interface{}, err error)\n")
+		fmt.Fprintf(&buf, "GetUnknown(tag TagType) (value interface{}, ok bool)\n")
 		fmt.Fprintf(&buf, "\n")
 		fmt.Fprintf(&buf, "private()\n")
 		fmt.Fprintf(&buf, "}\n")
 
 		fmt.Fprintf(&buf, "\ntype TagSetter interface {\n")
 		for _, s := range p.TypeList {
-			fmt.Fprintf(&buf, "Set%s(tag TagType, value %s) error\n", s[len("TagType_"):], p.getValueType(s))
+			fmt.Fprintf(&buf, "Set%s(value %s) (ok bool)\n", s[len("TagType_"):], p.getValueType(s))
 		}
-		fmt.Fprintf(&buf, "SetUnknown(tag TagType, value interface{}) error\n")
+		fmt.Fprintf(&buf, "SetUnknown(tag TagType, value interface{}) (ok bool)\n")
 		fmt.Fprintf(&buf, "\n")
 		fmt.Fprintf(&buf, "private()\n")
 		fmt.Fprintf(&buf, "}\n")

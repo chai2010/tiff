@@ -4,6 +4,12 @@
 
 package tiff
 
+import (
+	"bytes"
+	"fmt"
+	"image"
+)
+
 func (p *IFD) Valid() bool {
 	if p.Header == nil || !p.Header.Valid() {
 		return false
@@ -11,7 +17,20 @@ func (p *IFD) Valid() bool {
 	return true
 }
 
-func (p *IFD) Size() (width, height int) {
+func (p *IFD) TagGetter() TagGetter {
+	return &tifTagGetter{
+		EntryMap: p.EntryMap,
+	}
+}
+
+func (p *IFD) TagSetter() TagSetter {
+	return &tifTagSetter{
+		EntryMap: p.EntryMap,
+	}
+}
+
+func (p *IFD) Bounds() image.Rectangle {
+	var width, height int
 	if tag, ok := p.EntryMap[TagType_ImageWidth]; ok {
 		if v := tag.GetInts(); len(v) == 1 {
 			width = int(v[0])
@@ -22,7 +41,7 @@ func (p *IFD) Size() (width, height int) {
 			height = int(v[0])
 		}
 	}
-	return
+	return image.Rect(0, 0, width, height)
 }
 
 func (p *IFD) Depth() int {
@@ -50,6 +69,105 @@ func (p *IFD) Channels() int {
 }
 
 func (p *IFD) ImageType() ImageType {
+	var requiredTags = []TagType{
+		TagType_ImageWidth,
+		TagType_ImageLength,
+		TagType_PhotometricInterpretation,
+		TagType_XResolution,
+		TagType_YResolution,
+		TagType_ResolutionUnit,
+	}
+	var requiredTiledTags = []TagType{
+		TagType_TileWidth,
+		TagType_TileLength,
+		TagType_TileOffsets,
+		TagType_TileByteCounts,
+	}
+	var requiredStripTags = []TagType{
+		TagType_RowsPerStrip, // default is (2^32-1)
+		TagType_StripOffsets,
+		TagType_StripByteCounts,
+	}
+
+	var isTiled bool
+	for _, tag := range requiredTiledTags {
+		if _, ok := p.EntryMap[tag]; !ok {
+			isTiled = true
+		}
+	}
+
+	if isTiled {
+		for _, tag := range requiredTags {
+			if _, ok := p.EntryMap[tag]; !ok {
+				return ImageType_Nil
+			}
+		}
+		for _, tag := range requiredTiledTags {
+			if _, ok := p.EntryMap[tag]; !ok {
+				return ImageType_Nil
+			}
+		}
+
+	} else {
+		for _, tag := range requiredTags {
+			if _, ok := p.EntryMap[tag]; !ok {
+				return ImageType_Nil
+			}
+		}
+		for _, tag := range requiredStripTags {
+			if _, ok := p.EntryMap[tag]; !ok {
+				if tag != TagType_RowsPerStrip {
+					return ImageType_Nil
+				}
+			}
+		}
+	}
+
+	var (
+		photometric, _                      = p.TagGetter().GetPhotometricInterpretation()
+		_, hasBitsPerSample                 = p.TagGetter().GetBitsPerSample()
+		samplesPerPixel, hasSamplesPerPixel = p.TagGetter().GetSamplesPerPixel()
+		extraSamples, hasExtraSamples       = p.TagGetter().GetExtraSamples()
+	)
+
+	switch TagValue_PhotometricType(photometric) {
+	case TagValue_PhotometricType_WhiteIsZero:
+		if !hasBitsPerSample {
+			return ImageType_BilevelInvert
+		} else {
+			return ImageType_GrayInvert
+		}
+	case TagValue_PhotometricType_BlackIsZero:
+		if !hasBitsPerSample {
+			return ImageType_Bilevel
+		} else {
+			return ImageType_Gray
+		}
+	case TagValue_PhotometricType_RGB:
+		if hasSamplesPerPixel && len(samplesPerPixel) == 3 {
+			return ImageType_RGB
+		}
+		if hasSamplesPerPixel && len(samplesPerPixel) == 4 {
+			if hasExtraSamples && extraSamples == 1 {
+				return ImageType_RGBA
+			}
+			if hasExtraSamples && extraSamples == 2 {
+				return ImageType_NRGBA
+			}
+		}
+		return ImageType_Nil
+	case TagValue_PhotometricType_Paletted:
+		return ImageType_Paletted
+	case TagValue_PhotometricType_TransMask:
+		return ImageType_Nil
+	case TagValue_PhotometricType_CMYK:
+		return ImageType_Nil
+	case TagValue_PhotometricType_YCbCr:
+		return ImageType_Nil
+	case TagValue_PhotometricType_CIELab:
+		return ImageType_Nil
+	}
+
 	return ImageType_Nil
 }
 
@@ -150,14 +268,25 @@ func (p *IFD) Predictor() TagValue_PredictorType {
 	return TagValue_PredictorType_None
 }
 
-func (p *IFD) TagGetter() TagGetter {
-	return &tifTagGetter{
-		EntryMap: p.EntryMap,
+func (p *IFD) Size() int {
+	if !p.Valid() {
+		return 0
+	}
+	if p.Header.TiffType == TiffType_ClassicTIFF {
+		return 2 + len(p.EntryMap)*12 + 4
+	} else {
+		return 8 + len(p.EntryMap)*20 + 8
 	}
 }
 
-func (p *IFD) TagSetter() TagSetter {
-	return &tifTagSetter{
-		EntryMap: p.EntryMap,
+func (p *IFD) String() string {
+	var buf bytes.Buffer
+	fmt.Fprintf(&buf, "tiff.IFD {\n")
+	fmt.Fprintf(&buf, "  Offset: 0x%08x\n", p.Offset)
+	for _, v := range p.EntryMap {
+		fmt.Fprintf(&buf, "  %v\n", v)
 	}
+	fmt.Fprintf(&buf, "  Next: %v\n", p.Next)
+	fmt.Fprintf(&buf, "}\n")
+	return buf.String()
 }

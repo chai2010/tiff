@@ -250,26 +250,3 @@ func readIFDEntry8Data(r io.ReadSeeker, entry *IFDEntry) (data []byte, err error
 	}
 	return
 }
-
-func (p *IFD) IfdSize() int {
-	if !p.Valid() {
-		return 0
-	}
-	if p.Header.TiffType == TiffType_ClassicTIFF {
-		return 2 + len(p.EntryMap)*12 + 4
-	} else {
-		return 8 + len(p.EntryMap)*20 + 8
-	}
-}
-
-func (p *IFD) String() string {
-	var buf bytes.Buffer
-	fmt.Fprintf(&buf, "tiff.IFD {\n")
-	fmt.Fprintf(&buf, "  Offset: 0x%08x\n", p.Offset)
-	for _, v := range p.EntryMap {
-		fmt.Fprintf(&buf, "  %v\n", v)
-	}
-	fmt.Fprintf(&buf, "  Next: %v\n", p.Next)
-	fmt.Fprintf(&buf, "}\n")
-	return buf.String()
-}

@@ -23,14 +23,15 @@ func (p TiffType) String() string {
 }
 
 var _ImageTypeTable = map[ImageType]string{
-	ImageType_Nil:        `ImageType_Nil`,
-	ImageType_Bilevel:    `ImageType_Bilevel`,
-	ImageType_Paletted:   `ImageType_Paletted`,
-	ImageType_Gray:       `ImageType_Gray`,
-	ImageType_GrayInvert: `ImageType_GrayInvert`,
-	ImageType_RGB:        `ImageType_RGB`,
-	ImageType_RGBA:       `ImageType_RGBA`,
-	ImageType_NRGBA:      `ImageType_NRGBA`,
+	ImageType_Nil:           `ImageType_Nil`,
+	ImageType_Bilevel:       `ImageType_Bilevel`,
+	ImageType_BilevelInvert: `ImageType_BilevelInvert`,
+	ImageType_Paletted:      `ImageType_Paletted`,
+	ImageType_Gray:          `ImageType_Gray`,
+	ImageType_GrayInvert:    `ImageType_GrayInvert`,
+	ImageType_RGB:           `ImageType_RGB`,
+	ImageType_RGBA:          `ImageType_RGBA`,
+	ImageType_NRGBA:         `ImageType_NRGBA`,
 }
 
 func (p ImageType) String() string {
@@ -96,31 +97,31 @@ var _TagTypeTable = map[TagType]string{
 	TagType_ImageWidth:                 `TagType_ImageWidth`,                 // SHORT/LONG/LONG8, 1
 	TagType_ImageLength:                `TagType_ImageLength`,                // SHORT/LONG/LONG8, 1
 	TagType_BitsPerSample:              `TagType_BitsPerSample`,              // SHORT, *, # SamplesPerPixel
-	TagType_Compression:                `TagType_Compression`,                // SHORT, 1
-	TagType_PhotometricInterpretation:  `TagType_PhotometricInterpretation`,  // SHORT, 1
-	TagType_Threshholding:              `TagType_Threshholding`,              // SHORT, 1
-	TagType_CellWidth:                  `TagType_CellWidth`,                  // SHORT, 1
-	TagType_CellLenght:                 `TagType_CellLenght`,                 // SHORT, 1
-	TagType_FillOrder:                  `TagType_FillOrder`,                  // SHORT, 1
+	TagType_Compression:                `TagType_Compression`,                // SHORT, 1,
+	TagType_PhotometricInterpretation:  `TagType_PhotometricInterpretation`,  // SHORT, 1,
+	TagType_Threshholding:              `TagType_Threshholding`,              // SHORT, 1,
+	TagType_CellWidth:                  `TagType_CellWidth`,                  // SHORT, 1,
+	TagType_CellLenght:                 `TagType_CellLenght`,                 // SHORT, 1,
+	TagType_FillOrder:                  `TagType_FillOrder`,                  // SHORT, 1,
 	TagType_DocumentName:               `TagType_DocumentName`,               // ASCII
 	TagType_ImageDescription:           `TagType_ImageDescription`,           // ASCII
 	TagType_Make:                       `TagType_Make`,                       // ASCII
 	TagType_Model:                      `TagType_Model`,                      // ASCII
 	TagType_StripOffsets:               `TagType_StripOffsets`,               // SHORT/LONG/LONG8, *, # StripsPerImage
-	TagType_Orientation:                `TagType_Orientation`,                // SHORT, 1
-	TagType_SamplesPerPixel:            `TagType_SamplesPerPixel`,            // SHORT, 1
+	TagType_Orientation:                `TagType_Orientation`,                // SHORT, 1,
+	TagType_SamplesPerPixel:            `TagType_SamplesPerPixel`,            // SHORT, *,
 	TagType_RowsPerStrip:               `TagType_RowsPerStrip`,               // SHORT/LONG/LONG8, 1,
 	TagType_StripByteCounts:            `TagType_StripByteCounts`,            // SHORT/LONG/LONG8, *, # StripsPerImage
 	TagType_MinSampleValue:             `TagType_MinSampleValue`,             // SHORT,    *, # SamplesPerPixel
 	TagType_MaxSampleValue:             `TagType_MaxSampleValue`,             // SHORT,    *, # SamplesPerPixel
 	TagType_XResolution:                `TagType_XResolution`,                // RATIONAL, 1, Required
 	TagType_YResolution:                `TagType_YResolution`,                // RATIONAL, 1, Required
-	TagType_PlanarConfiguration:        `TagType_PlanarConfiguration`,        // SHORT
+	TagType_PlanarConfiguration:        `TagType_PlanarConfiguration`,        // SHORT,    1,
 	TagType_PageName:                   `TagType_PageName`,                   // ASCII
-	TagType_XPosition:                  `TagType_XPosition`,                  // RATIONAL
-	TagType_YPosition:                  `TagType_YPosition`,                  // RATIONAL
-	TagType_FreeOffsets:                `TagType_FreeOffsets`,                // LONG/LONG8
-	TagType_FreeByteCounts:             `TagType_FreeByteCounts`,             // LONG/LONG8
+	TagType_XPosition:                  `TagType_XPosition`,                  // RATIONAL,   1
+	TagType_YPosition:                  `TagType_YPosition`,                  // RATIONAL,   1
+	TagType_FreeOffsets:                `TagType_FreeOffsets`,                // LONG/LONG8, *
+	TagType_FreeByteCounts:             `TagType_FreeByteCounts`,             // LONG/LONG8, *
 	TagType_GrayResponseUnit:           `TagType_GrayResponseUnit`,           // SHORT, 1,
 	TagType_GrayResponseCurve:          `TagType_GrayResponseCurve`,          // SHORT, *, # 2**BitPerSample
 	TagType_T4Options:                  `TagType_T4Options`,                  // LONG,  1,
@@ -143,26 +144,26 @@ var _TagTypeTable = map[TagType]string{
 	TagType_TileByteCounts:             `TagType_TileByteCounts`,             // SHORT/LONG, *, # TilesPerImage
 	TagType_InkSet:                     `TagType_InkSet`,                     // SHORT, 1
 	TagType_InkNames:                   `TagType_InkNames`,                   // ASCII
-	TagType_NumberOfInks:               `TagType_NumberOfInks`,               // SHORT
+	TagType_NumberOfInks:               `TagType_NumberOfInks`,               // SHORT, 1
 	TagType_DotRange:                   `TagType_DotRange`,                   // BYTE/SHORT, *, # 2 or 2*NumberOfInks
 	TagType_TargetPrinter:              `TagType_TargetPrinter`,              // ASCII
-	TagType_ExtraSamples:               `TagType_ExtraSamples`,               // BYTE
-	TagType_SampleFormat:               `TagType_SampleFormat`,               // SHORT, # SamplesPerPixel
-	TagType_SMinSampleValue:            `TagType_SMinSampleValue`,            // *,     # SamplesPerPixel
-	TagType_SMaxSampleValue:            `TagType_SMaxSampleValue`,            // *,     # SamplesPerPixel
-	TagType_TransferRange:              `TagType_TransferRange`,              // SHORT, 6
-	TagType_JPEGProc:                   `TagType_JPEGProc`,                   // SHORT, 1
-	TagType_JPEGInterchangeFormat:      `TagType_JPEGInterchangeFormat`,      // LONG,  1
-	TagType_JPEGInterchangeFormatLngth: `TagType_JPEGInterchangeFormatLngth`, // LONG,  1
-	TagType_JPEGRestartInterval:        `TagType_JPEGRestartInterval`,        // SHORT, 1
+	TagType_ExtraSamples:               `TagType_ExtraSamples`,               // BYTE,  1,
+	TagType_SampleFormat:               `TagType_SampleFormat`,               // SHORT, *, # SamplesPerPixel
+	TagType_SMinSampleValue:            `TagType_SMinSampleValue`,            // *,     *, # SamplesPerPixel
+	TagType_SMaxSampleValue:            `TagType_SMaxSampleValue`,            // *,     *, # SamplesPerPixel
+	TagType_TransferRange:              `TagType_TransferRange`,              // SHORT, 6,
+	TagType_JPEGProc:                   `TagType_JPEGProc`,                   // SHORT, 1,
+	TagType_JPEGInterchangeFormat:      `TagType_JPEGInterchangeFormat`,      // LONG,  1,
+	TagType_JPEGInterchangeFormatLngth: `TagType_JPEGInterchangeFormatLngth`, // LONG,  1,
+	TagType_JPEGRestartInterval:        `TagType_JPEGRestartInterval`,        // SHORT, 1,
 	TagType_JPEGLosslessPredictors:     `TagType_JPEGLosslessPredictors`,     // SHORT, *, # SamplesPerPixel
 	TagType_JPEGPointTransforms:        `TagType_JPEGPointTransforms`,        // SHORT, *, # SamplesPerPixel
 	TagType_JPEGQTables:                `TagType_JPEGQTables`,                // LONG,  *, # SamplesPerPixel
 	TagType_JPEGDCTables:               `TagType_JPEGDCTables`,               // LONG,  *, # SamplesPerPixel
 	TagType_JPEGACTables:               `TagType_JPEGACTables`,               // LONG,  *, # SamplesPerPixel
 	TagType_YCbCrCoefficients:          `TagType_YCbCrCoefficients`,          // RATIONAL, 3
-	TagType_YCbCrSubSampling:           `TagType_YCbCrSubSampling`,           // SHORT, 2
-	TagType_YCbCrPositioning:           `TagType_YCbCrPositioning`,           // SHORT, 1
+	TagType_YCbCrSubSampling:           `TagType_YCbCrSubSampling`,           // SHORT, 2,
+	TagType_YCbCrPositioning:           `TagType_YCbCrPositioning`,           // SHORT, 1,
 	TagType_ReferenceBlackWhite:        `TagType_ReferenceBlackWhite`,        // LONG , *, # 2*SamplesPerPixel
 	TagType_Copyright:                  `TagType_Copyright`,                  // ASCII
 	TagType_GeoKeyDirectoryTag:         `TagType_GeoKeyDirectoryTag`,         // SHORT, *, # >= 4
@@ -268,10 +269,12 @@ var _TagType_NumsTable = map[TagType][]int{
 	TagType_CellLenght:                 []int{1},
 	TagType_FillOrder:                  []int{1},
 	TagType_Orientation:                []int{1},
-	TagType_SamplesPerPixel:            []int{1},
 	TagType_RowsPerStrip:               []int{1},
 	TagType_XResolution:                []int{1},
 	TagType_YResolution:                []int{1},
+	TagType_PlanarConfiguration:        []int{1},
+	TagType_XPosition:                  []int{1},
+	TagType_YPosition:                  []int{1},
 	TagType_GrayResponseUnit:           []int{1},
 	TagType_T4Options:                  []int{1},
 	TagType_T6Options:                  []int{1},
@@ -285,6 +288,8 @@ var _TagType_NumsTable = map[TagType][]int{
 	TagType_TileWidth:                  []int{1},
 	TagType_TileLength:                 []int{1},
 	TagType_InkSet:                     []int{1},
+	TagType_NumberOfInks:               []int{1},
+	TagType_ExtraSamples:               []int{1},
 	TagType_TransferRange:              []int{6},
 	TagType_JPEGProc:                   []int{1},
 	TagType_JPEGInterchangeFormat:      []int{1},
@@ -298,175 +303,175 @@ var _TagType_NumsTable = map[TagType][]int{
 }
 
 type TagGetter interface {
-	GetNewSubfileType(tag TagType) (value int64, err error)
-	GetSubfileType(tag TagType) (value int64, err error)
-	GetImageWidth(tag TagType) (value int64, err error)
-	GetImageLength(tag TagType) (value int64, err error)
-	GetBitsPerSample(tag TagType) (value []int64, err error)
-	GetCompression(tag TagType) (value int64, err error)
-	GetPhotometricInterpretation(tag TagType) (value int64, err error)
-	GetThreshholding(tag TagType) (value int64, err error)
-	GetCellWidth(tag TagType) (value int64, err error)
-	GetCellLenght(tag TagType) (value int64, err error)
-	GetFillOrder(tag TagType) (value int64, err error)
-	GetDocumentName(tag TagType) (value string, err error)
-	GetImageDescription(tag TagType) (value string, err error)
-	GetMake(tag TagType) (value string, err error)
-	GetModel(tag TagType) (value string, err error)
-	GetStripOffsets(tag TagType) (value []int64, err error)
-	GetOrientation(tag TagType) (value int64, err error)
-	GetSamplesPerPixel(tag TagType) (value int64, err error)
-	GetRowsPerStrip(tag TagType) (value int64, err error)
-	GetStripByteCounts(tag TagType) (value []int64, err error)
-	GetMinSampleValue(tag TagType) (value []int64, err error)
-	GetMaxSampleValue(tag TagType) (value []int64, err error)
-	GetXResolution(tag TagType) (value [2]int64, err error)
-	GetYResolution(tag TagType) (value [2]int64, err error)
-	GetPlanarConfiguration(tag TagType) (value []int64, err error)
-	GetPageName(tag TagType) (value string, err error)
-	GetXPosition(tag TagType) (value [][2]int64, err error)
-	GetYPosition(tag TagType) (value [][2]int64, err error)
-	GetFreeOffsets(tag TagType) (value []int64, err error)
-	GetFreeByteCounts(tag TagType) (value []int64, err error)
-	GetGrayResponseUnit(tag TagType) (value int64, err error)
-	GetGrayResponseCurve(tag TagType) (value []int64, err error)
-	GetT4Options(tag TagType) (value int64, err error)
-	GetT6Options(tag TagType) (value int64, err error)
-	GetResolutionUnit(tag TagType) (value int64, err error)
-	GetPageNumber(tag TagType) (value []int64, err error)
-	GetTransferFunction(tag TagType) (value []int64, err error)
-	GetSoftware(tag TagType) (value string, err error)
-	GetDateTime(tag TagType) (value string, err error)
-	GetArtist(tag TagType) (value string, err error)
-	GetHostComputer(tag TagType) (value string, err error)
-	GetPredictor(tag TagType) (value int64, err error)
-	GetWhitePoint(tag TagType) (value [][2]int64, err error)
-	GetPrimaryChromaticities(tag TagType) (value [][2]int64, err error)
-	GetColorMap(tag TagType) (value []int64, err error)
-	GetHalftoneHints(tag TagType) (value []int64, err error)
-	GetTileWidth(tag TagType) (value int64, err error)
-	GetTileLength(tag TagType) (value int64, err error)
-	GetTileOffsets(tag TagType) (value []int64, err error)
-	GetTileByteCounts(tag TagType) (value []int64, err error)
-	GetInkSet(tag TagType) (value int64, err error)
-	GetInkNames(tag TagType) (value string, err error)
-	GetNumberOfInks(tag TagType) (value []int64, err error)
-	GetDotRange(tag TagType) (value []int64, err error)
-	GetTargetPrinter(tag TagType) (value string, err error)
-	GetExtraSamples(tag TagType) (value []int64, err error)
-	GetSampleFormat(tag TagType) (value []int64, err error)
-	GetSMinSampleValue(tag TagType) (value []byte, err error)
-	GetSMaxSampleValue(tag TagType) (value []byte, err error)
-	GetTransferRange(tag TagType) (value []int64, err error)
-	GetJPEGProc(tag TagType) (value int64, err error)
-	GetJPEGInterchangeFormat(tag TagType) (value int64, err error)
-	GetJPEGInterchangeFormatLngth(tag TagType) (value int64, err error)
-	GetJPEGRestartInterval(tag TagType) (value int64, err error)
-	GetJPEGLosslessPredictors(tag TagType) (value []int64, err error)
-	GetJPEGPointTransforms(tag TagType) (value []int64, err error)
-	GetJPEGQTables(tag TagType) (value []int64, err error)
-	GetJPEGDCTables(tag TagType) (value []int64, err error)
-	GetJPEGACTables(tag TagType) (value []int64, err error)
-	GetYCbCrCoefficients(tag TagType) (value [][2]int64, err error)
-	GetYCbCrSubSampling(tag TagType) (value []int64, err error)
-	GetYCbCrPositioning(tag TagType) (value int64, err error)
-	GetReferenceBlackWhite(tag TagType) (value []int64, err error)
-	GetCopyright(tag TagType) (value string, err error)
-	GetGeoKeyDirectoryTag(tag TagType) (value []int64, err error)
-	GetGeoDoubleParamsTag(tag TagType) (value []float64, err error)
-	GetGeoAsciiParamsTag(tag TagType) (value string, err error)
-	GetModelTiepointTag(tag TagType) (value []float64, err error)
-	GetModelPixelScaleTag(tag TagType) (value []float64, err error)
-	GetModelTransformationTag(tag TagType) (value []float64, err error)
-	GetIntergraphMatrixTag(tag TagType) (value []float64, err error)
-	GetUnknown(tag TagType) (value interface{}, err error)
+	GetNewSubfileType() (value int64, ok bool)
+	GetSubfileType() (value int64, ok bool)
+	GetImageWidth() (value int64, ok bool)
+	GetImageLength() (value int64, ok bool)
+	GetBitsPerSample() (value []int64, ok bool)
+	GetCompression() (value int64, ok bool)
+	GetPhotometricInterpretation() (value int64, ok bool)
+	GetThreshholding() (value int64, ok bool)
+	GetCellWidth() (value int64, ok bool)
+	GetCellLenght() (value int64, ok bool)
+	GetFillOrder() (value int64, ok bool)
+	GetDocumentName() (value string, ok bool)
+	GetImageDescription() (value string, ok bool)
+	GetMake() (value string, ok bool)
+	GetModel() (value string, ok bool)
+	GetStripOffsets() (value []int64, ok bool)
+	GetOrientation() (value int64, ok bool)
+	GetSamplesPerPixel() (value []int64, ok bool)
+	GetRowsPerStrip() (value int64, ok bool)
+	GetStripByteCounts() (value []int64, ok bool)
+	GetMinSampleValue() (value []int64, ok bool)
+	GetMaxSampleValue() (value []int64, ok bool)
+	GetXResolution() (value [2]int64, ok bool)
+	GetYResolution() (value [2]int64, ok bool)
+	GetPlanarConfiguration() (value int64, ok bool)
+	GetPageName() (value string, ok bool)
+	GetXPosition() (value [2]int64, ok bool)
+	GetYPosition() (value [2]int64, ok bool)
+	GetFreeOffsets() (value []int64, ok bool)
+	GetFreeByteCounts() (value []int64, ok bool)
+	GetGrayResponseUnit() (value int64, ok bool)
+	GetGrayResponseCurve() (value []int64, ok bool)
+	GetT4Options() (value int64, ok bool)
+	GetT6Options() (value int64, ok bool)
+	GetResolutionUnit() (value int64, ok bool)
+	GetPageNumber() (value []int64, ok bool)
+	GetTransferFunction() (value []int64, ok bool)
+	GetSoftware() (value string, ok bool)
+	GetDateTime() (value string, ok bool)
+	GetArtist() (value string, ok bool)
+	GetHostComputer() (value string, ok bool)
+	GetPredictor() (value int64, ok bool)
+	GetWhitePoint() (value [][2]int64, ok bool)
+	GetPrimaryChromaticities() (value [][2]int64, ok bool)
+	GetColorMap() (value []int64, ok bool)
+	GetHalftoneHints() (value []int64, ok bool)
+	GetTileWidth() (value int64, ok bool)
+	GetTileLength() (value int64, ok bool)
+	GetTileOffsets() (value []int64, ok bool)
+	GetTileByteCounts() (value []int64, ok bool)
+	GetInkSet() (value int64, ok bool)
+	GetInkNames() (value string, ok bool)
+	GetNumberOfInks() (value int64, ok bool)
+	GetDotRange() (value []int64, ok bool)
+	GetTargetPrinter() (value string, ok bool)
+	GetExtraSamples() (value int64, ok bool)
+	GetSampleFormat() (value []int64, ok bool)
+	GetSMinSampleValue() (value []byte, ok bool)
+	GetSMaxSampleValue() (value []byte, ok bool)
+	GetTransferRange() (value []int64, ok bool)
+	GetJPEGProc() (value int64, ok bool)
+	GetJPEGInterchangeFormat() (value int64, ok bool)
+	GetJPEGInterchangeFormatLngth() (value int64, ok bool)
+	GetJPEGRestartInterval() (value int64, ok bool)
+	GetJPEGLosslessPredictors() (value []int64, ok bool)
+	GetJPEGPointTransforms() (value []int64, ok bool)
+	GetJPEGQTables() (value []int64, ok bool)
+	GetJPEGDCTables() (value []int64, ok bool)
+	GetJPEGACTables() (value []int64, ok bool)
+	GetYCbCrCoefficients() (value [][2]int64, ok bool)
+	GetYCbCrSubSampling() (value []int64, ok bool)
+	GetYCbCrPositioning() (value int64, ok bool)
+	GetReferenceBlackWhite() (value []int64, ok bool)
+	GetCopyright() (value string, ok bool)
+	GetGeoKeyDirectoryTag() (value []int64, ok bool)
+	GetGeoDoubleParamsTag() (value []float64, ok bool)
+	GetGeoAsciiParamsTag() (value string, ok bool)
+	GetModelTiepointTag() (value []float64, ok bool)
+	GetModelPixelScaleTag() (value []float64, ok bool)
+	GetModelTransformationTag() (value []float64, ok bool)
+	GetIntergraphMatrixTag() (value []float64, ok bool)
+	GetUnknown(tag TagType) (value interface{}, ok bool)
 
 	private()
 }
 
 type TagSetter interface {
-	SetNewSubfileType(tag TagType, value int64) error
-	SetSubfileType(tag TagType, value int64) error
-	SetImageWidth(tag TagType, value int64) error
-	SetImageLength(tag TagType, value int64) error
-	SetBitsPerSample(tag TagType, value []int64) error
-	SetCompression(tag TagType, value int64) error
-	SetPhotometricInterpretation(tag TagType, value int64) error
-	SetThreshholding(tag TagType, value int64) error
-	SetCellWidth(tag TagType, value int64) error
-	SetCellLenght(tag TagType, value int64) error
-	SetFillOrder(tag TagType, value int64) error
-	SetDocumentName(tag TagType, value string) error
-	SetImageDescription(tag TagType, value string) error
-	SetMake(tag TagType, value string) error
-	SetModel(tag TagType, value string) error
-	SetStripOffsets(tag TagType, value []int64) error
-	SetOrientation(tag TagType, value int64) error
-	SetSamplesPerPixel(tag TagType, value int64) error
-	SetRowsPerStrip(tag TagType, value int64) error
-	SetStripByteCounts(tag TagType, value []int64) error
-	SetMinSampleValue(tag TagType, value []int64) error
-	SetMaxSampleValue(tag TagType, value []int64) error
-	SetXResolution(tag TagType, value [2]int64) error
-	SetYResolution(tag TagType, value [2]int64) error
-	SetPlanarConfiguration(tag TagType, value []int64) error
-	SetPageName(tag TagType, value string) error
-	SetXPosition(tag TagType, value [][2]int64) error
-	SetYPosition(tag TagType, value [][2]int64) error
-	SetFreeOffsets(tag TagType, value []int64) error
-	SetFreeByteCounts(tag TagType, value []int64) error
-	SetGrayResponseUnit(tag TagType, value int64) error
-	SetGrayResponseCurve(tag TagType, value []int64) error
-	SetT4Options(tag TagType, value int64) error
-	SetT6Options(tag TagType, value int64) error
-	SetResolutionUnit(tag TagType, value int64) error
-	SetPageNumber(tag TagType, value []int64) error
-	SetTransferFunction(tag TagType, value []int64) error
-	SetSoftware(tag TagType, value string) error
-	SetDateTime(tag TagType, value string) error
-	SetArtist(tag TagType, value string) error
-	SetHostComputer(tag TagType, value string) error
-	SetPredictor(tag TagType, value int64) error
-	SetWhitePoint(tag TagType, value [][2]int64) error
-	SetPrimaryChromaticities(tag TagType, value [][2]int64) error
-	SetColorMap(tag TagType, value []int64) error
-	SetHalftoneHints(tag TagType, value []int64) error
-	SetTileWidth(tag TagType, value int64) error
-	SetTileLength(tag TagType, value int64) error
-	SetTileOffsets(tag TagType, value []int64) error
-	SetTileByteCounts(tag TagType, value []int64) error
-	SetInkSet(tag TagType, value int64) error
-	SetInkNames(tag TagType, value string) error
-	SetNumberOfInks(tag TagType, value []int64) error
-	SetDotRange(tag TagType, value []int64) error
-	SetTargetPrinter(tag TagType, value string) error
-	SetExtraSamples(tag TagType, value []int64) error
-	SetSampleFormat(tag TagType, value []int64) error
-	SetSMinSampleValue(tag TagType, value []byte) error
-	SetSMaxSampleValue(tag TagType, value []byte) error
-	SetTransferRange(tag TagType, value []int64) error
-	SetJPEGProc(tag TagType, value int64) error
-	SetJPEGInterchangeFormat(tag TagType, value int64) error
-	SetJPEGInterchangeFormatLngth(tag TagType, value int64) error
-	SetJPEGRestartInterval(tag TagType, value int64) error
-	SetJPEGLosslessPredictors(tag TagType, value []int64) error
-	SetJPEGPointTransforms(tag TagType, value []int64) error
-	SetJPEGQTables(tag TagType, value []int64) error
-	SetJPEGDCTables(tag TagType, value []int64) error
-	SetJPEGACTables(tag TagType, value []int64) error
-	SetYCbCrCoefficients(tag TagType, value [][2]int64) error
-	SetYCbCrSubSampling(tag TagType, value []int64) error
-	SetYCbCrPositioning(tag TagType, value int64) error
-	SetReferenceBlackWhite(tag TagType, value []int64) error
-	SetCopyright(tag TagType, value string) error
-	SetGeoKeyDirectoryTag(tag TagType, value []int64) error
-	SetGeoDoubleParamsTag(tag TagType, value []float64) error
-	SetGeoAsciiParamsTag(tag TagType, value string) error
-	SetModelTiepointTag(tag TagType, value []float64) error
-	SetModelPixelScaleTag(tag TagType, value []float64) error
-	SetModelTransformationTag(tag TagType, value []float64) error
-	SetIntergraphMatrixTag(tag TagType, value []float64) error
-	SetUnknown(tag TagType, value interface{}) error
+	SetNewSubfileType(value int64) (ok bool)
+	SetSubfileType(value int64) (ok bool)
+	SetImageWidth(value int64) (ok bool)
+	SetImageLength(value int64) (ok bool)
+	SetBitsPerSample(value []int64) (ok bool)
+	SetCompression(value int64) (ok bool)
+	SetPhotometricInterpretation(value int64) (ok bool)
+	SetThreshholding(value int64) (ok bool)
+	SetCellWidth(value int64) (ok bool)
+	SetCellLenght(value int64) (ok bool)
+	SetFillOrder(value int64) (ok bool)
+	SetDocumentName(value string) (ok bool)
+	SetImageDescription(value string) (ok bool)
+	SetMake(value string) (ok bool)
+	SetModel(value string) (ok bool)
+	SetStripOffsets(value []int64) (ok bool)
+	SetOrientation(value int64) (ok bool)
+	SetSamplesPerPixel(value []int64) (ok bool)
+	SetRowsPerStrip(value int64) (ok bool)
+	SetStripByteCounts(value []int64) (ok bool)
+	SetMinSampleValue(value []int64) (ok bool)
+	SetMaxSampleValue(value []int64) (ok bool)
+	SetXResolution(value [2]int64) (ok bool)
+	SetYResolution(value [2]int64) (ok bool)
+	SetPlanarConfiguration(value int64) (ok bool)
+	SetPageName(value string) (ok bool)
+	SetXPosition(value [2]int64) (ok bool)
+	SetYPosition(value [2]int64) (ok bool)
+	SetFreeOffsets(value []int64) (ok bool)
+	SetFreeByteCounts(value []int64) (ok bool)
+	SetGrayResponseUnit(value int64) (ok bool)
+	SetGrayResponseCurve(value []int64) (ok bool)
+	SetT4Options(value int64) (ok bool)
+	SetT6Options(value int64) (ok bool)
+	SetResolutionUnit(value int64) (ok bool)
+	SetPageNumber(value []int64) (ok bool)
+	SetTransferFunction(value []int64) (ok bool)
+	SetSoftware(value string) (ok bool)
+	SetDateTime(value string) (ok bool)
+	SetArtist(value string) (ok bool)
+	SetHostComputer(value string) (ok bool)
+	SetPredictor(value int64) (ok bool)
+	SetWhitePoint(value [][2]int64) (ok bool)
+	SetPrimaryChromaticities(value [][2]int64) (ok bool)
+	SetColorMap(value []int64) (ok bool)
+	SetHalftoneHints(value []int64) (ok bool)
+	SetTileWidth(value int64) (ok bool)
+	SetTileLength(value int64) (ok bool)
+	SetTileOffsets(value []int64) (ok bool)
+	SetTileByteCounts(value []int64) (ok bool)
+	SetInkSet(value int64) (ok bool)
+	SetInkNames(value string) (ok bool)
+	SetNumberOfInks(value int64) (ok bool)
+	SetDotRange(value []int64) (ok bool)
+	SetTargetPrinter(value string) (ok bool)
+	SetExtraSamples(value int64) (ok bool)
+	SetSampleFormat(value []int64) (ok bool)
+	SetSMinSampleValue(value []byte) (ok bool)
+	SetSMaxSampleValue(value []byte) (ok bool)
+	SetTransferRange(value []int64) (ok bool)
+	SetJPEGProc(value int64) (ok bool)
+	SetJPEGInterchangeFormat(value int64) (ok bool)
+	SetJPEGInterchangeFormatLngth(value int64) (ok bool)
+	SetJPEGRestartInterval(value int64) (ok bool)
+	SetJPEGLosslessPredictors(value []int64) (ok bool)
+	SetJPEGPointTransforms(value []int64) (ok bool)
+	SetJPEGQTables(value []int64) (ok bool)
+	SetJPEGDCTables(value []int64) (ok bool)
+	SetJPEGACTables(value []int64) (ok bool)
+	SetYCbCrCoefficients(value [][2]int64) (ok bool)
+	SetYCbCrSubSampling(value []int64) (ok bool)
+	SetYCbCrPositioning(value int64) (ok bool)
+	SetReferenceBlackWhite(value []int64) (ok bool)
+	SetCopyright(value string) (ok bool)
+	SetGeoKeyDirectoryTag(value []int64) (ok bool)
+	SetGeoDoubleParamsTag(value []float64) (ok bool)
+	SetGeoAsciiParamsTag(value string) (ok bool)
+	SetModelTiepointTag(value []float64) (ok bool)
+	SetModelPixelScaleTag(value []float64) (ok bool)
+	SetModelTransformationTag(value []float64) (ok bool)
+	SetIntergraphMatrixTag(value []float64) (ok bool)
+	SetUnknown(tag TagType, value interface{}) (ok bool)
 
 	private()
 }
