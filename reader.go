@@ -6,6 +6,7 @@ package tiff
 
 import (
 	"encoding/binary"
+	"fmt"
 	"image"
 	"image/color"
 	"io"
@@ -77,7 +78,8 @@ func (d *decoder) ifdUint(p []byte) (u []uint, err error) {
 			u[i] = uint(d.byteOrder.Uint32(raw[4*i : 4*(i+1)]))
 		}
 	default:
-		return nil, UnsupportedError("data type")
+		err = fmt.Errorf("tiff: unsupport data type, %d", int(datatype))
+		return
 	}
 	return u, nil
 }
@@ -113,7 +115,7 @@ func (d *decoder) parseIFD(p []byte) error {
 		}
 		numcolors := len(val) / 3
 		if len(val)%3 != 0 || numcolors <= 0 || numcolors > 256 {
-			return FormatError("bad ColorMap length")
+			return fmt.Errorf("tiff: decoder.parseIFD, bad ColorMap length")
 		}
 		d.palette = make([]color.Color, numcolors)
 		for i := 0; i < numcolors; i++ {
@@ -135,7 +137,7 @@ func (d *decoder) parseIFD(p []byte) error {
 		}
 		for _, v := range val {
 			if v != 1 {
-				return UnsupportedError("sample format")
+				return fmt.Errorf("tiff: decoder.parseIFD, sample format")
 			}
 		}
 	}
@@ -324,7 +326,7 @@ func (d *decoder) Decode() (err error) {
 	case ClassicTiffBigEnding:
 		d.byteOrder = binary.BigEndian
 	default:
-		return FormatError("malformed header")
+		return fmt.Errorf("tiff: decoder.Decode, malformed header")
 	}
 
 	ifdOffset := int64(d.byteOrder.Uint32(p[4:8]))
@@ -355,7 +357,7 @@ func (d *decoder) Decode() (err error) {
 	d.config.Height = int(d.firstVal(TagType_ImageLength))
 
 	if _, ok := d.features[TagType_BitsPerSample]; !ok {
-		return FormatError("BitsPerSample tag missing")
+		return fmt.Errorf("tiff: decoder.Decode, BitsPerSample tag missing")
 	}
 	d.bpp = d.firstVal(TagType_BitsPerSample)
 
@@ -365,13 +367,13 @@ func (d *decoder) Decode() (err error) {
 		if d.bpp == 16 {
 			for _, b := range d.features[TagType_BitsPerSample] {
 				if b != 16 {
-					return FormatError("wrong number of samples for 16bit RGB")
+					return fmt.Errorf("tiff: decoder.Decode, wrong number of samples for 16bit RGB")
 				}
 			}
 		} else {
 			for _, b := range d.features[TagType_BitsPerSample] {
 				if b != 8 {
-					return FormatError("wrong number of samples for 8bit RGB")
+					return fmt.Errorf("tiff: decoder.Decode, wrong number of samples for 8bit RGB")
 				}
 			}
 		}
@@ -406,10 +408,10 @@ func (d *decoder) Decode() (err error) {
 					d.config.ColorModel = color.NRGBAModel
 				}
 			default:
-				return FormatError("wrong number of samples for RGB")
+				return fmt.Errorf("tiff: decoder.Decode, wrong number of samples for RGB")
 			}
 		default:
-			return FormatError("wrong number of samples for RGB")
+			return fmt.Errorf("tiff: decoder.Decode, wrong number of samples for RGB")
 		}
 	case TagValue_PhotometricType_Paletted:
 		d.mode = ImageType_Paletted
@@ -429,7 +431,7 @@ func (d *decoder) Decode() (err error) {
 			d.config.ColorModel = color.GrayModel
 		}
 	default:
-		return UnsupportedError("color model")
+		return fmt.Errorf("tiff: decoder.Decode, unsupport color model")
 	}
 
 	return nil
@@ -497,7 +499,7 @@ func Decode(r io.Reader) (m image.Image, err error) {
 
 	// Check if we have the right number of strips/tiles, offsets and counts.
 	if n := blocksAcross * blocksDown; len(blockOffsets) < n || len(blockCounts) < n {
-		return nil, FormatError("inconsistent header")
+		return nil, fmt.Errorf("tiff: Decode, inconsistent header")
 	}
 
 	imgRect := image.Rect(0, 0, d.config.Width, d.config.Height)

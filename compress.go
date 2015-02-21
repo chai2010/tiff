@@ -35,7 +35,7 @@ func (p CompressType) ReadAll(r io.Reader) (data []byte, err error) {
 	case CompressType_DeflateOld:
 		return p.readAll_DeflateOld(r)
 	}
-	err = UnsupportedError(fmt.Sprintf("compression value %d", int(p)))
+	err = fmt.Errorf("tiff: unknown CompressType, %d", int(p))
 	return
 }
 
@@ -45,17 +45,17 @@ func (p CompressType) readAll_None(r io.Reader) (data []byte, err error) {
 }
 
 func (p CompressType) readAll_CCITT(r io.Reader) (data []byte, err error) {
-	err = UnsupportedError(fmt.Sprintf("compression value %d", int(p)))
+	err = fmt.Errorf("tiff: unsupport CompressType, %d", int(p))
 	return
 }
 
 func (p CompressType) readAll_G3(r io.Reader) (data []byte, err error) {
-	err = UnsupportedError(fmt.Sprintf("compression value %d", int(p)))
+	err = fmt.Errorf("tiff: unsupport CompressType, %d", int(p))
 	return
 }
 
 func (p CompressType) readAll_G4(r io.Reader) (data []byte, err error) {
-	err = UnsupportedError(fmt.Sprintf("compression value %d", int(p)))
+	err = fmt.Errorf("tiff: unsupport CompressType, %d", int(p))
 	return
 }
 
@@ -67,12 +67,12 @@ func (p CompressType) readAll_LZW(r io.Reader) (data []byte, err error) {
 }
 
 func (p CompressType) readAll_JPEGOld(r io.Reader) (data []byte, err error) {
-	err = UnsupportedError(fmt.Sprintf("compression value %d", int(p)))
+	err = fmt.Errorf("tiff: unsupport CompressType, %d", int(p))
 	return
 }
 
 func (p CompressType) readAll_JPEG(r io.Reader) (data []byte, err error) {
-	err = UnsupportedError(fmt.Sprintf("compression value %d", int(p)))
+	err = fmt.Errorf("tiff: unsupport CompressType, %d", int(p))
 	return
 }
 
