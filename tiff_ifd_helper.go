@@ -9,6 +9,14 @@ import (
 	"time"
 )
 
+func (p *IFD) TagGetter() TagGetter {
+	return nil
+}
+
+func (p *IFD) TagSetter() TagSetter {
+	return nil
+}
+
 func (p *IFD) ImageSize() (width, height int) {
 	if tag, ok := p.EntryMap[TagType_ImageWidth]; ok {
 		if v := tag.GetInts(); len(v) == 1 {

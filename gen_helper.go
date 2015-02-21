@@ -250,6 +250,26 @@ func (p *Type) GenMapCode() {
 		fmt.Fprintf(&buf, "}\n")
 	}
 
+	if p.TypeName == "TagType" {
+		fmt.Fprintf(&buf, "\ntype TagGetter interface {\n")
+		for _, s := range p.TypeList {
+			fmt.Fprintf(&buf, "Get%s(tag TagType, value %s) error\n", s[len("TagType_"):], p.getValueType(s))
+		}
+		fmt.Fprintf(&buf, "GetUnknown(tag TagType, value interface{}) error\n")
+		fmt.Fprintf(&buf, "\n")
+		fmt.Fprintf(&buf, "private()\n")
+		fmt.Fprintf(&buf, "}\n")
+
+		fmt.Fprintf(&buf, "\ntype TagSetter interface {\n")
+		for _, s := range p.TypeList {
+			fmt.Fprintf(&buf, "Set%s(tag TagType, value %s) error\n", s[len("TagType_"):], p.getValueType(s))
+		}
+		fmt.Fprintf(&buf, "SetUnknown(tag TagType, value interface{}) error\n")
+		fmt.Fprintf(&buf, "\n")
+		fmt.Fprintf(&buf, "private()\n")
+		fmt.Fprintf(&buf, "}\n")
+	}
+
 	fmt.Fprintf(&buf, `
 func (p %s) String() string {
 	if name, ok := _%sTable[p]; ok {
@@ -264,4 +284,130 @@ func (p %s) String() string {
 	)
 
 	p.MapCode = buf.String()
+}
+
+func (p *Type) getValueType(typeName string) string {
+	switch types, _ := p.TagTypeMap[typeName]; {
+	case p.isIntType(types):
+		if p.isOnlyOneValue(p.TagNumMap[typeName]) {
+			return `int64`
+		} else {
+			return `[]int64`
+		}
+	case p.isFloatType(types):
+		if p.isOnlyOneValue(p.TagNumMap[typeName]) {
+			return `float64`
+		} else {
+			return `[]float64`
+		}
+	case p.isRationalType(types):
+		if p.isOnlyOneValue(p.TagNumMap[typeName]) {
+			return `[2]int64`
+		} else {
+			return `[][2]int64`
+		}
+	case p.isComplexType(types):
+		if p.isOnlyOneValue(p.TagNumMap[typeName]) {
+			return `complex128`
+		} else {
+			return `[]complex128`
+		}
+	case p.isStringType(types):
+		return `string`
+	case p.isIFDType(types):
+		if p.isOnlyOneValue(p.TagNumMap[typeName]) {
+			return `IFD`
+		} else {
+			return `[]IFD`
+		}
+	case p.isUndefinedType(types):
+		return `[]byte`
+	default:
+		return `[]byte`
+	}
+}
+
+func (p *Type) isOnlyOneValue(nums []int) bool {
+	return len(nums) == 1 && nums[0] == 1
+}
+
+func (p *Type) isIntType(dataTypes []string) bool {
+	if len(dataTypes) == 0 {
+		return false
+	}
+	for _, s := range dataTypes {
+		switch s {
+		case "DataType_Byte", "DataType_Short", "DataType_Long", "DataType_Long8":
+		case "DataType_SByte", "DataType_SShort", "DataType_SLong", "DataType_SLong8":
+		default:
+			return false
+		}
+	}
+	return true
+}
+func (p *Type) isFloatType(dataTypes []string) bool {
+	if len(dataTypes) == 0 {
+		return false
+	}
+	for _, s := range dataTypes {
+		if s != "DataType_Float" && s != "DataType_Double" {
+			return false
+		}
+	}
+	return true
+}
+func (p *Type) isRationalType(dataTypes []string) bool {
+	if len(dataTypes) == 0 {
+		return false
+	}
+	for _, s := range dataTypes {
+		if s != "DataType_Rational" && s != "DataType_SRational" {
+			return false
+		}
+	}
+	return true
+}
+func (p *Type) isComplexType(dataTypes []string) bool {
+	if len(dataTypes) == 0 {
+		return false
+	}
+	for _, s := range dataTypes {
+		if s != "DataType_Complex" {
+			return false
+		}
+	}
+	return true
+}
+func (p *Type) isStringType(dataTypes []string) bool {
+	if len(dataTypes) == 0 {
+		return false
+	}
+	for _, s := range dataTypes {
+		if s != "DataType_ASCII" && s != "DataType_Unicode" {
+			return false
+		}
+	}
+	return true
+}
+func (p *Type) isIFDType(dataTypes []string) bool {
+	if len(dataTypes) == 0 {
+		return false
+	}
+	for _, s := range dataTypes {
+		if s != "DataType_IFD" && s != "DataType_IFD8" {
+			return false
+		}
+	}
+	return true
+}
+func (p *Type) isUndefinedType(dataTypes []string) bool {
+	if len(dataTypes) == 0 {
+		return true
+	}
+	for _, s := range dataTypes {
+		if s == "DataType_Undefined" {
+			return true
+		}
+	}
+	return false
 }
