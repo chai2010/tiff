@@ -298,88 +298,88 @@ var _TagType_NumsTable = map[TagType][]int{
 }
 
 type TagGetter interface {
-	GetNewSubfileType(tag TagType, value int64) error
-	GetSubfileType(tag TagType, value int64) error
-	GetImageWidth(tag TagType, value int64) error
-	GetImageLength(tag TagType, value int64) error
-	GetBitsPerSample(tag TagType, value []int64) error
-	GetCompression(tag TagType, value int64) error
-	GetPhotometricInterpretation(tag TagType, value int64) error
-	GetThreshholding(tag TagType, value int64) error
-	GetCellWidth(tag TagType, value int64) error
-	GetCellLenght(tag TagType, value int64) error
-	GetFillOrder(tag TagType, value int64) error
-	GetDocumentName(tag TagType, value string) error
-	GetImageDescription(tag TagType, value string) error
-	GetMake(tag TagType, value string) error
-	GetModel(tag TagType, value string) error
-	GetStripOffsets(tag TagType, value []int64) error
-	GetOrientation(tag TagType, value int64) error
-	GetSamplesPerPixel(tag TagType, value int64) error
-	GetRowsPerStrip(tag TagType, value int64) error
-	GetStripByteCounts(tag TagType, value []int64) error
-	GetMinSampleValue(tag TagType, value []int64) error
-	GetMaxSampleValue(tag TagType, value []int64) error
-	GetXResolution(tag TagType, value [2]int64) error
-	GetYResolution(tag TagType, value [2]int64) error
-	GetPlanarConfiguration(tag TagType, value []int64) error
-	GetPageName(tag TagType, value string) error
-	GetXPosition(tag TagType, value [][2]int64) error
-	GetYPosition(tag TagType, value [][2]int64) error
-	GetFreeOffsets(tag TagType, value []int64) error
-	GetFreeByteCounts(tag TagType, value []int64) error
-	GetGrayResponseUnit(tag TagType, value int64) error
-	GetGrayResponseCurve(tag TagType, value []int64) error
-	GetT4Options(tag TagType, value int64) error
-	GetT6Options(tag TagType, value int64) error
-	GetResolutionUnit(tag TagType, value int64) error
-	GetPageNumber(tag TagType, value []int64) error
-	GetTransferFunction(tag TagType, value []int64) error
-	GetSoftware(tag TagType, value string) error
-	GetDateTime(tag TagType, value string) error
-	GetArtist(tag TagType, value string) error
-	GetHostComputer(tag TagType, value string) error
-	GetPredictor(tag TagType, value int64) error
-	GetWhitePoint(tag TagType, value [][2]int64) error
-	GetPrimaryChromaticities(tag TagType, value [][2]int64) error
-	GetColorMap(tag TagType, value []int64) error
-	GetHalftoneHints(tag TagType, value []int64) error
-	GetTileWidth(tag TagType, value int64) error
-	GetTileLength(tag TagType, value int64) error
-	GetTileOffsets(tag TagType, value []int64) error
-	GetTileByteCounts(tag TagType, value []int64) error
-	GetInkSet(tag TagType, value int64) error
-	GetInkNames(tag TagType, value string) error
-	GetNumberOfInks(tag TagType, value []int64) error
-	GetDotRange(tag TagType, value []int64) error
-	GetTargetPrinter(tag TagType, value string) error
-	GetExtraSamples(tag TagType, value []int64) error
-	GetSampleFormat(tag TagType, value []int64) error
-	GetSMinSampleValue(tag TagType, value []byte) error
-	GetSMaxSampleValue(tag TagType, value []byte) error
-	GetTransferRange(tag TagType, value []int64) error
-	GetJPEGProc(tag TagType, value int64) error
-	GetJPEGInterchangeFormat(tag TagType, value int64) error
-	GetJPEGInterchangeFormatLngth(tag TagType, value int64) error
-	GetJPEGRestartInterval(tag TagType, value int64) error
-	GetJPEGLosslessPredictors(tag TagType, value []int64) error
-	GetJPEGPointTransforms(tag TagType, value []int64) error
-	GetJPEGQTables(tag TagType, value []int64) error
-	GetJPEGDCTables(tag TagType, value []int64) error
-	GetJPEGACTables(tag TagType, value []int64) error
-	GetYCbCrCoefficients(tag TagType, value [][2]int64) error
-	GetYCbCrSubSampling(tag TagType, value []int64) error
-	GetYCbCrPositioning(tag TagType, value int64) error
-	GetReferenceBlackWhite(tag TagType, value []int64) error
-	GetCopyright(tag TagType, value string) error
-	GetGeoKeyDirectoryTag(tag TagType, value []int64) error
-	GetGeoDoubleParamsTag(tag TagType, value []float64) error
-	GetGeoAsciiParamsTag(tag TagType, value string) error
-	GetModelTiepointTag(tag TagType, value []float64) error
-	GetModelPixelScaleTag(tag TagType, value []float64) error
-	GetModelTransformationTag(tag TagType, value []float64) error
-	GetIntergraphMatrixTag(tag TagType, value []float64) error
-	GetUnknown(tag TagType, value interface{}) error
+	GetNewSubfileType(tag TagType) (value int64, err error)
+	GetSubfileType(tag TagType) (value int64, err error)
+	GetImageWidth(tag TagType) (value int64, err error)
+	GetImageLength(tag TagType) (value int64, err error)
+	GetBitsPerSample(tag TagType) (value []int64, err error)
+	GetCompression(tag TagType) (value int64, err error)
+	GetPhotometricInterpretation(tag TagType) (value int64, err error)
+	GetThreshholding(tag TagType) (value int64, err error)
+	GetCellWidth(tag TagType) (value int64, err error)
+	GetCellLenght(tag TagType) (value int64, err error)
+	GetFillOrder(tag TagType) (value int64, err error)
+	GetDocumentName(tag TagType) (value string, err error)
+	GetImageDescription(tag TagType) (value string, err error)
+	GetMake(tag TagType) (value string, err error)
+	GetModel(tag TagType) (value string, err error)
+	GetStripOffsets(tag TagType) (value []int64, err error)
+	GetOrientation(tag TagType) (value int64, err error)
+	GetSamplesPerPixel(tag TagType) (value int64, err error)
+	GetRowsPerStrip(tag TagType) (value int64, err error)
+	GetStripByteCounts(tag TagType) (value []int64, err error)
+	GetMinSampleValue(tag TagType) (value []int64, err error)
+	GetMaxSampleValue(tag TagType) (value []int64, err error)
+	GetXResolution(tag TagType) (value [2]int64, err error)
+	GetYResolution(tag TagType) (value [2]int64, err error)
+	GetPlanarConfiguration(tag TagType) (value []int64, err error)
+	GetPageName(tag TagType) (value string, err error)
+	GetXPosition(tag TagType) (value [][2]int64, err error)
+	GetYPosition(tag TagType) (value [][2]int64, err error)
+	GetFreeOffsets(tag TagType) (value []int64, err error)
+	GetFreeByteCounts(tag TagType) (value []int64, err error)
+	GetGrayResponseUnit(tag TagType) (value int64, err error)
+	GetGrayResponseCurve(tag TagType) (value []int64, err error)
+	GetT4Options(tag TagType) (value int64, err error)
+	GetT6Options(tag TagType) (value int64, err error)
+	GetResolutionUnit(tag TagType) (value int64, err error)
+	GetPageNumber(tag TagType) (value []int64, err error)
+	GetTransferFunction(tag TagType) (value []int64, err error)
+	GetSoftware(tag TagType) (value string, err error)
+	GetDateTime(tag TagType) (value string, err error)
+	GetArtist(tag TagType) (value string, err error)
+	GetHostComputer(tag TagType) (value string, err error)
+	GetPredictor(tag TagType) (value int64, err error)
+	GetWhitePoint(tag TagType) (value [][2]int64, err error)
+	GetPrimaryChromaticities(tag TagType) (value [][2]int64, err error)
+	GetColorMap(tag TagType) (value []int64, err error)
+	GetHalftoneHints(tag TagType) (value []int64, err error)
+	GetTileWidth(tag TagType) (value int64, err error)
+	GetTileLength(tag TagType) (value int64, err error)
+	GetTileOffsets(tag TagType) (value []int64, err error)
+	GetTileByteCounts(tag TagType) (value []int64, err error)
+	GetInkSet(tag TagType) (value int64, err error)
+	GetInkNames(tag TagType) (value string, err error)
+	GetNumberOfInks(tag TagType) (value []int64, err error)
+	GetDotRange(tag TagType) (value []int64, err error)
+	GetTargetPrinter(tag TagType) (value string, err error)
+	GetExtraSamples(tag TagType) (value []int64, err error)
+	GetSampleFormat(tag TagType) (value []int64, err error)
+	GetSMinSampleValue(tag TagType) (value []byte, err error)
+	GetSMaxSampleValue(tag TagType) (value []byte, err error)
+	GetTransferRange(tag TagType) (value []int64, err error)
+	GetJPEGProc(tag TagType) (value int64, err error)
+	GetJPEGInterchangeFormat(tag TagType) (value int64, err error)
+	GetJPEGInterchangeFormatLngth(tag TagType) (value int64, err error)
+	GetJPEGRestartInterval(tag TagType) (value int64, err error)
+	GetJPEGLosslessPredictors(tag TagType) (value []int64, err error)
+	GetJPEGPointTransforms(tag TagType) (value []int64, err error)
+	GetJPEGQTables(tag TagType) (value []int64, err error)
+	GetJPEGDCTables(tag TagType) (value []int64, err error)
+	GetJPEGACTables(tag TagType) (value []int64, err error)
+	GetYCbCrCoefficients(tag TagType) (value [][2]int64, err error)
+	GetYCbCrSubSampling(tag TagType) (value []int64, err error)
+	GetYCbCrPositioning(tag TagType) (value int64, err error)
+	GetReferenceBlackWhite(tag TagType) (value []int64, err error)
+	GetCopyright(tag TagType) (value string, err error)
+	GetGeoKeyDirectoryTag(tag TagType) (value []int64, err error)
+	GetGeoDoubleParamsTag(tag TagType) (value []float64, err error)
+	GetGeoAsciiParamsTag(tag TagType) (value string, err error)
+	GetModelTiepointTag(tag TagType) (value []float64, err error)
+	GetModelPixelScaleTag(tag TagType) (value []float64, err error)
+	GetModelTransformationTag(tag TagType) (value []float64, err error)
+	GetIntergraphMatrixTag(tag TagType) (value []float64, err error)
+	GetUnknown(tag TagType) (value interface{}, err error)
 
 	private()
 }
