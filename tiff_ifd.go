@@ -251,13 +251,6 @@ func readIFDEntry8Data(r io.ReadSeeker, entry *IFDEntry) (data []byte, err error
 	return
 }
 
-func (p *IFD) Valid() bool {
-	if p.Header == nil || !p.Header.Valid() {
-		return false
-	}
-	return true
-}
-
 func (p *IFD) IfdSize() int {
 	if !p.Valid() {
 		return 0
@@ -267,10 +260,6 @@ func (p *IFD) IfdSize() int {
 	} else {
 		return 8 + len(p.EntryMap)*20 + 8
 	}
-}
-
-func (p *IFD) ImageType() ImageType {
-	return ImageType_Nil
 }
 
 func (p *IFD) String() string {

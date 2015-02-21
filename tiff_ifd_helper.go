@@ -4,20 +4,14 @@
 
 package tiff
 
-import (
-	"fmt"
-	"time"
-)
-
-func (p *IFD) TagGetter() TagGetter {
-	return nil
+func (p *IFD) Valid() bool {
+	if p.Header == nil || !p.Header.Valid() {
+		return false
+	}
+	return true
 }
 
-func (p *IFD) TagSetter() TagSetter {
-	return nil
-}
-
-func (p *IFD) ImageSize() (width, height int) {
+func (p *IFD) Size() (width, height int) {
 	if tag, ok := p.EntryMap[TagType_ImageWidth]; ok {
 		if v := tag.GetInts(); len(v) == 1 {
 			width = int(v[0])
@@ -31,7 +25,7 @@ func (p *IFD) ImageSize() (width, height int) {
 	return
 }
 
-func (p *IFD) BitsPerSample() int {
+func (p *IFD) Depth() int {
 	if tag, ok := p.EntryMap[TagType_BitsPerSample]; ok {
 		v := tag.GetInts()
 		for i := 1; i < len(v); i++ {
@@ -46,7 +40,7 @@ func (p *IFD) BitsPerSample() int {
 	return 0
 }
 
-func (p *IFD) SamplesPerPixel() int {
+func (p *IFD) Channels() int {
 	if tag, ok := p.EntryMap[TagType_SamplesPerPixel]; ok {
 		if v := tag.GetInts(); len(v) == 1 {
 			return int(v[0])
@@ -55,13 +49,8 @@ func (p *IFD) SamplesPerPixel() int {
 	return 0
 }
 
-func (p *IFD) PhotometricInterpretation() TagValue_PhotometricType {
-	if tag, ok := p.EntryMap[TagType_PhotometricInterpretation]; ok {
-		if v := tag.GetInts(); len(v) == 1 {
-			return TagValue_PhotometricType(v[0])
-		}
-	}
-	return TagValue_PhotometricType_WhiteIsZero
+func (p *IFD) ImageType() ImageType {
+	return ImageType_Nil
 }
 
 func (p *IFD) Compression() CompressType {
@@ -71,29 +60,6 @@ func (p *IFD) Compression() CompressType {
 		}
 	}
 	return CompressType_Nil
-}
-
-func (p *IFD) ResolutionUnit() TagValue_ResolutionUnitType {
-	if tag, ok := p.EntryMap[TagType_ResolutionUnit]; ok {
-		if v := tag.GetInts(); len(v) == 1 {
-			return TagValue_ResolutionUnitType(v[0])
-		}
-	}
-	return TagValue_ResolutionUnitType_None
-}
-
-func (p *IFD) XYResolution() (x, y [2]int64) {
-	if tag, ok := p.EntryMap[TagType_XResolution]; ok {
-		if v := tag.GetRationals(); len(v) == 1 {
-			x = v[0]
-		}
-	}
-	if tag, ok := p.EntryMap[TagType_YResolution]; ok {
-		if v := tag.GetRationals(); len(v) == 1 {
-			y = v[0]
-		}
-	}
-	return
 }
 
 func (p *IFD) ColorMap() [][3]uint16 {
@@ -112,20 +78,6 @@ func (p *IFD) ColorMap() [][3]uint16 {
 		}
 	}
 	return nil
-}
-
-func (p *IFD) CellSize() (width, height float64) {
-	if tag, ok := p.EntryMap[TagType_CellWidth]; ok {
-		if v := tag.GetFloats(); len(v) == 1 {
-			width = float64(v[0])
-		}
-	}
-	if tag, ok := p.EntryMap[TagType_CellLenght]; ok {
-		if v := tag.GetFloats(); len(v) == 1 {
-			height = float64(v[0])
-		}
-	}
-	return
 }
 
 func (p *IFD) BlockSize() (width, height int) {
@@ -198,68 +150,14 @@ func (p *IFD) Predictor() TagValue_PredictorType {
 	return TagValue_PredictorType_None
 }
 
-func (p *IFD) DocumentName() string {
-	if tag, ok := p.EntryMap[TagType_DocumentName]; ok {
-		return tag.GetString()
+func (p *IFD) TagGetter() TagGetter {
+	return &tifTagGetter{
+		EntryMap: p.EntryMap,
 	}
-	return ""
 }
 
-func (p *IFD) ImageDescription() string {
-	if tag, ok := p.EntryMap[TagType_ImageDescription]; ok {
-		return tag.GetString()
+func (p *IFD) TagSetter() TagSetter {
+	return &tifTagSetter{
+		EntryMap: p.EntryMap,
 	}
-	return ""
-}
-
-func (p *IFD) Make() string {
-	if tag, ok := p.EntryMap[TagType_Make]; ok {
-		return tag.GetString()
-	}
-	return ""
-}
-
-func (p *IFD) Model() string {
-	if tag, ok := p.EntryMap[TagType_Model]; ok {
-		return tag.GetString()
-	}
-	return ""
-}
-
-func (p *IFD) Software() string {
-	if tag, ok := p.EntryMap[TagType_Software]; ok {
-		return tag.GetString()
-	}
-	return ""
-}
-func (p *IFD) Artist() string {
-	if tag, ok := p.EntryMap[TagType_Artist]; ok {
-		return tag.GetString()
-	}
-	return ""
-}
-func (p *IFD) HostComputer() string {
-	if tag, ok := p.EntryMap[TagType_HostComputer]; ok {
-		return tag.GetString()
-	}
-	return ""
-}
-
-func (p *IFD) DateTime() (t time.Time) {
-	if tag, ok := p.EntryMap[TagType_DateTime]; ok {
-		var year, month, day, hour, min, sec int
-		if _, err := fmt.Sscanf(tag.GetString(), "%d:%d:%d %d:%d:%d",
-			&year, &month, &day,
-			&hour, &min, &sec,
-		); err == nil {
-			t = time.Date(year, time.Month(month), day, hour, min, sec, 0, nil)
-		}
-	}
-	return
-}
-func (p *IFD) Copyright() string {
-	if tag, ok := p.EntryMap[TagType_Copyright]; ok {
-		return tag.GetString()
-	}
-	return ""
 }

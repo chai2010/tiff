@@ -7,5 +7,6 @@ package tiff
 var _ TagSetter = (*tifTagSetter)(nil)
 
 type tifTagSetter struct {
+	EntryMap map[TagType]*IFDEntry
 	TagSetter
 }

@@ -30,8 +30,8 @@ func (p *IFD) ReadBlock(r io.ReadSeeker, offset, length int64, dst *Image, rect 
 }
 
 func (p *IFD) decodePredictor(r image.Rectangle, data []byte) (out []byte, err error) {
-	bpp := p.BitsPerSample()
-	spp := p.SamplesPerPixel()
+	bpp := p.Depth()
+	spp := p.Channels()
 
 	switch bpp {
 	case 16:
