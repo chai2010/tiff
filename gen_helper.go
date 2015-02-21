@@ -78,6 +78,7 @@ package tiff
 
 import (
 	"fmt"
+	"time"
 )
 
 `[1:])
@@ -255,7 +256,8 @@ func (p *Type) GenMapCode() {
 		for _, s := range p.TypeList {
 			fmt.Fprintf(&buf, "Get%s() (value %s, ok bool)\n", s[len("TagType_"):], p.getValueType(s))
 		}
-		fmt.Fprintf(&buf, "GetUnknown(tag TagType) (value interface{}, ok bool)\n")
+		fmt.Fprintf(&buf, "\n")
+		fmt.Fprintf(&buf, "GetUnknown(tag TagType) (value []byte, ok bool)\n")
 		fmt.Fprintf(&buf, "\n")
 		fmt.Fprintf(&buf, "private()\n")
 		fmt.Fprintf(&buf, "}\n")
@@ -264,6 +266,7 @@ func (p *Type) GenMapCode() {
 		for _, s := range p.TypeList {
 			fmt.Fprintf(&buf, "Set%s(value %s) (ok bool)\n", s[len("TagType_"):], p.getValueType(s))
 		}
+		fmt.Fprintf(&buf, "\n")
 		fmt.Fprintf(&buf, "SetUnknown(tag TagType, value interface{}) (ok bool)\n")
 		fmt.Fprintf(&buf, "\n")
 		fmt.Fprintf(&buf, "private()\n")
@@ -287,6 +290,22 @@ func (p %s) String() string {
 }
 
 func (p *Type) getValueType(typeName string) string {
+	switch typeName {
+	case "TagType_Compression":
+		return "CompressType"
+	case "TagType_PhotometricInterpretation":
+		return "TagValue_PhotometricType"
+	case "TagType_Predictor":
+		return "TagValue_PredictorType"
+	case "TagType_ResolutionUnit":
+		return "TagValue_ResolutionUnitType"
+	case "TagType_ColorMap":
+		return "[][3]uint16"
+	case "TagType_SMinSampleValue", "TagType_SMaxSampleValue":
+		return "[]float64"
+	case "TagType_DateTime":
+		return "time.Time"
+	}
 	switch types, _ := p.TagTypeMap[typeName]; {
 	case p.isIntType(types):
 		if p.isOnlyOneValue(p.TagNumMap[typeName]) {

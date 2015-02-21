@@ -127,9 +127,23 @@ func (p *IFDEntry) GetFloats() []float64 {
 			dst[i] = float64(v)
 		}
 		return dst
+	case DataType_Rational, DataType_SRational:
+		rats := p.GetRationals()
+		floats := make([]float64, len(rats))
+		for i := 0; i < len(rats); i++ {
+			floats[i] = float64(rats[i][0]) / float64(rats[i][0])
+		}
+		return floats
+	default:
+		ints := p.GetInts()
+		floats := make([]float64, len(ints))
+		for i := 0; i < len(ints); i++ {
+			floats[i] = float64(ints[i])
+		}
+		return floats
 	}
-	return nil
 }
+
 func (p *IFDEntry) GetRationals() [][2]int64 {
 	switch p.DataType {
 	case DataType_Rational:
@@ -179,9 +193,6 @@ func (p *IFDEntry) GetString() string {
 	return ""
 }
 
-func (p *IFDEntry) SetBytes(data []byte) {
-	return
-}
 func (p *IFDEntry) SetInts(...int64) {
 	return
 }

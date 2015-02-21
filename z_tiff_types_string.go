@@ -8,6 +8,7 @@ package tiff
 
 import (
 	"fmt"
+	"time"
 )
 
 var _TiffTypeTable = map[TiffType]string{
@@ -149,8 +150,8 @@ var _TagTypeTable = map[TagType]string{
 	TagType_TargetPrinter:              `TagType_TargetPrinter`,              // ASCII
 	TagType_ExtraSamples:               `TagType_ExtraSamples`,               // BYTE,  1,
 	TagType_SampleFormat:               `TagType_SampleFormat`,               // SHORT, *, # SamplesPerPixel
-	TagType_SMinSampleValue:            `TagType_SMinSampleValue`,            // *,     *, # SamplesPerPixel
-	TagType_SMaxSampleValue:            `TagType_SMaxSampleValue`,            // *,     *, # SamplesPerPixel
+	TagType_SMinSampleValue:            `TagType_SMinSampleValue`,            // *,     *, # SamplesPerPixel, try double
+	TagType_SMaxSampleValue:            `TagType_SMaxSampleValue`,            // *,     *, # SamplesPerPixel, try double
 	TagType_TransferRange:              `TagType_TransferRange`,              // SHORT, 6,
 	TagType_JPEGProc:                   `TagType_JPEGProc`,                   // SHORT, 1,
 	TagType_JPEGInterchangeFormat:      `TagType_JPEGInterchangeFormat`,      // LONG,  1,
@@ -308,8 +309,8 @@ type TagGetter interface {
 	GetImageWidth() (value int64, ok bool)
 	GetImageLength() (value int64, ok bool)
 	GetBitsPerSample() (value []int64, ok bool)
-	GetCompression() (value int64, ok bool)
-	GetPhotometricInterpretation() (value int64, ok bool)
+	GetCompression() (value CompressType, ok bool)
+	GetPhotometricInterpretation() (value TagValue_PhotometricType, ok bool)
 	GetThreshholding() (value int64, ok bool)
 	GetCellWidth() (value int64, ok bool)
 	GetCellLenght() (value int64, ok bool)
@@ -337,17 +338,17 @@ type TagGetter interface {
 	GetGrayResponseCurve() (value []int64, ok bool)
 	GetT4Options() (value int64, ok bool)
 	GetT6Options() (value int64, ok bool)
-	GetResolutionUnit() (value int64, ok bool)
+	GetResolutionUnit() (value TagValue_ResolutionUnitType, ok bool)
 	GetPageNumber() (value []int64, ok bool)
 	GetTransferFunction() (value []int64, ok bool)
 	GetSoftware() (value string, ok bool)
-	GetDateTime() (value string, ok bool)
+	GetDateTime() (value time.Time, ok bool)
 	GetArtist() (value string, ok bool)
 	GetHostComputer() (value string, ok bool)
-	GetPredictor() (value int64, ok bool)
+	GetPredictor() (value TagValue_PredictorType, ok bool)
 	GetWhitePoint() (value [][2]int64, ok bool)
 	GetPrimaryChromaticities() (value [][2]int64, ok bool)
-	GetColorMap() (value []int64, ok bool)
+	GetColorMap() (value [][3]uint16, ok bool)
 	GetHalftoneHints() (value []int64, ok bool)
 	GetTileWidth() (value int64, ok bool)
 	GetTileLength() (value int64, ok bool)
@@ -360,8 +361,8 @@ type TagGetter interface {
 	GetTargetPrinter() (value string, ok bool)
 	GetExtraSamples() (value int64, ok bool)
 	GetSampleFormat() (value []int64, ok bool)
-	GetSMinSampleValue() (value []byte, ok bool)
-	GetSMaxSampleValue() (value []byte, ok bool)
+	GetSMinSampleValue() (value []float64, ok bool)
+	GetSMaxSampleValue() (value []float64, ok bool)
 	GetTransferRange() (value []int64, ok bool)
 	GetJPEGProc() (value int64, ok bool)
 	GetJPEGInterchangeFormat() (value int64, ok bool)
@@ -384,7 +385,8 @@ type TagGetter interface {
 	GetModelPixelScaleTag() (value []float64, ok bool)
 	GetModelTransformationTag() (value []float64, ok bool)
 	GetIntergraphMatrixTag() (value []float64, ok bool)
-	GetUnknown(tag TagType) (value interface{}, ok bool)
+
+	GetUnknown(tag TagType) (value []byte, ok bool)
 
 	private()
 }
@@ -395,8 +397,8 @@ type TagSetter interface {
 	SetImageWidth(value int64) (ok bool)
 	SetImageLength(value int64) (ok bool)
 	SetBitsPerSample(value []int64) (ok bool)
-	SetCompression(value int64) (ok bool)
-	SetPhotometricInterpretation(value int64) (ok bool)
+	SetCompression(value CompressType) (ok bool)
+	SetPhotometricInterpretation(value TagValue_PhotometricType) (ok bool)
 	SetThreshholding(value int64) (ok bool)
 	SetCellWidth(value int64) (ok bool)
 	SetCellLenght(value int64) (ok bool)
@@ -424,17 +426,17 @@ type TagSetter interface {
 	SetGrayResponseCurve(value []int64) (ok bool)
 	SetT4Options(value int64) (ok bool)
 	SetT6Options(value int64) (ok bool)
-	SetResolutionUnit(value int64) (ok bool)
+	SetResolutionUnit(value TagValue_ResolutionUnitType) (ok bool)
 	SetPageNumber(value []int64) (ok bool)
 	SetTransferFunction(value []int64) (ok bool)
 	SetSoftware(value string) (ok bool)
-	SetDateTime(value string) (ok bool)
+	SetDateTime(value time.Time) (ok bool)
 	SetArtist(value string) (ok bool)
 	SetHostComputer(value string) (ok bool)
-	SetPredictor(value int64) (ok bool)
+	SetPredictor(value TagValue_PredictorType) (ok bool)
 	SetWhitePoint(value [][2]int64) (ok bool)
 	SetPrimaryChromaticities(value [][2]int64) (ok bool)
-	SetColorMap(value []int64) (ok bool)
+	SetColorMap(value [][3]uint16) (ok bool)
 	SetHalftoneHints(value []int64) (ok bool)
 	SetTileWidth(value int64) (ok bool)
 	SetTileLength(value int64) (ok bool)
@@ -447,8 +449,8 @@ type TagSetter interface {
 	SetTargetPrinter(value string) (ok bool)
 	SetExtraSamples(value int64) (ok bool)
 	SetSampleFormat(value []int64) (ok bool)
-	SetSMinSampleValue(value []byte) (ok bool)
-	SetSMaxSampleValue(value []byte) (ok bool)
+	SetSMinSampleValue(value []float64) (ok bool)
+	SetSMaxSampleValue(value []float64) (ok bool)
 	SetTransferRange(value []int64) (ok bool)
 	SetJPEGProc(value int64) (ok bool)
 	SetJPEGInterchangeFormat(value int64) (ok bool)
@@ -471,6 +473,7 @@ type TagSetter interface {
 	SetModelPixelScaleTag(value []float64) (ok bool)
 	SetModelTransformationTag(value []float64) (ok bool)
 	SetIntergraphMatrixTag(value []float64) (ok bool)
+
 	SetUnknown(tag TagType, value interface{}) (ok bool)
 
 	private()

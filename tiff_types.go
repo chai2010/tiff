@@ -213,8 +213,8 @@ const (
 	TagType_TargetPrinter              TagType = 337   // ASCII
 	TagType_ExtraSamples               TagType = 338   // BYTE,  1,
 	TagType_SampleFormat               TagType = 339   // SHORT, *, # SamplesPerPixel
-	TagType_SMinSampleValue            TagType = 340   // *,     *, # SamplesPerPixel
-	TagType_SMaxSampleValue            TagType = 341   // *,     *, # SamplesPerPixel
+	TagType_SMinSampleValue            TagType = 340   // *,     *, # SamplesPerPixel, try double
+	TagType_SMaxSampleValue            TagType = 341   // *,     *, # SamplesPerPixel, try double
 	TagType_TransferRange              TagType = 342   // SHORT, 6,
 	TagType_JPEGProc                   TagType = 512   // SHORT, 1,
 	TagType_JPEGInterchangeFormat      TagType = 513   // LONG,  1,

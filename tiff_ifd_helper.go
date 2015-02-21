@@ -130,7 +130,7 @@ func (p *IFD) ImageType() ImageType {
 		extraSamples, hasExtraSamples       = p.TagGetter().GetExtraSamples()
 	)
 
-	switch TagValue_PhotometricType(photometric) {
+	switch photometric {
 	case TagValue_PhotometricType_WhiteIsZero:
 		if !hasBitsPerSample {
 			return ImageType_BilevelInvert
