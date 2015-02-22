@@ -6,8 +6,10 @@ package tiff
 
 import (
 	"bytes"
+	"encoding/binary"
 	"fmt"
 	"image"
+	"sort"
 )
 
 func (p *IFD) Valid() bool {
@@ -268,25 +270,43 @@ func (p *IFD) Predictor() TagValue_PredictorType {
 	return TagValue_PredictorType_None
 }
 
-func (p *IFD) Size() int {
+func (p *IFD) Bytes() []byte {
 	if !p.Valid() {
-		return 0
+		return nil
 	}
+
+	tagList := make([]*IFDEntry, 0, len(p.EntryMap))
+	for _, v := range p.EntryMap {
+		tagList = append(tagList, v)
+	}
+	sort.Sort(byIFDEntry(tagList))
+
+	var buf bytes.Buffer
 	if p.Header.TiffType == TiffType_ClassicTIFF {
-		return 2 + len(p.EntryMap)*12 + 4
+		binary.Write(&buf, p.Header.ByteOrder, uint32(len(tagList)))
+		for i := 0; i < len(tagList); i++ {
+			entryBytes, _ := tagList[i].Bytes()
+			buf.Write(entryBytes)
+		}
+		binary.Write(&buf, p.Header.ByteOrder, uint32(p.Offset))
 	} else {
-		return 8 + len(p.EntryMap)*20 + 8
+		binary.Write(&buf, p.Header.ByteOrder, uint32(len(tagList)))
+		for i := 0; i < len(tagList); i++ {
+			entryBytes, _ := tagList[i].Bytes()
+			buf.Write(entryBytes)
+		}
+		binary.Write(&buf, p.Header.ByteOrder, uint32(p.Offset))
 	}
+	return buf.Bytes()
 }
 
 func (p *IFD) String() string {
 	var buf bytes.Buffer
 	fmt.Fprintf(&buf, "tiff.IFD {\n")
-	fmt.Fprintf(&buf, "  Offset: 0x%08x\n", p.Offset)
 	for _, v := range p.EntryMap {
 		fmt.Fprintf(&buf, "  %v\n", v)
 	}
-	fmt.Fprintf(&buf, "  Next: %v\n", p.Next)
+	fmt.Fprintf(&buf, "  Next: %08x\n", p.Offset)
 	fmt.Fprintf(&buf, "}\n")
 	return buf.String()
 }

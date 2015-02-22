@@ -13,9 +13,8 @@ import (
 
 type IFD struct {
 	Header   *Header
-	Offset   int64
 	EntryMap map[TagType]*IFDEntry
-	Next     *IFD
+	Offset   int64 // next IFD
 }
 
 func ReadIFD(r io.Reader, h *Header, offset int64) (ifd *IFD, err error) {
@@ -31,38 +30,16 @@ func ReadIFD(r io.Reader, h *Header, offset int64) (ifd *IFD, err error) {
 		return
 	}
 
-	var ifds []*IFD
 	if h.TiffType == TiffType_ClassicTIFF {
-		for offset != 0 {
-			var p *IFD
-			var next int64
-			if p, next, err = readIFD(rs, h, offset); err != nil {
-				return
-			}
-			ifds = append(ifds, p)
-			offset = next
-		}
+		ifd, err = readIFD(rs, h, offset)
+		return
 	} else {
-		for offset != 0 {
-			var p *IFD
-			var next int64
-			if p, next, err = readIFD8(rs, h, offset); err != nil {
-				return
-			}
-			ifds = append(ifds, p)
-			offset = next
-		}
+		ifd, err = readIFD8(rs, h, offset)
+		return
 	}
-
-	// make IFD link list
-	for i := 1; i < len(ifds); i++ {
-		ifds[i-1].Next = ifds[i]
-	}
-	ifd = ifds[0]
-	return
 }
 
-func readIFD(r io.ReadSeeker, h *Header, offset int64) (p *IFD, next int64, err error) {
+func readIFD(r io.ReadSeeker, h *Header, offset int64) (p *IFD, err error) {
 	if offset == 0 {
 		return
 	}
@@ -72,7 +49,6 @@ func readIFD(r io.ReadSeeker, h *Header, offset int64) (p *IFD, next int64, err 
 
 	p = &IFD{
 		Header:   h,
-		Offset:   offset,
 		EntryMap: make(map[TagType]*IFDEntry),
 	}
 
@@ -92,7 +68,7 @@ func readIFD(r io.ReadSeeker, h *Header, offset int64) (p *IFD, next int64, err 
 	if err = binary.Read(r, h.ByteOrder, &nextIfdOffset); err != nil {
 		return
 	}
-	next = int64(nextIfdOffset)
+	p.Offset = int64(nextIfdOffset)
 
 	// read IFDEntry Data
 	for _, entry := range p.EntryMap {
@@ -103,7 +79,7 @@ func readIFD(r io.ReadSeeker, h *Header, offset int64) (p *IFD, next int64, err 
 	return
 }
 
-func readIFD8(r io.ReadSeeker, h *Header, offset int64) (p *IFD, next int64, err error) {
+func readIFD8(r io.ReadSeeker, h *Header, offset int64) (p *IFD, err error) {
 	if offset == 0 {
 		return
 	}
@@ -113,7 +89,6 @@ func readIFD8(r io.ReadSeeker, h *Header, offset int64) (p *IFD, next int64, err
 
 	p = &IFD{
 		Header:   h,
-		Offset:   offset,
 		EntryMap: make(map[TagType]*IFDEntry),
 	}
 
@@ -133,7 +108,7 @@ func readIFD8(r io.ReadSeeker, h *Header, offset int64) (p *IFD, next int64, err
 	if err = binary.Read(r, h.ByteOrder, &nextIfdOffset); err != nil {
 		return
 	}
-	next = int64(nextIfdOffset)
+	p.Offset = int64(nextIfdOffset)
 
 	// read IFDEntry8 Data
 	for _, entry := range p.EntryMap {

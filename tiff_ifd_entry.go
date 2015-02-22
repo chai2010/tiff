@@ -19,6 +19,48 @@ type IFDEntry struct {
 	Data     []byte
 }
 
+type byIFDEntry []*IFDEntry
+
+func (d byIFDEntry) Len() int           { return len(d) }
+func (d byIFDEntry) Less(i, j int) bool { return d[i].Tag < d[j].Tag }
+func (d byIFDEntry) Swap(i, j int)      { d[i], d[j] = d[j], d[i] }
+
+func (p *IFDEntry) Bytes() (entry, data []byte) {
+	if p.Header.TiffType == TiffType_ClassicTIFF {
+		var buf bytes.Buffer
+		binary.Write(&buf, p.Header.ByteOrder, uint16(p.Tag))
+		binary.Write(&buf, p.Header.ByteOrder, uint16(p.DataType))
+		binary.Write(&buf, p.Header.ByteOrder, uint32(p.Count))
+
+		offsetOrData := make([]byte, 4)
+		if len(p.Data) > 4 {
+			p.Header.ByteOrder.PutUint32(offsetOrData, uint32(p.Offset))
+			data = p.Data
+		} else {
+			copy(offsetOrData[:], p.Data)
+		}
+		buf.Write(offsetOrData)
+		entry = buf.Bytes()
+		return
+	} else {
+		var buf bytes.Buffer
+		binary.Write(&buf, p.Header.ByteOrder, uint16(p.Tag))
+		binary.Write(&buf, p.Header.ByteOrder, uint16(p.DataType))
+		binary.Write(&buf, p.Header.ByteOrder, uint64(p.Count))
+
+		offsetOrData := make([]byte, 8)
+		if len(p.Data) > 8 {
+			p.Header.ByteOrder.PutUint64(offsetOrData, uint64(p.Offset))
+			data = p.Data
+		} else {
+			copy(offsetOrData[:], p.Data)
+		}
+		buf.Write(offsetOrData)
+		entry = buf.Bytes()
+		return
+	}
+}
+
 func (p *IFDEntry) GetInts() []int64 {
 	switch p.DataType {
 	case DataType_Byte:

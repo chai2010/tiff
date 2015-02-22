@@ -109,7 +109,7 @@ func (p *Header) Bytes() []byte {
 	if p.TiffType == TiffType_ClassicTIFF {
 		p.ByteOrder.PutUint16(d[2:4], uint16(p.TiffType))
 		p.ByteOrder.PutUint32(d[4:8], uint32(p.Offset))
-		return d[:8]
+		return d[:16]
 	} else {
 		p.ByteOrder.PutUint16(d[2:4], uint16(p.TiffType))
 		p.ByteOrder.PutUint16(d[4:6], 8)
