@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	"unicode/utf16"
 )
 
 type IFDEntry struct {
@@ -235,16 +236,194 @@ func (p *IFDEntry) GetString() string {
 	return ""
 }
 
-func (p *IFDEntry) SetInts(...int64) {
+func (p *IFDEntry) GetUndefined(value interface{}) interface{} {
+	if p.DataType != DataType_Undefined {
+		return nil
+	}
+	if err := binary.Read(bytes.NewReader(p.Data), p.Header.ByteOrder, value); err != nil {
+		return nil
+	}
+	return value
+}
+
+func (p *IFDEntry) SetInts(value ...int64) {
+	switch p.DataType {
+	case DataType_Byte:
+		tmp := make([]uint8, len(value))
+		for i := 0; i < len(tmp); i++ {
+			tmp[i] = uint8(value[i])
+		}
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+			return
+		}
+		p.Data = buf.Bytes()
+		p.Count = len(tmp)
+	case DataType_SByte:
+		tmp := make([]int8, len(value))
+		for i := 0; i < len(tmp); i++ {
+			tmp[i] = int8(value[i])
+		}
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+			return
+		}
+		p.Data = buf.Bytes()
+		p.Count = len(tmp)
+	case DataType_Short:
+		tmp := make([]uint16, len(value))
+		for i := 0; i < len(tmp); i++ {
+			tmp[i] = uint16(value[i])
+		}
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+			return
+		}
+		p.Data = buf.Bytes()
+		p.Count = len(tmp)
+	case DataType_SShort:
+		tmp := make([]int16, len(value))
+		for i := 0; i < len(tmp); i++ {
+			tmp[i] = int16(value[i])
+		}
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+			return
+		}
+		p.Data = buf.Bytes()
+		p.Count = len(tmp)
+	case DataType_Long:
+		tmp := make([]uint32, len(value))
+		for i := 0; i < len(tmp); i++ {
+			tmp[i] = uint32(value[i])
+		}
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+			return
+		}
+		p.Data = buf.Bytes()
+		p.Count = len(tmp)
+	case DataType_SLong:
+		tmp := make([]int32, len(value))
+		for i := 0; i < len(tmp); i++ {
+			tmp[i] = int32(value[i])
+		}
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+			return
+		}
+		p.Data = buf.Bytes()
+		p.Count = len(tmp)
+	case DataType_Long8:
+		tmp := make([]uint64, len(value))
+		for i := 0; i < len(tmp); i++ {
+			tmp[i] = uint64(value[i])
+		}
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+			return
+		}
+		p.Data = buf.Bytes()
+		p.Count = len(tmp)
+	case DataType_SLong8:
+		tmp := make([]int64, len(value))
+		for i := 0; i < len(tmp); i++ {
+			tmp[i] = int64(value[i])
+		}
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+			return
+		}
+		p.Data = buf.Bytes()
+		p.Count = len(tmp)
+	}
 	return
 }
-func (p *IFDEntry) SetUInts(...uint64) {
+
+func (p *IFDEntry) SetFloats(value ...float64) {
+	switch p.DataType {
+	case DataType_Float:
+		tmp := make([]float32, len(value))
+		for i := 0; i < len(tmp); i++ {
+			tmp[i] = float32(value[i])
+		}
+
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+			return
+		}
+		p.Data = buf.Bytes()
+		p.Count = len(tmp)
+	case DataType_Double:
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, p.Header.ByteOrder, value); err != nil {
+			return
+		}
+		p.Data = buf.Bytes()
+		p.Count = len(value)
+	}
 	return
 }
-func (p *IFDEntry) SetFloats(...float64) {
+
+func (p *IFDEntry) SetRationals(value ...[2]int64) {
+	switch p.DataType {
+	case DataType_Rational:
+		tmp := make([][2]uint32, len(value))
+		for i := 0; i < len(tmp); i++ {
+			tmp[i][0] = uint32(value[i][0])
+			tmp[i][1] = uint32(value[i][1])
+		}
+
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+			return
+		}
+		p.Data = buf.Bytes()
+		p.Count = len(tmp)
+	case DataType_SRational:
+		tmp := make([][2]int32, len(value))
+		for i := 0; i < len(tmp); i++ {
+			tmp[i][0] = int32(value[i][0])
+			tmp[i][1] = int32(value[i][1])
+		}
+
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+			return
+		}
+		p.Data = buf.Bytes()
+		p.Count = len(tmp)
+	}
 	return
 }
-func (p *IFDEntry) SetURationals(...[2]uint32) {
+
+func (p *IFDEntry) setString(value string) {
+	switch p.DataType {
+	case DataType_ASCII:
+		p.Data = []byte(value)
+		p.Count = len(p.Data)
+	case DataType_Unicode:
+		u16Data := utf16.Encode([]rune(value))
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, p.Header.ByteOrder, u16Data); err != nil {
+			return
+		}
+		p.Data = buf.Bytes()
+		p.Count = len(u16Data)
+	}
+	return
+}
+
+func (p *IFDEntry) SetUndefined(value interface{}) {
+	if p.DataType != DataType_Undefined {
+		return
+	}
+	var buf bytes.Buffer
+	if err := binary.Write(&buf, p.Header.ByteOrder, value); err != nil {
+		return
+	}
+	p.Data = buf.Bytes()
+	p.Count = len(p.Data)
 	return
 }
 
