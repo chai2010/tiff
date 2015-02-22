@@ -196,10 +196,14 @@ func (p *tifTagGetter) GetOrientation() (value int64, ok bool) {
 	return
 }
 
-func (p *tifTagGetter) GetSamplesPerPixel() (value []int64, ok bool) {
+func (p *tifTagGetter) GetSamplesPerPixel() (value int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_SamplesPerPixel]; ok {
-		value = entry.GetInts()
+		if v := entry.GetInts(); len(v) == 1 {
+			value = v[0]
+		} else {
+			ok = false
+		}
 	}
 	return
 }

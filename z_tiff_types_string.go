@@ -110,7 +110,7 @@ var _TagTypeTable = map[TagType]string{
 	TagType_Model:                      `TagType_Model`,                      // ASCII
 	TagType_StripOffsets:               `TagType_StripOffsets`,               // SHORT/LONG/LONG8, *, # StripsPerImage
 	TagType_Orientation:                `TagType_Orientation`,                // SHORT, 1,
-	TagType_SamplesPerPixel:            `TagType_SamplesPerPixel`,            // SHORT, *,
+	TagType_SamplesPerPixel:            `TagType_SamplesPerPixel`,            // SHORT, 1,
 	TagType_RowsPerStrip:               `TagType_RowsPerStrip`,               // SHORT/LONG/LONG8, 1,
 	TagType_StripByteCounts:            `TagType_StripByteCounts`,            // SHORT/LONG/LONG8, *, # StripsPerImage
 	TagType_MinSampleValue:             `TagType_MinSampleValue`,             // SHORT,    *, # SamplesPerPixel
@@ -270,6 +270,7 @@ var _TagType_NumsTable = map[TagType][]int{
 	TagType_CellLenght:                 []int{1},
 	TagType_FillOrder:                  []int{1},
 	TagType_Orientation:                []int{1},
+	TagType_SamplesPerPixel:            []int{1},
 	TagType_RowsPerStrip:               []int{1},
 	TagType_XResolution:                []int{1},
 	TagType_YResolution:                []int{1},
@@ -321,7 +322,7 @@ type TagGetter interface {
 	GetModel() (value string, ok bool)
 	GetStripOffsets() (value []int64, ok bool)
 	GetOrientation() (value int64, ok bool)
-	GetSamplesPerPixel() (value []int64, ok bool)
+	GetSamplesPerPixel() (value int64, ok bool)
 	GetRowsPerStrip() (value int64, ok bool)
 	GetStripByteCounts() (value []int64, ok bool)
 	GetMinSampleValue() (value []int64, ok bool)
@@ -409,7 +410,7 @@ type TagSetter interface {
 	SetModel(value string) (ok bool)
 	SetStripOffsets(value []int64) (ok bool)
 	SetOrientation(value int64) (ok bool)
-	SetSamplesPerPixel(value []int64) (ok bool)
+	SetSamplesPerPixel(value int64) (ok bool)
 	SetRowsPerStrip(value int64) (ok bool)
 	SetStripByteCounts(value []int64) (ok bool)
 	SetMinSampleValue(value []int64) (ok bool)

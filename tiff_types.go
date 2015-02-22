@@ -173,7 +173,7 @@ const (
 	TagType_Model                      TagType = 272   // ASCII
 	TagType_StripOffsets               TagType = 273   // SHORT/LONG/LONG8, *, # StripsPerImage
 	TagType_Orientation                TagType = 274   // SHORT, 1,
-	TagType_SamplesPerPixel            TagType = 277   // SHORT, *,
+	TagType_SamplesPerPixel            TagType = 277   // SHORT, 1,
 	TagType_RowsPerStrip               TagType = 278   // SHORT/LONG/LONG8, 1,
 	TagType_StripByteCounts            TagType = 279   // SHORT/LONG/LONG8, *, # StripsPerImage
 	TagType_MinSampleValue             TagType = 280   // SHORT,    *, # SamplesPerPixel

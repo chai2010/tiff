@@ -429,20 +429,87 @@ func (d *decoder) Decode() (err error) {
 // DecodeConfig returns the color model and dimensions of a TIFF image without
 // decoding the entire image.
 func DecodeConfig(r io.Reader) (cfg image.Config, err error) {
-	d := openDecoder(r)
-	defer func() {
-		if x := d.Close(); x != nil && err == nil {
-			err = x
-		}
-	}()
-	if err = d.Decode(); err != nil {
-		return image.Config{}, err
+	rs := openSeekioReader(r, -1)
+	defer rs.Close()
+
+	hdr, err := ReadHeader(rs)
+	if err != nil {
+		return
 	}
-	cfg = d.config
+	ifd, err := ReadIFD(rs, hdr, hdr.Offset)
+	if err != nil {
+		return
+	}
+	cfg, err = ifd.ImageConfig()
+	if err != nil {
+		return
+	}
 	return
 }
 
 func DecodeAll(r io.Reader) (m []image.Image, err error) {
+	return
+}
+
+func _Decode(r io.Reader) (m image.Image, err error) {
+	rs := openSeekioReader(r, -1)
+	defer rs.Close()
+
+	hdr, err := ReadHeader(rs)
+	if err != nil {
+		return
+	}
+	ifd, err := ReadIFD(rs, hdr, hdr.Offset)
+	if err != nil {
+		return
+	}
+	cfg, err := ifd.ImageConfig()
+	if err != nil {
+		return
+	}
+
+	imgRect := image.Rect(0, 0, cfg.Width, cfg.Height)
+	switch ifd.ImageType() {
+	case ImageType_Gray, ImageType_GrayInvert:
+		if ifd.Depth() == 16 {
+			m = image.NewGray16(imgRect)
+		} else {
+			m = image.NewGray(imgRect)
+		}
+	case ImageType_Paletted:
+		m = image.NewPaletted(imgRect, ifd.ColorMap())
+	case ImageType_NRGBA:
+		if ifd.Depth() == 16 {
+			m = image.NewNRGBA64(imgRect)
+		} else {
+			m = image.NewNRGBA(imgRect)
+		}
+	case ImageType_RGB, ImageType_RGBA:
+		if ifd.Depth() == 16 {
+			m = image.NewRGBA64(imgRect)
+		} else {
+			m = image.NewRGBA(imgRect)
+		}
+	}
+	if m == nil {
+		println("ifd.Depth():", ifd.Depth())
+		println("ifd.ImageType():", ifd.ImageType().String())
+		err = fmt.Errorf("tiff: Decode, unknown format")
+		return
+	}
+
+	blocksAcross := ifd.BlocksAcross()
+	blocksDown := ifd.BlocksDown()
+
+	for i := 0; i < blocksAcross; i++ {
+		for j := 0; j < blocksDown; j++ {
+			if err = ifd.DecodeBlock(rs, i, j, m); err != nil {
+				println("Decode col =", i)
+				println("Decode col =", j)
+				return
+			}
+		}
+	}
 	return
 }
 

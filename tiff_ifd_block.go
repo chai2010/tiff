@@ -50,7 +50,7 @@ func (p *IFD) BlocksDown() int {
 
 func (p *IFD) BlockBounds(col, row int) image.Rectangle {
 	blocksAcross, blocksDown := p.BlocksAcross(), p.BlocksDown()
-	if col < 0 || row < 0 || col >= blocksAcross-1 || row >= blocksDown {
+	if col < 0 || row < 0 || col >= blocksAcross || row >= blocksDown {
 		return image.Rectangle{}
 	}
 
@@ -72,7 +72,7 @@ func (p *IFD) BlockBounds(col, row int) image.Rectangle {
 		imageWidth, _ := p.TagGetter().GetImageWidth()
 		imageHeight, _ := p.TagGetter().GetImageLength()
 
-		blockWidth, _ := p.TagGetter().GetTileWidth()
+		blockWidth := imageWidth
 		blockHeight, ok := p.TagGetter().GetRowsPerStrip()
 		if !ok || blockHeight == 0 {
 			blockHeight = imageHeight
@@ -99,7 +99,7 @@ func (p *IFD) BlockBounds(col, row int) image.Rectangle {
 
 func (p *IFD) BlockOffset(col, row int) int64 {
 	blocksAcross, blocksDown := p.BlocksAcross(), p.BlocksDown()
-	if col < 0 || row < 0 || col >= blocksAcross-1 || row >= blocksDown {
+	if col < 0 || row < 0 || col >= blocksAcross || row >= blocksDown {
 		return 0
 	}
 	if _, ok := p.TagGetter().GetTileWidth(); ok {
@@ -119,7 +119,7 @@ func (p *IFD) BlockOffset(col, row int) int64 {
 
 func (p *IFD) BlockCount(col, row int) int64 {
 	blocksAcross, blocksDown := p.BlocksAcross(), p.BlocksDown()
-	if col < 0 || row < 0 || col >= blocksAcross-1 || row >= blocksDown {
+	if col < 0 || row < 0 || col >= blocksAcross || row >= blocksDown {
 		return 0
 	}
 	if _, ok := p.TagGetter().GetTileWidth(); ok {
@@ -139,7 +139,7 @@ func (p *IFD) BlockCount(col, row int) int64 {
 
 func (p *IFD) DecodeBlock(r io.ReadSeeker, col, row int, dst image.Image) (err error) {
 	blocksAcross, blocksDown := p.BlocksAcross(), p.BlocksDown()
-	if col < 0 || row < 0 || col >= blocksAcross-1 || row >= blocksDown {
+	if col < 0 || row < 0 || col >= blocksAcross || row >= blocksDown {
 		err = fmt.Errorf("tiff: IFD.DecodeBlock, bad col/row = %d/%d", col, row)
 		return
 	}
@@ -178,7 +178,7 @@ func (p *IFD) decodePredictor(data []byte, r image.Rectangle) (out []byte, err e
 		var off int
 		for y := r.Min.Y; y < r.Max.Y; y++ {
 			off += spp * 2
-			for x := 0; x < r.Dx()*spp*2; x += 2 {
+			for x := 0; x < (r.Dx()-1)*spp*2; x += 2 {
 				v0 := p.Header.ByteOrder.Uint16(data[off-spp*2 : off-spp*2+2])
 				v1 := p.Header.ByteOrder.Uint16(data[off : off+2])
 				p.Header.ByteOrder.PutUint16(data[off:off+2], v1+v0)
@@ -189,7 +189,7 @@ func (p *IFD) decodePredictor(data []byte, r image.Rectangle) (out []byte, err e
 		var off int
 		for y := r.Min.Y; y < r.Max.Y; y++ {
 			off += spp
-			for x := 0; x < r.Dx()*spp; x++ {
+			for x := 0; x < (r.Dx()-1)*spp; x++ {
 				data[off] += data[off-spp]
 				off++
 			}

@@ -9,6 +9,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"image"
+	"image/color"
 	"sort"
 )
 
@@ -33,22 +34,17 @@ func (p *IFD) TagSetter() TagSetter {
 
 func (p *IFD) Bounds() image.Rectangle {
 	var width, height int
-	if tag, ok := p.EntryMap[TagType_ImageWidth]; ok {
-		if v := tag.GetInts(); len(v) == 1 {
-			width = int(v[0])
-		}
+	if v, ok := p.TagGetter().GetImageWidth(); ok {
+		width = int(v)
 	}
-	if tag, ok := p.EntryMap[TagType_ImageLength]; ok {
-		if v := tag.GetInts(); len(v) == 1 {
-			height = int(v[0])
-		}
+	if v, ok := p.TagGetter().GetImageLength(); ok {
+		height = int(v)
 	}
 	return image.Rect(0, 0, width, height)
 }
 
 func (p *IFD) Depth() int {
-	if tag, ok := p.EntryMap[TagType_BitsPerSample]; ok {
-		v := tag.GetInts()
+	if v, ok := p.TagGetter().GetBitsPerSample(); ok {
 		for i := 1; i < len(v); i++ {
 			if v[i] != v[0] {
 				return 0
@@ -62,10 +58,8 @@ func (p *IFD) Depth() int {
 }
 
 func (p *IFD) Channels() int {
-	if tag, ok := p.EntryMap[TagType_SamplesPerPixel]; ok {
-		if v := tag.GetInts(); len(v) == 1 {
-			return int(v[0])
-		}
+	if v, ok := p.TagGetter().GetSamplesPerPixel(); ok {
+		return int(v)
 	}
 	return 0
 }
@@ -93,7 +87,7 @@ func (p *IFD) ImageType() ImageType {
 
 	var isTiled bool
 	for _, tag := range requiredTiledTags {
-		if _, ok := p.EntryMap[tag]; !ok {
+		if _, ok := p.EntryMap[tag]; ok {
 			isTiled = true
 		}
 	}
@@ -146,10 +140,10 @@ func (p *IFD) ImageType() ImageType {
 			return ImageType_Gray
 		}
 	case TagValue_PhotometricType_RGB:
-		if hasSamplesPerPixel && len(samplesPerPixel) == 3 {
+		if hasSamplesPerPixel && samplesPerPixel == 3 {
 			return ImageType_RGB
 		}
-		if hasSamplesPerPixel && len(samplesPerPixel) == 4 {
+		if hasSamplesPerPixel && samplesPerPixel == 4 {
 			if hasExtraSamples && extraSamples == 1 {
 				return ImageType_RGBA
 			}
@@ -173,6 +167,89 @@ func (p *IFD) ImageType() ImageType {
 	return ImageType_Nil
 }
 
+func (p *IFD) ImageConfig() (config image.Config, err error) {
+	var (
+		imageWidth, _    = p.TagGetter().GetImageWidth()
+		imageHeight, _   = p.TagGetter().GetImageLength()
+		photometric, _   = p.TagGetter().GetPhotometricInterpretation()
+		bitsPerSample, _ = p.TagGetter().GetBitsPerSample()
+		extraSamples, _  = p.TagGetter().GetExtraSamples()
+	)
+	if len(bitsPerSample) == 0 {
+		err = fmt.Errorf("tiff: IFD.ColorModel, bad bitsPerSample length")
+		return
+	}
+
+	config.Width = int(imageWidth)
+	config.Height = int(imageHeight)
+
+	switch photometric {
+	case TagValue_PhotometricType_RGB:
+		if bitsPerSample[0] == 16 {
+			for _, b := range bitsPerSample {
+				if b != 16 {
+					err = fmt.Errorf("tiff: IFD.ColorModel, wrong number of samples for 16bit RGB")
+					return
+				}
+			}
+		} else {
+			for _, b := range bitsPerSample {
+				if b != 8 {
+					err = fmt.Errorf("tiff: IFD.ColorModel, wrong number of samples for 8bit RGB")
+					return
+				}
+			}
+		}
+		switch len(bitsPerSample) {
+		case 3:
+			if bitsPerSample[0] == 16 {
+				config.ColorModel = color.RGBA64Model
+			} else {
+				config.ColorModel = color.RGBAModel
+			}
+		case 4:
+			switch extraSamples {
+			case 1:
+				if bitsPerSample[0] == 16 {
+					config.ColorModel = color.RGBA64Model
+				} else {
+					config.ColorModel = color.RGBAModel
+				}
+			case 2:
+				if bitsPerSample[0] == 16 {
+					config.ColorModel = color.NRGBA64Model
+				} else {
+					config.ColorModel = color.NRGBAModel
+				}
+			default:
+				err = fmt.Errorf("tiff: IFD.ColorModel, wrong number of samples for RGB")
+				return
+			}
+		default:
+			err = fmt.Errorf("tiff: IFD.ColorModel, wrong number of samples for RGB")
+			return
+		}
+	case TagValue_PhotometricType_Paletted:
+		config.ColorModel = color.Palette(p.ColorMap())
+	case TagValue_PhotometricType_WhiteIsZero:
+		if bitsPerSample[0] == 16 {
+			config.ColorModel = color.Gray16Model
+		} else {
+			config.ColorModel = color.GrayModel
+		}
+	case TagValue_PhotometricType_BlackIsZero:
+		if bitsPerSample[0] == 16 {
+			config.ColorModel = color.Gray16Model
+		} else {
+			config.ColorModel = color.GrayModel
+		}
+	default:
+		err = fmt.Errorf("tiff: decoder.Decode, unsupport color model")
+		return
+	}
+	return
+}
+
 func (p *IFD) Compression() CompressType {
 	if tag, ok := p.EntryMap[TagType_Compression]; ok {
 		if v := tag.GetInts(); len(v) == 1 {
@@ -182,22 +259,24 @@ func (p *IFD) Compression() CompressType {
 	return CompressType_Nil
 }
 
-func (p *IFD) ColorMap() [][3]uint16 {
+func (p *IFD) ColorMap() (palette color.Palette) {
 	if tag, ok := p.EntryMap[TagType_ColorMap]; ok {
 		v := tag.GetInts()
 		if len(v) == 0 || len(v)%3 != 0 {
 			return nil
 		}
-		colorMap := make([][3]uint16, len(v)/3)
-		for i := 0; i < len(v); i += 3 {
-			colorMap[i/3] = [3]uint16{
-				uint16(v[i+0]),
-				uint16(v[i+1]),
-				uint16(v[i+2]),
+		numcolors := len(v) / 3
+		palette := make([]color.Color, numcolors)
+		for i := 0; i < numcolors; i++ {
+			palette[i] = color.RGBA64{
+				uint16(v[i+0*numcolors]),
+				uint16(v[i+1*numcolors]),
+				uint16(v[i+2*numcolors]),
+				0xffff,
 			}
 		}
 	}
-	return nil
+	return
 }
 
 func (p *IFD) Bytes() []byte {
