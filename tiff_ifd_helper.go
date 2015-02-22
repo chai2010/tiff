@@ -200,67 +200,6 @@ func (p *IFD) ColorMap() [][3]uint16 {
 	return nil
 }
 
-func (p *IFD) _BlockSize() (width, height int) {
-	if _, ok := p.EntryMap[TagType_TileWidth]; ok {
-		if tag, ok := p.EntryMap[TagType_TileWidth]; ok {
-			if v := tag.GetInts(); len(v) == 1 {
-				width = int(v[0])
-			}
-		}
-		if tag, ok := p.EntryMap[TagType_TileLength]; ok {
-			if v := tag.GetInts(); len(v) == 1 {
-				height = int(v[0])
-			}
-		}
-
-	} else {
-		if tag, ok := p.EntryMap[TagType_ImageWidth]; ok {
-			if v := tag.GetInts(); len(v) == 1 {
-				width = int(v[0])
-			}
-		}
-		if tag, ok := p.EntryMap[TagType_RowsPerStrip]; ok {
-			if v := tag.GetInts(); len(v) == 1 {
-				height = int(v[0])
-			}
-		}
-		if height == 0 {
-			if tag, ok := p.EntryMap[TagType_ImageLength]; ok {
-				if v := tag.GetInts(); len(v) == 1 {
-					height = int(v[0])
-				}
-			}
-		}
-	}
-	return
-}
-
-func (p *IFD) _BlockOffsets() []int64 {
-	if _, ok := p.EntryMap[TagType_TileWidth]; ok {
-		if tag, ok := p.EntryMap[TagType_TileOffsets]; ok {
-			return tag.GetInts()
-		}
-	} else {
-		if tag, ok := p.EntryMap[TagType_StripOffsets]; ok {
-			return tag.GetInts()
-		}
-	}
-	return nil
-}
-
-func (p *IFD) _BlockCounts() []int64 {
-	if _, ok := p.EntryMap[TagType_TileWidth]; ok {
-		if tag, ok := p.EntryMap[TagType_TileByteCounts]; ok {
-			return tag.GetInts()
-		}
-	} else {
-		if tag, ok := p.EntryMap[TagType_StripByteCounts]; ok {
-			return tag.GetInts()
-		}
-	}
-	return nil
-}
-
 func (p *IFD) Bytes() []byte {
 	if !p.Valid() {
 		return nil

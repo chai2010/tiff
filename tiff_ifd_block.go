@@ -10,27 +10,137 @@ import (
 	"io"
 )
 
+func (p *IFD) BlockSize() (width, height int) {
+	if value, ok := p.TagGetter().GetTileWidth(); ok {
+		width = int(value)
+	}
+	if value, ok := p.TagGetter().GetTileLength(); ok {
+		height = int(value)
+	}
+	return
+}
+
 func (p *IFD) BlocksAcross() int {
+	if _, ok := p.TagGetter().GetTileWidth(); ok {
+		imageWidth, _ := p.TagGetter().GetImageWidth()
+		blockWidth, _ := p.TagGetter().GetTileWidth()
+		return int((imageWidth + blockWidth - 1) / blockWidth)
+	} else {
+		return 1
+	}
 	return 0
 }
 
 func (p *IFD) BlocksDown() int {
-	return 0
+	if _, ok := p.TagGetter().GetTileLength(); ok {
+		imageHeight, _ := p.TagGetter().GetImageLength()
+		blockHeight, _ := p.TagGetter().GetTileLength()
+		return int((imageHeight + blockHeight - 1) / blockHeight)
+
+	} else {
+		imageHeight, _ := p.TagGetter().GetImageLength()
+		blockHeight, ok := p.TagGetter().GetRowsPerStrip()
+		if !ok || blockHeight == 0 {
+			blockHeight = imageHeight
+		}
+		return int((imageHeight + blockHeight - 1) / blockHeight)
+	}
 }
 
 func (p *IFD) BlockBounds(col, row int) image.Rectangle {
-	return image.Rectangle{}
+	blocksAcross, blocksDown := p.BlocksAcross(), p.BlocksDown()
+	if col < 0 || row < 0 || col >= blocksAcross-1 || row >= blocksDown {
+		return image.Rectangle{}
+	}
+
+	if _, ok := p.TagGetter().GetTileWidth(); ok {
+		blockWidth, _ := p.TagGetter().GetTileWidth()
+		blockHeight, _ := p.TagGetter().GetTileLength()
+
+		blkW := blockWidth
+		blkH := blockHeight
+
+		xmin := col * int(blockWidth)
+		ymin := row * int(blockHeight)
+		xmax := xmin + int(blkW)
+		ymax := ymin + int(blkH)
+
+		return image.Rect(xmin, ymin, xmax, ymax)
+
+	} else {
+		imageWidth, _ := p.TagGetter().GetImageWidth()
+		imageHeight, _ := p.TagGetter().GetImageLength()
+
+		blockWidth, _ := p.TagGetter().GetTileWidth()
+		blockHeight, ok := p.TagGetter().GetRowsPerStrip()
+		if !ok || blockHeight == 0 {
+			blockHeight = imageHeight
+		}
+
+		blkW := blockWidth
+		blkH := blockHeight
+
+		if col == blocksAcross-1 && imageWidth%blockWidth != 0 {
+			blkW = imageWidth % blockWidth
+		}
+		if row == blocksDown-1 && imageHeight%blockHeight != 0 {
+			blkH = imageHeight % blockHeight
+		}
+
+		xmin := col * int(blockWidth)
+		ymin := row * int(blockHeight)
+		xmax := xmin + int(blkW)
+		ymax := ymin + int(blkH)
+
+		return image.Rect(xmin, ymin, xmax, ymax)
+	}
 }
 
 func (p *IFD) BlockOffset(col, row int) int64 {
-	return 0
+	blocksAcross, blocksDown := p.BlocksAcross(), p.BlocksDown()
+	if col < 0 || row < 0 || col >= blocksAcross-1 || row >= blocksDown {
+		return 0
+	}
+	if _, ok := p.TagGetter().GetTileWidth(); ok {
+		offsets, ok := p.TagGetter().GetTileOffsets()
+		if !ok || len(offsets) != blocksAcross*blocksDown {
+			return 0
+		}
+		return offsets[row*blocksAcross+col]
+	} else {
+		offsets, ok := p.TagGetter().GetStripOffsets()
+		if !ok || len(offsets) != blocksAcross*blocksDown {
+			return 0
+		}
+		return offsets[row*blocksAcross+col]
+	}
 }
 
 func (p *IFD) BlockCount(col, row int) int64 {
-	return 0
+	blocksAcross, blocksDown := p.BlocksAcross(), p.BlocksDown()
+	if col < 0 || row < 0 || col >= blocksAcross-1 || row >= blocksDown {
+		return 0
+	}
+	if _, ok := p.TagGetter().GetTileWidth(); ok {
+		counts, ok := p.TagGetter().GetTileByteCounts()
+		if !ok || len(counts) != blocksAcross*blocksDown {
+			return 0
+		}
+		return counts[row*blocksAcross+col]
+	} else {
+		counts, ok := p.TagGetter().GetStripByteCounts()
+		if !ok || len(counts) != blocksAcross*blocksDown {
+			return 0
+		}
+		return counts[row*blocksAcross+col]
+	}
 }
 
-func (p *IFD) ReadBlock(r io.ReadSeeker, col, row int, dst *Image) (err error) {
+func (p *IFD) DecodeBlock(r io.Reader, col, row int, dst *Image) (err error) {
+	return
+}
+
+func (p *IFD) EncodeBlock(w io.Writer, col, row int, dst *Image) (err error) {
 	return
 }
 
