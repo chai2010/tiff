@@ -143,6 +143,7 @@ var _TagTypeTable = map[TagType]string{
 	TagType_TileLength:                 `TagType_TileLength`,                 // SHORT/LONG, 1
 	TagType_TileOffsets:                `TagType_TileOffsets`,                // LONG/LONG8, *, # TilesPerImage
 	TagType_TileByteCounts:             `TagType_TileByteCounts`,             // SHORT/LONG, *, # TilesPerImage
+	TagType_SubIFD:                     `TagType_SubIFD`,                     // LONG,  *
 	TagType_InkSet:                     `TagType_InkSet`,                     // SHORT, 1
 	TagType_InkNames:                   `TagType_InkNames`,                   // ASCII
 	TagType_NumberOfInks:               `TagType_NumberOfInks`,               // SHORT, 1
@@ -227,6 +228,7 @@ var _TagType_TypesTable = map[TagType][]DataType{
 	TagType_TileLength:                 []DataType{DataType_Short, DataType_Long},
 	TagType_TileOffsets:                []DataType{DataType_Long, DataType_Long8},
 	TagType_TileByteCounts:             []DataType{DataType_Short, DataType_Long},
+	TagType_SubIFD:                     []DataType{DataType_Long},
 	TagType_InkSet:                     []DataType{DataType_Short},
 	TagType_InkNames:                   []DataType{DataType_ASCII},
 	TagType_NumberOfInks:               []DataType{DataType_Short},
@@ -355,6 +357,7 @@ type TagGetter interface {
 	GetTileLength() (value int64, ok bool)
 	GetTileOffsets() (value []int64, ok bool)
 	GetTileByteCounts() (value []int64, ok bool)
+	GetSubIFD() (value []int64, ok bool)
 	GetInkSet() (value int64, ok bool)
 	GetInkNames() (value string, ok bool)
 	GetNumberOfInks() (value int64, ok bool)
@@ -443,6 +446,7 @@ type TagSetter interface {
 	SetTileLength(value int64) (ok bool)
 	SetTileOffsets(value []int64) (ok bool)
 	SetTileByteCounts(value []int64) (ok bool)
+	SetSubIFD(value []int64) (ok bool)
 	SetInkSet(value int64) (ok bool)
 	SetInkNames(value string) (ok bool)
 	SetNumberOfInks(value int64) (ok bool)

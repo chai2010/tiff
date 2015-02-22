@@ -136,7 +136,7 @@ func (d DataType) ByteSize() int {
 	case DataType_Double:
 		return 8
 	case DataType_IFD:
-		return 12
+		return 4 // LONG
 	case DataType_Unicode:
 		return 2 // UTF16 ?
 	case DataType_Complex:
@@ -206,6 +206,7 @@ const (
 	TagType_TileLength                 TagType = 323   // SHORT/LONG, 1
 	TagType_TileOffsets                TagType = 324   // LONG/LONG8, *, # TilesPerImage
 	TagType_TileByteCounts             TagType = 325   // SHORT/LONG, *, # TilesPerImage
+	TagType_SubIFD                     TagType = 330   // LONG,  *
 	TagType_InkSet                     TagType = 332   // SHORT, 1
 	TagType_InkNames                   TagType = 333   // ASCII
 	TagType_NumberOfInks               TagType = 334   // SHORT, 1

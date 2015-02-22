@@ -7,9 +7,7 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 
@@ -27,21 +25,23 @@ func main() {
 }
 
 func printTiffInfo(filename string) {
-	data, err := ioutil.ReadFile(filename)
+	f, err := os.Open(filename)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("printTiffInfo: os.Open, ", err)
 	}
+	defer f.Close()
+
 	fmt.Println("file:", filename)
 
-	header, err := tiff.ReadHeader(bytes.NewReader(data))
+	header, err := tiff.ReadHeader(f)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("printTiffInfo: tiff.ReadHeader, ", err)
 	}
 	fmt.Println(header)
 
-	ifd, err := tiff.ReadIFD(bytes.NewReader(data), header, header.Offset)
+	ifd, err := tiff.ReadIFD(f, header, header.Offset)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("printTiffInfo: tiff.ReadIFD, err =", err)
 	}
 	fmt.Println(ifd)
 }

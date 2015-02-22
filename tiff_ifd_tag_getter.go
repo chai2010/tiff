@@ -587,6 +587,15 @@ func (p *tifTagGetter) GetTileByteCounts() (value []int64, ok bool) {
 	return
 }
 
+func (p *tifTagGetter) GetSubIFD() (value []int64, ok bool) {
+	var entry *IFDEntry
+	if entry, ok = p.EntryMap[TagType_SubIFD]; !ok {
+		return
+	}
+	value = entry.GetInts()
+	return
+}
+
 func (p *tifTagGetter) GetInkSet() (value int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_InkSet]; !ok {

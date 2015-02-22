@@ -98,7 +98,7 @@ func readIFD8(r io.ReadSeeker, h *Header, offset int64) (p *IFD, err error) {
 	}
 
 	// read IFDEntry
-	var entryNum uint32
+	var entryNum uint64
 	if err = binary.Read(r, h.ByteOrder, &entryNum); err != nil {
 		return
 	}

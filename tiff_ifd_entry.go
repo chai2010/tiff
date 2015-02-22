@@ -139,7 +139,7 @@ func (p *IFDEntry) GetInts() []int64 {
 		r := bytes.NewReader(p.Data)
 		dst := make([]int64, p.Count)
 		for i := 0; i < p.Count; i++ {
-			var v uint64
+			var v int64
 			if err := binary.Read(r, p.Header.ByteOrder, &v); err != nil {
 				return nil
 			}
@@ -442,14 +442,14 @@ func (p *IFDEntry) SetUndefined(value interface{}) {
 func (p *IFDEntry) String() string {
 	switch {
 	case p.DataType.IsIntType():
-		return fmt.Sprintf("%v: %v", p.Tag, p.GetInts())
+		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.GetInts())
 	case p.DataType.IsFloatType():
-		return fmt.Sprintf("%v: %v", p.Tag, p.GetFloats())
+		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.GetFloats())
 	case p.DataType.IsRationalType():
-		return fmt.Sprintf("%v: %v", p.Tag, p.GetRationals())
+		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.GetRationals())
 	case p.DataType.IsStringType():
-		return fmt.Sprintf("%v: %v", p.Tag, p.GetString())
+		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.GetString())
 	default:
-		return fmt.Sprintf("%v: %v", p.Tag, p.Data)
+		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.Data)
 	}
 }

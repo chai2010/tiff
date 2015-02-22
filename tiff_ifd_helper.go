@@ -308,7 +308,14 @@ func (p *IFD) Bytes() []byte {
 func (p *IFD) String() string {
 	var buf bytes.Buffer
 	fmt.Fprintf(&buf, "tiff.IFD {\n")
+
+	tagList := make([]*IFDEntry, 0, len(p.EntryMap))
 	for _, v := range p.EntryMap {
+		tagList = append(tagList, v)
+	}
+	sort.Sort(byIFDEntry(tagList))
+
+	for _, v := range tagList {
 		fmt.Fprintf(&buf, "  %v\n", v)
 	}
 	fmt.Fprintf(&buf, "  Next: %08x\n", p.Offset)
