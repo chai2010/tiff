@@ -200,7 +200,7 @@ func (p *IFD) ColorMap() [][3]uint16 {
 	return nil
 }
 
-func (p *IFD) BlockSize() (width, height int) {
+func (p *IFD) _BlockSize() (width, height int) {
 	if _, ok := p.EntryMap[TagType_TileWidth]; ok {
 		if tag, ok := p.EntryMap[TagType_TileWidth]; ok {
 			if v := tag.GetInts(); len(v) == 1 {
@@ -235,7 +235,7 @@ func (p *IFD) BlockSize() (width, height int) {
 	return
 }
 
-func (p *IFD) BlockOffsets() []int64 {
+func (p *IFD) _BlockOffsets() []int64 {
 	if _, ok := p.EntryMap[TagType_TileWidth]; ok {
 		if tag, ok := p.EntryMap[TagType_TileOffsets]; ok {
 			return tag.GetInts()
@@ -248,7 +248,7 @@ func (p *IFD) BlockOffsets() []int64 {
 	return nil
 }
 
-func (p *IFD) BlockCounts() []int64 {
+func (p *IFD) _BlockCounts() []int64 {
 	if _, ok := p.EntryMap[TagType_TileWidth]; ok {
 		if tag, ok := p.EntryMap[TagType_TileByteCounts]; ok {
 			return tag.GetInts()
@@ -259,15 +259,6 @@ func (p *IFD) BlockCounts() []int64 {
 		}
 	}
 	return nil
-}
-
-func (p *IFD) Predictor() TagValue_PredictorType {
-	if tag, ok := p.EntryMap[TagType_Predictor]; ok {
-		if v := tag.GetInts(); len(v) == 1 {
-			return TagValue_PredictorType(v[0])
-		}
-	}
-	return TagValue_PredictorType_None
 }
 
 func (p *IFD) Bytes() []byte {

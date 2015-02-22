@@ -10,7 +10,31 @@ import (
 	"io"
 )
 
-func (p *IFD) ReadBlock(r io.ReadSeeker, offset, length int64, dst *Image, rect image.Rectangle) (err error) {
+func (p *IFD) BlocksAcross() int {
+	return 0
+}
+
+func (p *IFD) BlocksDown() int {
+	return 0
+}
+
+func (p *IFD) BlockBounds(col, row int) image.Rectangle {
+	return image.Rectangle{}
+}
+
+func (p *IFD) BlockOffset(col, row int) int64 {
+	return 0
+}
+
+func (p *IFD) BlockCount(col, row int) int64 {
+	return 0
+}
+
+func (p *IFD) ReadBlock(r io.ReadSeeker, col, row int, dst *Image) (err error) {
+	return
+}
+
+func (p *IFD) _ReadBlock(r io.ReadSeeker, offset, length int64, dst *Image, rect image.Rectangle) (err error) {
 	var data []byte
 	if _, err = r.Seek(offset, 0); err != nil {
 		return
@@ -20,7 +44,8 @@ func (p *IFD) ReadBlock(r io.ReadSeeker, offset, length int64, dst *Image, rect 
 		return
 	}
 
-	if p.Predictor() == TagValue_PredictorType_Horizontal {
+	predictor, ok := p.TagGetter().GetPredictor()
+	if ok && predictor == TagValue_PredictorType_Horizontal {
 		if data, err = p.decodePredictor(rect, data); err != nil {
 			return
 		}

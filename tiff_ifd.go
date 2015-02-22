@@ -9,12 +9,17 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
+	"reflect"
 )
 
 type IFD struct {
 	Header   *Header
 	EntryMap map[TagType]*IFDEntry
 	Offset   int64 // next IFD
+}
+
+func NewIFD(hdr *Header, width, height, depth, channels int, kind reflect.Kind) (ifd *IFD) {
+	return
 }
 
 func ReadIFD(r io.Reader, h *Header, offset int64) (ifd *IFD, err error) {

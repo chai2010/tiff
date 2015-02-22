@@ -26,6 +26,10 @@ func (d byIFDEntry) Len() int           { return len(d) }
 func (d byIFDEntry) Less(i, j int) bool { return d[i].Tag < d[j].Tag }
 func (d byIFDEntry) Swap(i, j int)      { d[i], d[j] = d[j], d[i] }
 
+func NewIFDEntry(hdr *Header, tag TagType, dataType DataType, data ...interface{}) *IFDEntry {
+	return nil
+}
+
 func (p *IFDEntry) Bytes() (entry, data []byte) {
 	if p.Header.TiffType == TiffType_ClassicTIFF {
 		var buf bytes.Buffer
