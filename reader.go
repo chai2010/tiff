@@ -20,7 +20,6 @@ type decoder struct {
 	bpp       uint
 	features  map[TagType][]uint
 	palette   []color.Color
-	buf       []byte
 }
 
 func (d *decoder) Close() error {
@@ -154,7 +153,7 @@ func minInt(a, b int) int {
 
 // decodeBlock decodes the raw data of an image.
 // It reads from d.buf and writes the strip or tile into dst.
-func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error {
+func (d *decoder) decodeBlock(buf []byte, dst image.Image, xmin, ymin, xmax, ymax int) error {
 	// Apply horizontal predictor if necessary.
 	// In this case, p contains the color difference to the preceding pixel.
 	// See page 64-65 of the spec.
@@ -166,9 +165,9 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 			for y := ymin; y < ymax; y++ {
 				off += spp * 2
 				for x := 0; x < (xmax-xmin-1)*bpp; x += 2 {
-					v0 := d.byteOrder.Uint16(d.buf[off-bpp : off-bpp+2])
-					v1 := d.byteOrder.Uint16(d.buf[off : off+2])
-					d.byteOrder.PutUint16(d.buf[off:off+2], v1+v0)
+					v0 := d.byteOrder.Uint16(buf[off-bpp : off-bpp+2])
+					v1 := d.byteOrder.Uint16(buf[off : off+2])
+					d.byteOrder.PutUint16(buf[off:off+2], v1+v0)
 					off += 2
 				}
 			}
@@ -178,7 +177,7 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 			for y := ymin; y < ymax; y++ {
 				off += spp
 				for x := 0; x < (xmax-xmin-1)*spp; x++ {
-					d.buf[off] += d.buf[off-spp]
+					buf[off] += buf[off-spp]
 					off++
 				}
 			}
@@ -194,7 +193,7 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 			img := dst.(*image.Gray16)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
-					v := d.byteOrder.Uint16(d.buf[off : off+2])
+					v := d.byteOrder.Uint16(buf[off : off+2])
 					off += 2
 					if d.mode == ImageType_GrayInvert {
 						v = 0xffff - v
@@ -203,7 +202,7 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 				}
 			}
 		} else {
-			bitReader := newBitsReader(d.buf)
+			bitReader := newBitsReader(buf)
 			img := dst.(*image.Gray)
 			max := uint32((1 << d.bpp) - 1)
 			for y := ymin; y < rMaxY; y++ {
@@ -217,7 +216,7 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 			}
 		}
 	case ImageType_Paletted:
-		bitReader := newBitsReader(d.buf)
+		bitReader := newBitsReader(buf)
 		img := dst.(*image.Paletted)
 		for y := ymin; y < rMaxY; y++ {
 			for x := xmin; x < rMaxX; x++ {
@@ -230,9 +229,9 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 			img := dst.(*image.RGBA64)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
-					r := d.byteOrder.Uint16(d.buf[off+0 : off+2])
-					g := d.byteOrder.Uint16(d.buf[off+2 : off+4])
-					b := d.byteOrder.Uint16(d.buf[off+4 : off+6])
+					r := d.byteOrder.Uint16(buf[off+0 : off+2])
+					g := d.byteOrder.Uint16(buf[off+2 : off+4])
+					b := d.byteOrder.Uint16(buf[off+4 : off+6])
 					off += 6
 					img.SetRGBA64(x, y, color.RGBA64{r, g, b, 0xffff})
 				}
@@ -244,9 +243,9 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 				max := img.PixOffset(rMaxX, y)
 				off := (y - ymin) * (xmax - xmin) * 3
 				for i := min; i < max; i += 4 {
-					img.Pix[i+0] = d.buf[off+0]
-					img.Pix[i+1] = d.buf[off+1]
-					img.Pix[i+2] = d.buf[off+2]
+					img.Pix[i+0] = buf[off+0]
+					img.Pix[i+1] = buf[off+1]
+					img.Pix[i+2] = buf[off+2]
 					img.Pix[i+3] = 0xff
 					off += 3
 				}
@@ -258,10 +257,10 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 			img := dst.(*image.NRGBA64)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
-					r := d.byteOrder.Uint16(d.buf[off+0 : off+2])
-					g := d.byteOrder.Uint16(d.buf[off+2 : off+4])
-					b := d.byteOrder.Uint16(d.buf[off+4 : off+6])
-					a := d.byteOrder.Uint16(d.buf[off+6 : off+8])
+					r := d.byteOrder.Uint16(buf[off+0 : off+2])
+					g := d.byteOrder.Uint16(buf[off+2 : off+4])
+					b := d.byteOrder.Uint16(buf[off+4 : off+6])
+					a := d.byteOrder.Uint16(buf[off+6 : off+8])
 					off += 8
 					img.SetNRGBA64(x, y, color.NRGBA64{r, g, b, a})
 				}
@@ -271,8 +270,7 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 			for y := ymin; y < rMaxY; y++ {
 				min := img.PixOffset(xmin, y)
 				max := img.PixOffset(rMaxX, y)
-				buf := d.buf[(y-ymin)*(xmax-xmin)*4 : (y-ymin+1)*(xmax-xmin)*4]
-				copy(img.Pix[min:max], buf)
+				copy(img.Pix[min:max], buf[(y-ymin)*(xmax-xmin)*4:(y-ymin+1)*(xmax-xmin)*4])
 			}
 		}
 	case ImageType_RGBA:
@@ -281,10 +279,10 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 			img := dst.(*image.RGBA64)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
-					r := d.byteOrder.Uint16(d.buf[off+0 : off+2])
-					g := d.byteOrder.Uint16(d.buf[off+2 : off+4])
-					b := d.byteOrder.Uint16(d.buf[off+4 : off+6])
-					a := d.byteOrder.Uint16(d.buf[off+6 : off+8])
+					r := d.byteOrder.Uint16(buf[off+0 : off+2])
+					g := d.byteOrder.Uint16(buf[off+2 : off+4])
+					b := d.byteOrder.Uint16(buf[off+4 : off+6])
+					a := d.byteOrder.Uint16(buf[off+6 : off+8])
 					off += 8
 					img.SetRGBA64(x, y, color.RGBA64{r, g, b, a})
 				}
@@ -294,8 +292,7 @@ func (d *decoder) decodeBlock(dst image.Image, xmin, ymin, xmax, ymax int) error
 			for y := ymin; y < rMaxY; y++ {
 				min := img.PixOffset(xmin, y)
 				max := img.PixOffset(rMaxX, y)
-				buf := d.buf[(y-ymin)*(xmax-xmin)*4 : (y-ymin+1)*(xmax-xmin)*4]
-				copy(img.Pix[min:max], buf)
+				copy(img.Pix[min:max], buf[(y-ymin)*(xmax-xmin)*4:(y-ymin+1)*(xmax-xmin)*4])
 			}
 		}
 	}
@@ -548,7 +545,8 @@ func Decode(r io.Reader) (m image.Image, err error) {
 				return
 			}
 			limitReader := io.LimitReader(d.r, n)
-			if d.buf, err = compressType.ReadAll(limitReader); err != nil {
+			buf, err := compressType.ReadAll(limitReader)
+			if err != nil {
 				return nil, err
 			}
 
@@ -556,7 +554,7 @@ func Decode(r io.Reader) (m image.Image, err error) {
 			ymin := j * blockHeight
 			xmax := xmin + blkW
 			ymax := ymin + blkH
-			err = d.decodeBlock(m, xmin, ymin, xmax, ymax)
+			err = d.decodeBlock(buf, m, xmin, ymin, xmax, ymax)
 			if err != nil {
 				return nil, err
 			}
