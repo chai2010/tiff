@@ -58,8 +58,8 @@ func (p *IFD) Depth() int {
 }
 
 func (p *IFD) Channels() int {
-	if v, ok := p.TagGetter().GetSamplesPerPixel(); ok {
-		return int(v)
+	if v, ok := p.TagGetter().GetBitsPerSample(); ok {
+		return len(v)
 	}
 	return 0
 }
@@ -69,9 +69,9 @@ func (p *IFD) ImageType() ImageType {
 		TagType_ImageWidth,
 		TagType_ImageLength,
 		TagType_PhotometricInterpretation,
-		TagType_XResolution,
-		TagType_YResolution,
-		TagType_ResolutionUnit,
+		//TagType_XResolution,
+		//TagType_YResolution,
+		//TagType_ResolutionUnit,
 	}
 	var requiredTiledTags = []TagType{
 		TagType_TileWidth,
@@ -120,10 +120,9 @@ func (p *IFD) ImageType() ImageType {
 	}
 
 	var (
-		photometric, _                      = p.TagGetter().GetPhotometricInterpretation()
-		_, hasBitsPerSample                 = p.TagGetter().GetBitsPerSample()
-		samplesPerPixel, hasSamplesPerPixel = p.TagGetter().GetSamplesPerPixel()
-		extraSamples, hasExtraSamples       = p.TagGetter().GetExtraSamples()
+		photometric, _                = p.TagGetter().GetPhotometricInterpretation()
+		_, hasBitsPerSample           = p.TagGetter().GetBitsPerSample()
+		extraSamples, hasExtraSamples = p.TagGetter().GetExtraSamples()
 	)
 
 	switch photometric {
@@ -140,10 +139,10 @@ func (p *IFD) ImageType() ImageType {
 			return ImageType_Gray
 		}
 	case TagValue_PhotometricType_RGB:
-		if hasSamplesPerPixel && samplesPerPixel == 3 {
+		if p.Channels() == 3 {
 			return ImageType_RGB
 		}
-		if hasSamplesPerPixel && samplesPerPixel == 4 {
+		if p.Channels() == 4 {
 			if hasExtraSamples && extraSamples == 1 {
 				return ImageType_RGBA
 			}
@@ -260,20 +259,17 @@ func (p *IFD) Compression() CompressType {
 }
 
 func (p *IFD) ColorMap() (palette color.Palette) {
-	if tag, ok := p.EntryMap[TagType_ColorMap]; ok {
-		v := tag.GetInts()
-		if len(v) == 0 || len(v)%3 != 0 {
-			return nil
-		}
-		numcolors := len(v) / 3
-		palette := make([]color.Color, numcolors)
-		for i := 0; i < numcolors; i++ {
-			palette[i] = color.RGBA64{
-				uint16(v[i+0*numcolors]),
-				uint16(v[i+1*numcolors]),
-				uint16(v[i+2*numcolors]),
-				0xffff,
-			}
+	v, ok := p.TagGetter().GetColorMap()
+	if !ok {
+		return
+	}
+	palette = make([]color.Color, len(v))
+	for i := 0; i < len(palette); i++ {
+		palette[i] = color.RGBA64{
+			uint16(v[i][0]),
+			uint16(v[i][1]),
+			uint16(v[i][2]),
+			0xffff,
 		}
 	}
 	return

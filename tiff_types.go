@@ -178,8 +178,8 @@ const (
 	TagType_StripByteCounts            TagType = 279   // SHORT/LONG/LONG8, *, # StripsPerImage
 	TagType_MinSampleValue             TagType = 280   // SHORT,    *, # SamplesPerPixel
 	TagType_MaxSampleValue             TagType = 281   // SHORT,    *, # SamplesPerPixel
-	TagType_XResolution                TagType = 282   // RATIONAL, 1, Required
-	TagType_YResolution                TagType = 283   // RATIONAL, 1, Required
+	TagType_XResolution                TagType = 282   // RATIONAL, 1, # Required?
+	TagType_YResolution                TagType = 283   // RATIONAL, 1, # Required?
 	TagType_PlanarConfiguration        TagType = 284   // SHORT,    1,
 	TagType_PageName                   TagType = 285   // ASCII
 	TagType_XPosition                  TagType = 286   // RATIONAL,   1
@@ -190,7 +190,7 @@ const (
 	TagType_GrayResponseCurve          TagType = 291   // SHORT, *, # 2**BitPerSample
 	TagType_T4Options                  TagType = 292   // LONG,  1,
 	TagType_T6Options                  TagType = 293   // LONG,  1,
-	TagType_ResolutionUnit             TagType = 296   // SHORT, 1, Required
+	TagType_ResolutionUnit             TagType = 296   // SHORT, 1, # Required?
 	TagType_PageNumber                 TagType = 297   // SHORT, 2,
 	TagType_TransferFunction           TagType = 301   // SHORT, *, # {1 or SamplesPerPixel}*2**BitPerSample
 	TagType_Software                   TagType = 305   // ASCII

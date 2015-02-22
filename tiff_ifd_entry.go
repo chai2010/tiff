@@ -224,7 +224,9 @@ func (p *IFDEntry) GetRationals() [][2]int64 {
 func (p *IFDEntry) GetString() string {
 	switch p.DataType {
 	case DataType_ASCII:
-		return string(p.Data)
+		if len(p.Data) > 0 {
+			return string(p.Data[:len(p.Data)-1]) // -NULL
+		}
 	case DataType_Unicode:
 		r := bytes.NewReader(p.Data)
 		runes := make([]rune, p.Count)
@@ -234,6 +236,9 @@ func (p *IFDEntry) GetString() string {
 				return ""
 			}
 			runes[i] = rune(v)
+		}
+		if len(runes) > 0 {
+			return string(runes[:len(runes)-1]) // -NULL
 		}
 		return string(runes)
 	}
@@ -404,16 +409,19 @@ func (p *IFDEntry) SetRationals(value ...[2]int64) {
 func (p *IFDEntry) setString(value string) {
 	switch p.DataType {
 	case DataType_ASCII:
-		p.Data = []byte(value)
-		p.Count = len(p.Data)
+		p.Data = make([]byte, len(value)+1)
+		copy(p.Data, []byte(value))
+		p.Data[len(value)] = 0 // +NULL
+		p.Count = len(p.Data) + 1
 	case DataType_Unicode:
 		u16Data := utf16.Encode([]rune(value))
 		var buf bytes.Buffer
 		if err := binary.Write(&buf, p.Header.ByteOrder, u16Data); err != nil {
 			return
 		}
+		binary.Write(&buf, p.Header.ByteOrder, uint16(0)) // +NULL
 		p.Data = buf.Bytes()
-		p.Count = len(u16Data)
+		p.Count = len(u16Data) + 1
 	}
 	return
 }

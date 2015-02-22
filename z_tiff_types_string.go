@@ -115,8 +115,8 @@ var _TagTypeTable = map[TagType]string{
 	TagType_StripByteCounts:            `TagType_StripByteCounts`,            // SHORT/LONG/LONG8, *, # StripsPerImage
 	TagType_MinSampleValue:             `TagType_MinSampleValue`,             // SHORT,    *, # SamplesPerPixel
 	TagType_MaxSampleValue:             `TagType_MaxSampleValue`,             // SHORT,    *, # SamplesPerPixel
-	TagType_XResolution:                `TagType_XResolution`,                // RATIONAL, 1, Required
-	TagType_YResolution:                `TagType_YResolution`,                // RATIONAL, 1, Required
+	TagType_XResolution:                `TagType_XResolution`,                // RATIONAL, 1, # Required?
+	TagType_YResolution:                `TagType_YResolution`,                // RATIONAL, 1, # Required?
 	TagType_PlanarConfiguration:        `TagType_PlanarConfiguration`,        // SHORT,    1,
 	TagType_PageName:                   `TagType_PageName`,                   // ASCII
 	TagType_XPosition:                  `TagType_XPosition`,                  // RATIONAL,   1
@@ -127,7 +127,7 @@ var _TagTypeTable = map[TagType]string{
 	TagType_GrayResponseCurve:          `TagType_GrayResponseCurve`,          // SHORT, *, # 2**BitPerSample
 	TagType_T4Options:                  `TagType_T4Options`,                  // LONG,  1,
 	TagType_T6Options:                  `TagType_T6Options`,                  // LONG,  1,
-	TagType_ResolutionUnit:             `TagType_ResolutionUnit`,             // SHORT, 1, Required
+	TagType_ResolutionUnit:             `TagType_ResolutionUnit`,             // SHORT, 1, # Required?
 	TagType_PageNumber:                 `TagType_PageNumber`,                 // SHORT, 2,
 	TagType_TransferFunction:           `TagType_TransferFunction`,           // SHORT, *, # {1 or SamplesPerPixel}*2**BitPerSample
 	TagType_Software:                   `TagType_Software`,                   // ASCII

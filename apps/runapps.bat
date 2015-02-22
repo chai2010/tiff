@@ -20,6 +20,5 @@
   ..\testdata\video-001-strip-64.tiff             ^
   ..\testdata\video-001-tile-64x64.tiff           ^
   ..\testdata\video-001-uncompressed.tiff         ^
-  ..\testdata\video-001.tiff
-
-pause
+  ..\testdata\video-001.tiff                      ^
+  > tiffinfo-out.txt

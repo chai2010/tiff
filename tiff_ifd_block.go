@@ -11,16 +11,6 @@ import (
 	"io"
 )
 
-func (p *IFD) BlockSize() (width, height int) {
-	if value, ok := p.TagGetter().GetTileWidth(); ok {
-		width = int(value)
-	}
-	if value, ok := p.TagGetter().GetTileLength(); ok {
-		height = int(value)
-	}
-	return
-}
-
 func (p *IFD) BlocksAcross() int {
 	if _, ok := p.TagGetter().GetTileWidth(); ok {
 		imageWidth, _ := p.TagGetter().GetImageWidth()
@@ -37,11 +27,10 @@ func (p *IFD) BlocksDown() int {
 		imageHeight, _ := p.TagGetter().GetImageLength()
 		blockHeight, _ := p.TagGetter().GetTileLength()
 		return int((imageHeight + blockHeight - 1) / blockHeight)
-
 	} else {
 		imageHeight, _ := p.TagGetter().GetImageLength()
 		blockHeight, ok := p.TagGetter().GetRowsPerStrip()
-		if !ok || blockHeight == 0 {
+		if !ok || blockHeight == 0 || blockHeight > imageHeight {
 			blockHeight = imageHeight
 		}
 		return int((imageHeight + blockHeight - 1) / blockHeight)
@@ -80,10 +69,6 @@ func (p *IFD) BlockBounds(col, row int) image.Rectangle {
 
 		blkW := blockWidth
 		blkH := blockHeight
-
-		if col == blocksAcross-1 && imageWidth%blockWidth != 0 {
-			blkW = imageWidth % blockWidth
-		}
 		if row == blocksDown-1 && imageHeight%blockHeight != 0 {
 			blkH = imageHeight % blockHeight
 		}
@@ -198,6 +183,7 @@ func (p *IFD) decodePredictor(data []byte, r image.Rectangle) (out []byte, err e
 		err = fmt.Errorf("tiff: IFD.decodePredictor, bad BitsPerSample = %d", bpp)
 		return
 	}
+	out = data
 	return
 }
 
@@ -244,6 +230,7 @@ func (p *IFD) decodeBlock(buf []byte, dst image.Image, r image.Rectangle) (err e
 			for x := xmin; x < rMaxX; x++ {
 				img.SetColorIndex(x, y, uint8(bitReader.ReadBits(uint(p.Depth()))))
 			}
+			bitReader.flushBits()
 		}
 	case ImageType_RGB:
 		if p.Depth() == 16 {

@@ -30,3 +30,10 @@ func (p *bitsReader) ReadBits(n uint) uint32 {
 	p.v &^= rv << p.nbits
 	return rv
 }
+
+// flushBits discards the unread bits in the buffer used by readBits.
+// It is used at the end of a line.
+func (p *bitsReader) flushBits() {
+	p.v = 0
+	p.nbits = 0
+}

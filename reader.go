@@ -451,7 +451,7 @@ func DecodeAll(r io.Reader) (m []image.Image, err error) {
 	return
 }
 
-func _Decode(r io.Reader) (m image.Image, err error) {
+func Decode(r io.Reader) (m image.Image, err error) {
 	rs := openSeekioReader(r, -1)
 	defer rs.Close()
 
@@ -469,7 +469,9 @@ func _Decode(r io.Reader) (m image.Image, err error) {
 	}
 
 	imgRect := image.Rect(0, 0, cfg.Width, cfg.Height)
-	switch ifd.ImageType() {
+	imageType := ifd.ImageType()
+
+	switch imageType {
 	case ImageType_Gray, ImageType_GrayInvert:
 		if ifd.Depth() == 16 {
 			m = image.NewGray16(imgRect)
@@ -492,8 +494,6 @@ func _Decode(r io.Reader) (m image.Image, err error) {
 		}
 	}
 	if m == nil {
-		println("ifd.Depth():", ifd.Depth())
-		println("ifd.ImageType():", ifd.ImageType().String())
 		err = fmt.Errorf("tiff: Decode, unknown format")
 		return
 	}
@@ -504,8 +504,6 @@ func _Decode(r io.Reader) (m image.Image, err error) {
 	for i := 0; i < blocksAcross; i++ {
 		for j := 0; j < blocksDown; j++ {
 			if err = ifd.DecodeBlock(rs, i, j, m); err != nil {
-				println("Decode col =", i)
-				println("Decode col =", j)
 				return
 			}
 		}
@@ -515,7 +513,7 @@ func _Decode(r io.Reader) (m image.Image, err error) {
 
 // Decode reads a TIFF image from r and returns it as an image.Image.
 // The type of Image returned depends on the contents of the TIFF.
-func Decode(r io.Reader) (m image.Image, err error) {
+func _Decode(r io.Reader) (m image.Image, err error) {
 	d := openDecoder(r)
 	defer func() {
 		if x := d.Close(); x != nil && err == nil {
