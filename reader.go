@@ -453,6 +453,10 @@ func DecodeConfig(r io.Reader) (cfg image.Config, err error) {
 	return
 }
 
+func DecodeAll(r io.Reader) (m []image.Image, err error) {
+	return
+}
+
 // Decode reads a TIFF image from r and returns it as an image.Image.
 // The type of Image returned depends on the contents of the TIFF.
 func Decode(r io.Reader) (m image.Image, err error) {

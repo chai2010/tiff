@@ -275,10 +275,14 @@ func writeIFD(w io.Writer, ifdOffset int, d []ifdEntry) error {
 	return err
 }
 
+func EncodeAll(w io.Writer, m []image.Image, opt []*Options) error {
+	return nil
+}
+
 // Encode writes the image m to w. opt determines the options used for
 // encoding, such as the compression type. If opt is nil, an uncompressed
 // image is written.
-func Encode(w io.Writer, m image.Image) error {
+func Encode(w io.Writer, m image.Image, opt *Options) error {
 	d := m.Bounds().Size()
 
 	compression := CompressType_None
