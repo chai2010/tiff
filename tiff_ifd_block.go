@@ -7,6 +7,7 @@ package tiff
 import (
 	"fmt"
 	"image"
+	"image/color"
 	"io"
 )
 
@@ -136,35 +137,39 @@ func (p *IFD) BlockCount(col, row int) int64 {
 	}
 }
 
-func (p *IFD) DecodeBlock(r io.Reader, col, row int, dst *Image) (err error) {
-	return
-}
+func (p *IFD) DecodeBlock(r io.ReadSeeker, col, row int, dst image.Image) (err error) {
+	blocksAcross, blocksDown := p.BlocksAcross(), p.BlocksDown()
+	if col < 0 || row < 0 || col >= blocksAcross-1 || row >= blocksDown {
+		err = fmt.Errorf("tiff: IFD.DecodeBlock, bad col/row = %d/%d", col, row)
+		return
+	}
 
-func (p *IFD) EncodeBlock(w io.Writer, col, row int, dst *Image) (err error) {
-	return
-}
+	offset := p.BlockOffset(col, row)
+	count := p.BlockCount(col, row)
 
-func (p *IFD) _ReadBlock(r io.ReadSeeker, offset, length int64, dst *Image, rect image.Rectangle) (err error) {
-	var data []byte
 	if _, err = r.Seek(offset, 0); err != nil {
 		return
 	}
-	limitReader := io.LimitReader(r, length)
+	limitReader := io.LimitReader(r, count)
+
+	var data []byte
 	if data, err = p.Compression().ReadAll(limitReader); err != nil {
 		return
 	}
 
+	rect := p.BlockBounds(col, row)
 	predictor, ok := p.TagGetter().GetPredictor()
 	if ok && predictor == TagValue_PredictorType_Horizontal {
-		if data, err = p.decodePredictor(rect, data); err != nil {
+		if data, err = p.decodePredictor(data, rect); err != nil {
 			return
 		}
 	}
 
+	err = p.decodeBlock(data, dst, rect)
 	return
 }
 
-func (p *IFD) decodePredictor(r image.Rectangle, data []byte) (out []byte, err error) {
+func (p *IFD) decodePredictor(data []byte, r image.Rectangle) (out []byte, err error) {
 	bpp := p.Depth()
 	spp := p.Channels()
 
@@ -193,5 +198,130 @@ func (p *IFD) decodePredictor(r image.Rectangle, data []byte) (out []byte, err e
 		err = fmt.Errorf("tiff: IFD.decodePredictor, bad BitsPerSample = %d", bpp)
 		return
 	}
+	return
+}
+
+func (p *IFD) decodeBlock(buf []byte, dst image.Image, r image.Rectangle) (err error) {
+	xmin, ymin := r.Min.X, r.Min.Y
+	xmax, ymax := r.Max.X, r.Max.Y
+
+	rMaxX := minInt(xmax, dst.Bounds().Max.X)
+	rMaxY := minInt(ymax, dst.Bounds().Max.Y)
+
+	switch p.ImageType() {
+	case ImageType_Gray, ImageType_GrayInvert:
+		if p.Depth() == 16 {
+			var off int
+			img := dst.(*image.Gray16)
+			for y := ymin; y < rMaxY; y++ {
+				for x := xmin; x < rMaxX; x++ {
+					v := p.Header.ByteOrder.Uint16(buf[off : off+2])
+					off += 2
+					if p.ImageType() == ImageType_GrayInvert {
+						v = 0xffff - v
+					}
+					img.SetGray16(x, y, color.Gray16{v})
+				}
+			}
+		} else {
+			bitReader := newBitsReader(buf)
+			img := dst.(*image.Gray)
+			max := uint32((1 << uint(p.Depth())) - 1)
+			for y := ymin; y < rMaxY; y++ {
+				for x := xmin; x < rMaxX; x++ {
+					v := uint8(bitReader.ReadBits(uint(p.Depth())) * 0xff / max)
+					if p.ImageType() == ImageType_GrayInvert {
+						v = 0xff - v
+					}
+					img.SetGray(x, y, color.Gray{v})
+				}
+			}
+		}
+	case ImageType_Paletted:
+		bitReader := newBitsReader(buf)
+		img := dst.(*image.Paletted)
+		for y := ymin; y < rMaxY; y++ {
+			for x := xmin; x < rMaxX; x++ {
+				img.SetColorIndex(x, y, uint8(bitReader.ReadBits(uint(p.Depth()))))
+			}
+		}
+	case ImageType_RGB:
+		if p.Depth() == 16 {
+			var off int
+			img := dst.(*image.RGBA64)
+			for y := ymin; y < rMaxY; y++ {
+				for x := xmin; x < rMaxX; x++ {
+					r := p.Header.ByteOrder.Uint16(buf[off+0 : off+2])
+					g := p.Header.ByteOrder.Uint16(buf[off+2 : off+4])
+					b := p.Header.ByteOrder.Uint16(buf[off+4 : off+6])
+					off += 6
+					img.SetRGBA64(x, y, color.RGBA64{r, g, b, 0xffff})
+				}
+			}
+		} else {
+			img := dst.(*image.RGBA)
+			for y := ymin; y < rMaxY; y++ {
+				min := img.PixOffset(xmin, y)
+				max := img.PixOffset(rMaxX, y)
+				off := (y - ymin) * (xmax - xmin) * 3
+				for i := min; i < max; i += 4 {
+					img.Pix[i+0] = buf[off+0]
+					img.Pix[i+1] = buf[off+1]
+					img.Pix[i+2] = buf[off+2]
+					img.Pix[i+3] = 0xff
+					off += 3
+				}
+			}
+		}
+	case ImageType_NRGBA:
+		if p.Depth() == 16 {
+			var off int
+			img := dst.(*image.NRGBA64)
+			for y := ymin; y < rMaxY; y++ {
+				for x := xmin; x < rMaxX; x++ {
+					r := p.Header.ByteOrder.Uint16(buf[off+0 : off+2])
+					g := p.Header.ByteOrder.Uint16(buf[off+2 : off+4])
+					b := p.Header.ByteOrder.Uint16(buf[off+4 : off+6])
+					a := p.Header.ByteOrder.Uint16(buf[off+6 : off+8])
+					off += 8
+					img.SetNRGBA64(x, y, color.NRGBA64{r, g, b, a})
+				}
+			}
+		} else {
+			img := dst.(*image.NRGBA)
+			for y := ymin; y < rMaxY; y++ {
+				min := img.PixOffset(xmin, y)
+				max := img.PixOffset(rMaxX, y)
+				copy(img.Pix[min:max], buf[(y-ymin)*(xmax-xmin)*4:(y-ymin+1)*(xmax-xmin)*4])
+			}
+		}
+	case ImageType_RGBA:
+		if p.Depth() == 16 {
+			var off int
+			img := dst.(*image.RGBA64)
+			for y := ymin; y < rMaxY; y++ {
+				for x := xmin; x < rMaxX; x++ {
+					r := p.Header.ByteOrder.Uint16(buf[off+0 : off+2])
+					g := p.Header.ByteOrder.Uint16(buf[off+2 : off+4])
+					b := p.Header.ByteOrder.Uint16(buf[off+4 : off+6])
+					a := p.Header.ByteOrder.Uint16(buf[off+6 : off+8])
+					off += 8
+					img.SetRGBA64(x, y, color.RGBA64{r, g, b, a})
+				}
+			}
+		} else {
+			img := dst.(*image.RGBA)
+			for y := ymin; y < rMaxY; y++ {
+				min := img.PixOffset(xmin, y)
+				max := img.PixOffset(rMaxX, y)
+				copy(img.Pix[min:max], buf[(y-ymin)*(xmax-xmin)*4:(y-ymin+1)*(xmax-xmin)*4])
+			}
+		}
+	}
+
+	return
+}
+
+func (p *IFD) EncodeBlock(w io.Writer, col, row int, dst *Image) (err error) {
 	return
 }

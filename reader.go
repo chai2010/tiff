@@ -143,14 +143,6 @@ func (d *decoder) parseIFD(p []byte) error {
 	return nil
 }
 
-// minInt returns the smaller of x or y.
-func minInt(a, b int) int {
-	if a <= b {
-		return a
-	}
-	return b
-}
-
 // decodeBlock decodes the raw data of an image.
 // It reads from d.buf and writes the strip or tile into dst.
 func (d *decoder) decodeBlock(buf []byte, dst image.Image, xmin, ymin, xmax, ymax int) error {
