@@ -21,22 +21,25 @@ func main() {
 	var err error
 
 	// Load file data
-	if data, err = ioutil.ReadFile("./testdata/video-001.tiff"); err != nil {
+	if data, err = ioutil.ReadFile("./testdata/BigTIFFSamples/BigTIFFSubIFD8.tif"); err != nil {
 		log.Fatal(err)
 	}
 
 	// Decode tiff
-	m, err := tiff.Decode(bytes.NewReader(data))
+	m, err := tiff.DecodeAll(bytes.NewReader(data))
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Encode tiff
-	if err = tiff.Encode(&buf, m); err != nil {
-		log.Fatal(err)
+	for i := 0; i < len(m); i++ {
+		filename := fmt.Sprintf("output-frame-%02d.tiff", i)
+		if err = tiff.Encode(&buf, m[i], nil); err != nil {
+			log.Fatal(err)
+		}
+		if err = ioutil.WriteFile(filename, buf.Bytes(), 0666); err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("Save %s ok\n", filename)
 	}
-	if err = ioutil.WriteFile("output.tiff", buf.Bytes(), 0666); err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Save output.tiff ok\n")
 }
