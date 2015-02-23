@@ -5,5 +5,7 @@
 package tiff
 
 type Options struct {
-	//
+	Compression CompressionType
+	Predictor   bool
+	EntryMap    map[TagType]*IFDEntry
 }
