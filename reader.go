@@ -58,6 +58,8 @@ func Decode(r io.Reader) (m image.Image, err error) {
 	imageType := ifd.ImageType()
 
 	switch imageType {
+	case ImageType_Bilevel, ImageType_BilevelInvert:
+		m = image.NewGray(imgRect)
 	case ImageType_Gray, ImageType_GrayInvert:
 		if ifd.Depth() == 16 {
 			m = image.NewGray16(imgRect)

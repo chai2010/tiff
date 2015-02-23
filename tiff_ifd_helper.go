@@ -69,9 +69,6 @@ func (p *IFD) ImageType() ImageType {
 		TagType_ImageWidth,
 		TagType_ImageLength,
 		TagType_PhotometricInterpretation,
-		//TagType_XResolution,
-		//TagType_YResolution,
-		//TagType_ResolutionUnit,
 	}
 	var requiredTiledTags = []TagType{
 		TagType_TileWidth,
@@ -121,19 +118,19 @@ func (p *IFD) ImageType() ImageType {
 
 	var (
 		photometric, _                = p.TagGetter().GetPhotometricInterpretation()
-		_, hasBitsPerSample           = p.TagGetter().GetBitsPerSample()
+		bitsPerSample, _              = p.TagGetter().GetBitsPerSample()
 		extraSamples, hasExtraSamples = p.TagGetter().GetExtraSamples()
 	)
 
 	switch photometric {
 	case TagValue_PhotometricType_WhiteIsZero:
-		if !hasBitsPerSample {
+		if len(bitsPerSample) == 1 && bitsPerSample[0] < 8 {
 			return ImageType_BilevelInvert
 		} else {
 			return ImageType_GrayInvert
 		}
 	case TagValue_PhotometricType_BlackIsZero:
-		if !hasBitsPerSample {
+		if len(bitsPerSample) == 1 && bitsPerSample[0] < 8 {
 			return ImageType_Bilevel
 		} else {
 			return ImageType_Gray

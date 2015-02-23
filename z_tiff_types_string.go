@@ -93,31 +93,31 @@ func (p DataType) String() string {
 }
 
 var _TagTypeTable = map[TagType]string{
-	TagType_NewSubfileType:             `TagType_NewSubfileType`,             // LONG , 1, Required
-	TagType_SubfileType:                `TagType_SubfileType`,                // SHORT, 1, Required
-	TagType_ImageWidth:                 `TagType_ImageWidth`,                 // SHORT/LONG/LONG8, 1
-	TagType_ImageLength:                `TagType_ImageLength`,                // SHORT/LONG/LONG8, 1
-	TagType_BitsPerSample:              `TagType_BitsPerSample`,              // SHORT, *, # SamplesPerPixel
-	TagType_Compression:                `TagType_Compression`,                // SHORT, 1,
+	TagType_NewSubfileType:             `TagType_NewSubfileType`,             // LONG , 1, # Default=0
+	TagType_SubfileType:                `TagType_SubfileType`,                // SHORT, 1,
+	TagType_ImageWidth:                 `TagType_ImageWidth`,                 // SHORT/LONG/LONG8, 1, # Required
+	TagType_ImageLength:                `TagType_ImageLength`,                // SHORT/LONG/LONG8, 1, # Required
+	TagType_BitsPerSample:              `TagType_BitsPerSample`,              // SHORT, *, # Default=1. See SamplesPerPixel
+	TagType_Compression:                `TagType_Compression`,                // SHORT, 1, # Default=1
 	TagType_PhotometricInterpretation:  `TagType_PhotometricInterpretation`,  // SHORT, 1,
-	TagType_Threshholding:              `TagType_Threshholding`,              // SHORT, 1,
+	TagType_Threshholding:              `TagType_Threshholding`,              // SHORT, 1, # Default=1
 	TagType_CellWidth:                  `TagType_CellWidth`,                  // SHORT, 1,
 	TagType_CellLenght:                 `TagType_CellLenght`,                 // SHORT, 1,
-	TagType_FillOrder:                  `TagType_FillOrder`,                  // SHORT, 1,
+	TagType_FillOrder:                  `TagType_FillOrder`,                  // SHORT, 1, # Default=1
 	TagType_DocumentName:               `TagType_DocumentName`,               // ASCII
 	TagType_ImageDescription:           `TagType_ImageDescription`,           // ASCII
 	TagType_Make:                       `TagType_Make`,                       // ASCII
 	TagType_Model:                      `TagType_Model`,                      // ASCII
 	TagType_StripOffsets:               `TagType_StripOffsets`,               // SHORT/LONG/LONG8, *, # StripsPerImage
-	TagType_Orientation:                `TagType_Orientation`,                // SHORT, 1,
-	TagType_SamplesPerPixel:            `TagType_SamplesPerPixel`,            // SHORT, 1,
+	TagType_Orientation:                `TagType_Orientation`,                // SHORT, 1, # Default=1
+	TagType_SamplesPerPixel:            `TagType_SamplesPerPixel`,            // SHORT, 1, # Default=1
 	TagType_RowsPerStrip:               `TagType_RowsPerStrip`,               // SHORT/LONG/LONG8, 1,
 	TagType_StripByteCounts:            `TagType_StripByteCounts`,            // SHORT/LONG/LONG8, *, # StripsPerImage
-	TagType_MinSampleValue:             `TagType_MinSampleValue`,             // SHORT,    *, # SamplesPerPixel
-	TagType_MaxSampleValue:             `TagType_MaxSampleValue`,             // SHORT,    *, # SamplesPerPixel
+	TagType_MinSampleValue:             `TagType_MinSampleValue`,             // SHORT,    *, # Default=0
+	TagType_MaxSampleValue:             `TagType_MaxSampleValue`,             // SHORT,    *, # Default=2^BitsPerSample-1
 	TagType_XResolution:                `TagType_XResolution`,                // RATIONAL, 1, # Required?
 	TagType_YResolution:                `TagType_YResolution`,                // RATIONAL, 1, # Required?
-	TagType_PlanarConfiguration:        `TagType_PlanarConfiguration`,        // SHORT,    1,
+	TagType_PlanarConfiguration:        `TagType_PlanarConfiguration`,        // SHORT,    1, # Defaule=1
 	TagType_PageName:                   `TagType_PageName`,                   // ASCII
 	TagType_XPosition:                  `TagType_XPosition`,                  // RATIONAL,   1
 	TagType_YPosition:                  `TagType_YPosition`,                  // RATIONAL,   1
@@ -125,16 +125,16 @@ var _TagTypeTable = map[TagType]string{
 	TagType_FreeByteCounts:             `TagType_FreeByteCounts`,             // LONG/LONG8, *
 	TagType_GrayResponseUnit:           `TagType_GrayResponseUnit`,           // SHORT, 1,
 	TagType_GrayResponseCurve:          `TagType_GrayResponseCurve`,          // SHORT, *, # 2**BitPerSample
-	TagType_T4Options:                  `TagType_T4Options`,                  // LONG,  1,
-	TagType_T6Options:                  `TagType_T6Options`,                  // LONG,  1,
-	TagType_ResolutionUnit:             `TagType_ResolutionUnit`,             // SHORT, 1, # Required?
+	TagType_T4Options:                  `TagType_T4Options`,                  // LONG,  1, # Default=0
+	TagType_T6Options:                  `TagType_T6Options`,                  // LONG,  1, # Default=0
+	TagType_ResolutionUnit:             `TagType_ResolutionUnit`,             // SHORT, 1, # Default=2
 	TagType_PageNumber:                 `TagType_PageNumber`,                 // SHORT, 2,
 	TagType_TransferFunction:           `TagType_TransferFunction`,           // SHORT, *, # {1 or SamplesPerPixel}*2**BitPerSample
 	TagType_Software:                   `TagType_Software`,                   // ASCII
-	TagType_DateTime:                   `TagType_DateTime`,                   // ASCII, 20
+	TagType_DateTime:                   `TagType_DateTime`,                   // ASCII, 20, # YYYY:MM:DD HH:MM:SS, include NULL
 	TagType_Artist:                     `TagType_Artist`,                     // ASCII
 	TagType_HostComputer:               `TagType_HostComputer`,               // ASCII
-	TagType_Predictor:                  `TagType_Predictor`,                  // SHORT, 1
+	TagType_Predictor:                  `TagType_Predictor`,                  // SHORT, 1, # Default=1
 	TagType_WhitePoint:                 `TagType_WhitePoint`,                 // RATIONAL, 2
 	TagType_PrimaryChromaticities:      `TagType_PrimaryChromaticities`,      // RATIONAL, 6
 	TagType_ColorMap:                   `TagType_ColorMap`,                   // SHORT, *, # 3*(2**BitPerSample)
@@ -144,13 +144,13 @@ var _TagTypeTable = map[TagType]string{
 	TagType_TileOffsets:                `TagType_TileOffsets`,                // LONG/LONG8, *, # TilesPerImage
 	TagType_TileByteCounts:             `TagType_TileByteCounts`,             // SHORT/LONG, *, # TilesPerImage
 	TagType_SubIFD:                     `TagType_SubIFD`,                     // LONG,  *
-	TagType_InkSet:                     `TagType_InkSet`,                     // SHORT, 1
+	TagType_InkSet:                     `TagType_InkSet`,                     // SHORT, 1, # Default=1
 	TagType_InkNames:                   `TagType_InkNames`,                   // ASCII
-	TagType_NumberOfInks:               `TagType_NumberOfInks`,               // SHORT, 1
-	TagType_DotRange:                   `TagType_DotRange`,                   // BYTE/SHORT, *, # 2 or 2*NumberOfInks
+	TagType_NumberOfInks:               `TagType_NumberOfInks`,               // SHORT, 1, # Default=4
+	TagType_DotRange:                   `TagType_DotRange`,                   // BYTE/SHORT, # Default=[0,2^BitsPerSample-1]
 	TagType_TargetPrinter:              `TagType_TargetPrinter`,              // ASCII
 	TagType_ExtraSamples:               `TagType_ExtraSamples`,               // BYTE,  1,
-	TagType_SampleFormat:               `TagType_SampleFormat`,               // SHORT, *, # SamplesPerPixel
+	TagType_SampleFormat:               `TagType_SampleFormat`,               // SHORT, *, # SamplesPerPixel. Default=1
 	TagType_SMinSampleValue:            `TagType_SMinSampleValue`,            // *,     *, # SamplesPerPixel, try double
 	TagType_SMaxSampleValue:            `TagType_SMaxSampleValue`,            // *,     *, # SamplesPerPixel, try double
 	TagType_TransferRange:              `TagType_TransferRange`,              // SHORT, 6,
@@ -164,8 +164,8 @@ var _TagTypeTable = map[TagType]string{
 	TagType_JPEGDCTables:               `TagType_JPEGDCTables`,               // LONG,  *, # SamplesPerPixel
 	TagType_JPEGACTables:               `TagType_JPEGACTables`,               // LONG,  *, # SamplesPerPixel
 	TagType_YCbCrCoefficients:          `TagType_YCbCrCoefficients`,          // RATIONAL, 3
-	TagType_YCbCrSubSampling:           `TagType_YCbCrSubSampling`,           // SHORT, 2,
-	TagType_YCbCrPositioning:           `TagType_YCbCrPositioning`,           // SHORT, 1,
+	TagType_YCbCrSubSampling:           `TagType_YCbCrSubSampling`,           // SHORT, 2, # Default=[2,2]
+	TagType_YCbCrPositioning:           `TagType_YCbCrPositioning`,           // SHORT, 1, # Default=1
 	TagType_ReferenceBlackWhite:        `TagType_ReferenceBlackWhite`,        // LONG , *, # 2*SamplesPerPixel
 	TagType_Copyright:                  `TagType_Copyright`,                  // ASCII
 	TagType_GeoKeyDirectoryTag:         `TagType_GeoKeyDirectoryTag`,         // SHORT, *, # >= 4

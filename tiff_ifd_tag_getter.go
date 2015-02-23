@@ -18,6 +18,8 @@ type tifTagGetter struct {
 func (p *tifTagGetter) GetNewSubfileType() (value int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_NewSubfileType]; !ok {
+		value = 0
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -70,6 +72,8 @@ func (p *tifTagGetter) GetImageLength() (value int64, ok bool) {
 func (p *tifTagGetter) GetBitsPerSample() (value []int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_BitsPerSample]; !ok {
+		value = []int64{1} // Default
+		ok = true
 		return
 	}
 	value = entry.GetInts()
@@ -78,8 +82,9 @@ func (p *tifTagGetter) GetBitsPerSample() (value []int64, ok bool) {
 
 func (p *tifTagGetter) GetCompression() (value CompressType, ok bool) {
 	var entry *IFDEntry
-	value = CompressType_Nil
 	if entry, ok = p.EntryMap[TagType_Compression]; !ok {
+		value = CompressType_None
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -106,6 +111,8 @@ func (p *tifTagGetter) GetPhotometricInterpretation() (value TagValue_Photometri
 func (p *tifTagGetter) GetThreshholding() (value int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_Threshholding]; !ok {
+		value = 1
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -145,6 +152,8 @@ func (p *tifTagGetter) GetCellLenght() (value int64, ok bool) {
 func (p *tifTagGetter) GetFillOrder() (value int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_FillOrder]; !ok {
+		value = 1
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -203,6 +212,8 @@ func (p *tifTagGetter) GetStripOffsets() (value []int64, ok bool) {
 func (p *tifTagGetter) GetOrientation() (value int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_Orientation]; !ok {
+		value = 1
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -216,6 +227,8 @@ func (p *tifTagGetter) GetOrientation() (value int64, ok bool) {
 func (p *tifTagGetter) GetSamplesPerPixel() (value int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_SamplesPerPixel]; !ok {
+		value = 1
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -251,6 +264,8 @@ func (p *tifTagGetter) GetStripByteCounts() (value []int64, ok bool) {
 func (p *tifTagGetter) GetMinSampleValue() (value []int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_MinSampleValue]; !ok {
+		value = []int64{0}
+		ok = true
 		return
 	}
 	value = entry.GetInts()
@@ -295,6 +310,8 @@ func (p *tifTagGetter) GetYResolution() (value [2]int64, ok bool) {
 func (p *tifTagGetter) GetPlanarConfiguration() (value int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_PlanarConfiguration]; !ok {
+		value = 1
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -383,6 +400,8 @@ func (p *tifTagGetter) GetGrayResponseCurve() (value []int64, ok bool) {
 func (p *tifTagGetter) GetT4Options() (value int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_T4Options]; !ok {
+		value = 0
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -396,6 +415,8 @@ func (p *tifTagGetter) GetT4Options() (value int64, ok bool) {
 func (p *tifTagGetter) GetT6Options() (value int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_T6Options]; !ok {
+		value = 0
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -408,8 +429,9 @@ func (p *tifTagGetter) GetT6Options() (value int64, ok bool) {
 
 func (p *tifTagGetter) GetResolutionUnit() (value TagValue_ResolutionUnitType, ok bool) {
 	var entry *IFDEntry
-	value = TagValue_ResolutionUnitType_None
 	if entry, ok = p.EntryMap[TagType_ResolutionUnit]; !ok {
+		value = TagValue_ResolutionUnitType_PerInch
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -484,8 +506,9 @@ func (p *tifTagGetter) GetHostComputer() (value string, ok bool) {
 
 func (p *tifTagGetter) GetPredictor() (value TagValue_PredictorType, ok bool) {
 	var entry *IFDEntry
-	value = TagValue_PredictorType_None
 	if entry, ok = p.EntryMap[TagType_Predictor]; !ok {
+		value = TagValue_PredictorType_None
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -599,6 +622,8 @@ func (p *tifTagGetter) GetSubIFD() (value []int64, ok bool) {
 func (p *tifTagGetter) GetInkSet() (value int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_InkSet]; !ok {
+		value = 1
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -621,6 +646,8 @@ func (p *tifTagGetter) GetInkNames() (value string, ok bool) {
 func (p *tifTagGetter) GetNumberOfInks() (value int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_NumberOfInks]; !ok {
+		value = 4
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -665,6 +692,8 @@ func (p *tifTagGetter) GetExtraSamples() (value int64, ok bool) {
 func (p *tifTagGetter) GetSampleFormat() (value []int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_SampleFormat]; !ok {
+		value = []int64{1}
+		ok = true
 		return
 	}
 	value = entry.GetInts()
@@ -807,6 +836,8 @@ func (p *tifTagGetter) GetYCbCrCoefficients() (value [][2]int64, ok bool) {
 func (p *tifTagGetter) GetYCbCrSubSampling() (value []int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_YCbCrSubSampling]; !ok {
+		value = []int64{2, 2}
+		ok = true
 		return
 	}
 	value = entry.GetInts()
@@ -816,6 +847,8 @@ func (p *tifTagGetter) GetYCbCrSubSampling() (value []int64, ok bool) {
 func (p *tifTagGetter) GetYCbCrPositioning() (value int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_YCbCrPositioning]; !ok {
+		value = 1
+		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
