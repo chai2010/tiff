@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /*
-Package tiff implements a TIFF image decoder and encoder.
+Package tiff offers a rich BigTIFF/TIFF decoder/encoder for Go.
 
 The Classic TIFF specification is at http://partners.adobe.com/public/developer/en/tiff/TIFF6.pdf
 
