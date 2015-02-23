@@ -33,12 +33,11 @@ Example:
 	)
 
 	func main() {
-		var buf bytes.Buffer
 		var data []byte
 		var err error
 
 		// Load file data
-		if data, err = ioutil.ReadFile("./testdata/BigTIFFSamples/BigTIFFSubIFD8.tif"); err != nil {
+		if data, err = ioutil.ReadFile("./testdata/multipage/multipage-gopher.tif"); err != nil {
 			log.Fatal(err)
 		}
 
@@ -51,6 +50,8 @@ Example:
 		// Encode tiff
 		for i := 0; i < len(m); i++ {
 			filename := fmt.Sprintf("output-frame-%02d.tiff", i)
+
+			var buf bytes.Buffer
 			if err = tiff.Encode(&buf, m[i], nil); err != nil {
 				log.Fatal(err)
 			}
@@ -60,6 +61,19 @@ Example:
 			fmt.Printf("Save %s ok\n", filename)
 		}
 	}
+
+Report bugs to <chaishushan@gmail.com>.
+
+Thanks!
+*/
+package tiff
+
+/*
+The Classic TIFF specification is at http://partners.adobe.com/public/developer/en/tiff/TIFF6.pdf
+
+The Big TIFF specification is at http://www.remotesensing.org/libtiff/bigtiffdesign.html
+
+The Geo TIFF specification is at http://www.remotesensing.org/geotiff/spec/geotiffhome.html
 
 Classic TIFF Structure:
 
@@ -126,9 +140,4 @@ Big TIFF Structure:
 	|    +-----------------+                          +------------------+         |
 	|                                                                              |
 	+------------------------------------------------------------------------------+
-
-Report bugs to <chaishushan@gmail.com>.
-
-Thanks!
 */
-package tiff
