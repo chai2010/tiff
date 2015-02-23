@@ -224,9 +224,10 @@ func (p *IFDEntry) GetRationals() [][2]int64 {
 func (p *IFDEntry) GetString() string {
 	switch p.DataType {
 	case DataType_ASCII:
-		if len(p.Data) > 0 {
-			return string(p.Data[:len(p.Data)-1]) // -NULL
+		if idx := bytes.Index(p.Data, []byte("\000")); idx > 0 {
+			return string(p.Data[:idx])
 		}
+		return string(p.Data)
 	case DataType_Unicode:
 		r := bytes.NewReader(p.Data)
 		runes := make([]rune, p.Count)
@@ -237,8 +238,11 @@ func (p *IFDEntry) GetString() string {
 			}
 			runes[i] = rune(v)
 		}
-		if len(runes) > 0 {
-			return string(runes[:len(runes)-1]) // -NULL
+		for i := 0; i < p.Count; i++ {
+			if runes[i] == 0 {
+				runes = runes[:i]
+				break
+			}
 		}
 		return string(runes)
 	}

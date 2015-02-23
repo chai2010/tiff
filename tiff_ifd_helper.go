@@ -316,6 +316,6 @@ func (p *IFD) String() string {
 		fmt.Fprintf(&buf, "  %v\n", v)
 	}
 	fmt.Fprintf(&buf, "  Next: %08x\n", p.Offset)
-	fmt.Fprintf(&buf, "}\n")
+	fmt.Fprintf(&buf, "}")
 	return buf.String()
 }

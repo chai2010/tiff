@@ -36,8 +36,9 @@ func OpenReader(r io.Reader) (p *Reader, err error) {
 		return
 	}
 
-	for offset := p.Header.Offset; offset != 0; {
-		ifd, err := ReadIFD(rs, p.Header, offset)
+	var ifd *IFD
+	for offset := p.Header.Offset; offset != 0; offset = ifd.Offset {
+		ifd, err = ReadIFD(rs, p.Header, offset)
 		if err != nil {
 			return nil, err
 		}
@@ -48,7 +49,6 @@ func OpenReader(r io.Reader) (p *Reader, err error) {
 
 		p.Ifd = append(p.Ifd, ifd)
 		p.Cfg = append(p.Cfg, cfg)
-		offset = ifd.Offset
 	}
 
 	p.Reader = rs
@@ -111,9 +111,11 @@ func (p *Reader) DecodeImage(idx int) (m image.Image, err error) {
 }
 
 func (p *Reader) Close() (err error) {
-	if p != nil && p.rs != nil {
-		err = p.rs.Close()
+	if p != nil {
+		if p.rs != nil {
+			err = p.rs.Close()
+		}
+		*p = Reader{}
 	}
-	*p = Reader{}
 	return
 }

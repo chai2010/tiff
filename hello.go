@@ -16,12 +16,11 @@ import (
 )
 
 func main() {
-	var buf bytes.Buffer
 	var data []byte
 	var err error
 
 	// Load file data
-	if data, err = ioutil.ReadFile("./testdata/BigTIFFSamples/BigTIFFSubIFD8.tif"); err != nil {
+	if data, err = ioutil.ReadFile("./testdata/multipage/multipage-gopher.tif"); err != nil {
 		log.Fatal(err)
 	}
 
@@ -34,6 +33,8 @@ func main() {
 	// Encode tiff
 	for i := 0; i < len(m); i++ {
 		filename := fmt.Sprintf("output-frame-%02d.tiff", i)
+
+		var buf bytes.Buffer
 		if err = tiff.Encode(&buf, m[i], nil); err != nil {
 			log.Fatal(err)
 		}

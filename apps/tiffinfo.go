@@ -31,17 +31,15 @@ func printTiffInfo(filename string) {
 	}
 	defer f.Close()
 
+	p, err := tiff.OpenReader(f)
+	if err != nil {
+		log.Fatal("printTiffInfo: tiff.OpenReader, ", err)
+	}
+
 	fmt.Println("file:", filename)
-
-	header, err := tiff.ReadHeader(f)
-	if err != nil {
-		log.Fatal("printTiffInfo: tiff.ReadHeader, ", err)
+	fmt.Println(p.Header)
+	for i := 0; i < len(p.Ifd); i++ {
+		fmt.Println(p.Ifd[i])
 	}
-	fmt.Println(header)
-
-	ifd, err := tiff.ReadIFD(f, header, header.Offset)
-	if err != nil {
-		log.Fatal("printTiffInfo: tiff.ReadIFD, err =", err)
-	}
-	fmt.Println(ifd)
+	fmt.Println()
 }
