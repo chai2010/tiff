@@ -55,7 +55,7 @@ func DecodeAll(r io.Reader) (m []image.Image, err error) {
 
 	m = make([]image.Image, p.ImageNum())
 	for i := 0; i < p.ImageNum(); i++ {
-		if m[i], err = p.DecodeImage(0); err != nil {
+		if m[i], err = p.DecodeImage(i); err != nil {
 			return
 		}
 	}
