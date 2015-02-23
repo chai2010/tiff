@@ -29,7 +29,7 @@ const (
 	ImageType_NRGBA
 )
 
-type CompressType uint16
+type CompressType TagType
 
 // Compression types (defined in various places in the spec and supplements).
 const (
@@ -243,7 +243,25 @@ const (
 	TagType_IntergraphMatrixTag    TagType = 33920 // DOUBLE, 17
 )
 
-type TagValue_PhotometricType uint16
+// subfile data descriptor
+type TagValue_NewSubfileType TagType
+
+const (
+	TagValue_NewSubfileType_ReducedImage TagValue_NewSubfileType = 1 // reduced resolution version
+	TagValue_NewSubfileType_Page         TagValue_NewSubfileType = 2 // one page of many
+	TagValue_NewSubfileType_Mask         TagValue_NewSubfileType = 4 // transparency mask
+)
+
+// kind of data in subfile
+type TagValue_SubfileType TagType
+
+const (
+	TagValue_SubfileType_Image        TagValue_SubfileType = 1 // full resolution image data
+	TagValue_SubfileType_ReducedImage TagValue_SubfileType = 2 // reduced size image data
+	TagValue_SubfileType_Page         TagValue_SubfileType = 3 // one page of many
+)
+
+type TagValue_PhotometricType TagType
 
 const (
 	TagValue_PhotometricType_WhiteIsZero TagValue_PhotometricType = 0
@@ -256,14 +274,14 @@ const (
 	TagValue_PhotometricType_CIELab      TagValue_PhotometricType = 8
 )
 
-type TagValue_PredictorType uint16
+type TagValue_PredictorType TagType
 
 const (
 	TagValue_PredictorType_None       TagValue_PredictorType = 1
 	TagValue_PredictorType_Horizontal TagValue_PredictorType = 2
 )
 
-type TagValue_ResolutionUnitType uint16
+type TagValue_ResolutionUnitType TagType
 
 const (
 	TagValue_ResolutionUnitType_None    TagValue_ResolutionUnitType = 1
