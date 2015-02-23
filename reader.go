@@ -11,10 +11,12 @@ import (
 )
 
 type Reader struct {
-	rs     *seekioReader
-	header *Header
-	ifd    []*IFD
-	cfg    []image.Config
+	Reader io.ReadSeeker
+	Header *Header
+	Ifd    []*IFD
+	Cfg    []image.Config
+
+	rs *seekioReader
 }
 
 func OpenReader(r io.Reader) (p *Reader, err error) {
@@ -25,19 +27,17 @@ func OpenReader(r io.Reader) (p *Reader, err error) {
 		}
 	}()
 
-	hdr, err := ReadHeader(rs)
-	if err != nil {
+	p = &Reader{}
+	if p.Header, err = ReadHeader(rs); err != nil {
 		return
 	}
-	if !hdr.Valid() {
-		err = fmt.Errorf("tiff: OpenReader, invalid header: %v", hdr)
+	if !p.Header.Valid() {
+		err = fmt.Errorf("tiff: OpenReader, invalid header: %v", p.Header)
 		return
 	}
 
-	var ifdList []*IFD
-	var cfgList []image.Config
-	for offset := hdr.Offset; offset != 0; {
-		ifd, err := ReadIFD(rs, hdr, offset)
+	for offset := p.Header.Offset; offset != 0; {
+		ifd, err := ReadIFD(rs, p.Header, offset)
 		if err != nil {
 			return nil, err
 		}
@@ -46,51 +46,47 @@ func OpenReader(r io.Reader) (p *Reader, err error) {
 			return nil, err
 		}
 
-		ifdList = append(ifdList, ifd)
-		cfgList = append(cfgList, cfg)
+		p.Ifd = append(p.Ifd, ifd)
+		p.Cfg = append(p.Cfg, cfg)
 		offset = ifd.Offset
 	}
 
-	p = &Reader{
-		rs:     rs,
-		header: hdr,
-		ifd:    ifdList,
-		cfg:    cfgList,
-	}
+	p.Reader = rs
+	p.rs = rs
 	return
 }
 
 func (p *Reader) ImageNum() int {
-	return len(p.ifd)
+	return len(p.Ifd)
 }
 
 func (p *Reader) ImageConfig(idx int) image.Config {
-	return p.cfg[idx]
+	return p.Cfg[idx]
 }
 
 func (p *Reader) DecodeImage(idx int) (m image.Image, err error) {
-	imgRect := image.Rect(0, 0, p.cfg[idx].Width, p.cfg[idx].Height)
-	imageType := p.ifd[idx].ImageType()
+	imgRect := image.Rect(0, 0, p.Cfg[idx].Width, p.Cfg[idx].Height)
+	imageType := p.Ifd[idx].ImageType()
 
 	switch imageType {
 	case ImageType_Bilevel, ImageType_BilevelInvert:
 		m = image.NewGray(imgRect)
 	case ImageType_Gray, ImageType_GrayInvert:
-		if p.ifd[idx].Depth() == 16 {
+		if p.Ifd[idx].Depth() == 16 {
 			m = image.NewGray16(imgRect)
 		} else {
 			m = image.NewGray(imgRect)
 		}
 	case ImageType_Paletted:
-		m = image.NewPaletted(imgRect, p.ifd[idx].ColorMap())
+		m = image.NewPaletted(imgRect, p.Ifd[idx].ColorMap())
 	case ImageType_NRGBA:
-		if p.ifd[idx].Depth() == 16 {
+		if p.Ifd[idx].Depth() == 16 {
 			m = image.NewNRGBA64(imgRect)
 		} else {
 			m = image.NewNRGBA(imgRect)
 		}
 	case ImageType_RGB, ImageType_RGBA:
-		if p.ifd[idx].Depth() == 16 {
+		if p.Ifd[idx].Depth() == 16 {
 			m = image.NewRGBA64(imgRect)
 		} else {
 			m = image.NewRGBA(imgRect)
@@ -101,12 +97,12 @@ func (p *Reader) DecodeImage(idx int) (m image.Image, err error) {
 		return
 	}
 
-	blocksAcross := p.ifd[idx].BlocksAcross()
-	blocksDown := p.ifd[idx].BlocksDown()
+	blocksAcross := p.Ifd[idx].BlocksAcross()
+	blocksDown := p.Ifd[idx].BlocksDown()
 
 	for i := 0; i < blocksAcross; i++ {
 		for j := 0; j < blocksDown; j++ {
-			if err = p.ifd[idx].DecodeBlock(p.rs, i, j, m); err != nil {
+			if err = p.Ifd[idx].DecodeBlock(p.rs, i, j, m); err != nil {
 				return
 			}
 		}
@@ -142,7 +138,7 @@ func DecodeConfigAll(r io.Reader) (cfg []image.Config, err error) {
 	}
 	defer p.Close()
 
-	cfg = append(cfg, p.cfg...)
+	cfg = append(cfg, p.Cfg...)
 	return
 }
 
