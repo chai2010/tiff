@@ -13,8 +13,7 @@ import (
 type Reader struct {
 	Reader io.ReadSeeker
 	Header *Header
-	Ifd    []*IFD
-	Cfg    []image.Config
+	Ifd    [][]*IFD
 
 	rs *seekioReader
 }
@@ -38,17 +37,19 @@ func OpenReader(r io.Reader) (p *Reader, err error) {
 
 	var ifd *IFD
 	for offset := p.Header.Offset; offset != 0; offset = ifd.Offset {
-		ifd, err = ReadIFD(rs, p.Header, offset)
-		if err != nil {
-			return nil, err
-		}
-		cfg, err := ifd.ImageConfig()
-		if err != nil {
-			return nil, err
-		}
+		var ifdList []*IFD
 
-		p.Ifd = append(p.Ifd, ifd)
-		p.Cfg = append(p.Cfg, cfg)
+		if ifd, err = ReadIFD(rs, p.Header, offset); err != nil {
+			return
+		}
+		ifdList = append(ifdList, ifd)
+
+		subIfdOffsets, _ := ifd.TagGetter().GetSubIFD()
+		for _, subOffset := range subIfdOffsets {
+			ifd, _ = ReadIFD(rs, p.Header, subOffset)
+			ifdList = append(ifdList, ifd)
+		}
+		p.Ifd = append(p.Ifd, ifdList)
 	}
 
 	p.Reader = rs
@@ -59,34 +60,41 @@ func OpenReader(r io.Reader) (p *Reader, err error) {
 func (p *Reader) ImageNum() int {
 	return len(p.Ifd)
 }
-
-func (p *Reader) ImageConfig(idx int) image.Config {
-	return p.Cfg[idx]
+func (p *Reader) SubImageNum(i int) int {
+	return len(p.Ifd[i])
 }
 
-func (p *Reader) DecodeImage(idx int) (m image.Image, err error) {
-	imgRect := image.Rect(0, 0, p.Cfg[idx].Width, p.Cfg[idx].Height)
-	imageType := p.Ifd[idx].ImageType()
+func (p *Reader) ImageConfig(i, j int) (image.Config, error) {
+	return p.Ifd[0][0].ImageConfig()
+}
+
+func (p *Reader) DecodeImage(i, j int) (m image.Image, err error) {
+	cfg, err := p.ImageConfig(i, j)
+	if err != nil {
+		return
+	}
+	imgRect := image.Rect(0, 0, cfg.Width, cfg.Height)
+	imageType := p.Ifd[i][j].ImageType()
 
 	switch imageType {
 	case ImageType_Bilevel, ImageType_BilevelInvert:
 		m = image.NewGray(imgRect)
 	case ImageType_Gray, ImageType_GrayInvert:
-		if p.Ifd[idx].Depth() == 16 {
+		if p.Ifd[i][j].Depth() == 16 {
 			m = image.NewGray16(imgRect)
 		} else {
 			m = image.NewGray(imgRect)
 		}
 	case ImageType_Paletted:
-		m = image.NewPaletted(imgRect, p.Ifd[idx].ColorMap())
+		m = image.NewPaletted(imgRect, p.Ifd[i][j].ColorMap())
 	case ImageType_NRGBA:
-		if p.Ifd[idx].Depth() == 16 {
+		if p.Ifd[i][j].Depth() == 16 {
 			m = image.NewNRGBA64(imgRect)
 		} else {
 			m = image.NewNRGBA(imgRect)
 		}
 	case ImageType_RGB, ImageType_RGBA:
-		if p.Ifd[idx].Depth() == 16 {
+		if p.Ifd[i][j].Depth() == 16 {
 			m = image.NewRGBA64(imgRect)
 		} else {
 			m = image.NewRGBA(imgRect)
@@ -97,12 +105,12 @@ func (p *Reader) DecodeImage(idx int) (m image.Image, err error) {
 		return
 	}
 
-	blocksAcross := p.Ifd[idx].BlocksAcross()
-	blocksDown := p.Ifd[idx].BlocksDown()
+	blocksAcross := p.Ifd[i][j].BlocksAcross()
+	blocksDown := p.Ifd[i][j].BlocksDown()
 
-	for i := 0; i < blocksAcross; i++ {
-		for j := 0; j < blocksDown; j++ {
-			if err = p.Ifd[idx].DecodeBlock(p.rs, i, j, m); err != nil {
+	for col := 0; col < blocksAcross; col++ {
+		for row := 0; row < blocksDown; row++ {
+			if err = p.Ifd[i][j].DecodeBlock(p.rs, col, row, m); err != nil {
 				return
 			}
 		}

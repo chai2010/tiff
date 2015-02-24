@@ -39,8 +39,8 @@ func printTiffInfo(filename string) {
 	fmt.Println("file:", filename)
 	fmt.Println(p.Header)
 	for i := 0; i < len(p.Ifd); i++ {
-		fmt.Println(p.Ifd[i])
-		for k, v := range p.Ifd[i].EntryMap {
+		fmt.Println(p.Ifd[i][0])
+		for k, v := range p.Ifd[i][0].EntryMap {
 			if v.DataType == tiff.DataType_IFD || v.DataType == tiff.DataType_IFD8 {
 				for _, offset := range v.GetInts() {
 					subIfd, err := tiff.ReadIFD(p.Reader, p.Header, offset)

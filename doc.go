@@ -28,6 +28,7 @@ Example:
 		"fmt"
 		"io/ioutil"
 		"log"
+		"path/filepath"
 
 		tiff "github.com/chai2010/tiff"
 	)
@@ -36,29 +37,41 @@ Example:
 		var data []byte
 		var err error
 
-		// Load file data
-		if data, err = ioutil.ReadFile("./testdata/multipage/multipage-gopher.tif"); err != nil {
-			log.Fatal(err)
+		var files = []string{
+			"./testdata/BigTIFFSamples/BigTIFFSubIFD8.tif",
+			"./testdata/multipage/multipage-gopher.tif",
 		}
-
-		// Decode tiff
-		m, err := tiff.DecodeAll(bytes.NewReader(data))
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		// Encode tiff
-		for i := 0; i < len(m); i++ {
-			filename := fmt.Sprintf("output-frame-%02d.tiff", i)
-
-			var buf bytes.Buffer
-			if err = tiff.Encode(&buf, m[i], nil); err != nil {
+		for _, filename := range files {
+			// Load file data
+			if data, err = ioutil.ReadFile(filename); err != nil {
 				log.Fatal(err)
 			}
-			if err = ioutil.WriteFile(filename, buf.Bytes(), 0666); err != nil {
-				log.Fatal(err)
+
+			// Decode tiff
+			m, errors, err := tiff.DecodeAll(bytes.NewReader(data))
+			if err != nil {
+				log.Println(err)
 			}
-			fmt.Printf("Save %s ok\n", filename)
+
+			// Encode tiff
+			for i := 0; i < len(m); i++ {
+				for j := 0; j < len(m[i]); j++ {
+					newname := fmt.Sprintf("output-%s-frame-%02d-sub-%02d.tiff", filepath.Base(filename), i, j)
+					if errors[i][j] != nil {
+						log.Printf("%s: %v\n", newname, err)
+						continue
+					}
+
+					var buf bytes.Buffer
+					if err = tiff.Encode(&buf, m[i][j], nil); err != nil {
+						log.Fatal(err)
+					}
+					if err = ioutil.WriteFile(newname, buf.Bytes(), 0666); err != nil {
+						log.Fatal(err)
+					}
+					fmt.Printf("Save %s ok\n", newname)
+				}
+			}
 		}
 	}
 

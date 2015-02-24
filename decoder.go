@@ -18,18 +18,37 @@ func DecodeConfig(r io.Reader) (cfg image.Config, err error) {
 	}
 	defer p.Close()
 
-	cfg = p.ImageConfig(0)
-	return
+	return p.ImageConfig(0, 0)
 }
 
-func DecodeConfigAll(r io.Reader) (cfg []image.Config, err error) {
+func DecodeConfigAll(r io.Reader) (cfg [][]image.Config, errors [][]error, err error) {
 	var p *Reader
 	if p, err = OpenReader(r); err != nil {
 		return
 	}
 	defer p.Close()
 
-	cfg = append(cfg, p.Cfg...)
+	cfg = make([][]image.Config, len(p.Ifd))
+	errors = make([][]error, len(p.Ifd))
+
+Loop:
+	for i := 0; i < len(p.Ifd); i++ {
+		errors[i] = make([]error, len(p.Ifd[i]))
+		for j := 0; j < len(p.Ifd[i]); j++ {
+			if cfg[i][j], errors[i][j] = p.Ifd[i][j].ImageConfig(); errors[i][j] != nil {
+				break Loop
+			}
+		}
+	}
+	for i := 0; i < len(errors); i++ {
+		for j := 0; j < len(errors[i]); j++ {
+			if errors[i][j] != nil {
+				err = errors[i][j]
+				return
+			}
+		}
+	}
+
 	return
 }
 
@@ -42,21 +61,36 @@ func Decode(r io.Reader) (m image.Image, err error) {
 	}
 	defer p.Close()
 
-	m, err = p.DecodeImage(0)
+	m, err = p.DecodeImage(0, 0)
 	return
 }
 
-func DecodeAll(r io.Reader) (m []image.Image, err error) {
+func DecodeAll(r io.Reader) (m [][]image.Image, errors [][]error, err error) {
 	var p *Reader
 	if p, err = OpenReader(r); err != nil {
 		return
 	}
 	defer p.Close()
 
-	m = make([]image.Image, p.ImageNum())
+	m = make([][]image.Image, p.ImageNum())
+	errors = make([][]error, p.ImageNum())
+
+Loop:
 	for i := 0; i < p.ImageNum(); i++ {
-		if m[i], err = p.DecodeImage(i); err != nil {
-			return
+		m[i] = make([]image.Image, p.SubImageNum(i))
+		errors[i] = make([]error, len(p.Ifd[i]))
+		for j := 0; j < p.SubImageNum(i); j++ {
+			if m[i][j], errors[i][j] = p.DecodeImage(i, j); errors[i][j] != nil {
+				break Loop
+			}
+		}
+	}
+	for i := 0; i < len(errors); i++ {
+		for j := 0; j < len(errors[i]); j++ {
+			if errors[i][j] != nil {
+				err = errors[i][j]
+				return
+			}
 		}
 	}
 	return
