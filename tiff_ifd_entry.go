@@ -260,6 +260,13 @@ func (p *IFDEntry) GetUndefined(value interface{}) interface{} {
 }
 
 func (p *IFDEntry) SetInts(value ...int64) {
+	if p.DataType == DataType_Nil {
+		if p.Header.IsBigTiff() {
+			p.DataType = DataType_Long8
+		} else {
+			p.DataType = DataType_Long
+		}
+	}
 	switch p.DataType {
 	case DataType_Byte:
 		tmp := make([]uint8, len(value))
@@ -305,7 +312,7 @@ func (p *IFDEntry) SetInts(value ...int64) {
 		}
 		p.Data = buf.Bytes()
 		p.Count = len(tmp)
-	case DataType_Long:
+	case DataType_Long, DataType_IFD:
 		tmp := make([]uint32, len(value))
 		for i := 0; i < len(tmp); i++ {
 			tmp[i] = uint32(value[i])
@@ -327,7 +334,7 @@ func (p *IFDEntry) SetInts(value ...int64) {
 		}
 		p.Data = buf.Bytes()
 		p.Count = len(tmp)
-	case DataType_Long8:
+	case DataType_Long8, DataType_IFD8:
 		tmp := make([]uint64, len(value))
 		for i := 0; i < len(tmp); i++ {
 			tmp[i] = uint64(value[i])
@@ -354,6 +361,9 @@ func (p *IFDEntry) SetInts(value ...int64) {
 }
 
 func (p *IFDEntry) SetFloats(value ...float64) {
+	if p.DataType == DataType_Nil {
+		p.DataType = DataType_Double
+	}
 	switch p.DataType {
 	case DataType_Float:
 		tmp := make([]float32, len(value))
@@ -379,6 +389,9 @@ func (p *IFDEntry) SetFloats(value ...float64) {
 }
 
 func (p *IFDEntry) SetRationals(value ...[2]int64) {
+	if p.DataType == DataType_Nil {
+		p.DataType = DataType_Rational
+	}
 	switch p.DataType {
 	case DataType_Rational:
 		tmp := make([][2]uint32, len(value))
@@ -410,7 +423,10 @@ func (p *IFDEntry) SetRationals(value ...[2]int64) {
 	return
 }
 
-func (p *IFDEntry) setString(value string) {
+func (p *IFDEntry) SetString(value string) {
+	if p.DataType == DataType_Nil {
+		p.DataType = DataType_ASCII
+	}
 	switch p.DataType {
 	case DataType_ASCII:
 		p.Data = make([]byte, len(value)+1)
@@ -431,6 +447,9 @@ func (p *IFDEntry) setString(value string) {
 }
 
 func (p *IFDEntry) SetUndefined(value interface{}) {
+	if p.DataType == DataType_Nil {
+		p.DataType = DataType_Undefined
+	}
 	if p.DataType != DataType_Undefined {
 		return
 	}
