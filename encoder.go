@@ -275,7 +275,7 @@ func writeIFD(w io.Writer, ifdOffset int, d []ifdEntry) error {
 	return err
 }
 
-func EncodeAll(w io.Writer, m []image.Image, opt []*Options) error {
+func EncodeAll(w io.Writer, m [][]image.Image, opt [][]*Options) error {
 	return nil
 }
 

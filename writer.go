@@ -9,7 +9,7 @@ import (
 	"io"
 )
 
-type Writer struct {
+type _Writer struct {
 	Writer io.WriteSeeker
 	Header *Header
 	Ifd    []*IFD
@@ -19,26 +19,26 @@ type Writer struct {
 	ws *seekioWriter
 }
 
-func OpenWriter(w io.Writer, cfg []image.Config, opt []*Options) (p *Writer, err error) {
+func _OpenWriter(w io.Writer, cfg []image.Config, opt []*Options) (p *_Writer, err error) {
 	return
 }
 
-func (p *Writer) ImageNum() int {
+func (p *_Writer) ImageNum() int {
 	return len(p.Ifd)
 }
 
-func (p *Writer) ImageConfig(idx int) image.Config {
+func (p *_Writer) ImageConfig(idx int) image.Config {
 	return p.Cfg[idx]
 }
 
-func (p *Writer) EncodeImage(idx int, m image.Image) (err error) {
+func (p *_Writer) EncodeImage(idx int, m image.Image) (err error) {
 	return
 }
 
-func (p *Writer) Close() (err error) {
+func (p *_Writer) Close() (err error) {
 	if p != nil && p.ws != nil {
 		err = p.ws.Close()
 	}
-	*p = Writer{}
+	*p = _Writer{}
 	return
 }
