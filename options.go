@@ -5,7 +5,17 @@
 package tiff
 
 type Options struct {
-	Compression CompressType
-	Predictor   bool
-	EntryMap    map[TagType]*IFDEntry
+	EntryMap map[TagType]*IFDEntry
+}
+
+func (p *Options) TagGetter() TagGetter {
+	return &tifTagGetter{
+		EntryMap: p.EntryMap,
+	}
+}
+
+func (p *Options) TagSetter() TagSetter {
+	return &tifTagSetter{
+		EntryMap: p.EntryMap,
+	}
 }
