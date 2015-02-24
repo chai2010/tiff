@@ -143,7 +143,7 @@ var _TagTypeTable = map[TagType]string{
 	TagType_TileLength:                 `TagType_TileLength`,                 // SHORT/LONG, 1
 	TagType_TileOffsets:                `TagType_TileOffsets`,                // LONG/LONG8, *, # TilesPerImage
 	TagType_TileByteCounts:             `TagType_TileByteCounts`,             // SHORT/LONG, *, # TilesPerImage
-	TagType_SubIFD:                     `TagType_SubIFD`,                     // LONG,  *
+	TagType_SubIFD:                     `TagType_SubIFD`,                     // LONG,  *  # IFD pointer
 	TagType_InkSet:                     `TagType_InkSet`,                     // SHORT, 1, # Default=1
 	TagType_InkNames:                   `TagType_InkNames`,                   // ASCII
 	TagType_NumberOfInks:               `TagType_NumberOfInks`,               // SHORT, 1, # Default=4

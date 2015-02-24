@@ -224,7 +224,7 @@ func (p *IFDEntry) GetRationals() [][2]int64 {
 func (p *IFDEntry) GetString() string {
 	switch p.DataType {
 	case DataType_ASCII:
-		if idx := bytes.Index(p.Data, []byte("\000")); idx > 0 {
+		if idx := bytes.Index(p.Data, []byte("\000")); idx >= 0 {
 			return string(p.Data[:idx])
 		}
 		return string(p.Data)
