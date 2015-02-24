@@ -11,27 +11,28 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"path/filepath"
 
 	tiff "github.com/chai2010/tiff"
 )
 
-func main() {
-	var data []byte
-	var err error
+var files = []string{
+	"./testdata/BigTIFFSamples/BigTIFFSubIFD8.tif",
+	"./testdata/multipage/multipage-gopher.tif",
+}
 
-	var files = []string{
-		"./testdata/BigTIFFSamples/BigTIFFSubIFD8.tif",
-		"./testdata/multipage/multipage-gopher.tif",
-	}
-	for _, filename := range files {
+func main() {
+	for _, name := range files {
 		// Load file data
-		if data, err = ioutil.ReadFile(filename); err != nil {
+		f, err := os.Open(name)
+		if err != nil {
 			log.Fatal(err)
 		}
+		defer f.Close()
 
 		// Decode tiff
-		m, errors, err := tiff.DecodeAll(bytes.NewReader(data))
+		m, errors, err := tiff.DecodeAll(f)
 		if err != nil {
 			log.Println(err)
 		}
@@ -39,7 +40,7 @@ func main() {
 		// Encode tiff
 		for i := 0; i < len(m); i++ {
 			for j := 0; j < len(m[i]); j++ {
-				newname := fmt.Sprintf("output-%s-frame-%02d-sub-%02d.tiff", filepath.Base(filename), i, j)
+				newname := fmt.Sprintf("%s-%02d-%02d.tiff", filepath.Base(name), i, j)
 				if errors[i][j] != nil {
 					log.Printf("%s: %v\n", newname, err)
 					continue

@@ -65,7 +65,7 @@ func (p *Reader) SubImageNum(i int) int {
 }
 
 func (p *Reader) ImageConfig(i, j int) (image.Config, error) {
-	return p.Ifd[0][0].ImageConfig()
+	return p.Ifd[i][j].ImageConfig()
 }
 
 func (p *Reader) DecodeImage(i, j int) (m image.Image, err error) {
