@@ -333,12 +333,6 @@ func (p *Type) getValueType(typeName string) string {
 		}
 	case p.isStringType(types):
 		return `string`
-	case p.isIFDType(types):
-		if p.isOnlyOneValue(p.TagNumMap[typeName]) {
-			return `IFD`
-		} else {
-			return `[]IFD`
-		}
 	case p.isUndefinedType(types):
 		return `[]byte`
 	default:
@@ -358,6 +352,7 @@ func (p *Type) isIntType(dataTypes []string) bool {
 		switch s {
 		case "DataType_Byte", "DataType_Short", "DataType_Long", "DataType_Long8":
 		case "DataType_SByte", "DataType_SShort", "DataType_SLong", "DataType_SLong8":
+		case "DataType_IFD", "DataType_IFD8":
 		default:
 			return false
 		}
@@ -403,17 +398,6 @@ func (p *Type) isStringType(dataTypes []string) bool {
 	}
 	for _, s := range dataTypes {
 		if s != "DataType_ASCII" && s != "DataType_Unicode" {
-			return false
-		}
-	}
-	return true
-}
-func (p *Type) isIFDType(dataTypes []string) bool {
-	if len(dataTypes) == 0 {
-		return false
-	}
-	for _, s := range dataTypes {
-		if s != "DataType_IFD" && s != "DataType_IFD8" {
 			return false
 		}
 	}

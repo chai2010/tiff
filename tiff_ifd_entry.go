@@ -102,7 +102,7 @@ func (p *IFDEntry) GetInts() []int64 {
 			dst[i] = int64(v)
 		}
 		return dst
-	case DataType_Long:
+	case DataType_Long, DataType_IFD:
 		r := bytes.NewReader(p.Data)
 		dst := make([]int64, p.Count)
 		for i := 0; i < p.Count; i++ {
@@ -124,7 +124,7 @@ func (p *IFDEntry) GetInts() []int64 {
 			dst[i] = int64(v)
 		}
 		return dst
-	case DataType_Long8:
+	case DataType_Long8, DataType_IFD8:
 		r := bytes.NewReader(p.Data)
 		dst := make([]int64, p.Count)
 		for i := 0; i < p.Count; i++ {

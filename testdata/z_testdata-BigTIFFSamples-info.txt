@@ -122,8 +122,20 @@ tiff.IFD {
   TagType_SamplesPerPixel(DataType_Short): [3]
   TagType_RowsPerStrip(DataType_Short): [64]
   TagType_StripByteCounts(DataType_Short): [12288]
-  TagType_SubIFD(DataType_IFD): [16 12 0 0 0 0 128 0]
+  TagType_SubIFD(DataType_IFD): [3088]
   Next: 00007a5c
+}
+TagType_SubIFD(3088): tiff.IFD {
+  TagType_NewSubfileType(DataType_Long): [1]
+  TagType_ImageWidth(DataType_Short): [32]
+  TagType_ImageLength(DataType_Short): [32]
+  TagType_BitsPerSample(DataType_Short): [8 8 8]
+  TagType_PhotometricInterpretation(DataType_Short): [2]
+  TagType_StripOffsets(DataType_Short): [16]
+  TagType_SamplesPerPixel(DataType_Short): [3]
+  TagType_RowsPerStrip(DataType_Short): [32]
+  TagType_StripByteCounts(DataType_Short): [3072]
+  Next: 00000000
 }
 tiff.IFD {
   TagType_ImageWidth(DataType_Short): [64]
@@ -134,7 +146,19 @@ tiff.IFD {
   TagType_SamplesPerPixel(DataType_Short): [3]
   TagType_RowsPerStrip(DataType_Short): [64]
   TagType_StripByteCounts(DataType_Short): [12288]
-  TagType_SubIFD(DataType_IFD): [152 73 0 0 0 0 128 0]
+  TagType_SubIFD(DataType_IFD): [18840]
+  Next: 00000000
+}
+TagType_SubIFD(18840): tiff.IFD {
+  TagType_NewSubfileType(DataType_Long): [1]
+  TagType_ImageWidth(DataType_Short): [32]
+  TagType_ImageLength(DataType_Short): [32]
+  TagType_BitsPerSample(DataType_Short): [8 8 8]
+  TagType_PhotometricInterpretation(DataType_Short): [2]
+  TagType_StripOffsets(DataType_Short): [15768]
+  TagType_SamplesPerPixel(DataType_Short): [3]
+  TagType_RowsPerStrip(DataType_Short): [32]
+  TagType_StripByteCounts(DataType_Short): [3072]
   Next: 00000000
 }
 
@@ -153,8 +177,20 @@ tiff.IFD {
   TagType_SamplesPerPixel(DataType_Short): [3]
   TagType_RowsPerStrip(DataType_Short): [64]
   TagType_StripByteCounts(DataType_Short): [12288]
-  TagType_SubIFD(DataType_IFD8): [16 12 0 0 0 0 0 0]
+  TagType_SubIFD(DataType_IFD8): [3088]
   Next: 00007a5c
+}
+TagType_SubIFD(3088): tiff.IFD {
+  TagType_NewSubfileType(DataType_Long): [1]
+  TagType_ImageWidth(DataType_Short): [32]
+  TagType_ImageLength(DataType_Short): [32]
+  TagType_BitsPerSample(DataType_Short): [8 8 8]
+  TagType_PhotometricInterpretation(DataType_Short): [2]
+  TagType_StripOffsets(DataType_Short): [16]
+  TagType_SamplesPerPixel(DataType_Short): [3]
+  TagType_RowsPerStrip(DataType_Short): [32]
+  TagType_StripByteCounts(DataType_Short): [3072]
+  Next: 00000000
 }
 tiff.IFD {
   TagType_ImageWidth(DataType_Short): [64]
@@ -165,7 +201,19 @@ tiff.IFD {
   TagType_SamplesPerPixel(DataType_Short): [3]
   TagType_RowsPerStrip(DataType_Short): [64]
   TagType_StripByteCounts(DataType_Short): [12288]
-  TagType_SubIFD(DataType_IFD8): [152 73 0 0 0 0 0 0]
+  TagType_SubIFD(DataType_IFD8): [18840]
+  Next: 00000000
+}
+TagType_SubIFD(18840): tiff.IFD {
+  TagType_NewSubfileType(DataType_Long): [1]
+  TagType_ImageWidth(DataType_Short): [32]
+  TagType_ImageLength(DataType_Short): [32]
+  TagType_BitsPerSample(DataType_Short): [8 8 8]
+  TagType_PhotometricInterpretation(DataType_Short): [2]
+  TagType_StripOffsets(DataType_Short): [15768]
+  TagType_SamplesPerPixel(DataType_Short): [3]
+  TagType_RowsPerStrip(DataType_Short): [32]
+  TagType_StripByteCounts(DataType_Short): [3072]
   Next: 00000000
 }
 

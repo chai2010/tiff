@@ -84,6 +84,8 @@ func (d DataType) IsIntType() bool {
 		return true
 	case DataType_SByte, DataType_SShort, DataType_SLong:
 		return true
+	case DataType_IFD, DataType_IFD8:
+		return true
 	}
 	return false
 }
@@ -206,7 +208,7 @@ const (
 	TagType_TileLength                 TagType = 323   // SHORT/LONG, 1
 	TagType_TileOffsets                TagType = 324   // LONG/LONG8, *, # TilesPerImage
 	TagType_TileByteCounts             TagType = 325   // SHORT/LONG, *, # TilesPerImage
-	TagType_SubIFD                     TagType = 330   // LONG,  *  # IFD pointer
+	TagType_SubIFD                     TagType = 330   // IFD,   *  # IFD pointer
 	TagType_InkSet                     TagType = 332   // SHORT, 1, # Default=1
 	TagType_InkNames                   TagType = 333   // ASCII
 	TagType_NumberOfInks               TagType = 334   // SHORT, 1, # Default=4
