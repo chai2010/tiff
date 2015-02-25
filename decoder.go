@@ -95,3 +95,10 @@ Loop:
 	}
 	return
 }
+
+func init() {
+	image.RegisterFormat("tiff", ClassicTiffLittleEnding, Decode, DecodeConfig)
+	image.RegisterFormat("tiff", ClassicTiffBigEnding, Decode, DecodeConfig)
+	image.RegisterFormat("tiff", BigTiffLittleEnding, Decode, DecodeConfig)
+	image.RegisterFormat("tiff", BigTiffBigEnding, Decode, DecodeConfig)
+}

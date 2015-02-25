@@ -4,6 +4,13 @@
 
 package tiff
 
+const (
+	ClassicTiffLittleEnding = "II\x2A\x00"
+	ClassicTiffBigEnding    = "MM\x00\x2A"
+	BigTiffLittleEnding     = "II\x2B\x00"
+	BigTiffBigEnding        = "MM\x00\x2B"
+)
+
 type (
 	TiffType                    uint16
 	ImageType                   uint16
@@ -18,6 +25,7 @@ type (
 )
 
 const (
+	_                                 = 0  //
 	TiffType_ClassicTIFF    TiffType  = 42 //
 	TiffType_BigTIFF        TiffType  = 43 //
 	_                                 = 0  //
