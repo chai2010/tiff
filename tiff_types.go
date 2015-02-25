@@ -52,8 +52,6 @@ const (
 	DataType_Float          DataType  = 11 // !32-bit IEEE floating point
 	DataType_Double         DataType  = 12 // !64-bit IEEE floating point
 	DataType_IFD            DataType  = 13 // %32-bit unsigned integer (offset)
-	_DataType_Unicode       DataType  = 14 // placeholder
-	_DataType_Complex       DataType  = 15 // placeholder
 	DataType_Long8          DataType  = 16 // BigTIFF 64-bit unsigned integer
 	DataType_SLong8         DataType  = 17 // BigTIFF 64-bit signed integer
 	DataType_IFD8           DataType  = 18 // BigTIFF 64-bit unsigned integer (offset)

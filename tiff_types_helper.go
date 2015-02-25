@@ -12,13 +12,8 @@ func (d DataType) Valid() bool {
 	if d <= DataType_Nil || d > DataType_IFD8 {
 		return false
 	}
-	if d == _DataType_Unicode {
-		return false
-	}
-	if d == _DataType_Complex {
-		return false
-	}
-	return true
+	_, ok := _DataTypeTable[d]
+	return ok
 }
 
 func (d DataType) IsIntType() bool {
