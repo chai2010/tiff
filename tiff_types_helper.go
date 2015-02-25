@@ -90,3 +90,16 @@ func (d DataType) ByteSize() int {
 func (d TagType) Valid() bool {
 	return d != 0
 }
+
+func (d TagType) AcceptDataType(dataType DataType) bool {
+	dataTypeList, _ := _TagType_TypesTable[d]
+	if len(dataTypeList) == 0 {
+		return true
+	}
+	for _, v := range dataTypeList {
+		if v == dataType {
+			return true
+		}
+	}
+	return false
+}
