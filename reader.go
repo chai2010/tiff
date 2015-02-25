@@ -36,7 +36,7 @@ func OpenReader(r io.Reader) (p *Reader, err error) {
 	}
 
 	var ifd *IFD
-	for offset := p.Header.Offset; offset != 0; offset = ifd.Offset {
+	for offset := p.Header.FirstIFD; offset != 0; offset = ifd.NextIFD {
 		var ifdList []*IFD
 
 		if ifd, err = ReadIFD(rs, p.Header, offset); err != nil {

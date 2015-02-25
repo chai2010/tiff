@@ -14,21 +14,21 @@ import (
 type Header struct {
 	ByteOrder binary.ByteOrder
 	TiffType  TiffType
-	Offset    int64
+	FirstIFD  int64
 }
 
-func NewHeader(isBigTiff bool, offset int64) *Header {
+func NewHeader(isBigTiff bool, firstIFD int64) *Header {
 	if isBigTiff {
 		return &Header{
 			ByteOrder: binary.LittleEndian,
 			TiffType:  TiffType_BigTIFF,
-			Offset:    offset,
+			FirstIFD:  firstIFD,
 		}
 	} else {
 		return &Header{
 			ByteOrder: binary.LittleEndian,
 			TiffType:  TiffType_ClassicTIFF,
-			Offset:    offset,
+			FirstIFD:  firstIFD,
 		}
 	}
 }
@@ -72,7 +72,7 @@ func ReadHeader(r io.Reader) (header *Header, err error) {
 	// offset
 	switch header.TiffType {
 	case TiffType_ClassicTIFF:
-		header.Offset = int64(header.ByteOrder.Uint32(data[4:8]))
+		header.FirstIFD = int64(header.ByteOrder.Uint32(data[4:8]))
 	case TiffType_BigTIFF:
 		byte46 := header.ByteOrder.Uint16(data[4:6])
 		byte68 := header.ByteOrder.Uint16(data[6:8])
@@ -83,9 +83,9 @@ func ReadHeader(r io.Reader) (header *Header, err error) {
 		if _, err = rs.Read(data[:8]); err != nil {
 			return
 		}
-		header.Offset = int64(header.ByteOrder.Uint64(data[0:8]))
+		header.FirstIFD = int64(header.ByteOrder.Uint64(data[0:8]))
 	}
-	if header.Offset < int64(header.HeadSize()) {
+	if header.FirstIFD < int64(header.HeadSize()) {
 		err = fmt.Errorf("tiff: ReadHeader, bad offset: %v", data[4:8])
 		return
 	}
@@ -108,13 +108,13 @@ func (p *Header) Bytes() []byte {
 
 	if p.TiffType == TiffType_ClassicTIFF {
 		p.ByteOrder.PutUint16(d[2:4], uint16(p.TiffType))
-		p.ByteOrder.PutUint32(d[4:8], uint32(p.Offset))
+		p.ByteOrder.PutUint32(d[4:8], uint32(p.FirstIFD))
 		return d[:16]
 	} else {
 		p.ByteOrder.PutUint16(d[2:4], uint16(p.TiffType))
 		p.ByteOrder.PutUint16(d[4:6], 8)
 		p.ByteOrder.PutUint16(d[6:8], 0)
-		p.ByteOrder.PutUint64(d[8:], uint64(p.Offset))
+		p.ByteOrder.PutUint64(d[8:], uint64(p.FirstIFD))
 		return d[:16]
 	}
 }
@@ -126,11 +126,11 @@ func (p *Header) Valid() bool {
 	if !p.TiffType.Valid() {
 		return false
 	}
-	if p.Offset < int64(p.HeadSize()) {
+	if p.FirstIFD < int64(p.HeadSize()) {
 		return false
 	}
 	if p.TiffType == TiffType_ClassicTIFF {
-		if p.Offset > math.MaxUint32 {
+		if p.FirstIFD > math.MaxUint32 {
 			return false
 		}
 	}
@@ -163,8 +163,8 @@ func (p *Header) String() string {
 		`tiff.Header{
   ByteOrder:%s
   TiffType:%v
-  Offset:0x%08x
+  Offset:%#08x
 }`,
-		orderName, p.TiffType, p.Offset,
+		orderName, p.TiffType, p.FirstIFD,
 	)
 }

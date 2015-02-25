@@ -465,6 +465,14 @@ func (p *IFDEntry) SetUndefined(value interface{}) {
 func (p *IFDEntry) String() string {
 	switch {
 	case p.DataType.IsIntType():
+		switch p.Tag {
+		case TagType_StripOffsets, TagType_TileOffsets, TagType_FreeOffsets:
+			return fmt.Sprintf("%v(%v): %#08x", p.Tag, p.DataType, p.GetInts())
+		}
+		switch p.DataType {
+		case DataType_IFD, DataType_IFD8:
+			return fmt.Sprintf("%v(%v): %#08x", p.Tag, p.DataType, p.GetInts())
+		}
 		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.GetInts())
 	case p.DataType.IsFloatType():
 		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.GetFloats())

@@ -290,21 +290,21 @@ func (p *IFD) Bytes() []byte {
 			entryBytes, _ := tagList[i].Bytes()
 			buf.Write(entryBytes)
 		}
-		binary.Write(&buf, p.Header.ByteOrder, uint32(p.Offset))
+		binary.Write(&buf, p.Header.ByteOrder, uint32(p.NextIFD))
 	} else {
 		binary.Write(&buf, p.Header.ByteOrder, uint32(len(tagList)))
 		for i := 0; i < len(tagList); i++ {
 			entryBytes, _ := tagList[i].Bytes()
 			buf.Write(entryBytes)
 		}
-		binary.Write(&buf, p.Header.ByteOrder, uint32(p.Offset))
+		binary.Write(&buf, p.Header.ByteOrder, uint32(p.NextIFD))
 	}
 	return buf.Bytes()
 }
 
 func (p *IFD) String() string {
 	var buf bytes.Buffer
-	fmt.Fprintf(&buf, "tiff.IFD {\n")
+	fmt.Fprintf(&buf, "tiff.IFD(%#08x) {\n", p.ThisIFD)
 
 	tagList := make([]*IFDEntry, 0, len(p.EntryMap))
 	for _, v := range p.EntryMap {
@@ -315,7 +315,7 @@ func (p *IFD) String() string {
 	for _, v := range tagList {
 		fmt.Fprintf(&buf, "  %v\n", v)
 	}
-	fmt.Fprintf(&buf, "  Next: %08x\n", p.Offset)
+	fmt.Fprintf(&buf, "  Next: %#08x\n", p.NextIFD)
 	fmt.Fprintf(&buf, "}")
 	return buf.String()
 }

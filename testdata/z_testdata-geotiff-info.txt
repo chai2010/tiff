@@ -4,13 +4,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00041fc4
 }
-tiff.IFD {
+tiff.IFD(0x00041fc4) {
   TagType_ImageWidth(DataType_Short): [514]
   TagType_ImageLength(DataType_Short): [515]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [426 8136 15846 23556 31266 38976 46686 54396 62106 69816 77526 85236 92946 100656 108366 116076 123786 131496 139206 146916 154626 162336 170046 177756 185466 193176 200886 208596 216306 224016 231726 239436 247146 254856 262566]
+  TagType_StripOffsets(DataType_Long): [0x000001aa 0x00001fc8 0x00003de6 0x00005c04 0x00007a22 0x00009840 0x0000b65e 0x0000d47c 0x0000f29a 0x000110b8 0x00012ed6 0x00014cf4 0x00016b12 0x00018930 0x0001a74e 0x0001c56c 0x0001e38a 0x000201a8 0x00021fc6 0x00023de4 0x00025c02 0x00027a20 0x0002983e 0x0002b65c 0x0002d47a 0x0002f298 0x000310b6 0x00032ed4 0x00034cf2 0x00036b10 0x0003892e 0x0003a74c 0x0003c56a 0x0003e388 0x000401a6]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [15]
   TagType_StripByteCounts(DataType_Long): [7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710 7710]
@@ -21,7 +21,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 14 1024 0 1 1 1025 0 1 1 1026 34737 8 0 2048 0 1 4267 2049 34737 6 8 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 28 3076 0 1 9001 3078 34736 1 1 3080 34736 1 0 3082 34736 1 2 3083 34736 1 3]
   TagType_GeoDoubleParamsTag(DataType_Double): [-117.333333333333 33.75 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): unnamed|NAD27|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\GeogToWGS84GeoKey\GeogToWGS84GeoKey5.tif
@@ -30,7 +30,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00000748
 }
-tiff.IFD {
+tiff.IFD(0x00000748) {
   TagType_NewSubfileType(DataType_Long): [2]
   TagType_ImageWidth(DataType_Short): [101]
   TagType_ImageLength(DataType_Short): [101]
@@ -38,7 +38,7 @@ tiff.IFD {
   TagType_Compression(DataType_Short): [32773]
   TagType_PhotometricInterpretation(DataType_Short): [3]
   TagType_FillOrder(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8 72 136 399 483 733 797 855 1082 1201 1435 1567 1823]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x00000048 0x00000088 0x0000018f 0x000001e3 0x000002dd 0x0000031d 0x00000357 0x0000043a 0x000004b1 0x0000059b 0x0000061f 0x0000071f]
   TagType_Orientation(DataType_Short): [1]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [8]
@@ -56,7 +56,7 @@ tiff.IFD {
   TagType_ModelTiepointTag(DataType_Double): [50.5 50.5 0 9.0010573796 52.0013760079 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 7 1024 0 1 2 1025 0 1 1 2048 0 1 32767 2050 0 1 32767 2054 0 1 9102 2056 0 1 7004 2062 34736 7 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [598.1 73.7 418.2 0.202 0.045 -2.455 6.7]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\albers27.tif
@@ -65,14 +65,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6f0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6f0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -85,7 +85,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 11 3074 0 1 32767 2050 0 1 6267 2056 0 1 7008 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3078 34736 1 4 3079 34736 1 5 3073 34737 38 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 45 0.001 0.002 40 50]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Albers Equal Area North American 1927|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\azi_equi.tif
@@ -94,14 +94,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6e0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6e0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -114,7 +114,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 12 3074 0 1 32767 2050 0 1 6269 2056 0 1 7019 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 42 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0.001 0.002 1.0001]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Azimuthal Equidistant North American 1983|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\bip_obl_con.tif
@@ -123,14 +123,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6d0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6d0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -143,7 +143,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 38 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-73.03659844444445 17.247475694444443 0 0 1.0346216371479358]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Bipolar Oblique Conic Conformal WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\bonne.tif
@@ -152,14 +152,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6d0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6d0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -172,7 +172,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 6248 2056 0 1 7023 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 26 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [0 90 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Bonne South American 1956|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\brit_nat.tif
@@ -181,14 +181,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6e0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6e0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -201,7 +201,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 12 1024 0 1 1 1025 0 1 1 2050 0 1 6277 2056 0 1 7001 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 60 0 3072 0 1 27700 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-2 49 400000 -100000 0.9996012717]
   TagType_GeoAsciiParamsTag(DataType_ASCII): British National Grid Ordnance Survey of Great Britain 1936|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\cass_sold.tif
@@ -210,14 +210,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6d0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6d0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -230,7 +230,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 18 3074 0 1 32767 2050 0 1 6267 2056 0 1 7008 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 36 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0.001 0.002 0.99999]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Cassini-Soldner North American 1927|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\cham_tri.tif
@@ -239,14 +239,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6b0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6b0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -259,7 +259,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 12 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 32767 2056 0 1 7004 3080 34736 1 0 3081 34736 1 1 3094 34736 1 2 3073 34737 29 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-92.74089152777778 10.03190113888889 90.396558]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Chamberlin Trimetric Potsdam|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\cyl_equi.tif
@@ -268,14 +268,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6e0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6e0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -288,7 +288,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 17 3074 0 1 32767 2050 0 1 6230 2056 0 1 7023 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3078 34736 1 4 3073 34737 42 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0.001 0.002 40]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Cylindrical Equirectangular European 1950|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\eckert4.tif
@@ -297,14 +297,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b340
 }
-tiff.IFD {
+tiff.IFD(0x0000b340) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [32773]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8307 16189 24054 31766]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x00002073 0x00003f3d 0x00005df6 0x00007c16]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [7933 7882 7865 7712 7699]
@@ -317,7 +317,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 16 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0.001 0.002 1.000123]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Eckert IV WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\equi_conic.tif
@@ -326,14 +326,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b700
 }
-tiff.IFD {
+tiff.IFD(0x0000b700) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -346,7 +346,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 13 3074 0 1 32767 2050 0 1 6267 2056 0 1 7008 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3078 34736 1 4 3079 34736 1 5 3073 34737 53 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 45 0.001 0.002 40 50]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Equidistant Conic (Simple Conic) North American 1927|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\gauss_k.tif
@@ -355,14 +355,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6c0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6c0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -375,7 +375,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 12 1024 0 1 1 1025 0 1 1 2050 0 1 6284 2056 0 1 7024 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 40 0 3072 0 1 28405 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [15 0 5.5e+06 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Gauss-Kruger Pulkovo 1942 Zone Number 5|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\gen_pers.tif
@@ -384,14 +384,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6c0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6c0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -404,7 +404,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 13 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3073 34737 26 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-100 40 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): General Perspective WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\geoc.tif
@@ -413,14 +413,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b660
 }
-tiff.IFD {
+tiff.IFD(0x0000b660) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -432,7 +432,7 @@ tiff.IFD {
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 -8048.726 10525.15 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 7 1024 0 1 3 1025 0 1 1 2050 0 1 6322 2056 0 1 32767 2049 34737 23 0 2048 0 1 4322 2052 0 1 9001]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Geocentric (USR) WGS72|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\geog.tif
@@ -441,14 +441,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b2f0
 }
-tiff.IFD {
+tiff.IFD(0x0000b2f0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [32773]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8307 16189 24054 31766]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x00002073 0x00003f3d 0x00005df6 0x00007c16]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [7933 7882 7865 7712 7699]
@@ -460,7 +460,7 @@ tiff.IFD {
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 -2.2357572222222224 2.923652777777778 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 7 1024 0 1 2 1025 0 1 1 2050 0 1 6301 2056 0 1 7004 2049 34737 39 0 2048 0 1 4301 2054 0 1 9102]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Geographic (Longitude, Latitude) Tokyo|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\gnomonic.tif
@@ -469,14 +469,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6d0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6d0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -489,7 +489,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 19 3074 0 1 32767 2050 0 1 32767 2056 0 1 7023 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 27 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0.001 0.002 1.000123]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Gnomonic Midway Astro 1961|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\indo_poly.tif
@@ -498,14 +498,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6e0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6e0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -518,7 +518,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 32767 2056 0 1 7023 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 42 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0.001 0.002 1.000123]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Indonesian Polyhedric Pitcairn Astro 1967|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\krovak.tif
@@ -527,14 +527,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b670
 }
-tiff.IFD {
+tiff.IFD(0x0000b670) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -546,7 +546,7 @@ tiff.IFD {
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 1.871032953888e+06 693358.668144 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 9 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 32767 2056 0 1 7004 2049 34737 13 0 2048 0 1 32767 3076 0 1 9001]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Krovak MGICS|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\laborde.tif
@@ -555,14 +555,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6e0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6e0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -575,7 +575,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 4 3074 0 1 32767 2050 0 1 6205 2056 0 1 7024 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3094 34736 1 4 3092 34736 1 5 3073 34737 22 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [46.43720833333333 -18.9 400000 800000 18.9 0.9995]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Laborde AFG (Afgooye)|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\lamb_az.tif
@@ -584,14 +584,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6e0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6e0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -604,7 +604,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 10 3074 0 1 32767 2050 0 1 6267 2056 0 1 7008 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 49 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0.001 0.002 0.99999]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Lambert Azimuthal Equal-Area North American 1927|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\lamb_conf.tif
@@ -613,14 +613,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6f0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6f0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -633,7 +633,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 8 3074 0 1 32767 2050 0 1 6267 2056 0 1 7008 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3078 34736 1 4 3079 34736 1 5 3073 34737 44 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 45 0.001 0.002 40 50]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Lambert Conformal Conic North American 1927|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\lamb_conf_obl.tif
@@ -642,14 +642,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6e0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6e0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -662,7 +662,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 13 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 6267 2056 0 1 7008 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3073 34737 52 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 45 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Oblique Lambert Conformal Conic North American 1927|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\lsr.tif
@@ -671,14 +671,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6b0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6b0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -691,7 +691,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 12 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 32767 2056 0 1 7023 3080 34736 1 0 3081 34736 1 1 3094 34736 1 2 3073 34737 34 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [0 0 90]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Local Space Rectangular Rome 1940|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\merc.tif
@@ -700,14 +700,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6e0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6e0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -720,7 +720,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 7 3074 0 1 32767 2050 0 1 6267 2056 0 1 7008 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3089 34736 1 4 3092 34736 1 5 3073 34737 29 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0.001 0.002 34 0.829916312080482]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Mercator North American 1927|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\merc_obl.tif
@@ -729,14 +729,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6d0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6d0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -749,7 +749,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 3 3074 0 1 32767 2050 0 1 6267 2056 0 1 7008 3089 34736 1 0 3082 34736 1 1 3083 34736 1 2 3094 34736 1 3 3093 34736 1 4 3073 34737 37 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [40 0 0 303.053393 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Oblique Mercator North American 1927|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\miller.tif
@@ -758,14 +758,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6d0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6d0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -778,7 +778,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 20 3074 0 1 32767 2050 0 1 6308 2056 0 1 7004 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 34 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0.001 0.002 1.000123]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Miller Cylindrical Stockholm 1938|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\mod_poly.tif
@@ -787,14 +787,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b700
 }
-tiff.IFD {
+tiff.IFD(0x0000b700) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -807,7 +807,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 6269 2056 0 1 7019 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3078 34736 1 4 3079 34736 1 5 3073 34737 52 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0.001 0.002 30 34]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Modified Polyconic (IMW Series) North American 1983|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\molle.tif
@@ -816,14 +816,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b340
 }
-tiff.IFD {
+tiff.IFD(0x0000b340) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [32773]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8307 16189 24054 31766]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x00002073 0x00003f3d 0x00005df6 0x00007c16]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [7933 7882 7865 7712 7699]
@@ -836,7 +836,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 16 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Mollweide WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\nz_map_grid.tif
@@ -845,14 +845,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6d0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6d0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -865,7 +865,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 13 1024 0 1 1 1025 0 1 1 3075 0 1 26 3074 0 1 32767 2050 0 1 6272 2056 0 1 7023 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3073 34737 41 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [173 -41 2.51e+06 6.02315e+06]
   TagType_GeoAsciiParamsTag(DataType_ASCII): New Zealand Map Grid Geodetic Datum 1949|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\ortho.tif
@@ -874,14 +874,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6c0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6c0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -894,7 +894,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 21 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 19 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Orthographic WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\poly.tif
@@ -903,14 +903,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6d0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6d0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -923,7 +923,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 22 3074 0 1 32767 2050 0 1 6267 2056 0 1 7008 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 30 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0.001 0.002 0.99999]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Polyconic North American 1927|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\rect_grid.tif
@@ -932,14 +932,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b670
 }
-tiff.IFD {
+tiff.IFD(0x0000b670) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -951,7 +951,7 @@ tiff.IFD {
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 -8048.726000000001 10525.15 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 9 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3073 34737 23 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Rectangular Grid WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\rect_skew_ortho.tif
@@ -960,14 +960,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6f0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6f0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -980,7 +980,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 6267 2056 0 1 7008 3088 34736 1 0 3089 34736 1 1 3082 34736 1 2 3083 34736 1 3 3094 34736 1 4 3093 34736 1 5 3073 34737 48 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [102.25 4 804671.3 0 -36.869898 0.99984]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Rectified Skew Orthomorphic North American 1927|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\robinson.tif
@@ -989,14 +989,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b350
 }
-tiff.IFD {
+tiff.IFD(0x0000b350) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [32773]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8307 16189 24054 31766]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x00002073 0x00003f3d 0x00005df6 0x00007c16]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [7933 7882 7865 7712 7699]
@@ -1009,7 +1009,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 23 3074 0 1 32767 2050 0 1 6269 2056 0 1 7019 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 29 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Robinson North American 1983|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\sinus.tif
@@ -1018,14 +1018,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6d0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6d0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -1038,7 +1038,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 24 3074 0 1 32767 2050 0 1 6269 2056 0 1 7019 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 31 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Sinusoidal North American 1983|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\spc_obl_merc.tif
@@ -1047,14 +1047,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6a0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6a0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -1067,7 +1067,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 11 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3073 34737 29 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [127.75493561111111 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Space Oblique Mercator WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\spc_obl_merc_pre.tif
@@ -1076,14 +1076,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6b0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6b0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -1096,7 +1096,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 11 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3073 34737 47 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [76.77339363888889 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Space Oblique Mercator-preset satellites WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\spcs27.tif
@@ -1105,14 +1105,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6f0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6f0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -1125,7 +1125,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 12 1024 0 1 1 1025 0 1 1 2050 0 1 6267 2056 0 1 7008 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 73 0 3072 0 1 26730 3076 0 1 9003]
   TagType_GeoDoubleParamsTag(DataType_Double): [-87.5 30 152400.305 0 0.9999333333333333]
   TagType_GeoAsciiParamsTag(DataType_ASCII): State Plane Coordinate System 1927 North American 1927 Zone Alabama West|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\spcs83.tif
@@ -1134,14 +1134,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6f0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6f0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -1154,7 +1154,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 12 1024 0 1 1 1025 0 1 1 2050 0 1 6269 2056 0 1 7019 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 73 0 3072 0 1 26930 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-87.5 30 1.968503937e+06 0 0.9999333333333333]
   TagType_GeoAsciiParamsTag(DataType_ASCII): State Plane Coordinate System 1983 North American 1983 Zone Alabama West|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\stereo.tif
@@ -1163,14 +1163,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6c0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6c0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -1183,7 +1183,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 14 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 20 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Stereographic WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\stereo3.tif
@@ -1192,14 +1192,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b360
 }
-tiff.IFD {
+tiff.IFD(0x0000b360) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [32773]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8307 16189 24054 31766]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x00002073 0x00003f3d 0x00005df6 0x00007c16]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [7933 7882 7865 7712 7699]
@@ -1212,7 +1212,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 32767 2050 0 1 32767 2056 0 1 7004 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 53 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Three-Step Stereographic user-defined (non-standard)|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\stereo_np.tif
@@ -1221,14 +1221,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6e0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6e0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -1241,7 +1241,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 15 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3089 34736 1 4 3092 34736 1 5 3073 34737 32 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [0 90 0 0 90 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): North Polar Stereographic WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\stereo_sp.tif
@@ -1250,14 +1250,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6e0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6e0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -1270,7 +1270,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 15 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3089 34736 1 4 3092 34736 1 5 3073 34737 32 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [0 -90 0 0 -90 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): South Polar Stereographic WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\stereo_up.tif
@@ -1279,14 +1279,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6f0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6f0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -1299,7 +1299,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 15 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3089 34736 1 4 3092 34736 1 5 3073 34737 36 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [0 90 2e+06 2e+06 0 0.994]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Universal Polar Stereographic WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\trans_merc.tif
@@ -1308,14 +1308,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6d0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6d0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -1328,7 +1328,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 1 3074 0 1 32767 2050 0 1 6267 2056 0 1 7008 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 40 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0.001 0.002 0.99999]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Transverse Mercator North American 1927|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\utm.tif
@@ -1337,14 +1337,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6f0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6f0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -1357,7 +1357,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 32767 3074 0 1 16016 2050 0 1 6267 2056 0 1 7008 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 66 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-87 0 500000 0 0.9996]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Universal Transverse Mercator North American 1927 Zone Number 16N|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\intergraph\van_der_grin.tif
@@ -1366,14 +1366,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b6c0
 }
-tiff.IFD {
+tiff.IFD(0x0000b6c0) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [200]
   TagType_ImageLength(DataType_Long): [200]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [374 8374 16374 24374 32374]
+  TagType_StripOffsets(DataType_Long): [0x00000176 0x000020b6 0x00003ff6 0x00005f36 0x00007e76]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Long): [40]
   TagType_StripByteCounts(DataType_Long): [8000 8000 8000 8000 8000]
@@ -1386,7 +1386,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 14 1024 0 1 1 1025 0 1 1 3075 0 1 25 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3092 34736 1 4 3073 34737 22 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [-90 30 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Van der Grinten WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\other\erdas_spnad83.tif
@@ -1395,13 +1395,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00054da8
 }
-tiff.IFD {
+tiff.IFD(0x00054da8) {
   TagType_ImageWidth(DataType_Short): [571]
   TagType_ImageLength(DataType_Short): [658]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [32773]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8 2118 8311 15996 23689 31389 39049 46744 54444 62139 69842 77544 85244 92946 100646 108343 116035 123732 131429 139129 146829 154532 162234 169929 177630 185326 193024 200724 208413 216113 223803 231494 239187 246888 254587 262281 269970 277658 285351 293049 300746 308443 316144 323837 331514 339193 345411]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x00000846 0x00002077 0x00003e7c 0x00005c89 0x00007a9d 0x00009889 0x0000b698 0x0000d4ac 0x0000f2bb 0x000110d2 0x00012ee8 0x00014cfc 0x00016b12 0x00018926 0x0001a737 0x0001c543 0x0001e354 0x00020165 0x00021f79 0x00023d8d 0x00025ba4 0x000279ba 0x000297c9 0x0002b5de 0x0002d3ee 0x0002f200 0x00031014 0x00032e1d 0x00034c31 0x00036a3b 0x00038846 0x0003a653 0x0003c468 0x0003e27b 0x00040089 0x00041e92 0x00043c9a 0x00045aa7 0x000478b9 0x000496ca 0x0004b4db 0x0004d2f0 0x0004f0fd 0x00050efa 0x00052cf9 0x00054543]
   TagType_Orientation(DataType_Short): [1]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [14]
@@ -1427,7 +1427,7 @@ Copyright 1991 - 1999 by ERDAS, Inc. All Rights Reserved
 Projection Name = State Plane
 Units = feet
 GeoTIFF Units = feet|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\acea.tif
@@ -1436,13 +1436,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040e00
 }
-tiff.IFD {
+tiff.IFD(0x00040e00) {
   TagType_ImageWidth(DataType_Short): [515]
   TagType_ImageLength(DataType_Short): [515]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8 7733 15458 23183 30908 38633 46358 54083 61808 69533 77258 84983 92708 100433 108158 115883 123608 131333 139058 146783 154508 162233 169958 177683 185408 193133 200858 208583 216308 224033 231758 239483 247208 254933 262658]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x00001e35 0x00003c62 0x00005a8f 0x000078bc 0x000096e9 0x0000b516 0x0000d343 0x0000f170 0x00010f9d 0x00012dca 0x00014bf7 0x00016a24 0x00018851 0x0001a67e 0x0001c4ab 0x0001e2d8 0x00020105 0x00021f32 0x00023d5f 0x00025b8c 0x000279b9 0x000297e6 0x0002b613 0x0002d440 0x0002f26d 0x0003109a 0x00032ec7 0x00034cf4 0x00036b21 0x0003894e 0x0003a77b 0x0003c5a8 0x0003e3d5 0x00040202]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [15]
   TagType_StripByteCounts(DataType_Long): [7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 2575]
@@ -1452,7 +1452,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 16 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 11 3076 0 1 9001 3078 34736 1 0 3079 34736 1 1 3081 34736 1 3 3082 34736 1 4 3083 34736 1 5 3088 34736 1 2]
   TagType_GeoDoubleParamsTag(DataType_Double): [33.90363402777778 33.62529002777778 -117.47454288888889 33.764462027777775 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): ACEA        E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\ae.tif
@@ -1461,13 +1461,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040c00
 }
-tiff.IFD {
+tiff.IFD(0x00040c00) {
   TagType_ImageWidth(DataType_Short): [513]
   TagType_ImageLength(DataType_Short): [516]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [516]
   TagType_StripByteCounts(DataType_Long): [264708]
@@ -1477,7 +1477,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 14 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 12 3076 0 1 9001 3082 34736 1 2 3083 34736 1 3 3088 34736 1 1 3089 34736 1 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [33.764462027777775 -117.47454288888889 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): AE          E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\econic.tif
@@ -1486,13 +1486,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040e00
 }
-tiff.IFD {
+tiff.IFD(0x00040e00) {
   TagType_ImageWidth(DataType_Short): [515]
   TagType_ImageLength(DataType_Short): [515]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8 7733 15458 23183 30908 38633 46358 54083 61808 69533 77258 84983 92708 100433 108158 115883 123608 131333 139058 146783 154508 162233 169958 177683 185408 193133 200858 208583 216308 224033 231758 239483 247208 254933 262658]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x00001e35 0x00003c62 0x00005a8f 0x000078bc 0x000096e9 0x0000b516 0x0000d343 0x0000f170 0x00010f9d 0x00012dca 0x00014bf7 0x00016a24 0x00018851 0x0001a67e 0x0001c4ab 0x0001e2d8 0x00020105 0x00021f32 0x00023d5f 0x00025b8c 0x000279b9 0x000297e6 0x0002b613 0x0002d440 0x0002f26d 0x0003109a 0x00032ec7 0x00034cf4 0x00036b21 0x0003894e 0x0003a77b 0x0003c5a8 0x0003e3d5 0x00040202]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [15]
   TagType_StripByteCounts(DataType_Long): [7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 2575]
@@ -1502,7 +1502,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 16 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 13 3076 0 1 9001 3078 34736 1 0 3079 34736 1 1 3081 34736 1 2 3082 34736 1 4 3083 34736 1 5 3088 34736 1 3]
   TagType_GeoDoubleParamsTag(DataType_Double): [33.90363402777778 33.62529002777778 33.764462027777775 -117.47454288888889 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): EC          E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\er.tif
@@ -1511,13 +1511,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040c00
 }
-tiff.IFD {
+tiff.IFD(0x00040c00) {
   TagType_ImageWidth(DataType_Short): [513]
   TagType_ImageLength(DataType_Short): [516]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [516]
   TagType_StripByteCounts(DataType_Long): [264708]
@@ -1527,7 +1527,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 14 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 17 3076 0 1 9001 3082 34736 1 2 3083 34736 1 3 3088 34736 1 1 3089 34736 1 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [33.764462027777775 -117.47454288888889 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): ER          E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\gnomonic.tif
@@ -1536,13 +1536,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040c00
 }
-tiff.IFD {
+tiff.IFD(0x00040c00) {
   TagType_ImageWidth(DataType_Short): [513]
   TagType_ImageLength(DataType_Short): [516]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [516]
   TagType_StripByteCounts(DataType_Long): [264708]
@@ -1552,7 +1552,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 14 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 19 3076 0 1 9001 3082 34736 1 2 3083 34736 1 3 3088 34736 1 1 3089 34736 1 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [33.764462027777775 -117.47454288888889 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): GNO         E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\laea.tif
@@ -1561,13 +1561,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040c00
 }
-tiff.IFD {
+tiff.IFD(0x00040c00) {
   TagType_ImageWidth(DataType_Short): [513]
   TagType_ImageLength(DataType_Short): [516]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [516]
   TagType_StripByteCounts(DataType_Long): [264708]
@@ -1577,7 +1577,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 14 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 10 3076 0 1 9001 3082 34736 1 2 3083 34736 1 3 3088 34736 1 1 3089 34736 1 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [33.764462027777775 -117.47454288888889 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): LAEA        E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\latlong.tif
@@ -1586,13 +1586,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040c00
 }
-tiff.IFD {
+tiff.IFD(0x00040c00) {
   TagType_ImageWidth(DataType_Short): [512]
   TagType_ImageLength(DataType_Short): [517]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [517]
   TagType_StripByteCounts(DataType_Long): [264704]
@@ -1601,7 +1601,7 @@ tiff.IFD {
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 -117.64116861111111 33.90363402777778 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 6 1024 0 1 2 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102]
   TagType_GeoAsciiParamsTag(DataType_ASCII): LONG/LAT    E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\lcc-27.tif
@@ -1610,13 +1610,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040e00
 }
-tiff.IFD {
+tiff.IFD(0x00040e00) {
   TagType_ImageWidth(DataType_Short): [515]
   TagType_ImageLength(DataType_Short): [515]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [515]
   TagType_StripByteCounts(DataType_Long): [265225]
@@ -1626,7 +1626,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 17 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 8 3076 0 1 9001 3078 34736 1 0 3079 34736 1 1 3080 34736 1 2 3082 34736 1 5 3083 34736 1 6 3084 34736 1 4 3085 34736 1 3]
   TagType_GeoDoubleParamsTag(DataType_Double): [33.90363402777778 33.62529002777778 -117.47454288888889 33.764462027777775 0 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): LCC         E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\mc.tif
@@ -1635,13 +1635,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00057600
 }
-tiff.IFD {
+tiff.IFD(0x00057600) {
   TagType_ImageWidth(DataType_Short): [618]
   TagType_ImageLength(DataType_Short): [579]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [579]
   TagType_StripByteCounts(DataType_Long): [357822]
@@ -1651,7 +1651,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 13 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 20 3076 0 1 9001 3082 34736 1 1 3083 34736 1 2 3088 34736 1 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [-117.47454288888889 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): MC          E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\mercator.tif
@@ -1660,13 +1660,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040e00
 }
-tiff.IFD {
+tiff.IFD(0x00040e00) {
   TagType_ImageWidth(DataType_Short): [515]
   TagType_ImageLength(DataType_Short): [515]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [515]
   TagType_StripByteCounts(DataType_Long): [265225]
@@ -1676,7 +1676,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 15 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 7 3076 0 1 9001 3080 34736 1 1 3081 34736 1 2 3090 34736 1 3 3091 34736 1 4 3092 34736 1 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [1 -117.47454288888889 33.764462027777775 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): MER         E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\meter.tif
@@ -1685,13 +1685,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040e00
 }
-tiff.IFD {
+tiff.IFD(0x00040e00) {
   TagType_ImageWidth(DataType_Short): [515]
   TagType_ImageLength(DataType_Short): [515]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [515]
   TagType_StripByteCounts(DataType_Long): [265225]
@@ -1700,7 +1700,7 @@ tiff.IFD {
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 -15411.6298828125 15448.7744140625 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 6 1024 0 1 32767 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102]
   TagType_GeoAsciiParamsTag(DataType_ASCII): METRE           |
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\oblqmerc.tif
@@ -1709,13 +1709,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040e00
 }
-tiff.IFD {
+tiff.IFD(0x00040e00) {
   TagType_ImageWidth(DataType_Short): [515]
   TagType_ImageLength(DataType_Short): [515]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [515]
   TagType_StripByteCounts(DataType_Long): [265225]
@@ -1725,7 +1725,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 16 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 3 3076 0 1 9001 3082 34736 1 4 3083 34736 1 5 3088 34736 1 2 3089 34736 1 3 3092 34736 1 0 3094 34736 1 1]
   TagType_GeoDoubleParamsTag(DataType_Double): [1 0 -117.47454288888889 33.764462027777775 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): OM          E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\og.tif
@@ -1734,13 +1734,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040c00
 }
-tiff.IFD {
+tiff.IFD(0x00040c00) {
   TagType_ImageWidth(DataType_Short): [513]
   TagType_ImageLength(DataType_Short): [516]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [516]
   TagType_StripByteCounts(DataType_Long): [264708]
@@ -1750,7 +1750,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 14 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 21 3076 0 1 9001 3082 34736 1 2 3083 34736 1 3 3088 34736 1 1 3089 34736 1 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [33.764462027777775 -117.47454288888889 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): OG          E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\pc.tif
@@ -1759,13 +1759,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040e00
 }
-tiff.IFD {
+tiff.IFD(0x00040e00) {
   TagType_ImageWidth(DataType_Short): [515]
   TagType_ImageLength(DataType_Short): [515]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [515]
   TagType_StripByteCounts(DataType_Long): [265225]
@@ -1775,7 +1775,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 14 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 22 3076 0 1 9001 3082 34736 1 2 3083 34736 1 3 3088 34736 1 1 3089 34736 1 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [33.764462027777775 -117.47454288888889 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): PC          E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\ps.tif
@@ -1784,13 +1784,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040e00
 }
-tiff.IFD {
+tiff.IFD(0x00040e00) {
   TagType_ImageWidth(DataType_Short): [515]
   TagType_ImageLength(DataType_Short): [515]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [515]
   TagType_StripByteCounts(DataType_Long): [265225]
@@ -1800,7 +1800,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 14 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 15 3076 0 1 9001 3081 34736 1 0 3082 34736 1 2 3083 34736 1 3 3095 34736 1 1]
   TagType_GeoDoubleParamsTag(DataType_Double): [33.764462027777775 -117.47454288888889 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): PS          E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\rob.tif
@@ -1809,13 +1809,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00051400
 }
-tiff.IFD {
+tiff.IFD(0x00051400) {
   TagType_ImageWidth(DataType_Short): [577]
   TagType_ImageLength(DataType_Short): [576]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [576]
   TagType_StripByteCounts(DataType_Long): [332352]
@@ -1825,7 +1825,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 13 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 23 3076 0 1 9001 3082 34736 1 1 3083 34736 1 2 3088 34736 1 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [-117.47454288888889 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): ROB         E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\sg.tif
@@ -1834,13 +1834,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040c00
 }
-tiff.IFD {
+tiff.IFD(0x00040c00) {
   TagType_ImageWidth(DataType_Short): [513]
   TagType_ImageLength(DataType_Short): [516]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [516]
   TagType_StripByteCounts(DataType_Long): [264708]
@@ -1850,7 +1850,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 14 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 14 3076 0 1 9001 3082 34736 1 2 3083 34736 1 3 3088 34736 1 1 3089 34736 1 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [33.764462027777775 -117.47454288888889 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): SG          E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\sin.tif
@@ -1859,13 +1859,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040c00
 }
-tiff.IFD {
+tiff.IFD(0x00040c00) {
   TagType_ImageWidth(DataType_Short): [513]
   TagType_ImageLength(DataType_Short): [516]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [516]
   TagType_StripByteCounts(DataType_Long): [264708]
@@ -1875,7 +1875,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 13 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 24 3076 0 1 9001 3082 34736 1 1 3083 34736 1 2 3088 34736 1 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [-117.47454288888889 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): SIN         E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\spaf27.tif
@@ -1884,13 +1884,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00041000
 }
-tiff.IFD {
+tiff.IFD(0x00041000) {
   TagType_ImageWidth(DataType_Short): [519]
   TagType_ImageLength(DataType_Short): [512]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8 7793 15578 23363 31148 38933 46718 54503 62288 70073 77858 85643 93428 101213 108998 116783 124568 132353 140138 147923 155708 163493 171278 179063 186848 194633 202418 210203 217988 225773 233558 241343 249128 256913 264698]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x00001e71 0x00003cda 0x00005b43 0x000079ac 0x00009815 0x0000b67e 0x0000d4e7 0x0000f350 0x000111b9 0x00013022 0x00014e8b 0x00016cf4 0x00018b5d 0x0001a9c6 0x0001c82f 0x0001e698 0x00020501 0x0002236a 0x000241d3 0x0002603c 0x00027ea5 0x00029d0e 0x0002bb77 0x0002d9e0 0x0002f849 0x000316b2 0x0003351b 0x00035384 0x000371ed 0x00039056 0x0003aebf 0x0003cd28 0x0003eb91 0x000409fa]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [15]
   TagType_StripByteCounts(DataType_Long): [7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 1038]
@@ -1899,7 +1899,7 @@ tiff.IFD {
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 1.5771397140431192e+06 634349.1756344379 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 6 1024 0 1 1 1025 0 1 1 1026 34737 17 17 2054 0 1 9102 3072 0 1 26746 3076 0 1 9003 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): SPAF  406   E000|SPAF  406   E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\spcs27.tif
@@ -1908,13 +1908,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00041200
 }
-tiff.IFD {
+tiff.IFD(0x00041200) {
   TagType_ImageWidth(DataType_Short): [516]
   TagType_ImageLength(DataType_Short): [516]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8 7748 15488 23228 30968 38708 46448 54188 61928 69668 77408 85148 92888 100628 108368 116108 123848 131588 139328 147068 154808 162548 170288 178028 185768 193508 201248 208988 216728 224468 232208 239948 247688 255428 263168]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x00001e44 0x00003c80 0x00005abc 0x000078f8 0x00009734 0x0000b570 0x0000d3ac 0x0000f1e8 0x00011024 0x00012e60 0x00014c9c 0x00016ad8 0x00018914 0x0001a750 0x0001c58c 0x0001e3c8 0x00020204 0x00022040 0x00023e7c 0x00025cb8 0x00027af4 0x00029930 0x0002b76c 0x0002d5a8 0x0002f3e4 0x00031220 0x0003305c 0x00034e98 0x00036cd4 0x00038b10 0x0003a94c 0x0003c788 0x0003e5c4 0x00040400]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [15]
   TagType_StripByteCounts(DataType_Long): [7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 7740 3096]
@@ -1923,7 +1923,7 @@ tiff.IFD {
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 480713.14626663533 193350.01543340756 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 6 1024 0 1 1 1025 0 1 1 1026 34737 17 17 2054 0 1 9102 3072 0 1 26746 3076 0 1 9001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): SPCS  406   E000|SPCS  406   E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\spif83.tif
@@ -1932,13 +1932,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00041000
 }
-tiff.IFD {
+tiff.IFD(0x00041000) {
   TagType_ImageWidth(DataType_Short): [519]
   TagType_ImageLength(DataType_Short): [512]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8 7793 15578 23363 31148 38933 46718 54503 62288 70073 77858 85643 93428 101213 108998 116783 124568 132353 140138 147923 155708 163493 171278 179063 186848 194633 202418 210203 217988 225773 233558 241343 249128 256913 264698]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x00001e71 0x00003cda 0x00005b43 0x000079ac 0x00009815 0x0000b67e 0x0000d4e7 0x0000f350 0x000111b9 0x00013022 0x00014e8b 0x00016cf4 0x00018b5d 0x0001a9c6 0x0001c82f 0x0001e698 0x00020501 0x0002236a 0x000241d3 0x0002603c 0x00027ea5 0x00029d0e 0x0002bb77 0x0002d9e0 0x0002f849 0x000316b2 0x0003351b 0x00035384 0x000371ed 0x00039056 0x0003aebf 0x0003cd28 0x0003eb91 0x000409fa]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [15]
   TagType_StripByteCounts(DataType_Long): [7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 7785 1038]
@@ -1947,7 +1947,7 @@ tiff.IFD {
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 6.138559557641864e+06 2.274798783667921e+06 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 6 1024 0 1 1 1025 0 1 1 1026 34737 17 17 2054 0 1 9102 3072 0 1 26946 3076 0 1 9002 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): SPIF  406   D-02|SPIF  406   D-02|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\tm.tif
@@ -1956,13 +1956,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040e00
 }
-tiff.IFD {
+tiff.IFD(0x00040e00) {
   TagType_ImageWidth(DataType_Short): [515]
   TagType_ImageLength(DataType_Short): [515]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8 7733 15458 23183 30908 38633 46358 54083 61808 69533 77258 84983 92708 100433 108158 115883 123608 131333 139058 146783 154508 162233 169958 177683 185408 193133 200858 208583 216308 224033 231758 239483 247208 254933 262658]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x00001e35 0x00003c62 0x00005a8f 0x000078bc 0x000096e9 0x0000b516 0x0000d343 0x0000f170 0x00010f9d 0x00012dca 0x00014bf7 0x00016a24 0x00018851 0x0001a67e 0x0001c4ab 0x0001e2d8 0x00020105 0x00021f32 0x00023d5f 0x00025b8c 0x000279b9 0x000297e6 0x0002b613 0x0002d440 0x0002f26d 0x0003109a 0x00032ec7 0x00034cf4 0x00036b21 0x0003894e 0x0003a77b 0x0003c5a8 0x0003e3d5 0x00040202]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [15]
   TagType_StripByteCounts(DataType_Long): [7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 7725 2575]
@@ -1972,7 +1972,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 15 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 1 3076 0 1 9001 3080 34736 1 1 3081 34736 1 2 3082 34736 1 3 3083 34736 1 4 3092 34736 1 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [1 -117.47454288888889 33.764462027777775 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): TM          E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\utm11-27.tif
@@ -1981,13 +1981,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00040200
 }
-tiff.IFD {
+tiff.IFD(0x00040200) {
   TagType_ImageWidth(DataType_Short): [512]
   TagType_ImageLength(DataType_Short): [512]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [512]
   TagType_StripByteCounts(DataType_Long): [262144]
@@ -1996,7 +1996,7 @@ tiff.IFD {
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 440720 3.75132e+06 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 6 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2052 0 1 9001 2054 0 1 9102 3072 0 1 26711]
   TagType_GeoAsciiParamsTag(DataType_ASCII): UTM    11 S E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\pci_eg\vdg.tif
@@ -2005,13 +2005,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00053e00
 }
-tiff.IFD {
+tiff.IFD(0x00053e00) {
   TagType_ImageWidth(DataType_Short): [594]
   TagType_ImageLength(DataType_Short): [578]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [578]
   TagType_StripByteCounts(DataType_Long): [343332]
@@ -2021,7 +2021,7 @@ tiff.IFD {
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 13 1024 0 1 1 1025 0 1 1 1026 34737 17 0 2048 0 1 4267 2052 0 1 9001 2054 0 1 9102 3072 0 1 32767 3074 0 1 32767 3075 0 1 25 3076 0 1 9001 3082 34736 1 1 3083 34736 1 2 3088 34736 1 0]
   TagType_GeoDoubleParamsTag(DataType_Double): [-117.47454288888889 0 0]
   TagType_GeoAsciiParamsTag(DataType_ASCII): VDG         E000|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\spot\chicago\SP27GTIF.TIF
@@ -2030,14 +2030,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0009e8a4
 }
-tiff.IFD {
+tiff.IFD(0x0009e8a4) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Short): [699]
   TagType_ImageLength(DataType_Short): [929]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8 7697 15386 23075 30764 38453 46142 53831 61520 69209 76898 84587 92276 99965 107654 115343 123032 130721 138410 146099 153788 161477 169166 176855 184544 192233 199922 207611 215300 222989 230678 238367 246056 253745 261434 269123 276812 284501 292190 299879 307568 315257 322946 330635 338324 346013 353702 361391 369080 376769 384458 392147 399836 407525 415214 422903 430592 438281 445970 453659 461348 469037 476726 484415 492104 499793 507482 515171 522860 530549 538238 545927 553616 561305 568994 576683 584372 592061 599750 607439 615128 622817 630506 638195 645884]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x00001e11 0x00003c1a 0x00005a23 0x0000782c 0x00009635 0x0000b43e 0x0000d247 0x0000f050 0x00010e59 0x00012c62 0x00014a6b 0x00016874 0x0001867d 0x0001a486 0x0001c28f 0x0001e098 0x0001fea1 0x00021caa 0x00023ab3 0x000258bc 0x000276c5 0x000294ce 0x0002b2d7 0x0002d0e0 0x0002eee9 0x00030cf2 0x00032afb 0x00034904 0x0003670d 0x00038516 0x0003a31f 0x0003c128 0x0003df31 0x0003fd3a 0x00041b43 0x0004394c 0x00045755 0x0004755e 0x00049367 0x0004b170 0x0004cf79 0x0004ed82 0x00050b8b 0x00052994 0x0005479d 0x000565a6 0x000583af 0x0005a1b8 0x0005bfc1 0x0005ddca 0x0005fbd3 0x000619dc 0x000637e5 0x000655ee 0x000673f7 0x00069200 0x0006b009 0x0006ce12 0x0006ec1b 0x00070a24 0x0007282d 0x00074636 0x0007643f 0x00078248 0x0007a051 0x0007be5a 0x0007dc63 0x0007fa6c 0x00081875 0x0008367e 0x00085487 0x00087290 0x00089099 0x0008aea2 0x0008ccab 0x0008eab4 0x000908bd 0x000926c6 0x000944cf 0x000962d8 0x000980e1 0x00099eea 0x0009bcf3 0x0009dafc]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [11]
   TagType_StripByteCounts(DataType_Long): [7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 3495]
@@ -2049,7 +2049,7 @@ tiff.IFD {
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 681480 1.91305e+06 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 0 2 5 1024 0 1 1 1025 0 1 1 1026 34737 24 0 2049 34737 23 24 3072 0 1 26771]
   TagType_GeoAsciiParamsTag(DataType_ASCII): State Plane NAD27, Feet|NAD27 in Feet default"|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\spot\chicago\UTM2GTIF.TIF
@@ -2058,14 +2058,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0009e8a4
 }
-tiff.IFD {
+tiff.IFD(0x0009e8a4) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Short): [699]
   TagType_ImageLength(DataType_Short): [929]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [1]
-  TagType_StripOffsets(DataType_Long): [8 7697 15386 23075 30764 38453 46142 53831 61520 69209 76898 84587 92276 99965 107654 115343 123032 130721 138410 146099 153788 161477 169166 176855 184544 192233 199922 207611 215300 222989 230678 238367 246056 253745 261434 269123 276812 284501 292190 299879 307568 315257 322946 330635 338324 346013 353702 361391 369080 376769 384458 392147 399836 407525 415214 422903 430592 438281 445970 453659 461348 469037 476726 484415 492104 499793 507482 515171 522860 530549 538238 545927 553616 561305 568994 576683 584372 592061 599750 607439 615128 622817 630506 638195 645884]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x00001e11 0x00003c1a 0x00005a23 0x0000782c 0x00009635 0x0000b43e 0x0000d247 0x0000f050 0x00010e59 0x00012c62 0x00014a6b 0x00016874 0x0001867d 0x0001a486 0x0001c28f 0x0001e098 0x0001fea1 0x00021caa 0x00023ab3 0x000258bc 0x000276c5 0x000294ce 0x0002b2d7 0x0002d0e0 0x0002eee9 0x00030cf2 0x00032afb 0x00034904 0x0003670d 0x00038516 0x0003a31f 0x0003c128 0x0003df31 0x0003fd3a 0x00041b43 0x0004394c 0x00045755 0x0004755e 0x00049367 0x0004b170 0x0004cf79 0x0004ed82 0x00050b8b 0x00052994 0x0005479d 0x000565a6 0x000583af 0x0005a1b8 0x0005bfc1 0x0005ddca 0x0005fbd3 0x000619dc 0x000637e5 0x000655ee 0x000673f7 0x00069200 0x0006b009 0x0006ce12 0x0006ec1b 0x00070a24 0x0007282d 0x00074636 0x0007643f 0x00078248 0x0007a051 0x0007be5a 0x0007dc63 0x0007fa6c 0x00081875 0x0008367e 0x00085487 0x00087290 0x00089099 0x0008aea2 0x0008ccab 0x0008eab4 0x000908bd 0x000926c6 0x000944cf 0x000962d8 0x000980e1 0x00099eea 0x0009bcf3 0x0009dafc]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [11]
   TagType_StripByteCounts(DataType_Long): [7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 7689 3495]
@@ -2077,7 +2077,7 @@ tiff.IFD {
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 444650 4.64051e+06 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 0 5 1024 0 1 1 1025 0 1 1 1026 34737 20 0 2049 34737 24 20 3072 0 1 26716]
   TagType_GeoAsciiParamsTag(DataType_ASCII): UTM Zone 16N NAD27"|Clarke, 1866 by Default|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\image0.tif
@@ -2086,7 +2086,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006678
 }
-tiff.IFD {
+tiff.IFD(0x00006678) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [380]
   TagType_ImageLength(DataType_Long): [765]
@@ -2100,14 +2100,14 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 1266 2002 2950 3834 4906 5998 6926 7830 9030 10030 10970 12154 12894 13630 14790 15162 15418]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x000004f2 0x000007d2 0x00000b86 0x00000efa 0x0000132a 0x0000176e 0x00001b0e 0x00001e96 0x00002346 0x0000272e 0x00002ada 0x00002f7a 0x0000325e 0x0000353e 0x000039c6 0x00003b3a 0x00003c3a]
   TagType_TileByteCounts(DataType_Long): [684 736 948 884 1072 1092 928 904 1200 1000 940 1184 740 736 1160 372 256 946]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 22 0 18564 603 2 9 516 0 1 0 22 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39574 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54529 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 3884 603 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 45518 53811 31046 16481 0 0 49152 16482 19275 62187 47140 16441 57676 25763 43997 16516 0 0 49152 16482 40262 50692 64022 49152 0 16384 24772 16771 55050 28835 2621 16413 38219 10025 60560 16806 0 0 0 16368 0 0 0 0 41371 20269 41193 49377 28568 4 1 0 0 0 0 0 765 0 380 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
   TagType_ModelTransformationTag(DataType_Double): [0 0.1850509803921595 0 -12.51100000000001 -0.3001842105263167 0 0 109.03599999999999 0 0 1 0 0 0 0 1]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 7 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3089 34736 1 4 3092 34736 1 5 3073 34737 23 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [0 0 0 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Mercator; WGS84; WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\image1.tif
@@ -2116,7 +2116,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006678
 }
-tiff.IFD {
+tiff.IFD(0x00006678) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [380]
   TagType_ImageLength(DataType_Long): [765]
@@ -2130,14 +2130,14 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 966 1222 2190 2922 3682 4838 5834 6762 7946 8898 9802 10998 11870 12946 14042 14714 15434]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x000003c6 0x000004c6 0x0000088e 0x00000b6a 0x00000e62 0x000012e6 0x000016ca 0x00001a6a 0x00001f0a 0x000022c2 0x0000264a 0x00002af6 0x00002e5e 0x00003292 0x000036da 0x0000397a 0x00003c4a]
   TagType_TileByteCounts(DataType_Long): [384 256 968 732 760 1156 996 928 1184 952 904 1196 872 1076 1096 672 720 930]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 0 0 0 0 2 9 516 0 1 0 14 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39545 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54558 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 82 99 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 60072 7249 31108 16481 0 0 49152 16482 48534 34742 46620 16441 46759 63662 43160 16516 0 0 49152 16482 3188 34041 64671 49152 0 14336 24840 16771 55050 28835 2621 16413 37091 37976 59632 16806 0 0 0 16368 0 0 0 0 59422 35754 40796 49377 28568 4 1 0 0 0 0 0 765 0 380 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1]
   TagType_ModelTransformationTag(DataType_Double): [0 -0.1850509803921595 0 129.053 -0.3001842105263349 0 0 109.03599999999999 0 0 1 0 0 0 0 1]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 7 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3089 34736 1 4 3092 34736 1 5 3073 34737 23 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [0 0 0 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Mercator; WGS84; WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\image2.tif
@@ -2146,7 +2146,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006678
 }
-tiff.IFD {
+tiff.IFD(0x00006678) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [380]
   TagType_ImageLength(DataType_Long): [765]
@@ -2160,14 +2160,14 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 1274 2010 2950 3786 4858 5998 6942 7846 9030 9958 10898 12154 13058 13794 14790 15486 15742]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x000004fa 0x000007da 0x00000b86 0x00000eca 0x000012fa 0x0000176e 0x00001b1e 0x00001ea6 0x00002346 0x000026e6 0x00002a92 0x00002f7a 0x00003302 0x000035e2 0x000039c6 0x00003c7e 0x00003d7e]
   TagType_TileByteCounts(DataType_Long): [692 736 940 836 1072 1140 944 904 1184 928 940 1256 904 736 996 696 256 622]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 0 0 0 0 2 9 516 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39966 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54137 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 44852 603 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 49916 23318 30218 16481 0 0 49152 16482 31193 61502 54145 16441 30286 769 55281 16516 0 0 49152 16482 2474 64877 55311 49152 0 32768 23853 16771 55050 28835 2621 16413 20761 28891 7537 16807 0 0 0 16368 0 0 0 0 50207 63734 46498 49377 28568 4 1 0 0 0 0 0 765 0 380 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 0]
   TagType_ModelTransformationTag(DataType_Double): [0 0.1850509803921559 0 -12.51100000000001 0.3001842105263167 0 0 -5.033999999999992 0 0 1 0 0 0 0 1]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 7 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3089 34736 1 4 3092 34736 1 5 3073 34737 23 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [0 0 0 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Mercator; WGS84; WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\image3.tif
@@ -2176,7 +2176,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006678
 }
-tiff.IFD {
+tiff.IFD(0x00006678) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [380]
   TagType_ImageLength(DataType_Long): [765]
@@ -2190,14 +2190,14 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 1294 1550 2190 3090 3850 4838 5766 6694 7946 8886 9790 10998 11838 12914 14042 14722 15442]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x0000050e 0x0000060e 0x0000088e 0x00000c12 0x00000f0a 0x000012e6 0x00001686 0x00001a26 0x00001f0a 0x000022b6 0x0000263e 0x00002af6 0x00002e3e 0x00003272 0x000036da 0x00003982 0x00003c52]
   TagType_TileByteCounts(DataType_Long): [712 256 640 900 760 988 928 928 1252 940 904 1208 840 1076 1128 680 720 922]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 0 0 0 0 2 9 516 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39639 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54464 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 0 0 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 10637 29362 30909 16481 0 0 49152 16482 42499 19904 48306 16441 7359 19568 45871 16516 0 0 49152 16482 37037 56845 62570 49152 0 59392 24619 16771 55050 28835 2621 16413 40065 17918 62638 16806 0 0 0 16368 0 0 0 0 1155 31241 42080 49377 28568 4 1 0 0 0 0 0 765 0 380 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
   TagType_ModelTransformationTag(DataType_Double): [0 -0.1850509803921559 0 129.053 0.3001842105263349 0 0 -5.033999999999992 0 0 1 0 0 0 0 1]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 7 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3089 34736 1 4 3092 34736 1 5 3073 34737 23 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [0 0 0 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Mercator; WGS84; WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\image4.tif
@@ -2206,7 +2206,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006d28
 }
-tiff.IFD {
+tiff.IFD(0x00006d28) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [765]
   TagType_ImageLength(DataType_Long): [380]
@@ -2219,14 +2219,14 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [570 1460 2506 3510 4582 5558 6140 7184 8386 9410 10420 11294 11806 12804 13750 14812 15942 17122]
+  TagType_TileOffsets(DataType_Long): [0x0000023a 0x000005b4 0x000009ca 0x00000db6 0x000011e6 0x000015b6 0x000017fc 0x00001c10 0x000020c2 0x000024c2 0x000028b4 0x00002c1e 0x00002e1e 0x00003204 0x000035b6 0x000039dc 0x00003e46 0x000042e2]
   TagType_TileByteCounts(DataType_Long): [890 1046 1004 1072 976 582 1044 1202 1024 1010 874 512 998 946 1062 1130 1180 1018]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 25454 24435 24941 29300 2 9 516 0 1 0 15 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39712 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54391 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 39148 604 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 44057 10977 30755 16481 0 0 49152 16482 37883 18000 49613 16441 57524 30498 47974 16516 0 0 49152 16482 50612 55459 60943 49152 0 53248 24448 16771 55050 28835 2621 16413 38845 41922 64970 16806 0 0 0 16368 0 0 0 0 17307 21166 43073 49377 28568 4 1 0 0 0 0 0 380 0 765 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
   TagType_ModelTransformationTag(DataType_Double): [0.1850509803921595 0 0 -12.511000000000005 0 -0.3001842105263349 0 109.03599999999997 0 0 1 0 0 0 0 1]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 7 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3089 34736 1 4 3092 34736 1 5 3073 34737 23 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [0 0 0 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Mercator; WGS84; WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\image5.tif
@@ -2235,7 +2235,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006df8
 }
-tiff.IFD {
+tiff.IFD(0x00006df8) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [765]
   TagType_ImageLength(DataType_Long): [380]
@@ -2249,14 +2249,14 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 1010 1998 3046 4050 5102 6238 6494 7376 8382 9404 10694 11898 12674 13914 15040 16138 17040]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x000003f2 0x000007ce 0x00000be6 0x00000fd2 0x000013ee 0x0000185e 0x0000195e 0x00001cd0 0x000020be 0x000024bc 0x000029c6 0x00002e7a 0x00003182 0x0000365a 0x00003ac0 0x00003f0a 0x00004290]
   TagType_TileByteCounts(DataType_Long): [428 988 1048 1004 1052 1136 256 882 1006 1022 1290 1204 776 1240 1126 1098 902 1244]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 0 0 0 0 2 9 516 0 1 0 15 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39733 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54370 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 29810 28520 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 26738 51474 30710 16481 0 0 49152 16482 336 58859 49988 16441 43463 14213 48579 16516 0 0 49152 16482 27280 32667 60476 49152 0 38912 24399 16771 55050 28835 2621 16413 42181 19396 105 16807 0 0 0 16368 0 0 0 0 44192 16295 43358 49377 28568 4 1 0 0 0 0 0 380 0 765 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 29557 24435 29291 26485]
   TagType_ModelTransformationTag(DataType_Double): [-0.1850509803921594 0 0 129.0529999999999 0 -0.3001842105263349 0 109.03599999999997 0 0 1 0 0 0 0 1]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 7 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3089 34736 1 4 3092 34736 1 5 3073 34737 23 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [0 0 0 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Mercator; WGS84; WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\image6.tif
@@ -2265,7 +2265,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006d68
 }
-tiff.IFD {
+tiff.IFD(0x00006d68) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [765]
   TagType_ImageLength(DataType_Long): [380]
@@ -2279,14 +2279,14 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 1580 2526 3588 4718 5898 6924 7968 9170 10194 11204 12078 12590 13480 14526 15530 16602 17578]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x0000062c 0x000009de 0x00000e04 0x0000126e 0x0000170a 0x00001b0c 0x00001f20 0x000023d2 0x000027d2 0x00002bc4 0x00002f2e 0x0000312e 0x000034a8 0x000038be 0x00003caa 0x000040da 0x000044aa]
   TagType_TileByteCounts(DataType_Long): [998 946 1062 1130 1180 1026 1044 1202 1024 1010 874 512 890 1046 1004 1072 976 574]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 0 0 0 0 2 9 516 0 1 0 21896 604 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39726 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54377 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 197 0 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 32511 37975 30725 16481 0 0 49152 16482 54474 46391 49863 16441 56153 42362 48377 16516 0 0 49152 16482 8618 16148 60632 49152 0 0 24416 16771 55050 28835 2621 16413 31965 49721 65417 16806 0 0 0 16368 0 0 0 0 54835 20155 43263 49377 28568 4 1 0 0 0 0 0 380 0 765 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 201 0 207 0]
   TagType_ModelTransformationTag(DataType_Double): [0.1850509803921595 0 0 -12.511000000000005 0 0.3001842105263149 0 -5.03400000000001 0 0 1 0 0 0 0 1]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 7 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3089 34736 1 4 3092 34736 1 5 3073 34737 23 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [0 0 0 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Mercator; WGS84; WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\image7.tif
@@ -2295,7 +2295,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006df8
 }
-tiff.IFD {
+tiff.IFD(0x00006df8) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [765]
   TagType_ImageLength(DataType_Long): [380]
@@ -2309,14 +2309,14 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 1358 2598 3724 4822 5724 6976 7232 8114 9120 10142 11432 12636 13064 14052 15100 16104 17156]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x0000054e 0x00000a26 0x00000e8c 0x000012d6 0x0000165c 0x00001b40 0x00001c40 0x00001fb2 0x000023a0 0x0000279e 0x00002ca8 0x0000315c 0x00003308 0x000036e4 0x00003afc 0x00003ee8 0x00004304]
   TagType_TileByteCounts(DataType_Long): [776 1240 1126 1098 902 1252 256 882 1006 1022 1290 1204 428 988 1048 1004 1052 1128]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65024 0 65535 0 2 9 516 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39552 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54551 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 29 0 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 54299 20748 31093 16481 0 0 49152 16482 40732 11549 46746 16441 19466 58150 43362 16516 0 0 49152 16482 16227 57052 64514 49152 0 53248 24823 16771 55050 28835 2621 16413 27255 32755 59856 16806 0 0 0 16368 0 0 0 0 1640 24238 40892 49377 28568 4 1 0 0 0 0 0 380 0 765 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 60 0 65 0]
   TagType_ModelTransformationTag(DataType_Double): [-0.1850509803921594 0 0 129.0529999999999 0 0.3001842105263149 0 -5.03400000000001 0 0 1 0 0 0 0 1]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 15 1024 0 1 1 1025 0 1 1 3075 0 1 7 3074 0 1 32767 2050 0 1 6326 2056 0 1 7030 3080 34736 1 0 3081 34736 1 1 3082 34736 1 2 3083 34736 1 3 3089 34736 1 4 3092 34736 1 5 3073 34737 23 0 3072 0 1 32767 3076 0 1 9001]
   TagType_GeoDoubleParamsTag(DataType_Double): [0 0 0 0 0 1]
   TagType_GeoAsciiParamsTag(DataType_ASCII): Mercator; WGS84; WGS84|
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\tp_image0.tif
@@ -2325,7 +2325,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006580
 }
-tiff.IFD {
+tiff.IFD(0x00006580) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [380]
   TagType_ImageLength(DataType_Long): [765]
@@ -2339,12 +2339,12 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 1266 2002 2950 3834 4906 5998 6926 7830 9030 10030 10970 12154 12894 13630 14790 15162 15418]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x000004f2 0x000007d2 0x00000b86 0x00000efa 0x0000132a 0x0000176e 0x00001b0e 0x00001e96 0x00002346 0x0000272e 0x00002ada 0x00002f7a 0x0000325e 0x0000353e 0x000039c6 0x00003b3a 0x00003c3a]
   TagType_TileByteCounts(DataType_Long): [684 736 948 884 1072 1092 928 904 1200 1000 940 1184 740 736 1160 372 256 946]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 2317 18944 2 9 516 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39574 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54529 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 0 0 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 45518 53811 31046 16481 0 0 49152 16482 19275 62187 47140 16441 57676 25763 43997 16516 0 0 49152 16482 40262 50692 64022 49152 0 16384 24772 16771 55050 28835 2621 16413 38219 10025 60560 16806 0 0 0 16368 0 0 0 0 41371 20269 41193 49377 28568 4 1 0 0 0 0 0 765 0 380 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 20553 20300 84 0]
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 17.16 906.9475 0 380 0 0 92.32999999999998 -95.22749999999985 0 0 765 0 1001.97 1080.5925000000002 0 380 765 0 1077.14 78.41750000000036 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 3 1024 0 1 0 1025 0 1 1 3076 0 1 9001]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\tp_image1.tif
@@ -2353,7 +2353,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006580
 }
-tiff.IFD {
+tiff.IFD(0x00006580) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [380]
   TagType_ImageLength(DataType_Long): [765]
@@ -2367,12 +2367,12 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 966 1222 2190 2922 3682 4838 5834 6762 7946 8898 9802 10998 11870 12946 14042 14714 15434]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x000003c6 0x000004c6 0x0000088e 0x00000b6a 0x00000e62 0x000012e6 0x000016ca 0x00001a6a 0x00001f0a 0x000022c2 0x0000264a 0x00002af6 0x00002e5e 0x00003292 0x000036da 0x0000397a 0x00003c4a]
   TagType_TileByteCounts(DataType_Long): [384 256 968 732 760 1156 996 928 1184 952 904 1196 872 1076 1096 672 720 930]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 1620 3328 65534 0 2 9 516 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39545 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54558 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 0 0 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 60072 7249 31108 16481 0 0 49152 16482 48534 34742 46620 16441 46759 63662 43160 16516 0 0 49152 16482 3188 34041 64671 49152 0 14336 24840 16771 55050 28835 2621 16413 37091 37976 59632 16806 0 0 0 16368 0 0 0 0 59422 35754 40796 49377 28568 4 1 0 0 0 0 0 765 0 380 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 1001.97 1080.5925 0 380 0 0 1077.14 78.41750000000013 0 0 765 0 17.160000000000082 906.9475000000002 0 380 765 0 92.33000000000007 -95.22749999999962 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 3 1024 0 1 0 1025 0 1 1 3076 0 1 9001]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\tp_image2.tif
@@ -2381,7 +2381,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006580
 }
-tiff.IFD {
+tiff.IFD(0x00006580) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [380]
   TagType_ImageLength(DataType_Long): [765]
@@ -2395,12 +2395,12 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 1274 2010 2950 3786 4858 5998 6942 7846 9030 9958 10898 12154 13058 13794 14790 15486 15742]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x000004fa 0x000007da 0x00000b86 0x00000eca 0x000012fa 0x0000176e 0x00001b1e 0x00001ea6 0x00002346 0x000026e6 0x00002a92 0x00002f7a 0x00003302 0x000035e2 0x000039c6 0x00003c7e 0x00003d7e]
   TagType_TileByteCounts(DataType_Long): [692 736 940 836 1072 1140 944 904 1184 928 940 1256 904 736 996 696 256 622]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 26950 25964 115 0 2 9 516 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39966 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54137 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 29424 16 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 49916 23318 30218 16481 0 0 49152 16482 31193 61502 54145 16441 30286 769 55281 16516 0 0 49152 16482 2474 64877 55311 49152 0 32768 23853 16771 55050 28835 2621 16413 20761 28891 7537 16807 0 0 0 16368 0 0 0 0 50207 63734 46498 49377 28568 4 1 0 0 0 0 0 765 0 380 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3024 716 0 0]
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 92.33 -95.22749999999992 0 380 0 0 17.16000000000001 906.9475000000002 0 0 765 0 1077.14 78.41750000000029 0 380 765 0 1001.9700000000001 1080.5925000000004 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 3 1024 0 1 0 1025 0 1 1 3076 0 1 9001]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\tp_image3.tif
@@ -2409,7 +2409,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006580
 }
-tiff.IFD {
+tiff.IFD(0x00006580) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [380]
   TagType_ImageLength(DataType_Long): [765]
@@ -2423,12 +2423,12 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 1294 1550 2190 3090 3850 4838 5766 6694 7946 8886 9790 10998 11838 12914 14042 14722 15442]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x0000050e 0x0000060e 0x0000088e 0x00000c12 0x00000f0a 0x000012e6 0x00001686 0x00001a26 0x00001f0a 0x000022b6 0x0000263e 0x00002af6 0x00002e3e 0x00003272 0x000036da 0x00003982 0x00003c52]
   TagType_TileByteCounts(DataType_Long): [712 256 640 900 760 988 928 928 1252 940 904 1208 840 1076 1128 680 720 922]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 64096 24771 0 0 2 9 516 0 1 0 60252 599 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39639 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54464 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 27536 598 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 10637 29362 30909 16481 0 0 49152 16482 42499 19904 48306 16441 7359 19568 45871 16516 0 0 49152 16482 37037 56845 62570 49152 0 59392 24619 16771 55050 28835 2621 16413 40065 17918 62638 16806 0 0 0 16368 0 0 0 0 1155 31241 42080 49377 28568 4 1 0 0 0 0 0 765 0 380 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 1077.14 78.4175 0 380 0 0 1001.9700000000001 1080.5925000000002 0 0 765 0 92.33000000000015 -95.22749999999978 0 380 765 0 17.160000000000167 906.9475000000004 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 3 1024 0 1 0 1025 0 1 1 3076 0 1 9001]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\tp_image4.tif
@@ -2437,7 +2437,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006c40
 }
-tiff.IFD {
+tiff.IFD(0x00006c40) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [765]
   TagType_ImageLength(DataType_Long): [380]
@@ -2450,12 +2450,12 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [570 1460 2506 3510 4582 5558 6140 7184 8386 9410 10420 11294 11806 12804 13750 14812 15942 17122]
+  TagType_TileOffsets(DataType_Long): [0x0000023a 0x000005b4 0x000009ca 0x00000db6 0x000011e6 0x000015b6 0x000017fc 0x00001c10 0x000020c2 0x000024c2 0x000028b4 0x00002c1e 0x00002e1e 0x00003204 0x000035b6 0x000039dc 0x00003e46 0x000042e2]
   TagType_TileByteCounts(DataType_Long): [890 1046 1004 1072 976 582 1044 1202 1024 1010 874 512 998 946 1062 1130 1180 1018]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 0 0 0 0 2 9 516 0 1 0 2208 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39712 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54391 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 0 0 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 44057 10977 30755 16481 0 0 49152 16482 37883 18000 49613 16441 57524 30498 47974 16516 0 0 49152 16482 50612 55459 60943 49152 0 53248 24448 16771 55050 28835 2621 16413 38845 41922 64970 16806 0 0 0 16368 0 0 0 0 17307 21166 43073 49377 28568 4 1 0 0 0 0 0 380 0 765 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 65535 65535 0 0]
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 17.16 906.9475 0 765 0 0 1001.97 1080.5925000000002 0 0 380 0 92.32999999999998 -95.22749999999985 0 765 380 0 1077.14 78.41750000000036 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 3 1024 0 1 0 1025 0 1 1 3076 0 1 9001]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\tp_image5.tif
@@ -2464,7 +2464,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006d00
 }
-tiff.IFD {
+tiff.IFD(0x00006d00) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [765]
   TagType_ImageLength(DataType_Long): [380]
@@ -2478,12 +2478,12 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 1010 1998 3046 4050 5102 6238 6494 7376 8382 9404 10694 11898 12674 13914 15040 16138 17040]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x000003f2 0x000007ce 0x00000be6 0x00000fd2 0x000013ee 0x0000185e 0x0000195e 0x00001cd0 0x000020be 0x000024bc 0x000029c6 0x00002e7a 0x00003182 0x0000365a 0x00003ac0 0x00003f0a 0x00004290]
   TagType_TileByteCounts(DataType_Long): [428 988 1048 1004 1052 1136 256 882 1006 1022 1290 1204 776 1240 1126 1098 902 1244]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 19029 7680 63 0 2 9 516 0 1 0 1380 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39733 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54370 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 25 0 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 26738 51474 30710 16481 0 0 49152 16482 336 58859 49988 16441 43463 14213 48579 16516 0 0 49152 16482 27280 32667 60476 49152 0 38912 24399 16771 55050 28835 2621 16413 42181 19396 105 16807 0 0 0 16368 0 0 0 0 44192 16295 43358 49377 28568 4 1 0 0 0 0 0 380 0 765 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1568 741 0 0]
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 1001.97 1080.5925 0 765 0 0 17.160000000000082 906.9475000000002 0 0 380 0 1077.14 78.41750000000013 0 765 380 0 92.33000000000015 -95.22749999999965 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 3 1024 0 1 0 1025 0 1 1 3076 0 1 9001]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\tp_image6.tif
@@ -2492,7 +2492,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006c70
 }
-tiff.IFD {
+tiff.IFD(0x00006c70) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [765]
   TagType_ImageLength(DataType_Long): [380]
@@ -2506,12 +2506,12 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 1580 2526 3588 4718 5898 6924 7968 9170 10194 11204 12078 12590 13480 14526 15530 16602 17578]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x0000062c 0x000009de 0x00000e04 0x0000126e 0x0000170a 0x00001b0c 0x00001f20 0x000023d2 0x000027d2 0x00002bc4 0x00002f2e 0x0000312e 0x000034a8 0x000038be 0x00003caa 0x000040da 0x000044aa]
   TagType_TileByteCounts(DataType_Long): [998 946 1062 1130 1180 1026 1044 1202 1024 1010 874 512 890 1046 1004 1072 976 574]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 45364 141 16984 140 2 9 516 0 1 0 25972 25951 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39726 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54377 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 25970 29795 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 32511 37975 30725 16481 0 0 49152 16482 54474 46391 49863 16441 56153 42362 48377 16516 0 0 49152 16482 8618 16148 60632 49152 0 0 24416 16771 55050 28835 2621 16413 31965 49721 65417 16806 0 0 0 16368 0 0 0 0 54835 20155 43263 49377 28568 4 1 0 0 0 0 0 380 0 765 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 29810 50 0 0]
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 92.33 -95.2275 0 765 0 0 1077.14 78.4175000000002 0 0 380 0 17.16000000000001 906.9475000000002 0 765 380 0 1001.97 1080.5925000000004 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 3 1024 0 1 0 1025 0 1 1 3076 0 1 9001]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\geotiff\zi_imaging\tp_image7.tif
@@ -2520,7 +2520,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00006d00
 }
-tiff.IFD {
+tiff.IFD(0x00006d00) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Long): [765]
   TagType_ImageLength(DataType_Long): [380]
@@ -2534,11 +2534,11 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_TileWidth(DataType_Short): [128]
   TagType_TileLength(DataType_Short): [128]
-  TagType_TileOffsets(DataType_Long): [582 1358 2598 3724 4822 5724 6976 7232 8114 9120 10142 11432 12636 13064 14052 15100 16104 17156]
+  TagType_TileOffsets(DataType_Long): [0x00000246 0x0000054e 0x00000a26 0x00000e8c 0x000012d6 0x0000165c 0x00001b40 0x00001c40 0x00001fb2 0x000023a0 0x0000279e 0x00002ca8 0x0000315c 0x00003308 0x000036e4 0x00003afc 0x00003ee8 0x00004304]
   TagType_TileByteCounts(DataType_Long): [776 1240 1126 1098 902 1252 256 882 1006 1022 1290 1204 428 988 1048 1004 1052 1128]
   TagType_Unknown(33918)(DataType_Short): [2 10 104 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16368 28009 26465 11877 26468 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 144 0 1 0 1 0 0 0 2 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1795 3594 5137 6936 8735 10533 12332 13875 15674 17473 19271 21070 22613 24412 26211 28009 29808 31351 33150 34949 36747 38546 40089 41888 43687 45485 47284 48827 50626 52425 54223 56022 57565 59364 61163 62961 64760 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 100 0 0 0 2 9 516 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 39552 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 54551 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 15 132 0 1 0 1 0 1 0 0 0 722 29428 35927 16427 0 0 49152 16466 0 0 49152 16482 0 0 0 16467 54299 20748 31093 16481 0 0 49152 16482 40732 11549 46746 16441 19466 58150 43362 16516 0 0 49152 16482 16227 57052 64514 49152 0 53248 24823 16771 55050 28835 2621 16413 27255 32755 59856 16806 0 0 0 16368 0 0 0 0 1640 24238 40892 49377 28568 4 1 0 0 0 0 0 380 0 765 0 0 0 0 0 14284 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
   TagType_ModelTiepointTag(DataType_Double): [0 0 0 1077.14 78.4175 0 765 0 0 92.33000000000015 -95.22749999999978 0 0 380 0 1001.9700000000001 1080.5925000000002 0 765 380 0 17.160000000000196 906.9475000000004 0]
   TagType_GeoKeyDirectoryTag(DataType_Short): [1 1 2 3 1024 0 1 0 1025 0 1 1 3076 0 1 9001]
-  Next: 00000000
+  Next: 0x00000000
 }
 

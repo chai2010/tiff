@@ -4,19 +4,19 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00009792
 }
-tiff.IFD {
+tiff.IFD(0x00009792) {
   TagType_ImageWidth(DataType_Short): [150]
   TagType_ImageLength(DataType_Short): [100]
   TagType_BitsPerSample(DataType_Short): [8 8 8]
   TagType_Compression(DataType_Short): [5]
   TagType_PhotometricInterpretation(DataType_Short): [2]
-  TagType_StripOffsets(DataType_Long): [8 4463 11811 21276 30484 36702]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x0000116f 0x00002e23 0x0000531c 0x00007714 0x00008f5e]
   TagType_Orientation(DataType_Short): [1]
   TagType_SamplesPerPixel(DataType_Short): [3]
   TagType_RowsPerStrip(DataType_Short): [18]
   TagType_StripByteCounts(DataType_Long): [4455 7348 9465 9208 6218 2099]
   TagType_PlanarConfiguration(DataType_Short): [1]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\bw-deflate.tiff
@@ -25,7 +25,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00000132
 }
-tiff.IFD {
+tiff.IFD(0x00000132) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Short): [153]
   TagType_ImageLength(DataType_Short): [55]
@@ -33,7 +33,7 @@ tiff.IFD {
   TagType_Compression(DataType_Short): [32946]
   TagType_PhotometricInterpretation(DataType_Short): [0]
   TagType_DocumentName(DataType_ASCII): /Users/bsiegert/Developer/Go/src/pkg/image/tiff/testdata/bw-deflate.tiff
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_Orientation(DataType_Short): [1]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [64]
@@ -42,7 +42,7 @@ tiff.IFD {
   TagType_YResolution(DataType_Rational): [[1207959552 16777216]]
   TagType_PlanarConfiguration(DataType_Short): [1]
   TagType_ResolutionUnit(DataType_Short): [2]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\bw-packbits.tiff
@@ -51,7 +51,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000025a
 }
-tiff.IFD {
+tiff.IFD(0x0000025a) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Short): [153]
   TagType_ImageLength(DataType_Short): [55]
@@ -59,7 +59,7 @@ tiff.IFD {
   TagType_Compression(DataType_Short): [32773]
   TagType_PhotometricInterpretation(DataType_Short): [0]
   TagType_DocumentName(DataType_ASCII): /Users/bsiegert/Developer/Go/src/pkg/image/tiff/testdata/bw-packbits.tiff
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_Orientation(DataType_Short): [1]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [64]
@@ -68,7 +68,7 @@ tiff.IFD {
   TagType_YResolution(DataType_Rational): [[1207959552 16777216]]
   TagType_PlanarConfiguration(DataType_Short): [1]
   TagType_ResolutionUnit(DataType_Short): [2]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\bw-uncompressed.tiff
@@ -77,7 +77,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00000454
 }
-tiff.IFD {
+tiff.IFD(0x00000454) {
   TagType_NewSubfileType(DataType_Long): [0]
   TagType_ImageWidth(DataType_Short): [153]
   TagType_ImageLength(DataType_Short): [55]
@@ -85,7 +85,7 @@ tiff.IFD {
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [0]
   TagType_DocumentName(DataType_ASCII): /Users/bsiegert/Developer/Go/src/pkg/image/tiff/testdata/bw-deflate.tiff
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_Orientation(DataType_Short): [1]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [55]
@@ -94,7 +94,7 @@ tiff.IFD {
   TagType_YResolution(DataType_Rational): [[1207959552 16777216]]
   TagType_PlanarConfiguration(DataType_Short): [1]
   TagType_ResolutionUnit(DataType_Short): [2]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\no_compress.tiff
@@ -103,12 +103,12 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x000003c8
 }
-tiff.IFD {
+tiff.IFD(0x000003c8) {
   TagType_ImageWidth(DataType_Short): [16]
   TagType_ImageLength(DataType_Short): [15]
   TagType_BitsPerSample(DataType_Short): [8 8 8 8]
   TagType_PhotometricInterpretation(DataType_Short): [2]
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_SamplesPerPixel(DataType_Short): [4]
   TagType_RowsPerStrip(DataType_Short): [15]
   TagType_StripByteCounts(DataType_Long): [960]
@@ -116,7 +116,7 @@ tiff.IFD {
   TagType_YResolution(DataType_Rational): [[72 1]]
   TagType_ResolutionUnit(DataType_Short): [2]
   TagType_ExtraSamples(DataType_Short): [2]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\no_rps.tiff
@@ -125,7 +125,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x000003c8
 }
-tiff.IFD {
+tiff.IFD(0x000003c8) {
   TagType_ImageWidth(DataType_Short): [16]
   TagType_ImageLength(DataType_Short): [15]
   TagType_BitsPerSample(DataType_Short): [8 8 8 8]
@@ -133,7 +133,7 @@ tiff.IFD {
   TagType_PhotometricInterpretation(DataType_Short): [2]
   TagType_FillOrder(DataType_Short): [1]
   TagType_DocumentName(DataType_ASCII): gophercolor16x16.tiff
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_Orientation(DataType_Short): [1]
   TagType_SamplesPerPixel(DataType_Short): [4]
   TagType_StripByteCounts(DataType_Long): [960]
@@ -143,7 +143,7 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_Software(DataType_ASCII): ImageMagick 6.4.1 06/19/08 Q16 http://www.imagemagick.org
   TagType_ExtraSamples(DataType_Short): [2]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\video-001-16bit.tiff
@@ -152,7 +152,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000a34e
 }
-tiff.IFD {
+tiff.IFD(0x0000a34e) {
   TagType_ImageWidth(DataType_Short): [150]
   TagType_ImageLength(DataType_Short): [103]
   TagType_BitsPerSample(DataType_Short): [16 16 16]
@@ -160,7 +160,7 @@ tiff.IFD {
   TagType_PhotometricInterpretation(DataType_Short): [2]
   TagType_FillOrder(DataType_Short): [1]
   TagType_DocumentName(DataType_ASCII): video-001-16bit.tiff
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_Orientation(DataType_Short): [1]
   TagType_SamplesPerPixel(DataType_Short): [3]
   TagType_RowsPerStrip(DataType_Short): [103]
@@ -172,7 +172,7 @@ tiff.IFD {
   TagType_PageNumber(DataType_Short): [0 1]
   TagType_Software(DataType_ASCII): ImageMagick 6.5.7-8 2010-12-02 Q16 http://www.imagemagick.org
   TagType_Predictor(DataType_Short): [2]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\video-001-gray-16bit.tiff
@@ -181,7 +181,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x000078bc
 }
-tiff.IFD {
+tiff.IFD(0x000078bc) {
   TagType_ImageWidth(DataType_Short): [150]
   TagType_ImageLength(DataType_Short): [103]
   TagType_BitsPerSample(DataType_Short): [16]
@@ -190,7 +190,7 @@ tiff.IFD {
   TagType_FillOrder(DataType_Short): [1]
   TagType_DocumentName(DataType_ASCII): video-001-gray-16bit.tiff
   TagType_ImageDescription(DataType_ASCII): B&W version of video-001.tiff
-  TagType_StripOffsets(DataType_Long): [8 8108 16208 24308]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x00001fac 0x00003f50 0x00005ef4]
   TagType_Orientation(DataType_Short): [1]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [27]
@@ -201,7 +201,7 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_PageNumber(DataType_Short): [0 1]
   TagType_Software(DataType_ASCII): tiff2bw
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\video-001-gray.tiff
@@ -210,7 +210,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00003c62
 }
-tiff.IFD {
+tiff.IFD(0x00003c62) {
   TagType_ImageWidth(DataType_Short): [150]
   TagType_ImageLength(DataType_Short): [103]
   TagType_BitsPerSample(DataType_Short): [8]
@@ -218,7 +218,7 @@ tiff.IFD {
   TagType_PhotometricInterpretation(DataType_Short): [1]
   TagType_DocumentName(DataType_ASCII): video-001.tiff
   TagType_ImageDescription(DataType_ASCII): B&W version of video-001.tiff
-  TagType_StripOffsets(DataType_Long): [8 8108]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x00001fac]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [54]
   TagType_StripByteCounts(DataType_Long): [8100 7350]
@@ -227,7 +227,7 @@ tiff.IFD {
   TagType_PlanarConfiguration(DataType_Short): [1]
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_Software(DataType_ASCII): tiff2bw
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\video-001-paletted.tiff
@@ -236,13 +236,13 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x000024f4
 }
-tiff.IFD {
+tiff.IFD(0x000024f4) {
   TagType_ImageWidth(DataType_Short): [150]
   TagType_ImageLength(DataType_Short): [103]
   TagType_BitsPerSample(DataType_Short): [8]
   TagType_Compression(DataType_Short): [8]
   TagType_PhotometricInterpretation(DataType_Short): [3]
-  TagType_StripOffsets(DataType_Long): [8 4340]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x000010f4]
   TagType_Orientation(DataType_Short): [1]
   TagType_SamplesPerPixel(DataType_Short): [1]
   TagType_RowsPerStrip(DataType_Short): [54]
@@ -252,7 +252,7 @@ tiff.IFD {
   TagType_PlanarConfiguration(DataType_Short): [1]
   TagType_ResolutionUnit(DataType_Short): [1]
   TagType_ColorMap(DataType_Short): [2056 16448 63736 30840 58596 43176 10280 1028 17476 41120 43176 6168 35980 15420 2056 4112 4112 27756 10280 63736 60652 11308 56540 13364 63736 63736 38036 63736 2056 38036 10280 63736 43176 14392 51400 21588 22616 8224 4112 8224 12336 15420 6168 63736 2056 16448 63736 54484 12336 45232 15420 24672 57568 63736 19532 63736 12336 63736 10280 61680 63736 60652 14392 30840 12336 4112 63736 6168 14392 27756 30840 20560 56540 63736 63736 14392 14392 8224 32896 55512 38036 8224 38036 8224 63736 32896 40092 2056 46260 39064 34952 0 35980 28784 20560 59624 16448 18504 63736 18504 41120 41120 58596 48316 44204 29812 12336 63736 47288 63736 60652 10280 15420 18504 17476 51400 43176 35980 8224 10280 10280 60652 2056 27756 7196 8224 47288 0 38036 58596 6168 37008 63736 63736 21588 37008 49344 39064 63736 16448 12336 12336 63736 24672 38036 12336 8224 41120 60652 6168 6168 0 51400 6168 16448 8224 32896 17476 23644 47288 39064 14392 41120 10280 34952 45232 34952 2056 32896 5140 11308 0 63736 1028 63736 8224 61680 18504 14392 56540 11308 39064 11308 41120 46260 58596 15420 10280 60652 43176 63736 46260 12336 63736 58596 34952 63736 12336 37008 29812 38036 6168 61680 12336 30840 32896 6168 63736 11308 37008 10280 28784 5140 54484 41120 34952 43176 32896 59624 43176 63736 6168 43176 10280 24672 27756 37008 37008 37008 51400 28784 60652 42148 32896 34952 4112 63736 34952 32896 8224 34952 25700 41120 37008 63736 59624 61680 27756 40092 30840 63736 39064 32896 45232 19532 63736 4112 14392 61680 16448 55512 26728 10280 1028 21588 45232 31868 10280 38036 12336 9252 13364 2056 10280 0 57568 52428 11308 46260 18504 45232 51400 26728 46260 30840 23644 4112 55512 24672 14392 34952 17476 21588 8224 4112 11308 6168 13364 8224 57568 0 18504 49344 46260 14392 24672 2056 22616 31868 43176 15420 47288 14392 57568 10280 61680 48316 45232 14392 13364 12336 6168 55512 8224 10280 8224 2056 18504 61680 53456 62708 11308 7196 0 10280 56540 22616 2056 32896 10280 45232 8224 15420 2056 24672 14392 16448 0 26728 3084 19532 39064 14392 15420 53456 6168 35980 25700 62708 45232 42148 0 10280 55512 30840 57568 55512 12336 12336 18504 33924 34952 22616 18504 4112 5140 12336 45232 4112 6168 6168 15420 46260 2056 13364 54484 8224 6168 63736 58596 22616 8224 33924 18504 61680 15420 12336 4112 51400 16448 25700 10280 11308 18504 49344 6168 2056 0 40092 4112 18504 14392 8224 20560 2056 24672 13364 16448 22616 16448 2056 34952 4112 10280 0 5140 13364 5140 50372 5140 55512 8224 61680 12336 17476 47288 18504 16448 2056 20560 55512 62708 15420 10280 46260 32896 62708 22616 16448 49344 39064 10280 53456 0 16448 23644 27756 2056 63736 17476 4112 6168 13364 56540 15420 14392 15420 21588 0 52428 16448 14392 20560 6168 59624 39064 51400 6168 18504 8224 6168 20560 10280 22616 12336 34952 19532 58596 16448 4112 12336 8224 61680 6168 2056 13364 8224 17476 14392 3084 63736 39064 63736 15420 11308 22616 61680 8224 15420 28784 37008 63736 0 16448 52428 7196 60652 24672 8224 7196 21588 46260 16448 8224 43176 7196 5140 12336 1028 1028 0 47288 48316 16448 32896 18504 38036 45232 14392 41120 58596 3084 1028 51400 0 12336 33924 14392 18504 4112 1028 5140 7196 21588 6168 44204 1028 34952 43176 46260 12336 7196 1028 21588 26728 38036 7196 43176 14392 53456 5140 61680 46260 39064 14392 7196 18504 4112 47288 4112 14392 1028 0 16448 61680 45232 55512 12336 7196 1028 1028 60652 16448 1028 29812 10280 31868 0 7196 1028 0 0 0 0 24672 0 18504 32896 12336 14392 41120 1028 33924 0 55512 34952 56540 0 12336 44204 6168 49344 41120 12336 10280 16448 37008 26728 0 0 1028 7196 10280 34952 2056 1028 4112 14392 46260 1028 4112 53456 9252 0 52428 51400 21588 0 26728 0 61680 14392 10280 1028 43176 7196 8224 7196 8224 0 43176 14392 7196 2056 35980 1028 16448 12336 2056 18504 1028 17476 2056 12336 0 55512 0 29812 0 9252 0 12336 6168 1028 41120 6168 49344 8224 63736 1028 14392 39064 16448 0 1028 0 57568 63736 8224 10280 44204 24672 58596 0 12336 38036 27756 0 48316 1028 0 21588 19532 1028 61680 14392 0 0 9252 58596 10280 0 12336 18504 1028 46260 15420 0 0 2056 60652 43176 48316 8224 0 1028 7196 16448 0 0 0 16448 14392 48316 0 0 0 1028 63736 0 0 10280 0 12336 0 0 61680 39064 63736 1028 0 7196 48316 0 1028 0 57568 63736]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\video-001-strip-64.tiff
@@ -261,7 +261,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x00007766
 }
-tiff.IFD {
+tiff.IFD(0x00007766) {
   TagType_ImageWidth(DataType_Short): [150]
   TagType_ImageLength(DataType_Short): [103]
   TagType_BitsPerSample(DataType_Short): [8 8 8]
@@ -269,7 +269,7 @@ tiff.IFD {
   TagType_PhotometricInterpretation(DataType_Short): [2]
   TagType_FillOrder(DataType_Short): [1]
   TagType_DocumentName(DataType_ASCII): video-001.tiff
-  TagType_StripOffsets(DataType_Long): [8 17531]
+  TagType_StripOffsets(DataType_Long): [0x00000008 0x0000447b]
   TagType_Orientation(DataType_Short): [1]
   TagType_SamplesPerPixel(DataType_Short): [3]
   TagType_RowsPerStrip(DataType_Short): [64]
@@ -281,7 +281,7 @@ tiff.IFD {
   TagType_PageNumber(DataType_Short): [0 1]
   TagType_Software(DataType_ASCII): ImageMagick 6.5.7-8 2010-12-02 Q16 http://www.imagemagick.org
   TagType_Predictor(DataType_Short): [2]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\video-001-tile-64x64.tiff
@@ -290,7 +290,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000daca
 }
-tiff.IFD {
+tiff.IFD(0x0000daca) {
   TagType_ImageWidth(DataType_Short): [150]
   TagType_ImageLength(DataType_Short): [103]
   TagType_BitsPerSample(DataType_Short): [8 8 8]
@@ -309,9 +309,9 @@ tiff.IFD {
   TagType_Predictor(DataType_Short): [2]
   TagType_TileWidth(DataType_Short): [64]
   TagType_TileLength(DataType_Short): [64]
-  TagType_TileOffsets(DataType_Long): [8 7475 15045 24417 34546 44721]
+  TagType_TileOffsets(DataType_Long): [0x00000008 0x00001d33 0x00003ac5 0x00005f61 0x000086f2 0x0000aeb1]
   TagType_TileByteCounts(DataType_Long): [7467 7570 9372 10129 10175 11289]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\video-001-uncompressed.tiff
@@ -320,14 +320,14 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000b516
 }
-tiff.IFD {
+tiff.IFD(0x0000b516) {
   TagType_ImageWidth(DataType_Short): [150]
   TagType_ImageLength(DataType_Short): [103]
   TagType_BitsPerSample(DataType_Short): [8 8 8]
   TagType_Compression(DataType_Short): [1]
   TagType_PhotometricInterpretation(DataType_Short): [2]
   TagType_DocumentName(DataType_ASCII): video-001.tiff
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_Orientation(DataType_Short): [1]
   TagType_SamplesPerPixel(DataType_Short): [3]
   TagType_RowsPerStrip(DataType_Short): [103]
@@ -338,7 +338,7 @@ tiff.IFD {
   TagType_ResolutionUnit(DataType_Short): [2]
   TagType_Software(DataType_ASCII): ImageMagick 6.5.7-8 2010-12-02 Q16 http://www.imagemagick.org
   TagType_SampleFormat(DataType_Short): [1 1 1]
-  Next: 00000000
+  Next: 0x00000000
 }
 
 file: ..\testdata\video-001.tiff
@@ -347,7 +347,7 @@ tiff.Header{
   TiffType:TiffType_ClassicTIFF
   Offset:0x0000770c
 }
-tiff.IFD {
+tiff.IFD(0x0000770c) {
   TagType_ImageWidth(DataType_Short): [150]
   TagType_ImageLength(DataType_Short): [103]
   TagType_BitsPerSample(DataType_Short): [8 8 8]
@@ -355,7 +355,7 @@ tiff.IFD {
   TagType_PhotometricInterpretation(DataType_Short): [2]
   TagType_FillOrder(DataType_Short): [1]
   TagType_DocumentName(DataType_ASCII): video-001.tiff
-  TagType_StripOffsets(DataType_Long): [8]
+  TagType_StripOffsets(DataType_Long): [0x00000008]
   TagType_Orientation(DataType_Short): [1]
   TagType_SamplesPerPixel(DataType_Short): [3]
   TagType_RowsPerStrip(DataType_Short): [103]
@@ -367,6 +367,6 @@ tiff.IFD {
   TagType_PageNumber(DataType_Short): [0 1]
   TagType_Software(DataType_ASCII): ImageMagick 6.5.7-8 2010-12-02 Q16 http://www.imagemagick.org
   TagType_Predictor(DataType_Short): [2]
-  Next: 00000000
+  Next: 0x00000000
 }
 
