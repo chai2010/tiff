@@ -86,3 +86,7 @@ func (d DataType) ByteSize() int {
 	}
 	return 0
 }
+
+func (d TagType) Valid() bool {
+	return d != 0
+}

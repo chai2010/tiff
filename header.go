@@ -120,6 +120,9 @@ func (p *Header) Bytes() []byte {
 }
 
 func (p *Header) Valid() bool {
+	if p == nil {
+		return false
+	}
 	if x := p.ByteOrder; x != binary.LittleEndian && x != binary.BigEndian {
 		return false
 	}

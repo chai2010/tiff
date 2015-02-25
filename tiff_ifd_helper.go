@@ -14,7 +14,10 @@ import (
 )
 
 func (p *IFD) Valid() bool {
-	if p.Header == nil || !p.Header.Valid() {
+	if p == nil {
+		return false
+	}
+	if !p.Header.Valid() || len(p.EntryMap) == 0 {
 		return false
 	}
 	return true

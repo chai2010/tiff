@@ -26,8 +26,27 @@ func (d byIFDEntry) Len() int           { return len(d) }
 func (d byIFDEntry) Less(i, j int) bool { return d[i].Tag < d[j].Tag }
 func (d byIFDEntry) Swap(i, j int)      { d[i], d[j] = d[j], d[i] }
 
-func NewIFDEntry(hdr *Header, tag TagType, dataType DataType, data ...interface{}) *IFDEntry {
-	return nil
+func NewIFDEntry(hdr *Header, tag TagType, dataType DataType, data interface{}) (p *IFDEntry) {
+	p = &IFDEntry{
+		Header:   hdr,
+		Tag:      tag,
+		DataType: dataType,
+	}
+	p.SetValue(data)
+	return p
+}
+
+func (p *IFDEntry) Valid() bool {
+	if p == nil {
+		return false
+	}
+	if !p.Header.Valid() || !p.Tag.Valid() || !p.DataType.Valid() {
+		return false
+	}
+	if p.Count <= 0 || len(p.Data) == 0 {
+		return false
+	}
+	return true
 }
 
 func (p *IFDEntry) Bytes() (entry, data []byte) {
@@ -230,6 +249,10 @@ func (p *IFDEntry) GetString() string {
 		return string(p.Data)
 	}
 	return ""
+}
+
+func (p *IFDEntry) GetValue() interface{} {
+	panic("TODO")
 }
 
 func (p *IFDEntry) GetUndefined(value interface{}) interface{} {
@@ -437,6 +460,10 @@ func (p *IFDEntry) SetUndefined(value interface{}) {
 	p.Data = buf.Bytes()
 	p.Count = len(p.Data)
 	return
+}
+
+func (p *IFDEntry) SetValue(value interface{}) {
+	panic("TODO")
 }
 
 func (p *IFDEntry) String() string {
