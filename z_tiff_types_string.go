@@ -492,14 +492,14 @@ func (p TagType) String() string {
 }
 
 var _TagValue_PhotometricTypeTable = map[TagValue_PhotometricType]string{
-	TagValue_PhotometricType_WhiteIsZero: `TagValue_PhotometricType_WhiteIsZero`,
-	TagValue_PhotometricType_BlackIsZero: `TagValue_PhotometricType_BlackIsZero`,
-	TagValue_PhotometricType_RGB:         `TagValue_PhotometricType_RGB`,
-	TagValue_PhotometricType_Paletted:    `TagValue_PhotometricType_Paletted`,
-	TagValue_PhotometricType_TransMask:   `TagValue_PhotometricType_TransMask`, // transparency mask
-	TagValue_PhotometricType_CMYK:        `TagValue_PhotometricType_CMYK`,
-	TagValue_PhotometricType_YCbCr:       `TagValue_PhotometricType_YCbCr`,
-	TagValue_PhotometricType_CIELab:      `TagValue_PhotometricType_CIELab`,
+	TagValue_PhotometricType_WhiteIsZero: `TagValue_PhotometricType_WhiteIsZero`, //
+	TagValue_PhotometricType_BlackIsZero: `TagValue_PhotometricType_BlackIsZero`, //
+	TagValue_PhotometricType_RGB:         `TagValue_PhotometricType_RGB`,         //
+	TagValue_PhotometricType_Paletted:    `TagValue_PhotometricType_Paletted`,    //
+	TagValue_PhotometricType_TransMask:   `TagValue_PhotometricType_TransMask`,   // # transparency mask
+	TagValue_PhotometricType_CMYK:        `TagValue_PhotometricType_CMYK`,        //
+	TagValue_PhotometricType_YCbCr:       `TagValue_PhotometricType_YCbCr`,       //
+	TagValue_PhotometricType_CIELab:      `TagValue_PhotometricType_CIELab`,      //
 }
 
 func (p TagValue_PhotometricType) String() string {
@@ -510,8 +510,8 @@ func (p TagValue_PhotometricType) String() string {
 }
 
 var _TagValue_PredictorTypeTable = map[TagValue_PredictorType]string{
-	TagValue_PredictorType_None:       `TagValue_PredictorType_None`,
-	TagValue_PredictorType_Horizontal: `TagValue_PredictorType_Horizontal`,
+	TagValue_PredictorType_None:       `TagValue_PredictorType_None`,       //
+	TagValue_PredictorType_Horizontal: `TagValue_PredictorType_Horizontal`, //
 }
 
 func (p TagValue_PredictorType) String() string {
@@ -522,9 +522,9 @@ func (p TagValue_PredictorType) String() string {
 }
 
 var _TagValue_ResolutionUnitTypeTable = map[TagValue_ResolutionUnitType]string{
-	TagValue_ResolutionUnitType_None:    `TagValue_ResolutionUnitType_None`,
-	TagValue_ResolutionUnitType_PerInch: `TagValue_ResolutionUnitType_PerInch`, // Dots per inch.
-	TagValue_ResolutionUnitType_PerCM:   `TagValue_ResolutionUnitType_PerCM`,   // Dots per centimeter.
+	TagValue_ResolutionUnitType_None:    `TagValue_ResolutionUnitType_None`,    //
+	TagValue_ResolutionUnitType_PerInch: `TagValue_ResolutionUnitType_PerInch`, // # Dots per inch.
+	TagValue_ResolutionUnitType_PerCM:   `TagValue_ResolutionUnitType_PerCM`,   // # Dots per centimeter.
 }
 
 func (p TagValue_ResolutionUnitType) String() string {
