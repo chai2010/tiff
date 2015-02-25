@@ -12,6 +12,12 @@ func (d DataType) Valid() bool {
 	if d <= DataType_Nil || d > DataType_IFD8 {
 		return false
 	}
+	if d == _DataType_Unicode {
+		return false
+	}
+	if d == _DataType_Complex {
+		return false
+	}
 	return true
 }
 
@@ -42,7 +48,7 @@ func (d DataType) IsRationalType() bool {
 }
 func (d DataType) IsStringType() bool {
 	switch d {
-	case DataType_ASCII, DataType_Unicode:
+	case DataType_ASCII:
 		return true
 	}
 	return false
@@ -76,10 +82,6 @@ func (d DataType) ByteSize() int {
 		return 8
 	case DataType_IFD:
 		return 4 // LONG
-	case DataType_Unicode:
-		return 2 // UTF16 ?
-	case DataType_Complex:
-		return 8
 	case DataType_Long8:
 		return 8
 	case DataType_SLong8:

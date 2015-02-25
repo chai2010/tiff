@@ -80,15 +80,15 @@ func (p *tifTagGetter) GetBitsPerSample() (value []int64, ok bool) {
 	return
 }
 
-func (p *tifTagGetter) GetCompression() (value CompressType, ok bool) {
+func (p *tifTagGetter) GetCompression() (value TagValue_CompressionType, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_Compression]; !ok {
-		value = CompressType_None
+		value = TagValue_CompressionType_None
 		ok = true
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
-		value = CompressType(v[0])
+		value = TagValue_CompressionType(v[0])
 	} else {
 		ok = false
 	}

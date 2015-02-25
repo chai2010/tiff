@@ -12,71 +12,71 @@ import (
 	"io/ioutil"
 )
 
-func (p CompressType) ReadAll(r io.Reader) (data []byte, err error) {
+func (p TagValue_CompressionType) ReadAll(r io.Reader) (data []byte, err error) {
 	switch p {
-	case CompressType_None, CompressType_Nil:
+	case TagValue_CompressionType_None, TagValue_CompressionType_Nil:
 		return p.readAll_None(r)
-	case CompressType_CCITT:
+	case TagValue_CompressionType_CCITT:
 		return p.readAll_CCITT(r)
-	case CompressType_G3:
+	case TagValue_CompressionType_G3:
 		return p.readAll_G3(r)
-	case CompressType_G4:
+	case TagValue_CompressionType_G4:
 		return p.readAll_G4(r)
-	case CompressType_LZW:
+	case TagValue_CompressionType_LZW:
 		return p.readAll_LZW(r)
-	case CompressType_JPEGOld:
+	case TagValue_CompressionType_JPEGOld:
 		return p.readAll_JPEGOld(r)
-	case CompressType_JPEG:
+	case TagValue_CompressionType_JPEG:
 		return p.readAll_JPEG(r)
-	case CompressType_Deflate:
+	case TagValue_CompressionType_Deflate:
 		return p.readAll_Deflate(r)
-	case CompressType_PackBits:
+	case TagValue_CompressionType_PackBits:
 		return p.readAll_PackBits(r)
-	case CompressType_DeflateOld:
+	case TagValue_CompressionType_DeflateOld:
 		return p.readAll_DeflateOld(r)
 	}
-	err = fmt.Errorf("tiff: unknown CompressType, %d", int(p))
+	err = fmt.Errorf("tiff: unknown TagValue_CompressionType, %d", int(p))
 	return
 }
 
-func (p CompressType) readAll_None(r io.Reader) (data []byte, err error) {
+func (p TagValue_CompressionType) readAll_None(r io.Reader) (data []byte, err error) {
 	data, err = ioutil.ReadAll(r)
 	return
 }
 
-func (p CompressType) readAll_CCITT(r io.Reader) (data []byte, err error) {
-	err = fmt.Errorf("tiff: unsupport CompressType, %d", int(p))
+func (p TagValue_CompressionType) readAll_CCITT(r io.Reader) (data []byte, err error) {
+	err = fmt.Errorf("tiff: unsupport TagValue_CompressionType, %d", int(p))
 	return
 }
 
-func (p CompressType) readAll_G3(r io.Reader) (data []byte, err error) {
-	err = fmt.Errorf("tiff: unsupport CompressType, %d", int(p))
+func (p TagValue_CompressionType) readAll_G3(r io.Reader) (data []byte, err error) {
+	err = fmt.Errorf("tiff: unsupport TagValue_CompressionType, %d", int(p))
 	return
 }
 
-func (p CompressType) readAll_G4(r io.Reader) (data []byte, err error) {
-	err = fmt.Errorf("tiff: unsupport CompressType, %d", int(p))
+func (p TagValue_CompressionType) readAll_G4(r io.Reader) (data []byte, err error) {
+	err = fmt.Errorf("tiff: unsupport TagValue_CompressionType, %d", int(p))
 	return
 }
 
-func (p CompressType) readAll_LZW(r io.Reader) (data []byte, err error) {
+func (p TagValue_CompressionType) readAll_LZW(r io.Reader) (data []byte, err error) {
 	lzwReader := newLzwReader(r, lzwMSB, 8)
 	data, err = ioutil.ReadAll(lzwReader)
 	lzwReader.Close()
 	return
 }
 
-func (p CompressType) readAll_JPEGOld(r io.Reader) (data []byte, err error) {
-	err = fmt.Errorf("tiff: unsupport CompressType, %d", int(p))
+func (p TagValue_CompressionType) readAll_JPEGOld(r io.Reader) (data []byte, err error) {
+	err = fmt.Errorf("tiff: unsupport TagValue_CompressionType, %d", int(p))
 	return
 }
 
-func (p CompressType) readAll_JPEG(r io.Reader) (data []byte, err error) {
-	err = fmt.Errorf("tiff: unsupport CompressType, %d", int(p))
+func (p TagValue_CompressionType) readAll_JPEG(r io.Reader) (data []byte, err error) {
+	err = fmt.Errorf("tiff: unsupport TagValue_CompressionType, %d", int(p))
 	return
 }
 
-func (p CompressType) readAll_Deflate(r io.Reader) (data []byte, err error) {
+func (p TagValue_CompressionType) readAll_Deflate(r io.Reader) (data []byte, err error) {
 	zlibReader, err := zlib.NewReader(r)
 	if err != nil {
 		return nil, err
@@ -86,7 +86,7 @@ func (p CompressType) readAll_Deflate(r io.Reader) (data []byte, err error) {
 	return
 }
 
-func (p CompressType) readAll_DeflateOld(r io.Reader) (data []byte, err error) {
+func (p TagValue_CompressionType) readAll_DeflateOld(r io.Reader) (data []byte, err error) {
 	zlibReader, err := zlib.NewReader(r)
 	if err != nil {
 		return nil, err
@@ -96,7 +96,7 @@ func (p CompressType) readAll_DeflateOld(r io.Reader) (data []byte, err error) {
 	return
 }
 
-func (p CompressType) readAll_PackBits(r io.Reader) (data []byte, err error) {
+func (p TagValue_CompressionType) readAll_PackBits(r io.Reader) (data []byte, err error) {
 	type byteReader interface {
 		io.Reader
 		io.ByteReader

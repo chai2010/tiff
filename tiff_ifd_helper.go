@@ -246,13 +246,13 @@ func (p *IFD) ImageConfig() (config image.Config, err error) {
 	return
 }
 
-func (p *IFD) Compression() CompressType {
+func (p *IFD) Compression() TagValue_CompressionType {
 	if tag, ok := p.EntryMap[TagType_Compression]; ok {
 		if v := tag.GetInts(); len(v) == 1 {
-			return CompressType(v[0])
+			return TagValue_CompressionType(v[0])
 		}
 	}
-	return CompressType_Nil
+	return TagValue_CompressionType_Nil
 }
 
 func (p *IFD) ColorMap() (palette color.Palette) {

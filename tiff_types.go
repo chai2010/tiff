@@ -4,6 +4,15 @@
 
 package tiff
 
+/*
+ * NB: In the comments below,
+ *  - items marked with a + are obsoleted by revision 5.0,
+ *  - items marked with a ! are introduced in revision 6.0.
+ *  - items marked with a % are introduced post revision 6.0.
+ *  - items marked with a $ are obsoleted by revision 6.0.
+ *  - items marked with a & are introduced by Adobe DNG specification.
+ */
+
 const (
 	ClassicTiffLittleEnding = "II\x2A\x00"
 	ClassicTiffBigEnding    = "MM\x00\x2A"
@@ -16,9 +25,9 @@ type (
 	ImageType                   uint16
 	DataType                    uint16
 	TagType                     uint16
-	CompressType                TagType
 	TagValue_NewSubfileType     TagType
 	TagValue_SubfileType        TagType
+	TagValue_CompressionType    TagType
 	TagValue_PhotometricType    TagType
 	TagValue_PredictorType      TagType
 	TagValue_ResolutionUnitType TagType
@@ -29,25 +38,25 @@ const (
 	TiffType_ClassicTIFF    TiffType  = 42 //
 	TiffType_BigTIFF        TiffType  = 43 //
 	_                                 = 0  //
-	DataType_Nil            DataType  = 0  //  0, invalid
-	DataType_Byte           DataType  = 1  //  1
-	DataType_ASCII          DataType  = 2  //  2
-	DataType_Short          DataType  = 3  //  3
-	DataType_Long           DataType  = 4  //  4
-	DataType_Rational       DataType  = 5  //  5
-	DataType_SByte          DataType  = 6  //  6
-	DataType_Undefined      DataType  = 7  //  7
-	DataType_SShort         DataType  = 8  //  8
-	DataType_SLong          DataType  = 9  //  9
-	DataType_SRational      DataType  = 10 // 10
-	DataType_Float          DataType  = 11 // 11
-	DataType_Double         DataType  = 12 // 12
-	DataType_IFD            DataType  = 13 // 13
-	DataType_Unicode        DataType  = 14 // 14
-	DataType_Complex        DataType  = 15 // 15
-	DataType_Long8          DataType  = 16 // 16
-	DataType_SLong8         DataType  = 17 // 17
-	DataType_IFD8           DataType  = 18 // 18
+	DataType_Nil            DataType  = 0  // placeholder, invalid
+	DataType_Byte           DataType  = 1  // 8-bit unsigned integer
+	DataType_ASCII          DataType  = 2  // 8-bit bytes w/ last byte null
+	DataType_Short          DataType  = 3  // 16-bit unsigned integer
+	DataType_Long           DataType  = 4  // 32-bit unsigned integer
+	DataType_Rational       DataType  = 5  // 64-bit unsigned fraction
+	DataType_SByte          DataType  = 6  // !8-bit signed integer
+	DataType_Undefined      DataType  = 7  // !8-bit untyped data
+	DataType_SShort         DataType  = 8  // !16-bit signed integer
+	DataType_SLong          DataType  = 9  // !32-bit signed integer
+	DataType_SRational      DataType  = 10 // !64-bit signed fraction
+	DataType_Float          DataType  = 11 // !32-bit IEEE floating point
+	DataType_Double         DataType  = 12 // !64-bit IEEE floating point
+	DataType_IFD            DataType  = 13 // %32-bit unsigned integer (offset)
+	_DataType_Unicode       DataType  = 14 // placeholder
+	_DataType_Complex       DataType  = 15 // placeholder
+	DataType_Long8          DataType  = 16 // BigTIFF 64-bit unsigned integer
+	DataType_SLong8         DataType  = 17 // BigTIFF 64-bit signed integer
+	DataType_IFD8           DataType  = 18 // BigTIFF 64-bit unsigned integer (offset)
 	_                                 = 0  //
 	ImageType_Nil           ImageType = 0  //
 	ImageType_Bilevel       ImageType = 1  //
@@ -63,13 +72,13 @@ const (
 
 const (
 	_                                                                = 0     // Type(A/B/C/*), Num(1/*), Required, # comment
-	TagType_NewSubfileType               TagType                     = 254   // LONG , 1, # Default=0
+	TagType_NewSubfileType               TagType                     = 254   // LONG , 1, # Default=0. subfile data descriptor
 	_                                                                = 0     //
 	TagValue_NewSubfileType_ReducedImage TagValue_NewSubfileType     = 1     // # reduced resolution version
 	TagValue_NewSubfileType_Page         TagValue_NewSubfileType     = 2     // # one page of many
 	TagValue_NewSubfileType_Mask         TagValue_NewSubfileType     = 4     // # transparency mask
 	_                                                                = 0     //
-	TagType_SubfileType                  TagType                     = 255   // SHORT, 1,
+	TagType_SubfileType                  TagType                     = 255   // SHORT, 1, # kind of data in subfile
 	_                                                                = 0     //
 	TagValue_SubfileType_Image           TagValue_SubfileType        = 1     // # full resolution image data
 	TagValue_SubfileType_ReducedImage    TagValue_SubfileType        = 2     // # reduced size image data
@@ -80,17 +89,17 @@ const (
 	TagType_BitsPerSample                TagType                     = 258   // SHORT, *, # Default=1. See SamplesPerPixel
 	TagType_Compression                  TagType                     = 259   // SHORT, 1, # Default=1
 	_                                                                = 0     //
-	CompressType_Nil                     CompressType                = 0     //
-	CompressType_None                    CompressType                = 1     //
-	CompressType_CCITT                   CompressType                = 2     //
-	CompressType_G3                      CompressType                = 3     // # Group 3 Fax.
-	CompressType_G4                      CompressType                = 4     // # Group 4 Fax.
-	CompressType_LZW                     CompressType                = 5     //
-	CompressType_JPEGOld                 CompressType                = 6     // # Superseded by cJPEG.
-	CompressType_JPEG                    CompressType                = 7     //
-	CompressType_Deflate                 CompressType                = 8     // # zlib compression.
-	CompressType_PackBits                CompressType                = 32773 //
-	CompressType_DeflateOld              CompressType                = 32946 // # Superseded by cDeflate.
+	TagValue_CompressionType_Nil         TagValue_CompressionType    = 0     //
+	TagValue_CompressionType_None        TagValue_CompressionType    = 1     //
+	TagValue_CompressionType_CCITT       TagValue_CompressionType    = 2     //
+	TagValue_CompressionType_G3          TagValue_CompressionType    = 3     // # Group 3 Fax.
+	TagValue_CompressionType_G4          TagValue_CompressionType    = 4     // # Group 4 Fax.
+	TagValue_CompressionType_LZW         TagValue_CompressionType    = 5     //
+	TagValue_CompressionType_JPEGOld     TagValue_CompressionType    = 6     // # Superseded by cJPEG.
+	TagValue_CompressionType_JPEG        TagValue_CompressionType    = 7     //
+	TagValue_CompressionType_Deflate     TagValue_CompressionType    = 8     // # zlib compression.
+	TagValue_CompressionType_PackBits    TagValue_CompressionType    = 32773 //
+	TagValue_CompressionType_DeflateOld  TagValue_CompressionType    = 32946 // # Superseded by cDeflate.
 	_                                                                = 0     //
 	TagType_PhotometricInterpretation    TagType                     = 262   // SHORT, 1,
 	_                                                                = 0     //

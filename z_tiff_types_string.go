@@ -42,47 +42,24 @@ func (p ImageType) String() string {
 	return fmt.Sprintf("ImageType_Unknown(%d)", uint16(p))
 }
 
-var _CompressTypeTable = map[CompressType]string{
-	CompressType_Nil:        `CompressType_Nil`,        //
-	CompressType_None:       `CompressType_None`,       //
-	CompressType_CCITT:      `CompressType_CCITT`,      //
-	CompressType_G3:         `CompressType_G3`,         // # Group 3 Fax.
-	CompressType_G4:         `CompressType_G4`,         // # Group 4 Fax.
-	CompressType_LZW:        `CompressType_LZW`,        //
-	CompressType_JPEGOld:    `CompressType_JPEGOld`,    // # Superseded by cJPEG.
-	CompressType_JPEG:       `CompressType_JPEG`,       //
-	CompressType_Deflate:    `CompressType_Deflate`,    // # zlib compression.
-	CompressType_PackBits:   `CompressType_PackBits`,   //
-	CompressType_DeflateOld: `CompressType_DeflateOld`, // # Superseded by cDeflate.
-}
-
-func (p CompressType) String() string {
-	if name, ok := _CompressTypeTable[p]; ok {
-		return name
-	}
-	return fmt.Sprintf("CompressType_Unknown(%d)", uint16(p))
-}
-
 var _DataTypeTable = map[DataType]string{
-	DataType_Nil:       `DataType_Nil`,       //  0, invalid
-	DataType_Byte:      `DataType_Byte`,      //  1
-	DataType_ASCII:     `DataType_ASCII`,     //  2
-	DataType_Short:     `DataType_Short`,     //  3
-	DataType_Long:      `DataType_Long`,      //  4
-	DataType_Rational:  `DataType_Rational`,  //  5
-	DataType_SByte:     `DataType_SByte`,     //  6
-	DataType_Undefined: `DataType_Undefined`, //  7
-	DataType_SShort:    `DataType_SShort`,    //  8
-	DataType_SLong:     `DataType_SLong`,     //  9
-	DataType_SRational: `DataType_SRational`, // 10
-	DataType_Float:     `DataType_Float`,     // 11
-	DataType_Double:    `DataType_Double`,    // 12
-	DataType_IFD:       `DataType_IFD`,       // 13
-	DataType_Unicode:   `DataType_Unicode`,   // 14
-	DataType_Complex:   `DataType_Complex`,   // 15
-	DataType_Long8:     `DataType_Long8`,     // 16
-	DataType_SLong8:    `DataType_SLong8`,    // 17
-	DataType_IFD8:      `DataType_IFD8`,      // 18
+	DataType_Nil:       `DataType_Nil`,       // placeholder, invalid
+	DataType_Byte:      `DataType_Byte`,      // 8-bit unsigned integer
+	DataType_ASCII:     `DataType_ASCII`,     // 8-bit bytes w/ last byte null
+	DataType_Short:     `DataType_Short`,     // 16-bit unsigned integer
+	DataType_Long:      `DataType_Long`,      // 32-bit unsigned integer
+	DataType_Rational:  `DataType_Rational`,  // 64-bit unsigned fraction
+	DataType_SByte:     `DataType_SByte`,     // !8-bit signed integer
+	DataType_Undefined: `DataType_Undefined`, // !8-bit untyped data
+	DataType_SShort:    `DataType_SShort`,    // !16-bit signed integer
+	DataType_SLong:     `DataType_SLong`,     // !32-bit signed integer
+	DataType_SRational: `DataType_SRational`, // !64-bit signed fraction
+	DataType_Float:     `DataType_Float`,     // !32-bit IEEE floating point
+	DataType_Double:    `DataType_Double`,    // !64-bit IEEE floating point
+	DataType_IFD:       `DataType_IFD`,       // %32-bit unsigned integer (offset)
+	DataType_Long8:     `DataType_Long8`,     // BigTIFF 64-bit unsigned integer
+	DataType_SLong8:    `DataType_SLong8`,    // BigTIFF 64-bit signed integer
+	DataType_IFD8:      `DataType_IFD8`,      // BigTIFF 64-bit unsigned integer (offset)
 }
 
 func (p DataType) String() string {
@@ -93,8 +70,8 @@ func (p DataType) String() string {
 }
 
 var _TagTypeTable = map[TagType]string{
-	TagType_NewSubfileType:             `TagType_NewSubfileType`,             // LONG , 1, # Default=0
-	TagType_SubfileType:                `TagType_SubfileType`,                // SHORT, 1,
+	TagType_NewSubfileType:             `TagType_NewSubfileType`,             // LONG , 1, # Default=0. subfile data descriptor
+	TagType_SubfileType:                `TagType_SubfileType`,                // SHORT, 1, # kind of data in subfile
 	TagType_ImageWidth:                 `TagType_ImageWidth`,                 // SHORT/LONG/LONG8, 1, # Required
 	TagType_ImageLength:                `TagType_ImageLength`,                // SHORT/LONG/LONG8, 1, # Required
 	TagType_BitsPerSample:              `TagType_BitsPerSample`,              // SHORT, *, # Default=1. See SamplesPerPixel
@@ -312,7 +289,7 @@ type TagGetter interface {
 	GetImageWidth() (value int64, ok bool)
 	GetImageLength() (value int64, ok bool)
 	GetBitsPerSample() (value []int64, ok bool)
-	GetCompression() (value CompressType, ok bool)
+	GetCompression() (value TagValue_CompressionType, ok bool)
 	GetPhotometricInterpretation() (value TagValue_PhotometricType, ok bool)
 	GetThreshholding() (value int64, ok bool)
 	GetCellWidth() (value int64, ok bool)
@@ -401,7 +378,7 @@ type TagSetter interface {
 	SetImageWidth(value int64) (ok bool)
 	SetImageLength(value int64) (ok bool)
 	SetBitsPerSample(value []int64) (ok bool)
-	SetCompression(value CompressType) (ok bool)
+	SetCompression(value TagValue_CompressionType) (ok bool)
 	SetPhotometricInterpretation(value TagValue_PhotometricType) (ok bool)
 	SetThreshholding(value int64) (ok bool)
 	SetCellWidth(value int64) (ok bool)
@@ -507,6 +484,27 @@ func (p TagValue_PhotometricType) String() string {
 		return name
 	}
 	return fmt.Sprintf("TagValue_PhotometricType_Unknown(%d)", uint16(p))
+}
+
+var _TagValue_CompressionTypeTable = map[TagValue_CompressionType]string{
+	TagValue_CompressionType_Nil:        `TagValue_CompressionType_Nil`,        //
+	TagValue_CompressionType_None:       `TagValue_CompressionType_None`,       //
+	TagValue_CompressionType_CCITT:      `TagValue_CompressionType_CCITT`,      //
+	TagValue_CompressionType_G3:         `TagValue_CompressionType_G3`,         // # Group 3 Fax.
+	TagValue_CompressionType_G4:         `TagValue_CompressionType_G4`,         // # Group 4 Fax.
+	TagValue_CompressionType_LZW:        `TagValue_CompressionType_LZW`,        //
+	TagValue_CompressionType_JPEGOld:    `TagValue_CompressionType_JPEGOld`,    // # Superseded by cJPEG.
+	TagValue_CompressionType_JPEG:       `TagValue_CompressionType_JPEG`,       //
+	TagValue_CompressionType_Deflate:    `TagValue_CompressionType_Deflate`,    // # zlib compression.
+	TagValue_CompressionType_PackBits:   `TagValue_CompressionType_PackBits`,   //
+	TagValue_CompressionType_DeflateOld: `TagValue_CompressionType_DeflateOld`, // # Superseded by cDeflate.
+}
+
+func (p TagValue_CompressionType) String() string {
+	if name, ok := _TagValue_CompressionTypeTable[p]; ok {
+		return name
+	}
+	return fmt.Sprintf("TagValue_CompressionType_Unknown(%d)", uint16(p))
 }
 
 var _TagValue_PredictorTypeTable = map[TagValue_PredictorType]string{

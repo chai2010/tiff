@@ -285,7 +285,7 @@ func EncodeAll(w io.Writer, m [][]image.Image, opt [][]*Options) error {
 func Encode(w io.Writer, m image.Image, opt *Options) error {
 	d := m.Bounds().Size()
 
-	compression := CompressType_None
+	compression := TagValue_CompressionType_None
 	predictor := false
 
 	_, err := io.WriteString(w, ClassicTiffLittleEnding)
@@ -304,7 +304,7 @@ func Encode(w io.Writer, m image.Image, opt *Options) error {
 	var imageLen int
 
 	switch compression {
-	case CompressType_None:
+	case TagValue_CompressionType_None:
 		dst = w
 		// Write IFD offset before outputting pixel data.
 		switch m.(type) {
@@ -325,7 +325,7 @@ func Encode(w io.Writer, m image.Image, opt *Options) error {
 		if err != nil {
 			return err
 		}
-	case CompressType_Deflate:
+	case TagValue_CompressionType_Deflate:
 		dst = zlib.NewWriter(&buf)
 	}
 
@@ -384,7 +384,7 @@ func Encode(w io.Writer, m image.Image, opt *Options) error {
 		return err
 	}
 
-	if compression != CompressType_None {
+	if compression != TagValue_CompressionType_None {
 		if err = dst.(io.Closer).Close(); err != nil {
 			return err
 		}

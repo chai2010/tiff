@@ -40,10 +40,6 @@ func main() {
 			FileName: "tiff_types.go",
 		},
 		Type{
-			TypeName: "CompressType",
-			FileName: "tiff_types.go",
-		},
-		Type{
 			TypeName: "DataType",
 			FileName: "tiff_types.go",
 		},
@@ -54,6 +50,10 @@ func main() {
 
 		Type{
 			TypeName: "TagValue_PhotometricType",
+			FileName: "tiff_types.go",
+		},
+		Type{
+			TypeName: "TagValue_CompressionType",
 			FileName: "tiff_types.go",
 		},
 		Type{
@@ -292,7 +292,7 @@ func (p %s) String() string {
 func (p *Type) getValueType(typeName string) string {
 	switch typeName {
 	case "TagType_Compression":
-		return "CompressType"
+		return "TagValue_CompressionType"
 	case "TagType_PhotometricInterpretation":
 		return "TagValue_PhotometricType"
 	case "TagType_Predictor":

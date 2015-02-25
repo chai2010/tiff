@@ -8,7 +8,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"unicode/utf16"
+	"strings"
 )
 
 type IFDEntry struct {
@@ -228,23 +228,6 @@ func (p *IFDEntry) GetString() string {
 			return string(p.Data[:idx])
 		}
 		return string(p.Data)
-	case DataType_Unicode:
-		r := bytes.NewReader(p.Data)
-		runes := make([]rune, p.Count)
-		for i := 0; i < p.Count; i++ {
-			var v uint16
-			if err := binary.Read(r, p.Header.ByteOrder, &v); err != nil {
-				return ""
-			}
-			runes[i] = rune(v)
-		}
-		for i := 0; i < p.Count; i++ {
-			if runes[i] == 0 {
-				runes = runes[:i]
-				break
-			}
-		}
-		return string(runes)
 	}
 	return ""
 }
@@ -429,19 +412,13 @@ func (p *IFDEntry) SetString(value string) {
 	}
 	switch p.DataType {
 	case DataType_ASCII:
+		if idx := strings.Index(value, "\000"); idx >= 0 {
+			value = value[:idx]
+		}
 		p.Data = make([]byte, len(value)+1)
 		copy(p.Data, []byte(value))
 		p.Data[len(value)] = 0 // +NULL
 		p.Count = len(p.Data) + 1
-	case DataType_Unicode:
-		u16Data := utf16.Encode([]rune(value))
-		var buf bytes.Buffer
-		if err := binary.Write(&buf, p.Header.ByteOrder, u16Data); err != nil {
-			return
-		}
-		binary.Write(&buf, p.Header.ByteOrder, uint16(0)) // +NULL
-		p.Data = buf.Bytes()
-		p.Count = len(u16Data) + 1
 	}
 	return
 }
