@@ -265,7 +265,7 @@ func (p *IFDEntry) GetUndefined(value interface{}) interface{} {
 	return value
 }
 
-func (p *IFDEntry) SetInts(value ...int64) {
+func (p *IFDEntry) SetInts(value ...int64) (err error) {
 	if p.DataType == DataType_Nil {
 		if p.Header.IsBigTiff() {
 			p.DataType = DataType_Long8
@@ -280,7 +280,7 @@ func (p *IFDEntry) SetInts(value ...int64) {
 			tmp[i] = uint8(value[i])
 		}
 		var buf bytes.Buffer
-		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+		if err = binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
 			return
 		}
 		p.Data = buf.Bytes()
@@ -291,7 +291,7 @@ func (p *IFDEntry) SetInts(value ...int64) {
 			tmp[i] = int8(value[i])
 		}
 		var buf bytes.Buffer
-		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+		if err = binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
 			return
 		}
 		p.Data = buf.Bytes()
@@ -302,7 +302,7 @@ func (p *IFDEntry) SetInts(value ...int64) {
 			tmp[i] = uint16(value[i])
 		}
 		var buf bytes.Buffer
-		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+		if err = binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
 			return
 		}
 		p.Data = buf.Bytes()
@@ -313,7 +313,7 @@ func (p *IFDEntry) SetInts(value ...int64) {
 			tmp[i] = int16(value[i])
 		}
 		var buf bytes.Buffer
-		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+		if err = binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
 			return
 		}
 		p.Data = buf.Bytes()
@@ -324,7 +324,7 @@ func (p *IFDEntry) SetInts(value ...int64) {
 			tmp[i] = uint32(value[i])
 		}
 		var buf bytes.Buffer
-		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+		if err = binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
 			return
 		}
 		p.Data = buf.Bytes()
@@ -335,7 +335,7 @@ func (p *IFDEntry) SetInts(value ...int64) {
 			tmp[i] = int32(value[i])
 		}
 		var buf bytes.Buffer
-		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+		if err = binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
 			return
 		}
 		p.Data = buf.Bytes()
@@ -346,7 +346,7 @@ func (p *IFDEntry) SetInts(value ...int64) {
 			tmp[i] = uint64(value[i])
 		}
 		var buf bytes.Buffer
-		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+		if err = binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
 			return
 		}
 		p.Data = buf.Bytes()
@@ -357,7 +357,7 @@ func (p *IFDEntry) SetInts(value ...int64) {
 			tmp[i] = int64(value[i])
 		}
 		var buf bytes.Buffer
-		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+		if err = binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
 			return
 		}
 		p.Data = buf.Bytes()
@@ -366,7 +366,7 @@ func (p *IFDEntry) SetInts(value ...int64) {
 	return
 }
 
-func (p *IFDEntry) SetFloats(value ...float64) {
+func (p *IFDEntry) SetFloats(value ...float64) (err error) {
 	if p.DataType == DataType_Nil {
 		p.DataType = DataType_Double
 	}
@@ -378,14 +378,14 @@ func (p *IFDEntry) SetFloats(value ...float64) {
 		}
 
 		var buf bytes.Buffer
-		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+		if err = binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
 			return
 		}
 		p.Data = buf.Bytes()
 		p.Count = len(tmp)
 	case DataType_Double:
 		var buf bytes.Buffer
-		if err := binary.Write(&buf, p.Header.ByteOrder, value); err != nil {
+		if err = binary.Write(&buf, p.Header.ByteOrder, value); err != nil {
 			return
 		}
 		p.Data = buf.Bytes()
@@ -394,7 +394,7 @@ func (p *IFDEntry) SetFloats(value ...float64) {
 	return
 }
 
-func (p *IFDEntry) SetRationals(value ...[2]int64) {
+func (p *IFDEntry) SetRationals(value ...[2]int64) (err error) {
 	if p.DataType == DataType_Nil {
 		p.DataType = DataType_Rational
 	}
@@ -407,7 +407,7 @@ func (p *IFDEntry) SetRationals(value ...[2]int64) {
 		}
 
 		var buf bytes.Buffer
-		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+		if err = binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
 			return
 		}
 		p.Data = buf.Bytes()
@@ -420,7 +420,7 @@ func (p *IFDEntry) SetRationals(value ...[2]int64) {
 		}
 
 		var buf bytes.Buffer
-		if err := binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
+		if err = binary.Write(&buf, p.Header.ByteOrder, tmp); err != nil {
 			return
 		}
 		p.Data = buf.Bytes()
@@ -429,7 +429,7 @@ func (p *IFDEntry) SetRationals(value ...[2]int64) {
 	return
 }
 
-func (p *IFDEntry) SetString(value string) {
+func (p *IFDEntry) SetString(value string) (err error) {
 	if p.DataType == DataType_Nil {
 		p.DataType = DataType_ASCII
 	}
@@ -446,7 +446,7 @@ func (p *IFDEntry) SetString(value string) {
 	return
 }
 
-func (p *IFDEntry) SetUndefined(value interface{}) {
+func (p *IFDEntry) SetUndefined(value interface{}) (err error) {
 	if p.DataType == DataType_Nil {
 		p.DataType = DataType_Undefined
 	}
@@ -454,7 +454,7 @@ func (p *IFDEntry) SetUndefined(value interface{}) {
 		return
 	}
 	var buf bytes.Buffer
-	if err := binary.Write(&buf, p.Header.ByteOrder, value); err != nil {
+	if err = binary.Write(&buf, p.Header.ByteOrder, value); err != nil {
 		return
 	}
 	p.Data = buf.Bytes()
@@ -462,7 +462,7 @@ func (p *IFDEntry) SetUndefined(value interface{}) {
 	return
 }
 
-func (p *IFDEntry) SetValue(value interface{}) {
+func (p *IFDEntry) SetValue(value interface{}) (err error) {
 	panic("TODO")
 }
 
