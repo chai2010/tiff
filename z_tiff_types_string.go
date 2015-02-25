@@ -12,8 +12,8 @@ import (
 )
 
 var _TiffTypeTable = map[TiffType]string{
-	TiffType_ClassicTIFF: `TiffType_ClassicTIFF`,
-	TiffType_BigTIFF:     `TiffType_BigTIFF`,
+	TiffType_ClassicTIFF: `TiffType_ClassicTIFF`, //
+	TiffType_BigTIFF:     `TiffType_BigTIFF`,     //
 }
 
 func (p TiffType) String() string {
@@ -24,15 +24,15 @@ func (p TiffType) String() string {
 }
 
 var _ImageTypeTable = map[ImageType]string{
-	ImageType_Nil:           `ImageType_Nil`,
-	ImageType_Bilevel:       `ImageType_Bilevel`,
-	ImageType_BilevelInvert: `ImageType_BilevelInvert`,
-	ImageType_Paletted:      `ImageType_Paletted`,
-	ImageType_Gray:          `ImageType_Gray`,
-	ImageType_GrayInvert:    `ImageType_GrayInvert`,
-	ImageType_RGB:           `ImageType_RGB`,
-	ImageType_RGBA:          `ImageType_RGBA`,
-	ImageType_NRGBA:         `ImageType_NRGBA`,
+	ImageType_Nil:           `ImageType_Nil`,           //
+	ImageType_Bilevel:       `ImageType_Bilevel`,       //
+	ImageType_BilevelInvert: `ImageType_BilevelInvert`, //
+	ImageType_Paletted:      `ImageType_Paletted`,      //
+	ImageType_Gray:          `ImageType_Gray`,          //
+	ImageType_GrayInvert:    `ImageType_GrayInvert`,    //
+	ImageType_RGB:           `ImageType_RGB`,           //
+	ImageType_RGBA:          `ImageType_RGBA`,          //
+	ImageType_NRGBA:         `ImageType_NRGBA`,         //
 }
 
 func (p ImageType) String() string {
@@ -46,14 +46,14 @@ var _CompressTypeTable = map[CompressType]string{
 	CompressType_Nil:        `CompressType_Nil`,        //
 	CompressType_None:       `CompressType_None`,       //
 	CompressType_CCITT:      `CompressType_CCITT`,      //
-	CompressType_G3:         `CompressType_G3`,         // Group 3 Fax.
-	CompressType_G4:         `CompressType_G4`,         // Group 4 Fax.
+	CompressType_G3:         `CompressType_G3`,         // # Group 3 Fax.
+	CompressType_G4:         `CompressType_G4`,         // # Group 4 Fax.
 	CompressType_LZW:        `CompressType_LZW`,        //
-	CompressType_JPEGOld:    `CompressType_JPEGOld`,    // Superseded by cJPEG.
+	CompressType_JPEGOld:    `CompressType_JPEGOld`,    // # Superseded by cJPEG.
 	CompressType_JPEG:       `CompressType_JPEG`,       //
-	CompressType_Deflate:    `CompressType_Deflate`,    // zlib compression.
+	CompressType_Deflate:    `CompressType_Deflate`,    // # zlib compression.
 	CompressType_PackBits:   `CompressType_PackBits`,   //
-	CompressType_DeflateOld: `CompressType_DeflateOld`, // Superseded by cDeflate.
+	CompressType_DeflateOld: `CompressType_DeflateOld`, // # Superseded by cDeflate.
 }
 
 func (p CompressType) String() string {
