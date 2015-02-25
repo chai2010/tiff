@@ -20,10 +20,50 @@ const (
 	BigTiffBigEnding        = "MM\x00\x2B"
 )
 
+type TiffType uint16
+
+const (
+	TiffType_ClassicTIFF TiffType = 42
+	TiffType_BigTIFF     TiffType = 43
+)
+
+type ImageType uint16
+
+const (
+	ImageType_Nil ImageType = iota
+	ImageType_Bilevel
+	ImageType_BilevelInvert
+	ImageType_Paletted
+	ImageType_Gray
+	ImageType_GrayInvert
+	ImageType_RGB
+	ImageType_RGBA
+	ImageType_NRGBA
+)
+
+type DataType uint16
+
+const (
+	DataType_Nil       DataType = 0  // placeholder, invalid
+	DataType_Byte      DataType = 1  // 8-bit unsigned integer
+	DataType_ASCII     DataType = 2  // 8-bit bytes w/ last byte null
+	DataType_Short     DataType = 3  // 16-bit unsigned integer
+	DataType_Long      DataType = 4  // 32-bit unsigned integer
+	DataType_Rational  DataType = 5  // 64-bit unsigned fraction
+	DataType_SByte     DataType = 6  // !8-bit signed integer
+	DataType_Undefined DataType = 7  // !8-bit untyped data
+	DataType_SShort    DataType = 8  // !16-bit signed integer
+	DataType_SLong     DataType = 9  // !32-bit signed integer
+	DataType_SRational DataType = 10 // !64-bit signed fraction
+	DataType_Float     DataType = 11 // !32-bit IEEE floating point
+	DataType_Double    DataType = 12 // !64-bit IEEE floating point
+	DataType_IFD       DataType = 13 // %32-bit unsigned integer (offset)
+	DataType_Long8     DataType = 16 // BigTIFF 64-bit unsigned integer
+	DataType_SLong8    DataType = 17 // BigTIFF 64-bit signed integer
+	DataType_IFD8      DataType = 18 // BigTIFF 64-bit unsigned integer (offset)
+)
+
 type (
-	TiffType                    uint16
-	ImageType                   uint16
-	DataType                    uint16
 	TagType                     uint16
 	TagValue_NewSubfileType     TagType
 	TagValue_SubfileType        TagType
@@ -31,41 +71,6 @@ type (
 	TagValue_PhotometricType    TagType
 	TagValue_PredictorType      TagType
 	TagValue_ResolutionUnitType TagType
-)
-
-const (
-	_                                 = 0  //
-	TiffType_ClassicTIFF    TiffType  = 42 //
-	TiffType_BigTIFF        TiffType  = 43 //
-	_                                 = 0  //
-	DataType_Nil            DataType  = 0  // placeholder, invalid
-	DataType_Byte           DataType  = 1  // 8-bit unsigned integer
-	DataType_ASCII          DataType  = 2  // 8-bit bytes w/ last byte null
-	DataType_Short          DataType  = 3  // 16-bit unsigned integer
-	DataType_Long           DataType  = 4  // 32-bit unsigned integer
-	DataType_Rational       DataType  = 5  // 64-bit unsigned fraction
-	DataType_SByte          DataType  = 6  // !8-bit signed integer
-	DataType_Undefined      DataType  = 7  // !8-bit untyped data
-	DataType_SShort         DataType  = 8  // !16-bit signed integer
-	DataType_SLong          DataType  = 9  // !32-bit signed integer
-	DataType_SRational      DataType  = 10 // !64-bit signed fraction
-	DataType_Float          DataType  = 11 // !32-bit IEEE floating point
-	DataType_Double         DataType  = 12 // !64-bit IEEE floating point
-	DataType_IFD            DataType  = 13 // %32-bit unsigned integer (offset)
-	DataType_Long8          DataType  = 16 // BigTIFF 64-bit unsigned integer
-	DataType_SLong8         DataType  = 17 // BigTIFF 64-bit signed integer
-	DataType_IFD8           DataType  = 18 // BigTIFF 64-bit unsigned integer (offset)
-	_                                 = 0  //
-	ImageType_Nil           ImageType = 0  //
-	ImageType_Bilevel       ImageType = 1  //
-	ImageType_BilevelInvert ImageType = 2  //
-	ImageType_Paletted      ImageType = 3  //
-	ImageType_Gray          ImageType = 4  //
-	ImageType_GrayInvert    ImageType = 5  //
-	ImageType_RGB           ImageType = 6  //
-	ImageType_RGBA          ImageType = 7  //
-	ImageType_NRGBA         ImageType = 8  //
-	_                                 = 0  //
 )
 
 const (

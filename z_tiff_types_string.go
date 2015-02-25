@@ -12,8 +12,8 @@ import (
 )
 
 var _TiffTypeTable = map[TiffType]string{
-	TiffType_ClassicTIFF: `TiffType_ClassicTIFF`, //
-	TiffType_BigTIFF:     `TiffType_BigTIFF`,     //
+	TiffType_ClassicTIFF: `TiffType_ClassicTIFF`,
+	TiffType_BigTIFF:     `TiffType_BigTIFF`,
 }
 
 func (p TiffType) String() string {
@@ -24,15 +24,15 @@ func (p TiffType) String() string {
 }
 
 var _ImageTypeTable = map[ImageType]string{
-	ImageType_Nil:           `ImageType_Nil`,           //
-	ImageType_Bilevel:       `ImageType_Bilevel`,       //
-	ImageType_BilevelInvert: `ImageType_BilevelInvert`, //
-	ImageType_Paletted:      `ImageType_Paletted`,      //
-	ImageType_Gray:          `ImageType_Gray`,          //
-	ImageType_GrayInvert:    `ImageType_GrayInvert`,    //
-	ImageType_RGB:           `ImageType_RGB`,           //
-	ImageType_RGBA:          `ImageType_RGBA`,          //
-	ImageType_NRGBA:         `ImageType_NRGBA`,         //
+	ImageType_Nil:           `ImageType_Nil`,
+	ImageType_Bilevel:       `ImageType_Bilevel`,
+	ImageType_BilevelInvert: `ImageType_BilevelInvert`,
+	ImageType_Paletted:      `ImageType_Paletted`,
+	ImageType_Gray:          `ImageType_Gray`,
+	ImageType_GrayInvert:    `ImageType_GrayInvert`,
+	ImageType_RGB:           `ImageType_RGB`,
+	ImageType_RGBA:          `ImageType_RGBA`,
+	ImageType_NRGBA:         `ImageType_NRGBA`,
 }
 
 func (p ImageType) String() string {

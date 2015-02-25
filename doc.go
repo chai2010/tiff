@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /*
-Package tiff offers a rich BigTIFF/TIFF decoder/encoder for Go.
+Package tiff offers a rich TIFF/BigTIFF/GeoTIFF decoder/encoder for Go.
 
 The Classic TIFF specification is at http://partners.adobe.com/public/developer/en/tiff/TIFF6.pdf
 
@@ -15,9 +15,10 @@ Features:
 
 	1. Support BigTiff
 	2. Support decode multiple image
-	3. Support RGB format
-	4. Support Float DataType
-	5. More ...
+	3. Support decode subifd image
+	4. Support RGB format
+	5. Support Float DataType
+	6. More ...
 
 Example:
 
@@ -56,7 +57,7 @@ Example:
 			// Encode tiff
 			for i := 0; i < len(m); i++ {
 				for j := 0; j < len(m[i]); j++ {
-					newname := fmt.Sprintf("output-%s-frame-%02d-sub-%02d.tiff", filepath.Base(filename), i, j)
+					newname := fmt.Sprintf("%s-%02d-%02d.tiff", filepath.Base(filename), i, j)
 					if errors[i][j] != nil {
 						log.Printf("%s: %v\n", newname, err)
 						continue

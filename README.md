@@ -8,9 +8,10 @@ PkgDoc: [http://godoc.org/github.com/chai2010/tiff](http://godoc.org/github.com/
 
 1. Support BigTiff
 2. Support decode multiple image
-3. Support RGB format
-4. Support Float DataType
-5. More ...
+3. Support decode subifd image
+4. Support RGB format
+5. Support Float DataType
+6. More ...
 
 Install
 =======
@@ -57,7 +58,7 @@ func main() {
 		// Encode tiff
 		for i := 0; i < len(m); i++ {
 			for j := 0; j < len(m[i]); j++ {
-				newname := fmt.Sprintf("output-%s-frame-%02d-sub-%02d.tiff", filepath.Base(filename), i, j)
+				newname := fmt.Sprintf("%s-%02d-%02d.tiff", filepath.Base(filename), i, j)
 				if errors[i][j] != nil {
 					log.Printf("%s: %v\n", newname, err)
 					continue
