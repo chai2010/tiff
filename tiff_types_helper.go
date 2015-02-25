@@ -87,11 +87,24 @@ func (d DataType) ByteSize() int {
 	return 0
 }
 
-func (d TagType) Valid() bool {
-	return d != 0
+func (d TagType) RegisterDataType(dataType ...DataType) {
+	for i := 0; i < len(dataType); i++ {
+		if !d.AcceptDataType(dataType[i]) {
+			dataType = append(dataType[:i], dataType[i+1:]...) // delete
+			i--
+		}
+	}
+	if len(dataType) > 0 {
+		dataTypeList, _ := _TagType_TypesTable[d]
+		dataTypeList = append(dataTypeList, dataType...)
+		_TagType_TypesTable[d] = dataTypeList
+	}
 }
 
 func (d TagType) AcceptDataType(dataType DataType) bool {
+	if !dataType.Valid() {
+		return false
+	}
 	dataTypeList, _ := _TagType_TypesTable[d]
 	if len(dataTypeList) == 0 {
 		return true
@@ -102,4 +115,8 @@ func (d TagType) AcceptDataType(dataType DataType) bool {
 		}
 	}
 	return false
+}
+
+func (d TagType) Valid() bool {
+	return d != 0
 }
