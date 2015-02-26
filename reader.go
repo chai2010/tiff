@@ -35,14 +35,15 @@ func OpenReader(r io.Reader) (p *Reader, err error) {
 		return
 	}
 
-	var ifd *IFD
-	for offset := p.Header.FirstIFD; offset != 0; offset = ifd.NextIFD {
+	for offset := p.Header.FirstIFD; offset != 0; {
+		var ifd *IFD
 		var ifdList []*IFD
 
 		if ifd, err = ReadIFD(rs, p.Header, offset); err != nil {
 			return
 		}
 		ifdList = append(ifdList, ifd)
+		offset = ifd.NextIFD
 
 		subIfdOffsets, _ := ifd.TagGetter().GetSubIFD()
 		for _, subOffset := range subIfdOffsets {
