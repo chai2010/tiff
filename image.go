@@ -21,12 +21,20 @@ type Image struct {
 
 	// 1:Gray, 2:GrayA, 3:RGB, 4:RGBA
 	Channels int
-	// Uint8/Uint16/Int32/Int64/Float32/Float64
+	// Uint8/Uint16/Uint32/Uint64/Int32/Int64/Float32/Float64
 	DataType reflect.Kind
 }
 
-func NewImage(r image.Rectangle, channels int, kind reflect.Kind) *Image {
-	return nil
+func NewImage(r image.Rectangle, channels int, dataType reflect.Kind) *Image {
+	pixSize := getPixelSize(channels, dataType)
+	stride := pixSize * r.Dx()
+	return &Image{
+		Pix:      make([]uint8, pixSize*r.Dy()),
+		Stride:   stride,
+		Rect:     r,
+		Channels: channels,
+		DataType: dataType,
+	}
 }
 
 func (p *Image) Bounds() image.Rectangle {
@@ -34,7 +42,7 @@ func (p *Image) Bounds() image.Rectangle {
 }
 
 func (p *Image) ColorModel() color.Model {
-	return nil
+	return ColorModel
 }
 
 func (p *Image) At(x, y int) color.Color {
@@ -49,16 +57,12 @@ func (p *Image) PixOffset(x, y int) int {
 	return (y-p.Rect.Min.Y)*p.Stride + (x-p.Rect.Min.X)*2
 }
 
-func (p *Image) Slice(low_high_max ...int) interface{} {
-	return nil
-}
-
 func (p *Image) SubImage(r image.Rectangle) image.Image {
 	return nil
 }
 
-func (p *Image) StdImage() image.Image {
-	return nil
+func (p *Image) StdImage() (image.Image, bool) {
+	return nil, false
 }
 
 func (p *Image) Opaque() bool {
