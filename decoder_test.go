@@ -59,12 +59,12 @@ func TestUnpackBits(t *testing.T) {
 		"\xaa\xaa\xaa\x80\x00\x2a\xaa\xaa\xaa\xaa\x80\x00\x2a\x22\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa",
 	}}
 	for _, u := range unpackBitsTests {
-		buf, err := TagValue_CompressionType_PackBits.ReadAll(strings.NewReader(u.compressed))
+		buf, err := TagValue_CompressionType_PackBits.Decode(strings.NewReader(u.compressed))
 		if err != nil {
 			t.Fatal(err)
 		}
 		if string(buf) != u.uncompressed {
-			t.Fatalf("TagValue_CompressionType_PackBits.ReadAll: want %x, got %x", u.uncompressed, buf)
+			t.Fatalf("TagValue_CompressionType_PackBits.Decode: want %x, got %x", u.uncompressed, buf)
 		}
 	}
 }
