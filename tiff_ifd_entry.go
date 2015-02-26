@@ -466,22 +466,83 @@ func (p *IFDEntry) SetValue(value interface{}) (err error) {
 	panic("TODO")
 }
 
+func (p *IFDEntry) isOnlyOneValue() bool {
+	nums, _ := _TagType_NumsTable[p.Tag]
+	return len(nums) == 1 && nums[0] == 1
+}
+
 func (p *IFDEntry) String() string {
+	switch p.Tag {
+	case TagType_NewSubfileType:
+		if v := p.GetInts(); len(v) == 1 {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, TagValue_NewSubfileType(v[0]))
+		}
+	case TagType_SubfileType:
+		if v := p.GetInts(); len(v) == 1 {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, TagValue_SubfileType(v[0]))
+		}
+	case TagType_ImageWidth:
+		if v := p.GetInts(); len(v) == 1 {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, int(v[0]))
+		}
+	case TagType_ImageLength:
+		if v := p.GetInts(); len(v) == 1 {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, int(v[0]))
+		}
+	case TagType_Compression:
+		if v := p.GetInts(); len(v) == 1 {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, TagValue_CompressionType(v[0]))
+		}
+	case TagType_PhotometricInterpretation:
+		if v := p.GetInts(); len(v) == 1 {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, TagValue_PhotometricType(v[0]))
+		}
+	case TagType_RowsPerStrip:
+		if v := p.GetInts(); len(v) == 1 {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, int(v[0]))
+		}
+	case TagType_SamplesPerPixel:
+		if v := p.GetInts(); len(v) == 1 {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, int(v[0]))
+		}
+	case TagType_ResolutionUnit:
+		if v := p.GetInts(); len(v) == 1 {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, TagValue_ResolutionUnitType(v[0]))
+		}
+	case TagType_Predictor:
+		if v := p.GetInts(); len(v) == 1 {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, TagValue_PredictorType(v[0]))
+		}
+	case TagType_StripOffsets, TagType_TileOffsets, TagType_FreeOffsets:
+		return fmt.Sprintf("%v(%v): %#08x", p.Tag, p.DataType, p.GetInts())
+	case TagType_SampleFormat:
+		if v := p.GetInts(); len(v) == 1 {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, TagValue_SampleFormatType(v[0]))
+		}
+	}
 	switch {
 	case p.DataType.IsIntType():
-		switch p.Tag {
-		case TagType_StripOffsets, TagType_TileOffsets, TagType_FreeOffsets:
-			return fmt.Sprintf("%v(%v): %#08x", p.Tag, p.DataType, p.GetInts())
-		}
 		switch p.DataType {
 		case DataType_IFD, DataType_IFD8:
 			return fmt.Sprintf("%v(%v): %#08x", p.Tag, p.DataType, p.GetInts())
 		}
-		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.GetInts())
+		if v := p.GetInts(); len(v) == 1 && p.isOnlyOneValue() {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, v[0])
+		} else {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, v)
+		}
 	case p.DataType.IsFloatType():
-		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.GetFloats())
+		if v := p.GetFloats(); len(v) == 1 && p.isOnlyOneValue() {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, v[0])
+		} else {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, v)
+		}
 	case p.DataType.IsRationalType():
-		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.GetRationals())
+		if v := p.GetRationals(); len(v) == 1 && p.isOnlyOneValue() {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, v[0])
+		} else {
+			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, v)
+		}
 	case p.DataType.IsStringType():
 		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.GetString())
 	default:
