@@ -36,9 +36,9 @@ func NewHeader(isBigTiff bool, firstIFD int64) *Header {
 func ReadHeader(r io.Reader) (header *Header, err error) {
 	var rs io.ReadSeeker
 	if rs, _ = r.(io.ReadSeeker); rs == nil {
-		rs := openSeekioReader(r, 0)
-		defer rs.Close()
-		rs = rs
+		seekReader := openSeekioReader(r, 0)
+		defer seekReader.Close()
+		rs = seekReader
 	}
 	if _, err = rs.Seek(0, 0); err != nil {
 		return

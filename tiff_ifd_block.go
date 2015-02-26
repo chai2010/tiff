@@ -19,7 +19,6 @@ func (p *IFD) BlocksAcross() int {
 	} else {
 		return 1
 	}
-	return 0
 }
 
 func (p *IFD) BlocksDown() int {
