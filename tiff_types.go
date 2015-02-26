@@ -302,101 +302,107 @@ const (
 )
 
 // EXIF Tags
+type ExifIFD_TagType TagType
+
 const (
-	TagType_ExposureTime             TagType = 33434 // TagType_ExifIFD, ingore # Exposure time, given in seconds.
-	TagType_FNumber                  TagType = 33437 // TagType_ExifIFD, ingore # The F number.
-	TagType_ExposureProgram          TagType = 34850 // TagType_ExifIFD, ingore # The class of the program used by the camera to set exposure when the picture is taken.
-	TagType_SpectralSensitivity      TagType = 34852 // TagType_ExifIFD, ingore # Indicates the spectral sensitivity of each channel of the camera used.
-	TagType_ISOSpeedRatings          TagType = 34855 // TagType_ExifIFD, ingore # Indicates the ISO Speed and ISO Latitude of the camera or input device as specified in ISO 12232.
-	TagType_OECF                     TagType = 34856 // TagType_ExifIFD, ingore # Indicates the Opto-Electric Conversion Function (OECF) specified in ISO 14524.
-	TagType_ExifVersion              TagType = 36864 // TagType_ExifIFD, ingore # The version of the supported Exif standard.
-	TagType_DateTimeOriginal         TagType = 36867 // TagType_ExifIFD, ingore # The date and time when the original image data was generated.
-	TagType_DateTimeDigitized        TagType = 36868 // TagType_ExifIFD, ingore # The date and time when the image was stored as digital data.
-	TagType_ComponentsConfiguration  TagType = 37121 // TagType_ExifIFD, ingore # Specific to compressed data; specifies the channels and complements PhotometricInterpretation
-	TagType_CompressedBitsPerPixel   TagType = 37122 // TagType_ExifIFD, ingore # Specific to compressed data; states the compressed bits per pixel.
-	TagType_ShutterSpeedValue        TagType = 37377 // TagType_ExifIFD, ingore # Shutter speed.
-	TagType_ApertureValue            TagType = 37378 // TagType_ExifIFD, ingore # The lens aperture.
-	TagType_BrightnessValue          TagType = 37379 // TagType_ExifIFD, ingore # The value of brightness.
-	TagType_ExposureBiasValue        TagType = 37380 // TagType_ExifIFD, ingore # The exposure bias.
-	TagType_MaxApertureValue         TagType = 37381 // TagType_ExifIFD, ingore # The smallest F number of the lens.
-	TagType_SubjectDistance          TagType = 37382 // TagType_ExifIFD, ingore # The distance to the subject, given in meters.
-	TagType_MeteringMode             TagType = 37383 // TagType_ExifIFD, ingore # The metering mode.
-	TagType_LightSource              TagType = 37384 // TagType_ExifIFD, ingore # The kind of light source.
-	TagType_Flash                    TagType = 37385 // TagType_ExifIFD, ingore # Indicates the status of flash when the image was shot.
-	TagType_FocalLength              TagType = 37386 // TagType_ExifIFD, ingore # The actual focal length of the lens, in mm.
-	TagType_SubjectArea              TagType = 37396 // TagType_ExifIFD, ingore # Indicates the location and area of the main subject in the overall scene.
-	TagType_MakerNote                TagType = 37500 // TagType_ExifIFD, ingore # Manufacturer specific information.
-	TagType_UserComment              TagType = 37510 // TagType_ExifIFD, ingore # Keywords or comments on the image; complements ImageDescription.
-	TagType_SubsecTime               TagType = 37520 // TagType_ExifIFD, ingore # A tag used to record fractions of seconds for the DateTime tag.
-	TagType_SubsecTimeOriginal       TagType = 37521 // TagType_ExifIFD, ingore # A tag used to record fractions of seconds for the DateTimeOriginal tag.
-	TagType_SubsecTimeDigitized      TagType = 37522 // TagType_ExifIFD, ingore # A tag used to record fractions of seconds for the DateTimeDigitized tag.
-	TagType_FlashpixVersion          TagType = 40960 // TagType_ExifIFD, ingore # The Flashpix format version supported by a FPXR file.
-	TagType_ColorSpace               TagType = 40961 // TagType_ExifIFD, ingore # The color space information tag is always recorded as the color space specifier.
-	TagType_PixelXDimension          TagType = 40962 // TagType_ExifIFD, ingore # Specific to compressed data; the valid width of the meaningful image.
-	TagType_PixelYDimension          TagType = 40963 // TagType_ExifIFD, ingore # Specific to compressed data; the valid height of the meaningful image.
-	TagType_RelatedSoundFile         TagType = 40964 // TagType_ExifIFD, ingore # Used to record the name of an audio file related to the image data.
-	TagType_FlashEnergy              TagType = 41483 // TagType_ExifIFD, ingore # Indicates the strobe energy at the time the image is captured, as measured in Beam Candle Power Seconds
-	TagType_SpatialFrequencyResponse TagType = 41484 // TagType_ExifIFD, ingore # Records the camera or input device spatial frequency table and SFR values in the direction of image width, image height, and diagonal direction, as specified in ISO 12233.
-	TagType_FocalPlaneXResolution    TagType = 41486 // TagType_ExifIFD, ingore # Indicates the number of pixels in the image width (X) direction per FocalPlaneResolutionUnit on the camera focal plane.
-	TagType_FocalPlaneYResolution    TagType = 41487 // TagType_ExifIFD, ingore # Indicates the number of pixels in the image height (Y) direction per FocalPlaneResolutionUnit on the camera focal plane.
-	TagType_FocalPlaneResolutionUnit TagType = 41488 // TagType_ExifIFD, ingore # Indicates the unit for measuring FocalPlaneXResolution and FocalPlaneYResolution.
-	TagType_SubjectLocation          TagType = 41492 // TagType_ExifIFD, ingore # Indicates the location of the main subject in the scene.
-	TagType_ExposureIndex            TagType = 41493 // TagType_ExifIFD, ingore # Indicates the exposure index selected on the camera or input device at the time the image is captured.
-	TagType_SensingMethod            TagType = 41495 // TagType_ExifIFD, ingore # Indicates the image sensor type on the camera or input device.
-	TagType_FileSource               TagType = 41728 // TagType_ExifIFD, ingore # Indicates the image source.
-	TagType_SceneType                TagType = 41729 // TagType_ExifIFD, ingore # Indicates the type of scene.
-	TagType_CFAPattern               TagType = 41730 // TagType_ExifIFD, ingore # Indicates the color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used.
-	TagType_CustomRendered           TagType = 41985 // TagType_ExifIFD, ingore # Indicates the use of special processing on image data, such as rendering geared to output.
-	TagType_ExposureMode             TagType = 41986 // TagType_ExifIFD, ingore # Indicates the exposure mode set when the image was shot.
-	TagType_WhiteBalance             TagType = 41987 // TagType_ExifIFD, ingore # Indicates the white balance mode set when the image was shot.
-	TagType_DigitalZoomRatio         TagType = 41988 // TagType_ExifIFD, ingore # Indicates the digital zoom ratio when the image was shot.
-	TagType_FocalLengthIn35mmFilm    TagType = 41989 // TagType_ExifIFD, ingore # Indicates the equivalent focal length assuming a 35mm film camera, in mm.
-	TagType_SceneCaptureType         TagType = 41990 // TagType_ExifIFD, ingore # Indicates the type of scene that was shot.
-	TagType_GainControl              TagType = 41991 // TagType_ExifIFD, ingore # Indicates the degree of overall image gain adjustment.
-	TagType_Contrast                 TagType = 41992 // TagType_ExifIFD, ingore # Indicates the direction of contrast processing applied by the camera when the image was shot.
-	TagType_Saturation               TagType = 41993 // TagType_ExifIFD, ingore # Indicates the direction of saturation processing applied by the camera when the image was shot.
-	TagType_Sharpness                TagType = 41994 // TagType_ExifIFD, ingore # Indicates the direction of sharpness processing applied by the camera when the image was shot.
-	TagType_DeviceSettingDescription TagType = 41995 // TagType_ExifIFD, ingore # This tag indicates information on the picture-taking conditions of a particular camera model.
-	TagType_SubjectDistanceRange     TagType = 41996 // TagType_ExifIFD, ingore # Indicates the distance to the subject.
-	TagType_ImageUniqueID            TagType = 42016 // TagType_ExifIFD, ingore # Indicates an identifier assigned uniquely to each image.
+	ExifIFD_TagType_ExposureTime             ExifIFD_TagType = 33434 // ingore # Exposure time, given in seconds.
+	ExifIFD_TagType_FNumber                  ExifIFD_TagType = 33437 // ingore # The F number.
+	ExifIFD_TagType_ExposureProgram          ExifIFD_TagType = 34850 // ingore # The class of the program used by the camera to set exposure when the picture is taken.
+	ExifIFD_TagType_SpectralSensitivity      ExifIFD_TagType = 34852 // ingore # Indicates the spectral sensitivity of each channel of the camera used.
+	ExifIFD_TagType_ISOSpeedRatings          ExifIFD_TagType = 34855 // ingore # Indicates the ISO Speed and ISO Latitude of the camera or input device as specified in ISO 12232.
+	ExifIFD_TagType_OECF                     ExifIFD_TagType = 34856 // ingore # Indicates the Opto-Electric Conversion Function (OECF) specified in ISO 14524.
+	ExifIFD_TagType_ExifVersion              ExifIFD_TagType = 36864 // ingore # The version of the supported Exif standard.
+	ExifIFD_TagType_DateTimeOriginal         ExifIFD_TagType = 36867 // ingore # The date and time when the original image data was generated.
+	ExifIFD_TagType_DateTimeDigitized        ExifIFD_TagType = 36868 // ingore # The date and time when the image was stored as digital data.
+	ExifIFD_TagType_ComponentsConfiguration  ExifIFD_TagType = 37121 // ingore # Specific to compressed data; specifies the channels and complements PhotometricInterpretation
+	ExifIFD_TagType_CompressedBitsPerPixel   ExifIFD_TagType = 37122 // ingore # Specific to compressed data; states the compressed bits per pixel.
+	ExifIFD_TagType_ShutterSpeedValue        ExifIFD_TagType = 37377 // ingore # Shutter speed.
+	ExifIFD_TagType_ApertureValue            ExifIFD_TagType = 37378 // ingore # The lens aperture.
+	ExifIFD_TagType_BrightnessValue          ExifIFD_TagType = 37379 // ingore # The value of brightness.
+	ExifIFD_TagType_ExposureBiasValue        ExifIFD_TagType = 37380 // ingore # The exposure bias.
+	ExifIFD_TagType_MaxApertureValue         ExifIFD_TagType = 37381 // ingore # The smallest F number of the lens.
+	ExifIFD_TagType_SubjectDistance          ExifIFD_TagType = 37382 // ingore # The distance to the subject, given in meters.
+	ExifIFD_TagType_MeteringMode             ExifIFD_TagType = 37383 // ingore # The metering mode.
+	ExifIFD_TagType_LightSource              ExifIFD_TagType = 37384 // ingore # The kind of light source.
+	ExifIFD_TagType_Flash                    ExifIFD_TagType = 37385 // ingore # Indicates the status of flash when the image was shot.
+	ExifIFD_TagType_FocalLength              ExifIFD_TagType = 37386 // ingore # The actual focal length of the lens, in mm.
+	ExifIFD_TagType_SubjectArea              ExifIFD_TagType = 37396 // ingore # Indicates the location and area of the main subject in the overall scene.
+	ExifIFD_TagType_MakerNote                ExifIFD_TagType = 37500 // ingore # Manufacturer specific information.
+	ExifIFD_TagType_UserComment              ExifIFD_TagType = 37510 // ingore # Keywords or comments on the image; complements ImageDescription.
+	ExifIFD_TagType_SubsecTime               ExifIFD_TagType = 37520 // ingore # A tag used to record fractions of seconds for the DateTime tag.
+	ExifIFD_TagType_SubsecTimeOriginal       ExifIFD_TagType = 37521 // ingore # A tag used to record fractions of seconds for the DateTimeOriginal tag.
+	ExifIFD_TagType_SubsecTimeDigitized      ExifIFD_TagType = 37522 // ingore # A tag used to record fractions of seconds for the DateTimeDigitized tag.
+	ExifIFD_TagType_FlashpixVersion          ExifIFD_TagType = 40960 // ingore # The Flashpix format version supported by a FPXR file.
+	ExifIFD_TagType_ColorSpace               ExifIFD_TagType = 40961 // ingore # The color space information tag is always recorded as the color space specifier.
+	ExifIFD_TagType_PixelXDimension          ExifIFD_TagType = 40962 // ingore # Specific to compressed data; the valid width of the meaningful image.
+	ExifIFD_TagType_PixelYDimension          ExifIFD_TagType = 40963 // ingore # Specific to compressed data; the valid height of the meaningful image.
+	ExifIFD_TagType_RelatedSoundFile         ExifIFD_TagType = 40964 // ingore # Used to record the name of an audio file related to the image data.
+	ExifIFD_TagType_FlashEnergy              ExifIFD_TagType = 41483 // ingore # Indicates the strobe energy at the time the image is captured, as measured in Beam Candle Power Seconds
+	ExifIFD_TagType_SpatialFrequencyResponse ExifIFD_TagType = 41484 // ingore # Records the camera or input device spatial frequency table and SFR values in the direction of image width, image height, and diagonal direction, as specified in ISO 12233.
+	ExifIFD_TagType_FocalPlaneXResolution    ExifIFD_TagType = 41486 // ingore # Indicates the number of pixels in the image width (X) direction per FocalPlaneResolutionUnit on the camera focal plane.
+	ExifIFD_TagType_FocalPlaneYResolution    ExifIFD_TagType = 41487 // ingore # Indicates the number of pixels in the image height (Y) direction per FocalPlaneResolutionUnit on the camera focal plane.
+	ExifIFD_TagType_FocalPlaneResolutionUnit ExifIFD_TagType = 41488 // ingore # Indicates the unit for measuring FocalPlaneXResolution and FocalPlaneYResolution.
+	ExifIFD_TagType_SubjectLocation          ExifIFD_TagType = 41492 // ingore # Indicates the location of the main subject in the scene.
+	ExifIFD_TagType_ExposureIndex            ExifIFD_TagType = 41493 // ingore # Indicates the exposure index selected on the camera or input device at the time the image is captured.
+	ExifIFD_TagType_SensingMethod            ExifIFD_TagType = 41495 // ingore # Indicates the image sensor type on the camera or input device.
+	ExifIFD_TagType_FileSource               ExifIFD_TagType = 41728 // ingore # Indicates the image source.
+	ExifIFD_TagType_SceneType                ExifIFD_TagType = 41729 // ingore # Indicates the type of scene.
+	ExifIFD_TagType_CFAPattern               ExifIFD_TagType = 41730 // ingore # Indicates the color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used.
+	ExifIFD_TagType_CustomRendered           ExifIFD_TagType = 41985 // ingore # Indicates the use of special processing on image data, such as rendering geared to output.
+	ExifIFD_TagType_ExposureMode             ExifIFD_TagType = 41986 // ingore # Indicates the exposure mode set when the image was shot.
+	ExifIFD_TagType_WhiteBalance             ExifIFD_TagType = 41987 // ingore # Indicates the white balance mode set when the image was shot.
+	ExifIFD_TagType_DigitalZoomRatio         ExifIFD_TagType = 41988 // ingore # Indicates the digital zoom ratio when the image was shot.
+	ExifIFD_TagType_FocalLengthIn35mmFilm    ExifIFD_TagType = 41989 // ingore # Indicates the equivalent focal length assuming a 35mm film camera, in mm.
+	ExifIFD_TagType_SceneCaptureType         ExifIFD_TagType = 41990 // ingore # Indicates the type of scene that was shot.
+	ExifIFD_TagType_GainControl              ExifIFD_TagType = 41991 // ingore # Indicates the degree of overall image gain adjustment.
+	ExifIFD_TagType_Contrast                 ExifIFD_TagType = 41992 // ingore # Indicates the direction of contrast processing applied by the camera when the image was shot.
+	ExifIFD_TagType_Saturation               ExifIFD_TagType = 41993 // ingore # Indicates the direction of saturation processing applied by the camera when the image was shot.
+	ExifIFD_TagType_Sharpness                ExifIFD_TagType = 41994 // ingore # Indicates the direction of sharpness processing applied by the camera when the image was shot.
+	ExifIFD_TagType_DeviceSettingDescription ExifIFD_TagType = 41995 // ingore # This tag indicates information on the picture-taking conditions of a particular camera model.
+	ExifIFD_TagType_SubjectDistanceRange     ExifIFD_TagType = 41996 // ingore # Indicates the distance to the subject.
+	ExifIFD_TagType_ImageUniqueID            ExifIFD_TagType = 42016 // ingore # Indicates an identifier assigned uniquely to each image.
 )
 
 // GPS Tags
+type GPSIFD_TagType TagType
+
 const (
-	TagType_GPSVersionID        TagType = 0  // TagType_GPSIFD, ingore # Indicates the version of GPSInfoIFD.
-	TagType_GPSLatitudeRef      TagType = 1  // TagType_GPSIFD, ingore # Indicates whether the latitude is north or south latitude.
-	TagType_GPSLatitude         TagType = 2  // TagType_GPSIFD, ingore # Indicates the latitude.
-	TagType_GPSLongitudeRef     TagType = 3  // TagType_GPSIFD, ingore # Indicates whether the longitude is east or west longitude.
-	TagType_GPSLongitude        TagType = 4  // TagType_GPSIFD, ingore # Indicates the longitude.
-	TagType_GPSAltitudeRef      TagType = 5  // TagType_GPSIFD, ingore # Indicates the altitude used as the reference altitude.
-	TagType_GPSAltitude         TagType = 6  // TagType_GPSIFD, ingore # Indicates the altitude based on the reference in GPSAltitudeRef.
-	TagType_GPSTimeStamp        TagType = 7  // TagType_GPSIFD, ingore # Indicates the time as UTC (Coordinated Universal Time).
-	TagType_GPSSatellites       TagType = 8  // TagType_GPSIFD, ingore # Indicates the GPS satellites used for measurements.
-	TagType_GPSStatus           TagType = 9  // TagType_GPSIFD, ingore # Indicates the status of the GPS receiver when the image is recorded.
-	TagType_GPSMeasureMode      TagType = 10 // TagType_GPSIFD, ingore # Indicates the GPS measurement mode.
-	TagType_GPSDOP              TagType = 11 // TagType_GPSIFD, ingore # Indicates the GPS DOP (data degree of precision).
-	TagType_GPSSpeedRef         TagType = 12 // TagType_GPSIFD, ingore # Indicates the unit used to express the GPS receiver speed of movement.
-	TagType_GPSSpeed            TagType = 13 // TagType_GPSIFD, ingore # Indicates the speed of GPS receiver movement.
-	TagType_GPSTrackRef         TagType = 14 // TagType_GPSIFD, ingore # Indicates the reference for giving the direction of GPS receiver movement.
-	TagType_GPSTrack            TagType = 15 // TagType_GPSIFD, ingore # Indicates the direction of GPS receiver movement.
-	TagType_GPSImgDirectionRef  TagType = 16 // TagType_GPSIFD, ingore # Indicates the reference for giving the direction of the image when it is captured.
-	TagType_GPSImgDirection     TagType = 17 // TagType_GPSIFD, ingore # Indicates the direction of the image when it was captured.
-	TagType_GPSMapDatum         TagType = 18 // TagType_GPSIFD, ingore # Indicates the geodetic survey data used by the GPS receiver.
-	TagType_GPSDestLatitudeRef  TagType = 19 // TagType_GPSIFD, ingore # Indicates whether the latitude of the destination point is north or south latitude.
-	TagType_GPSDestLatitude     TagType = 20 // TagType_GPSIFD, ingore # Indicates the latitude of the destination point.
-	TagType_GPSDestLongitudeRef TagType = 21 // TagType_GPSIFD, ingore # Indicates whether the longitude of the destination point is east or west longitude.
-	TagType_GPSDestLongitude    TagType = 22 // TagType_GPSIFD, ingore # Indicates the longitude of the destination point.
-	TagType_GPSDestBearingRef   TagType = 23 // TagType_GPSIFD, ingore # Indicates the reference used for giving the bearing to the destination point.
-	TagType_GPSDestBearing      TagType = 24 // TagType_GPSIFD, ingore # Indicates the bearing to the destination point.
-	TagType_GPSDestDistanceRef  TagType = 25 // TagType_GPSIFD, ingore # Indicates the unit used to express the distance to the destination point.
-	TagType_GPSDestDistance     TagType = 26 // TagType_GPSIFD, ingore # Indicates the distance to the destination point.
-	TagType_GPSProcessingMethod TagType = 27 // TagType_GPSIFD, ingore # A character string recording the name of the method used for location finding.
-	TagType_GPSAreaInformation  TagType = 28 // TagType_GPSIFD, ingore # A character string recording the name of the GPS area.
-	TagType_GPSDateStamp        TagType = 29 // TagType_GPSIFD, ingore # A character string recording date and time information relative to UTC (Coordinated Universal Time).
-	TagType_GPSDifferential     TagType = 30 // TagType_GPSIFD, ingore # Indicates whether differential correction is applied to the GPS receiver.
+	GPSIFD_TagType_GPSVersionID        GPSIFD_TagType = 0  // ingore # Indicates the version of GPSInfoIFD.
+	GPSIFD_TagType_GPSLatitudeRef      GPSIFD_TagType = 1  // ingore # Indicates whether the latitude is north or south latitude.
+	GPSIFD_TagType_GPSLatitude         GPSIFD_TagType = 2  // ingore # Indicates the latitude.
+	GPSIFD_TagType_GPSLongitudeRef     GPSIFD_TagType = 3  // ingore # Indicates whether the longitude is east or west longitude.
+	GPSIFD_TagType_GPSLongitude        GPSIFD_TagType = 4  // ingore # Indicates the longitude.
+	GPSIFD_TagType_GPSAltitudeRef      GPSIFD_TagType = 5  // ingore # Indicates the altitude used as the reference altitude.
+	GPSIFD_TagType_GPSAltitude         GPSIFD_TagType = 6  // ingore # Indicates the altitude based on the reference in GPSAltitudeRef.
+	GPSIFD_TagType_GPSTimeStamp        GPSIFD_TagType = 7  // ingore # Indicates the time as UTC (Coordinated Universal Time).
+	GPSIFD_TagType_GPSSatellites       GPSIFD_TagType = 8  // ingore # Indicates the GPS satellites used for measurements.
+	GPSIFD_TagType_GPSStatus           GPSIFD_TagType = 9  // ingore # Indicates the status of the GPS receiver when the image is recorded.
+	GPSIFD_TagType_GPSMeasureMode      GPSIFD_TagType = 10 // ingore # Indicates the GPS measurement mode.
+	GPSIFD_TagType_GPSDOP              GPSIFD_TagType = 11 // ingore # Indicates the GPS DOP (data degree of precision).
+	GPSIFD_TagType_GPSSpeedRef         GPSIFD_TagType = 12 // ingore # Indicates the unit used to express the GPS receiver speed of movement.
+	GPSIFD_TagType_GPSSpeed            GPSIFD_TagType = 13 // ingore # Indicates the speed of GPS receiver movement.
+	GPSIFD_TagType_GPSTrackRef         GPSIFD_TagType = 14 // ingore # Indicates the reference for giving the direction of GPS receiver movement.
+	GPSIFD_TagType_GPSTrack            GPSIFD_TagType = 15 // ingore # Indicates the direction of GPS receiver movement.
+	GPSIFD_TagType_GPSImgDirectionRef  GPSIFD_TagType = 16 // ingore # Indicates the reference for giving the direction of the image when it is captured.
+	GPSIFD_TagType_GPSImgDirection     GPSIFD_TagType = 17 // ingore # Indicates the direction of the image when it was captured.
+	GPSIFD_TagType_GPSMapDatum         GPSIFD_TagType = 18 // ingore # Indicates the geodetic survey data used by the GPS receiver.
+	GPSIFD_TagType_GPSDestLatitudeRef  GPSIFD_TagType = 19 // ingore # Indicates whether the latitude of the destination point is north or south latitude.
+	GPSIFD_TagType_GPSDestLatitude     GPSIFD_TagType = 20 // ingore # Indicates the latitude of the destination point.
+	GPSIFD_TagType_GPSDestLongitudeRef GPSIFD_TagType = 21 // ingore # Indicates whether the longitude of the destination point is east or west longitude.
+	GPSIFD_TagType_GPSDestLongitude    GPSIFD_TagType = 22 // ingore # Indicates the longitude of the destination point.
+	GPSIFD_TagType_GPSDestBearingRef   GPSIFD_TagType = 23 // ingore # Indicates the reference used for giving the bearing to the destination point.
+	GPSIFD_TagType_GPSDestBearing      GPSIFD_TagType = 24 // ingore # Indicates the bearing to the destination point.
+	GPSIFD_TagType_GPSDestDistanceRef  GPSIFD_TagType = 25 // ingore # Indicates the unit used to express the distance to the destination point.
+	GPSIFD_TagType_GPSDestDistance     GPSIFD_TagType = 26 // ingore # Indicates the distance to the destination point.
+	GPSIFD_TagType_GPSProcessingMethod GPSIFD_TagType = 27 // ingore # A character string recording the name of the method used for location finding.
+	GPSIFD_TagType_GPSAreaInformation  GPSIFD_TagType = 28 // ingore # A character string recording the name of the GPS area.
+	GPSIFD_TagType_GPSDateStamp        GPSIFD_TagType = 29 // ingore # A character string recording date and time information relative to UTC (Coordinated Universal Time).
+	GPSIFD_TagType_GPSDifferential     GPSIFD_TagType = 30 // ingore # Indicates whether differential correction is applied to the GPS receiver.
 )
 
 // Interoperability Tags
+type InteroperabilityIFD_TagType TagType
+
 const (
-	TagType_InteroperabilityIndex TagType = 1 // TagType_InteroperabilityIFD, ingore # Indicates the identification of the Interoperability rule.
+	InteroperabilityIFD_TagType_InteroperabilityIndex InteroperabilityIFD_TagType = 1 // ingore # Indicates the identification of the Interoperability rule.
 )

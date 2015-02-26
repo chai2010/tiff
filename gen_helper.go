@@ -78,6 +78,19 @@ func main() {
 			TypeName: "TagValue_SampleFormatType",
 			FileName: "tiff_types.go",
 		},
+
+		Type{
+			TypeName: "ExifIFD_TagType",
+			FileName: "tiff_types.go",
+		},
+		Type{
+			TypeName: "GPSIFD_TagType",
+			FileName: "tiff_types.go",
+		},
+		Type{
+			TypeName: "InteroperabilityIFD_TagType",
+			FileName: "tiff_types.go",
+		},
 	}
 
 	var buf bytes.Buffer

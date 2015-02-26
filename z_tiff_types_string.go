@@ -672,3 +672,121 @@ func (p TagValue_SampleFormatType) String() string {
 	}
 	return fmt.Sprintf("TagValue_SampleFormatType_Unknown(%d)", uint16(p))
 }
+
+var _ExifIFD_TagTypeTable = map[ExifIFD_TagType]string{
+	ExifIFD_TagType_ExposureTime:             `ExifIFD_TagType_ExposureTime`,             // ingore # Exposure time, given in seconds.
+	ExifIFD_TagType_FNumber:                  `ExifIFD_TagType_FNumber`,                  // ingore # The F number.
+	ExifIFD_TagType_ExposureProgram:          `ExifIFD_TagType_ExposureProgram`,          // ingore # The class of the program used by the camera to set exposure when the picture is taken.
+	ExifIFD_TagType_SpectralSensitivity:      `ExifIFD_TagType_SpectralSensitivity`,      // ingore # Indicates the spectral sensitivity of each channel of the camera used.
+	ExifIFD_TagType_ISOSpeedRatings:          `ExifIFD_TagType_ISOSpeedRatings`,          // ingore # Indicates the ISO Speed and ISO Latitude of the camera or input device as specified in ISO 12232.
+	ExifIFD_TagType_OECF:                     `ExifIFD_TagType_OECF`,                     // ingore # Indicates the Opto-Electric Conversion Function (OECF) specified in ISO 14524.
+	ExifIFD_TagType_ExifVersion:              `ExifIFD_TagType_ExifVersion`,              // ingore # The version of the supported Exif standard.
+	ExifIFD_TagType_DateTimeOriginal:         `ExifIFD_TagType_DateTimeOriginal`,         // ingore # The date and time when the original image data was generated.
+	ExifIFD_TagType_DateTimeDigitized:        `ExifIFD_TagType_DateTimeDigitized`,        // ingore # The date and time when the image was stored as digital data.
+	ExifIFD_TagType_ComponentsConfiguration:  `ExifIFD_TagType_ComponentsConfiguration`,  // ingore # Specific to compressed data; specifies the channels and complements PhotometricInterpretation
+	ExifIFD_TagType_CompressedBitsPerPixel:   `ExifIFD_TagType_CompressedBitsPerPixel`,   // ingore # Specific to compressed data; states the compressed bits per pixel.
+	ExifIFD_TagType_ShutterSpeedValue:        `ExifIFD_TagType_ShutterSpeedValue`,        // ingore # Shutter speed.
+	ExifIFD_TagType_ApertureValue:            `ExifIFD_TagType_ApertureValue`,            // ingore # The lens aperture.
+	ExifIFD_TagType_BrightnessValue:          `ExifIFD_TagType_BrightnessValue`,          // ingore # The value of brightness.
+	ExifIFD_TagType_ExposureBiasValue:        `ExifIFD_TagType_ExposureBiasValue`,        // ingore # The exposure bias.
+	ExifIFD_TagType_MaxApertureValue:         `ExifIFD_TagType_MaxApertureValue`,         // ingore # The smallest F number of the lens.
+	ExifIFD_TagType_SubjectDistance:          `ExifIFD_TagType_SubjectDistance`,          // ingore # The distance to the subject, given in meters.
+	ExifIFD_TagType_MeteringMode:             `ExifIFD_TagType_MeteringMode`,             // ingore # The metering mode.
+	ExifIFD_TagType_LightSource:              `ExifIFD_TagType_LightSource`,              // ingore # The kind of light source.
+	ExifIFD_TagType_Flash:                    `ExifIFD_TagType_Flash`,                    // ingore # Indicates the status of flash when the image was shot.
+	ExifIFD_TagType_FocalLength:              `ExifIFD_TagType_FocalLength`,              // ingore # The actual focal length of the lens, in mm.
+	ExifIFD_TagType_SubjectArea:              `ExifIFD_TagType_SubjectArea`,              // ingore # Indicates the location and area of the main subject in the overall scene.
+	ExifIFD_TagType_MakerNote:                `ExifIFD_TagType_MakerNote`,                // ingore # Manufacturer specific information.
+	ExifIFD_TagType_UserComment:              `ExifIFD_TagType_UserComment`,              // ingore # Keywords or comments on the image; complements ImageDescription.
+	ExifIFD_TagType_SubsecTime:               `ExifIFD_TagType_SubsecTime`,               // ingore # A tag used to record fractions of seconds for the DateTime tag.
+	ExifIFD_TagType_SubsecTimeOriginal:       `ExifIFD_TagType_SubsecTimeOriginal`,       // ingore # A tag used to record fractions of seconds for the DateTimeOriginal tag.
+	ExifIFD_TagType_SubsecTimeDigitized:      `ExifIFD_TagType_SubsecTimeDigitized`,      // ingore # A tag used to record fractions of seconds for the DateTimeDigitized tag.
+	ExifIFD_TagType_FlashpixVersion:          `ExifIFD_TagType_FlashpixVersion`,          // ingore # The Flashpix format version supported by a FPXR file.
+	ExifIFD_TagType_ColorSpace:               `ExifIFD_TagType_ColorSpace`,               // ingore # The color space information tag is always recorded as the color space specifier.
+	ExifIFD_TagType_PixelXDimension:          `ExifIFD_TagType_PixelXDimension`,          // ingore # Specific to compressed data; the valid width of the meaningful image.
+	ExifIFD_TagType_PixelYDimension:          `ExifIFD_TagType_PixelYDimension`,          // ingore # Specific to compressed data; the valid height of the meaningful image.
+	ExifIFD_TagType_RelatedSoundFile:         `ExifIFD_TagType_RelatedSoundFile`,         // ingore # Used to record the name of an audio file related to the image data.
+	ExifIFD_TagType_FlashEnergy:              `ExifIFD_TagType_FlashEnergy`,              // ingore # Indicates the strobe energy at the time the image is captured, as measured in Beam Candle Power Seconds
+	ExifIFD_TagType_SpatialFrequencyResponse: `ExifIFD_TagType_SpatialFrequencyResponse`, // ingore # Records the camera or input device spatial frequency table and SFR values in the direction of image width, image height, and diagonal direction, as specified in ISO 12233.
+	ExifIFD_TagType_FocalPlaneXResolution:    `ExifIFD_TagType_FocalPlaneXResolution`,    // ingore # Indicates the number of pixels in the image width (X) direction per FocalPlaneResolutionUnit on the camera focal plane.
+	ExifIFD_TagType_FocalPlaneYResolution:    `ExifIFD_TagType_FocalPlaneYResolution`,    // ingore # Indicates the number of pixels in the image height (Y) direction per FocalPlaneResolutionUnit on the camera focal plane.
+	ExifIFD_TagType_FocalPlaneResolutionUnit: `ExifIFD_TagType_FocalPlaneResolutionUnit`, // ingore # Indicates the unit for measuring FocalPlaneXResolution and FocalPlaneYResolution.
+	ExifIFD_TagType_SubjectLocation:          `ExifIFD_TagType_SubjectLocation`,          // ingore # Indicates the location of the main subject in the scene.
+	ExifIFD_TagType_ExposureIndex:            `ExifIFD_TagType_ExposureIndex`,            // ingore # Indicates the exposure index selected on the camera or input device at the time the image is captured.
+	ExifIFD_TagType_SensingMethod:            `ExifIFD_TagType_SensingMethod`,            // ingore # Indicates the image sensor type on the camera or input device.
+	ExifIFD_TagType_FileSource:               `ExifIFD_TagType_FileSource`,               // ingore # Indicates the image source.
+	ExifIFD_TagType_SceneType:                `ExifIFD_TagType_SceneType`,                // ingore # Indicates the type of scene.
+	ExifIFD_TagType_CFAPattern:               `ExifIFD_TagType_CFAPattern`,               // ingore # Indicates the color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used.
+	ExifIFD_TagType_CustomRendered:           `ExifIFD_TagType_CustomRendered`,           // ingore # Indicates the use of special processing on image data, such as rendering geared to output.
+	ExifIFD_TagType_ExposureMode:             `ExifIFD_TagType_ExposureMode`,             // ingore # Indicates the exposure mode set when the image was shot.
+	ExifIFD_TagType_WhiteBalance:             `ExifIFD_TagType_WhiteBalance`,             // ingore # Indicates the white balance mode set when the image was shot.
+	ExifIFD_TagType_DigitalZoomRatio:         `ExifIFD_TagType_DigitalZoomRatio`,         // ingore # Indicates the digital zoom ratio when the image was shot.
+	ExifIFD_TagType_FocalLengthIn35mmFilm:    `ExifIFD_TagType_FocalLengthIn35mmFilm`,    // ingore # Indicates the equivalent focal length assuming a 35mm film camera, in mm.
+	ExifIFD_TagType_SceneCaptureType:         `ExifIFD_TagType_SceneCaptureType`,         // ingore # Indicates the type of scene that was shot.
+	ExifIFD_TagType_GainControl:              `ExifIFD_TagType_GainControl`,              // ingore # Indicates the degree of overall image gain adjustment.
+	ExifIFD_TagType_Contrast:                 `ExifIFD_TagType_Contrast`,                 // ingore # Indicates the direction of contrast processing applied by the camera when the image was shot.
+	ExifIFD_TagType_Saturation:               `ExifIFD_TagType_Saturation`,               // ingore # Indicates the direction of saturation processing applied by the camera when the image was shot.
+	ExifIFD_TagType_Sharpness:                `ExifIFD_TagType_Sharpness`,                // ingore # Indicates the direction of sharpness processing applied by the camera when the image was shot.
+	ExifIFD_TagType_DeviceSettingDescription: `ExifIFD_TagType_DeviceSettingDescription`, // ingore # This tag indicates information on the picture-taking conditions of a particular camera model.
+	ExifIFD_TagType_SubjectDistanceRange:     `ExifIFD_TagType_SubjectDistanceRange`,     // ingore # Indicates the distance to the subject.
+	ExifIFD_TagType_ImageUniqueID:            `ExifIFD_TagType_ImageUniqueID`,            // ingore # Indicates an identifier assigned uniquely to each image.
+}
+
+func (p ExifIFD_TagType) String() string {
+	if name, ok := _ExifIFD_TagTypeTable[p]; ok {
+		return name
+	}
+	return fmt.Sprintf("ExifIFD_TagType_Unknown(%d)", uint16(p))
+}
+
+var _GPSIFD_TagTypeTable = map[GPSIFD_TagType]string{
+	GPSIFD_TagType_GPSVersionID:        `GPSIFD_TagType_GPSVersionID`,        // ingore # Indicates the version of GPSInfoIFD.
+	GPSIFD_TagType_GPSLatitudeRef:      `GPSIFD_TagType_GPSLatitudeRef`,      // ingore # Indicates whether the latitude is north or south latitude.
+	GPSIFD_TagType_GPSLatitude:         `GPSIFD_TagType_GPSLatitude`,         // ingore # Indicates the latitude.
+	GPSIFD_TagType_GPSLongitudeRef:     `GPSIFD_TagType_GPSLongitudeRef`,     // ingore # Indicates whether the longitude is east or west longitude.
+	GPSIFD_TagType_GPSLongitude:        `GPSIFD_TagType_GPSLongitude`,        // ingore # Indicates the longitude.
+	GPSIFD_TagType_GPSAltitudeRef:      `GPSIFD_TagType_GPSAltitudeRef`,      // ingore # Indicates the altitude used as the reference altitude.
+	GPSIFD_TagType_GPSAltitude:         `GPSIFD_TagType_GPSAltitude`,         // ingore # Indicates the altitude based on the reference in GPSAltitudeRef.
+	GPSIFD_TagType_GPSTimeStamp:        `GPSIFD_TagType_GPSTimeStamp`,        // ingore # Indicates the time as UTC (Coordinated Universal Time).
+	GPSIFD_TagType_GPSSatellites:       `GPSIFD_TagType_GPSSatellites`,       // ingore # Indicates the GPS satellites used for measurements.
+	GPSIFD_TagType_GPSStatus:           `GPSIFD_TagType_GPSStatus`,           // ingore # Indicates the status of the GPS receiver when the image is recorded.
+	GPSIFD_TagType_GPSMeasureMode:      `GPSIFD_TagType_GPSMeasureMode`,      // ingore # Indicates the GPS measurement mode.
+	GPSIFD_TagType_GPSDOP:              `GPSIFD_TagType_GPSDOP`,              // ingore # Indicates the GPS DOP (data degree of precision).
+	GPSIFD_TagType_GPSSpeedRef:         `GPSIFD_TagType_GPSSpeedRef`,         // ingore # Indicates the unit used to express the GPS receiver speed of movement.
+	GPSIFD_TagType_GPSSpeed:            `GPSIFD_TagType_GPSSpeed`,            // ingore # Indicates the speed of GPS receiver movement.
+	GPSIFD_TagType_GPSTrackRef:         `GPSIFD_TagType_GPSTrackRef`,         // ingore # Indicates the reference for giving the direction of GPS receiver movement.
+	GPSIFD_TagType_GPSTrack:            `GPSIFD_TagType_GPSTrack`,            // ingore # Indicates the direction of GPS receiver movement.
+	GPSIFD_TagType_GPSImgDirectionRef:  `GPSIFD_TagType_GPSImgDirectionRef`,  // ingore # Indicates the reference for giving the direction of the image when it is captured.
+	GPSIFD_TagType_GPSImgDirection:     `GPSIFD_TagType_GPSImgDirection`,     // ingore # Indicates the direction of the image when it was captured.
+	GPSIFD_TagType_GPSMapDatum:         `GPSIFD_TagType_GPSMapDatum`,         // ingore # Indicates the geodetic survey data used by the GPS receiver.
+	GPSIFD_TagType_GPSDestLatitudeRef:  `GPSIFD_TagType_GPSDestLatitudeRef`,  // ingore # Indicates whether the latitude of the destination point is north or south latitude.
+	GPSIFD_TagType_GPSDestLatitude:     `GPSIFD_TagType_GPSDestLatitude`,     // ingore # Indicates the latitude of the destination point.
+	GPSIFD_TagType_GPSDestLongitudeRef: `GPSIFD_TagType_GPSDestLongitudeRef`, // ingore # Indicates whether the longitude of the destination point is east or west longitude.
+	GPSIFD_TagType_GPSDestLongitude:    `GPSIFD_TagType_GPSDestLongitude`,    // ingore # Indicates the longitude of the destination point.
+	GPSIFD_TagType_GPSDestBearingRef:   `GPSIFD_TagType_GPSDestBearingRef`,   // ingore # Indicates the reference used for giving the bearing to the destination point.
+	GPSIFD_TagType_GPSDestBearing:      `GPSIFD_TagType_GPSDestBearing`,      // ingore # Indicates the bearing to the destination point.
+	GPSIFD_TagType_GPSDestDistanceRef:  `GPSIFD_TagType_GPSDestDistanceRef`,  // ingore # Indicates the unit used to express the distance to the destination point.
+	GPSIFD_TagType_GPSDestDistance:     `GPSIFD_TagType_GPSDestDistance`,     // ingore # Indicates the distance to the destination point.
+	GPSIFD_TagType_GPSProcessingMethod: `GPSIFD_TagType_GPSProcessingMethod`, // ingore # A character string recording the name of the method used for location finding.
+	GPSIFD_TagType_GPSAreaInformation:  `GPSIFD_TagType_GPSAreaInformation`,  // ingore # A character string recording the name of the GPS area.
+	GPSIFD_TagType_GPSDateStamp:        `GPSIFD_TagType_GPSDateStamp`,        // ingore # A character string recording date and time information relative to UTC (Coordinated Universal Time).
+	GPSIFD_TagType_GPSDifferential:     `GPSIFD_TagType_GPSDifferential`,     // ingore # Indicates whether differential correction is applied to the GPS receiver.
+}
+
+func (p GPSIFD_TagType) String() string {
+	if name, ok := _GPSIFD_TagTypeTable[p]; ok {
+		return name
+	}
+	return fmt.Sprintf("GPSIFD_TagType_Unknown(%d)", uint16(p))
+}
+
+var _InteroperabilityIFD_TagTypeTable = map[InteroperabilityIFD_TagType]string{
+	InteroperabilityIFD_TagType_InteroperabilityIndex: `InteroperabilityIFD_TagType_InteroperabilityIndex`, // ingore # Indicates the identification of the Interoperability rule.
+}
+
+func (p InteroperabilityIFD_TagType) String() string {
+	if name, ok := _InteroperabilityIFD_TagTypeTable[p]; ok {
+		return name
+	}
+	return fmt.Sprintf("InteroperabilityIFD_TagType_Unknown(%d)", uint16(p))
+}
