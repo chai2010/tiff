@@ -11,6 +11,8 @@ The Big TIFF specification is at http://www.remotesensing.org/libtiff/bigtiffdes
 
 The Geo TIFF specification is at http://www.remotesensing.org/geotiff/spec/geotiffhome.html
 
+TIFF Tags: http://www.awaresystems.be/imaging/tiff/tifftags.html
+
 Features:
 
 	1. Support BigTiff

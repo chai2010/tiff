@@ -70,217 +70,307 @@ func (p DataType) String() string {
 }
 
 var _TagTypeTable = map[TagType]string{
-	TagType_NewSubfileType:             `TagType_NewSubfileType`,             // LONG , 1, # Default=0. subfile data descriptor
-	TagType_SubfileType:                `TagType_SubfileType`,                // SHORT, 1, # kind of data in subfile
-	TagType_ImageWidth:                 `TagType_ImageWidth`,                 // SHORT/LONG/LONG8, 1, # Required
-	TagType_ImageLength:                `TagType_ImageLength`,                // SHORT/LONG/LONG8, 1, # Required
-	TagType_BitsPerSample:              `TagType_BitsPerSample`,              // SHORT, *, # Default=1. See SamplesPerPixel
-	TagType_Compression:                `TagType_Compression`,                // SHORT, 1, # Default=1
-	TagType_PhotometricInterpretation:  `TagType_PhotometricInterpretation`,  // SHORT, 1,
-	TagType_Threshholding:              `TagType_Threshholding`,              // SHORT, 1, # Default=1
-	TagType_CellWidth:                  `TagType_CellWidth`,                  // SHORT, 1,
-	TagType_CellLenght:                 `TagType_CellLenght`,                 // SHORT, 1,
-	TagType_FillOrder:                  `TagType_FillOrder`,                  // SHORT, 1, # Default=1
-	TagType_DocumentName:               `TagType_DocumentName`,               // ASCII
-	TagType_ImageDescription:           `TagType_ImageDescription`,           // ASCII
-	TagType_Make:                       `TagType_Make`,                       // ASCII
-	TagType_Model:                      `TagType_Model`,                      // ASCII
-	TagType_StripOffsets:               `TagType_StripOffsets`,               // SHORT/LONG/LONG8, *, # StripsPerImage
-	TagType_Orientation:                `TagType_Orientation`,                // SHORT, 1, # Default=1
-	TagType_SamplesPerPixel:            `TagType_SamplesPerPixel`,            // SHORT, 1, # Default=1
-	TagType_RowsPerStrip:               `TagType_RowsPerStrip`,               // SHORT/LONG/LONG8, 1,
-	TagType_StripByteCounts:            `TagType_StripByteCounts`,            // SHORT/LONG/LONG8, *, # StripsPerImage
-	TagType_MinSampleValue:             `TagType_MinSampleValue`,             // SHORT,    *, # Default=0
-	TagType_MaxSampleValue:             `TagType_MaxSampleValue`,             // SHORT,    *, # Default=2^BitsPerSample-1
-	TagType_XResolution:                `TagType_XResolution`,                // RATIONAL, 1, # Required?
-	TagType_YResolution:                `TagType_YResolution`,                // RATIONAL, 1, # Required?
-	TagType_PlanarConfiguration:        `TagType_PlanarConfiguration`,        // SHORT,    1, # Defaule=1
-	TagType_PageName:                   `TagType_PageName`,                   // ASCII
-	TagType_XPosition:                  `TagType_XPosition`,                  // RATIONAL,   1
-	TagType_YPosition:                  `TagType_YPosition`,                  // RATIONAL,   1
-	TagType_FreeOffsets:                `TagType_FreeOffsets`,                // LONG/LONG8, *
-	TagType_FreeByteCounts:             `TagType_FreeByteCounts`,             // LONG/LONG8, *
-	TagType_GrayResponseUnit:           `TagType_GrayResponseUnit`,           // SHORT, 1,
-	TagType_GrayResponseCurve:          `TagType_GrayResponseCurve`,          // SHORT, *, # 2**BitPerSample
-	TagType_T4Options:                  `TagType_T4Options`,                  // LONG,  1, # Default=0
-	TagType_T6Options:                  `TagType_T6Options`,                  // LONG,  1, # Default=0
-	TagType_ResolutionUnit:             `TagType_ResolutionUnit`,             // SHORT, 1, # Default=2
-	TagType_PageNumber:                 `TagType_PageNumber`,                 // SHORT, 2,
-	TagType_TransferFunction:           `TagType_TransferFunction`,           // SHORT, *, # {1 or SamplesPerPixel}*2**BitPerSample
-	TagType_Software:                   `TagType_Software`,                   // ASCII
-	TagType_DateTime:                   `TagType_DateTime`,                   // ASCII, 20, # YYYY:MM:DD HH:MM:SS, include NULL
-	TagType_Artist:                     `TagType_Artist`,                     // ASCII
-	TagType_HostComputer:               `TagType_HostComputer`,               // ASCII
-	TagType_Predictor:                  `TagType_Predictor`,                  // SHORT, 1, # Default=1
-	TagType_WhitePoint:                 `TagType_WhitePoint`,                 // RATIONAL, 2
-	TagType_PrimaryChromaticities:      `TagType_PrimaryChromaticities`,      // RATIONAL, 6
-	TagType_ColorMap:                   `TagType_ColorMap`,                   // SHORT, *, # 3*(2**BitPerSample)
-	TagType_HalftoneHints:              `TagType_HalftoneHints`,              // SHORT, 2
-	TagType_TileWidth:                  `TagType_TileWidth`,                  // SHORT/LONG, 1
-	TagType_TileLength:                 `TagType_TileLength`,                 // SHORT/LONG, 1
-	TagType_TileOffsets:                `TagType_TileOffsets`,                // LONG/LONG8, *, # TilesPerImage
-	TagType_TileByteCounts:             `TagType_TileByteCounts`,             // SHORT/LONG, *, # TilesPerImage
-	TagType_SubIFD:                     `TagType_SubIFD`,                     // IFD,   *  # IFD pointer
-	TagType_InkSet:                     `TagType_InkSet`,                     // SHORT, 1, # Default=1
-	TagType_InkNames:                   `TagType_InkNames`,                   // ASCII
-	TagType_NumberOfInks:               `TagType_NumberOfInks`,               // SHORT, 1, # Default=4
-	TagType_DotRange:                   `TagType_DotRange`,                   // BYTE/SHORT, # Default=[0,2^BitsPerSample-1]
-	TagType_TargetPrinter:              `TagType_TargetPrinter`,              // ASCII
-	TagType_ExtraSamples:               `TagType_ExtraSamples`,               // BYTE,  1,
-	TagType_SampleFormat:               `TagType_SampleFormat`,               // SHORT, *, # SamplesPerPixel. Default=1
-	TagType_SMinSampleValue:            `TagType_SMinSampleValue`,            // *,     *, # SamplesPerPixel, try double
-	TagType_SMaxSampleValue:            `TagType_SMaxSampleValue`,            // *,     *, # SamplesPerPixel, try double
-	TagType_TransferRange:              `TagType_TransferRange`,              // SHORT, 6,
-	TagType_JPEGProc:                   `TagType_JPEGProc`,                   // SHORT, 1,
-	TagType_JPEGInterchangeFormat:      `TagType_JPEGInterchangeFormat`,      // LONG,  1,
-	TagType_JPEGInterchangeFormatLngth: `TagType_JPEGInterchangeFormatLngth`, // LONG,  1,
-	TagType_JPEGRestartInterval:        `TagType_JPEGRestartInterval`,        // SHORT, 1,
-	TagType_JPEGLosslessPredictors:     `TagType_JPEGLosslessPredictors`,     // SHORT, *, # SamplesPerPixel
-	TagType_JPEGPointTransforms:        `TagType_JPEGPointTransforms`,        // SHORT, *, # SamplesPerPixel
-	TagType_JPEGQTables:                `TagType_JPEGQTables`,                // LONG,  *, # SamplesPerPixel
-	TagType_JPEGDCTables:               `TagType_JPEGDCTables`,               // LONG,  *, # SamplesPerPixel
-	TagType_JPEGACTables:               `TagType_JPEGACTables`,               // LONG,  *, # SamplesPerPixel
-	TagType_YCbCrCoefficients:          `TagType_YCbCrCoefficients`,          // RATIONAL, 3
-	TagType_YCbCrSubSampling:           `TagType_YCbCrSubSampling`,           // SHORT, 2, # Default=[2,2]
-	TagType_YCbCrPositioning:           `TagType_YCbCrPositioning`,           // SHORT, 1, # Default=1
-	TagType_ReferenceBlackWhite:        `TagType_ReferenceBlackWhite`,        // LONG , *, # 2*SamplesPerPixel
-	TagType_Copyright:                  `TagType_Copyright`,                  // ASCII
-	TagType_GeoKeyDirectoryTag:         `TagType_GeoKeyDirectoryTag`,         // SHORT, *, # >= 4
-	TagType_GeoDoubleParamsTag:         `TagType_GeoDoubleParamsTag`,         // DOUBLE
-	TagType_GeoAsciiParamsTag:          `TagType_GeoAsciiParamsTag`,          // ASCII
-	TagType_ModelTiepointTag:           `TagType_ModelTiepointTag`,           // DOUBLE
-	TagType_ModelPixelScaleTag:         `TagType_ModelPixelScaleTag`,         // DOUBLE
-	TagType_ModelTransformationTag:     `TagType_ModelTransformationTag`,     // DOUBLE, 16
-	TagType_IntergraphMatrixTag:        `TagType_IntergraphMatrixTag`,        // DOUBLE, 17
+	TagType_NewSubfileType:               `TagType_NewSubfileType`,               // LONG , 1, # Default=0. subfile data descriptor
+	TagType_SubfileType:                  `TagType_SubfileType`,                  // SHORT, 1, # kind of data in subfile
+	TagType_ImageWidth:                   `TagType_ImageWidth`,                   // SHORT/LONG/LONG8, 1, # Required
+	TagType_ImageLength:                  `TagType_ImageLength`,                  // SHORT/LONG/LONG8, 1, # Required
+	TagType_BitsPerSample:                `TagType_BitsPerSample`,                // SHORT, *, # Default=1. See SamplesPerPixel
+	TagType_Compression:                  `TagType_Compression`,                  // SHORT, 1, # Default=1
+	TagType_PhotometricInterpretation:    `TagType_PhotometricInterpretation`,    // SHORT, 1,
+	TagType_Threshholding:                `TagType_Threshholding`,                // SHORT, 1, # Default=1
+	TagType_CellWidth:                    `TagType_CellWidth`,                    // SHORT, 1,
+	TagType_CellLenght:                   `TagType_CellLenght`,                   // SHORT, 1,
+	TagType_FillOrder:                    `TagType_FillOrder`,                    // SHORT, 1, # Default=1
+	TagType_DocumentName:                 `TagType_DocumentName`,                 // ASCII
+	TagType_ImageDescription:             `TagType_ImageDescription`,             // ASCII
+	TagType_Make:                         `TagType_Make`,                         // ASCII
+	TagType_Model:                        `TagType_Model`,                        // ASCII
+	TagType_StripOffsets:                 `TagType_StripOffsets`,                 // SHORT/LONG/LONG8, *, # StripsPerImage
+	TagType_Orientation:                  `TagType_Orientation`,                  // SHORT, 1, # Default=1
+	TagType_SamplesPerPixel:              `TagType_SamplesPerPixel`,              // SHORT, 1, # Default=1
+	TagType_RowsPerStrip:                 `TagType_RowsPerStrip`,                 // SHORT/LONG/LONG8, 1,
+	TagType_StripByteCounts:              `TagType_StripByteCounts`,              // SHORT/LONG/LONG8, *, # StripsPerImage
+	TagType_MinSampleValue:               `TagType_MinSampleValue`,               // SHORT,    *, # Default=0
+	TagType_MaxSampleValue:               `TagType_MaxSampleValue`,               // SHORT,    *, # Default=2^BitsPerSample-1
+	TagType_XResolution:                  `TagType_XResolution`,                  // RATIONAL, 1, # Required?
+	TagType_YResolution:                  `TagType_YResolution`,                  // RATIONAL, 1, # Required?
+	TagType_PlanarConfiguration:          `TagType_PlanarConfiguration`,          // SHORT,    1, # Defaule=1
+	TagType_PageName:                     `TagType_PageName`,                     // ASCII
+	TagType_XPosition:                    `TagType_XPosition`,                    // RATIONAL,   1
+	TagType_YPosition:                    `TagType_YPosition`,                    // RATIONAL,   1
+	TagType_FreeOffsets:                  `TagType_FreeOffsets`,                  // LONG/LONG8, *
+	TagType_FreeByteCounts:               `TagType_FreeByteCounts`,               // LONG/LONG8, *
+	TagType_GrayResponseUnit:             `TagType_GrayResponseUnit`,             // SHORT, 1,
+	TagType_GrayResponseCurve:            `TagType_GrayResponseCurve`,            // SHORT, *, # 2**BitPerSample
+	TagType_T4Options:                    `TagType_T4Options`,                    // LONG,  1, # Default=0
+	TagType_T6Options:                    `TagType_T6Options`,                    // LONG,  1, # Default=0
+	TagType_ResolutionUnit:               `TagType_ResolutionUnit`,               // SHORT, 1, # Default=2
+	TagType_PageNumber:                   `TagType_PageNumber`,                   // SHORT, 2,
+	TagType_TransferFunction:             `TagType_TransferFunction`,             // SHORT, *, # {1 or SamplesPerPixel}*2**BitPerSample
+	TagType_Software:                     `TagType_Software`,                     // ASCII
+	TagType_DateTime:                     `TagType_DateTime`,                     // ASCII, 20, # YYYY:MM:DD HH:MM:SS, include NULL
+	TagType_Artist:                       `TagType_Artist`,                       // ASCII
+	TagType_HostComputer:                 `TagType_HostComputer`,                 // ASCII
+	TagType_Predictor:                    `TagType_Predictor`,                    // SHORT, 1, # Default=1
+	TagType_WhitePoint:                   `TagType_WhitePoint`,                   // RATIONAL, 2
+	TagType_PrimaryChromaticities:        `TagType_PrimaryChromaticities`,        // RATIONAL, 6
+	TagType_ColorMap:                     `TagType_ColorMap`,                     // SHORT, *, # 3*(2**BitPerSample)
+	TagType_HalftoneHints:                `TagType_HalftoneHints`,                // SHORT, 2
+	TagType_TileWidth:                    `TagType_TileWidth`,                    // SHORT/LONG, 1
+	TagType_TileLength:                   `TagType_TileLength`,                   // SHORT/LONG, 1
+	TagType_TileOffsets:                  `TagType_TileOffsets`,                  // LONG/LONG8, *, # TilesPerImage
+	TagType_TileByteCounts:               `TagType_TileByteCounts`,               // SHORT/LONG, *, # TilesPerImage
+	TagType_BadFaxLines:                  `TagType_BadFaxLines`,                  // ingore # Used in the TIFF-F standard, denotes the number of 'bad' scan lines encountered by the facsimile device.
+	TagType_CleanFaxData:                 `TagType_CleanFaxData`,                 // ingore # Used in the TIFF-F standard, indicates if 'bad' lines encountered during reception are stored in the data, or if 'bad' lines have been replaced by the receiver.
+	TagType_ConsecutiveBadFaxLines:       `TagType_ConsecutiveBadFaxLines`,       // ingore # Used in the TIFF-F standard, denotes the maximum number of consecutive 'bad' scanlines received.
+	TagType_SubIFD:                       `TagType_SubIFD`,                       // IFD,   *  # IFD pointer
+	TagType_InkSet:                       `TagType_InkSet`,                       // SHORT, 1, # Default=1
+	TagType_InkNames:                     `TagType_InkNames`,                     // ASCII
+	TagType_NumberOfInks:                 `TagType_NumberOfInks`,                 // SHORT, 1, # Default=4
+	TagType_DotRange:                     `TagType_DotRange`,                     // BYTE/SHORT, # Default=[0,2^BitsPerSample-1]
+	TagType_TargetPrinter:                `TagType_TargetPrinter`,                // ASCII
+	TagType_ExtraSamples:                 `TagType_ExtraSamples`,                 // BYTE,  1,
+	TagType_SampleFormat:                 `TagType_SampleFormat`,                 // SHORT, *, # SamplesPerPixel. Default=1
+	TagType_SMinSampleValue:              `TagType_SMinSampleValue`,              // *,     *, # SamplesPerPixel, try double
+	TagType_SMaxSampleValue:              `TagType_SMaxSampleValue`,              // *,     *, # SamplesPerPixel, try double
+	TagType_TransferRange:                `TagType_TransferRange`,                // SHORT, 6,
+	TagType_ClipPath:                     `TagType_ClipPath`,                     // ingore # Mirrors the essentials of PostScript's path creation functionality.
+	TagType_XClipPathUnits:               `TagType_XClipPathUnits`,               // ingore # The number of units that span the width of the image, in terms of integer ClipPath coordinates.
+	TagType_YClipPathUnits:               `TagType_YClipPathUnits`,               // ingore # The number of units that span the height of the image, in terms of integer ClipPath coordinates.
+	TagType_Indexed:                      `TagType_Indexed`,                      // ingore # Aims to broaden the support for indexed images to include support for any color space.
+	TagType_JPEGTables:                   `TagType_JPEGTables`,                   // ingore # JPEG quantization and/or Huffman tables.
+	TagType_OPIProxy:                     `TagType_OPIProxy`,                     // ingore # OPI-related.
+	TagType_GlobalParametersIFD:          `TagType_GlobalParametersIFD`,          // ingore # Used in the TIFF-FX standard to point to an IFD containing tags that are globally applicable to the complete TIFF file.
+	TagType_ProfileType:                  `TagType_ProfileType`,                  // ingore # Used in the TIFF-FX standard, denotes the type of data stored in this file or IFD.
+	TagType_FaxProfile:                   `TagType_FaxProfile`,                   // ingore # Used in the TIFF-FX standard, denotes the 'profile' that applies to this file.
+	TagType_CodingMethods:                `TagType_CodingMethods`,                // ingore # Used in the TIFF-FX standard, indicates which coding methods are used in the file.
+	TagType_VersionYear:                  `TagType_VersionYear`,                  // ingore # Used in the TIFF-FX standard, denotes the year of the standard specified by the FaxProfile field.
+	TagType_ModeNumber:                   `TagType_ModeNumber`,                   // ingore # Used in the TIFF-FX standard, denotes the mode of the standard specified by the FaxProfile field.
+	TagType_Decode:                       `TagType_Decode`,                       // ingore # Used in the TIFF-F and TIFF-FX standards, holds information about the ITULAB (PhotometricInterpretation = 10) encoding.
+	TagType_DefaultImageColor:            `TagType_DefaultImageColor`,            // ingore # Defined in the Mixed Raster Content part of RFC 2301, is the default color needed in areas where no image is available.
+	TagType_JPEGProc:                     `TagType_JPEGProc`,                     // SHORT, 1,
+	TagType_JPEGInterchangeFormat:        `TagType_JPEGInterchangeFormat`,        // LONG,  1,
+	TagType_JPEGInterchangeFormatLength:  `TagType_JPEGInterchangeFormatLength`,  // LONG,  1,
+	TagType_JPEGRestartInterval:          `TagType_JPEGRestartInterval`,          // SHORT, 1,
+	TagType_JPEGLosslessPredictors:       `TagType_JPEGLosslessPredictors`,       // SHORT, *, # SamplesPerPixel
+	TagType_JPEGPointTransforms:          `TagType_JPEGPointTransforms`,          // SHORT, *, # SamplesPerPixel
+	TagType_JPEGQTables:                  `TagType_JPEGQTables`,                  // LONG,  *, # SamplesPerPixel
+	TagType_JPEGDCTables:                 `TagType_JPEGDCTables`,                 // LONG,  *, # SamplesPerPixel
+	TagType_JPEGACTables:                 `TagType_JPEGACTables`,                 // LONG,  *, # SamplesPerPixel
+	TagType_YCbCrCoefficients:            `TagType_YCbCrCoefficients`,            // RATIONAL, 3
+	TagType_YCbCrSubSampling:             `TagType_YCbCrSubSampling`,             // SHORT, 2, # Default=[2,2]
+	TagType_YCbCrPositioning:             `TagType_YCbCrPositioning`,             // SHORT, 1, # Default=1
+	TagType_ReferenceBlackWhite:          `TagType_ReferenceBlackWhite`,          // LONG , *, # 2*SamplesPerPixel
+	TagType_StripRowCounts:               `TagType_StripRowCounts`,               // ingore # Defined in the Mixed Raster Content part of RFC 2301, used to replace RowsPerStrip for IFDs with variable-sized strips.
+	TagType_XMP:                          `TagType_XMP`,                          // ingore # XML packet containing XMP metadata
+	TagType_ImageID:                      `TagType_ImageID`,                      // ingore # OPI-related.
+	TagType_ImageLayer:                   `TagType_ImageLayer`,                   // ingore # Defined in the Mixed Raster Content part of RFC 2301, used to denote the particular function of this Image in the mixed raster scheme.
+	TagType_Copyright:                    `TagType_Copyright`,                    // ASCII
+	TagType_WangAnnotation:               `TagType_WangAnnotation`,               // ingore # Annotation data, as used in 'Imaging for Windows'.
+	TagType_MDFileTag:                    `TagType_MDFileTag`,                    // ingore # Specifies the pixel data format encoding in the Molecular Dynamics GEL file format.
+	TagType_MDScalePixel:                 `TagType_MDScalePixel`,                 // ingore # Specifies a scale factor in the Molecular Dynamics GEL file format.
+	TagType_MDColorTable:                 `TagType_MDColorTable`,                 // ingore # Used to specify the conversion from 16bit to 8bit in the Molecular Dynamics GEL file format.
+	TagType_MDLabName:                    `TagType_MDLabName`,                    // ingore # Name of the lab that scanned this file, as used in the Molecular Dynamics GEL file format.
+	TagType_MDSampleInfo:                 `TagType_MDSampleInfo`,                 // ingore # Information about the sample, as used in the Molecular Dynamics GEL file format.
+	TagType_MDPrepDate:                   `TagType_MDPrepDate`,                   // ingore # Date the sample was prepared, as used in the Molecular Dynamics GEL file format.
+	TagType_MDPrepTime:                   `TagType_MDPrepTime`,                   // ingore # Time the sample was prepared, as used in the Molecular Dynamics GEL file format.
+	TagType_MDFileUnits:                  `TagType_MDFileUnits`,                  // ingore # Units for data in this file, as used in the Molecular Dynamics GEL file format.
+	TagType_ModelPixelScaleTag:           `TagType_ModelPixelScaleTag`,           // DOUBLE # Used in interchangeable GeoTIFF files.
+	TagType_IPTC:                         `TagType_IPTC`,                         // ingore # IPTC (International Press Telecommunications Council) metadata.
+	TagType_INGRPacketDataTag:            `TagType_INGRPacketDataTag`,            // ingore # Intergraph Application specific storage.
+	TagType_INGRFlagRegisters:            `TagType_INGRFlagRegisters`,            // ingore # Intergraph Application specific flags.
+	TagType_IrasBTransformationMatrix:    `TagType_IrasBTransformationMatrix`,    // DOUBLE, 17 # Originally part of Intergraph's GeoTIFF tags, but likely understood by IrasB only.
+	TagType_ModelTiepointTag:             `TagType_ModelTiepointTag`,             // DOUBLE # Originally part of Intergraph's GeoTIFF tags, but now used in interchangeable GeoTIFF files.
+	TagType_ModelTransformationTag:       `TagType_ModelTransformationTag`,       // DOUBLE, 16 # Used in interchangeable GeoTIFF files.
+	TagType_Photoshop:                    `TagType_Photoshop`,                    // ingore # Collection of Photoshop 'Image Resource Blocks'.
+	TagType_ExifIFD:                      `TagType_ExifIFD`,                      // IFD    # A pointer to the Exif IFD.
+	TagType_ICCProfile:                   `TagType_ICCProfile`,                   // ingore # ICC profile data.
+	TagType_GeoKeyDirectoryTag:           `TagType_GeoKeyDirectoryTag`,           // SHORT, *, # >= 4
+	TagType_GeoDoubleParamsTag:           `TagType_GeoDoubleParamsTag`,           // DOUBLE
+	TagType_GeoAsciiParamsTag:            `TagType_GeoAsciiParamsTag`,            // ASCII
+	TagType_GPSIFD:                       `TagType_GPSIFD`,                       // IFD    # A pointer to the Exif-related GPS Info IFD.
+	TagType_HylaFAXFaxRecvParams:         `TagType_HylaFAXFaxRecvParams`,         // ingore # Used by HylaFAX.
+	TagType_HylaFAXFaxSubAddress:         `TagType_HylaFAXFaxSubAddress`,         // ingore # Used by HylaFAX.
+	TagType_HylaFAXFaxRecvTime:           `TagType_HylaFAXFaxRecvTime`,           // ingore # Used by HylaFAX.
+	TagType_ImageSourceData:              `TagType_ImageSourceData`,              // ingore # Used by Adobe Photoshop.
+	TagType_InteroperabilityIFD:          `TagType_InteroperabilityIFD`,          // IFD    # A pointer to the Exif-related Interoperability IFD.
+	TagType_GDAL_METADATA:                `TagType_GDAL_METADATA`,                // ingore # Used by the GDAL library, holds an XML list of name=value 'metadata' values about the image as a whole, and about specific samples.
+	TagType_GDAL_NODATA:                  `TagType_GDAL_NODATA`,                  // ingore # Used by the GDAL library, contains an ASCII encoded nodata or background pixel value.
+	TagType_OceScanjobDescription:        `TagType_OceScanjobDescription`,        // ingore # Used in the Oce scanning process.
+	TagType_OceApplicationSelector:       `TagType_OceApplicationSelector`,       // ingore # Used in the Oce scanning process.
+	TagType_OceIdentificationNumber:      `TagType_OceIdentificationNumber`,      // ingore # Used in the Oce scanning process.
+	TagType_OceImageLogicCharacteristics: `TagType_OceImageLogicCharacteristics`, // ingore # Used in the Oce scanning process.
+	TagType_DNGVersion:                   `TagType_DNGVersion`,                   // ingore # Used in IFD 0 of DNG files.
+	TagType_DNGBackwardVersion:           `TagType_DNGBackwardVersion`,           // ingore # Used in IFD 0 of DNG files.
+	TagType_UniqueCameraModel:            `TagType_UniqueCameraModel`,            // ingore # Used in IFD 0 of DNG files.
+	TagType_LocalizedCameraModel:         `TagType_LocalizedCameraModel`,         // ingore # Used in IFD 0 of DNG files.
+	TagType_CFAPlaneColor:                `TagType_CFAPlaneColor`,                // ingore # Used in Raw IFD of DNG files.
+	TagType_CFALayout:                    `TagType_CFALayout`,                    // ingore # Used in Raw IFD of DNG files.
+	TagType_LinearizationTable:           `TagType_LinearizationTable`,           // ingore # Used in Raw IFD of DNG files.
+	TagType_BlackLevelRepeatDim:          `TagType_BlackLevelRepeatDim`,          // ingore # Used in Raw IFD of DNG files.
+	TagType_BlackLevel:                   `TagType_BlackLevel`,                   // ingore # Used in Raw IFD of DNG files.
+	TagType_BlackLevelDeltaH:             `TagType_BlackLevelDeltaH`,             // ingore # Used in Raw IFD of DNG files.
+	TagType_BlackLevelDeltaV:             `TagType_BlackLevelDeltaV`,             // ingore # Used in Raw IFD of DNG files.
+	TagType_WhiteLevel:                   `TagType_WhiteLevel`,                   // ingore # Used in Raw IFD of DNG files.
+	TagType_DefaultScale:                 `TagType_DefaultScale`,                 // ingore # Used in Raw IFD of DNG files.
+	TagType_DefaultCropOrigin:            `TagType_DefaultCropOrigin`,            // ingore # Used in Raw IFD of DNG files.
+	TagType_DefaultCropSize:              `TagType_DefaultCropSize`,              // ingore # Used in Raw IFD of DNG files.
+	TagType_ColorMatrix1:                 `TagType_ColorMatrix1`,                 // ingore # Used in IFD 0 of DNG files.
+	TagType_ColorMatrix2:                 `TagType_ColorMatrix2`,                 // ingore # Used in IFD 0 of DNG files.
+	TagType_CameraCalibration1:           `TagType_CameraCalibration1`,           // ingore # Used in IFD 0 of DNG files.
+	TagType_CameraCalibration2:           `TagType_CameraCalibration2`,           // ingore # Used in IFD 0 of DNG files.
+	TagType_ReductionMatrix1:             `TagType_ReductionMatrix1`,             // ingore # Used in IFD 0 of DNG files.
+	TagType_ReductionMatrix2:             `TagType_ReductionMatrix2`,             // ingore # Used in IFD 0 of DNG files.
+	TagType_AnalogBalance:                `TagType_AnalogBalance`,                // ingore # Used in IFD 0 of DNG files.
+	TagType_AsShotNeutral:                `TagType_AsShotNeutral`,                // ingore # Used in IFD 0 of DNG files.
+	TagType_AsShotWhiteXY:                `TagType_AsShotWhiteXY`,                // ingore # Used in IFD 0 of DNG files.
+	TagType_BaselineExposure:             `TagType_BaselineExposure`,             // ingore # Used in IFD 0 of DNG files.
+	TagType_BaselineNoise:                `TagType_BaselineNoise`,                // ingore # Used in IFD 0 of DNG files.
+	TagType_BaselineSharpness:            `TagType_BaselineSharpness`,            // ingore # Used in IFD 0 of DNG files.
+	TagType_BayerGreenSplit:              `TagType_BayerGreenSplit`,              // ingore # Used in Raw IFD of DNG files.
+	TagType_LinearResponseLimit:          `TagType_LinearResponseLimit`,          // ingore # Used in IFD 0 of DNG files.
+	TagType_CameraSerialNumber:           `TagType_CameraSerialNumber`,           // ingore # Used in IFD 0 of DNG files.
+	TagType_LensInfo:                     `TagType_LensInfo`,                     // ingore # Used in IFD 0 of DNG files.
+	TagType_ChromaBlurRadius:             `TagType_ChromaBlurRadius`,             // ingore # Used in Raw IFD of DNG files.
+	TagType_AntiAliasStrength:            `TagType_AntiAliasStrength`,            // ingore # Used in Raw IFD of DNG files.
+	TagType_DNGPrivateData:               `TagType_DNGPrivateData`,               // ingore # Used in IFD 0 of DNG files.
+	TagType_MakerNoteSafety:              `TagType_MakerNoteSafety`,              // ingore # Used in IFD 0 of DNG files.
+	TagType_CalibrationIlluminant1:       `TagType_CalibrationIlluminant1`,       // ingore # Used in IFD 0 of DNG files.
+	TagType_CalibrationIlluminant2:       `TagType_CalibrationIlluminant2`,       // ingore # Used in IFD 0 of DNG files.
+	TagType_BestQualityScale:             `TagType_BestQualityScale`,             // ingore # Used in Raw IFD of DNG files.
+	TagType_AliasLayerMetadata:           `TagType_AliasLayerMetadata`,           // ingore # Alias Sketchbook Pro layer usage description.
 }
 
 var _TagType_TypesTable = map[TagType][]DataType{
-	TagType_NewSubfileType:             []DataType{DataType_Long},
-	TagType_SubfileType:                []DataType{DataType_Short},
-	TagType_ImageWidth:                 []DataType{DataType_Short, DataType_Long, DataType_Long8},
-	TagType_ImageLength:                []DataType{DataType_Short, DataType_Long, DataType_Long8},
-	TagType_BitsPerSample:              []DataType{DataType_Short},
-	TagType_Compression:                []DataType{DataType_Short},
-	TagType_PhotometricInterpretation:  []DataType{DataType_Short},
-	TagType_Threshholding:              []DataType{DataType_Short},
-	TagType_CellWidth:                  []DataType{DataType_Short},
-	TagType_CellLenght:                 []DataType{DataType_Short},
-	TagType_FillOrder:                  []DataType{DataType_Short},
-	TagType_DocumentName:               []DataType{DataType_ASCII},
-	TagType_ImageDescription:           []DataType{DataType_ASCII},
-	TagType_Make:                       []DataType{DataType_ASCII},
-	TagType_Model:                      []DataType{DataType_ASCII},
-	TagType_StripOffsets:               []DataType{DataType_Short, DataType_Long, DataType_Long8},
-	TagType_Orientation:                []DataType{DataType_Short},
-	TagType_SamplesPerPixel:            []DataType{DataType_Short},
-	TagType_RowsPerStrip:               []DataType{DataType_Short, DataType_Long, DataType_Long8},
-	TagType_StripByteCounts:            []DataType{DataType_Short, DataType_Long, DataType_Long8},
-	TagType_MinSampleValue:             []DataType{DataType_Short},
-	TagType_MaxSampleValue:             []DataType{DataType_Short},
-	TagType_XResolution:                []DataType{DataType_Rational},
-	TagType_YResolution:                []DataType{DataType_Rational},
-	TagType_PlanarConfiguration:        []DataType{DataType_Short},
-	TagType_PageName:                   []DataType{DataType_ASCII},
-	TagType_XPosition:                  []DataType{DataType_Rational},
-	TagType_YPosition:                  []DataType{DataType_Rational},
-	TagType_FreeOffsets:                []DataType{DataType_Long, DataType_Long8},
-	TagType_FreeByteCounts:             []DataType{DataType_Long, DataType_Long8},
-	TagType_GrayResponseUnit:           []DataType{DataType_Short},
-	TagType_GrayResponseCurve:          []DataType{DataType_Short},
-	TagType_T4Options:                  []DataType{DataType_Long},
-	TagType_T6Options:                  []DataType{DataType_Long},
-	TagType_ResolutionUnit:             []DataType{DataType_Short},
-	TagType_PageNumber:                 []DataType{DataType_Short},
-	TagType_TransferFunction:           []DataType{DataType_Short},
-	TagType_Software:                   []DataType{DataType_ASCII},
-	TagType_DateTime:                   []DataType{DataType_ASCII},
-	TagType_Artist:                     []DataType{DataType_ASCII},
-	TagType_HostComputer:               []DataType{DataType_ASCII},
-	TagType_Predictor:                  []DataType{DataType_Short},
-	TagType_WhitePoint:                 []DataType{DataType_Rational},
-	TagType_PrimaryChromaticities:      []DataType{DataType_Rational},
-	TagType_ColorMap:                   []DataType{DataType_Short},
-	TagType_HalftoneHints:              []DataType{DataType_Short},
-	TagType_TileWidth:                  []DataType{DataType_Short, DataType_Long},
-	TagType_TileLength:                 []DataType{DataType_Short, DataType_Long},
-	TagType_TileOffsets:                []DataType{DataType_Long, DataType_Long8},
-	TagType_TileByteCounts:             []DataType{DataType_Short, DataType_Long},
-	TagType_SubIFD:                     []DataType{DataType_IFD},
-	TagType_InkSet:                     []DataType{DataType_Short},
-	TagType_InkNames:                   []DataType{DataType_ASCII},
-	TagType_NumberOfInks:               []DataType{DataType_Short},
-	TagType_DotRange:                   []DataType{DataType_Byte, DataType_Short},
-	TagType_TargetPrinter:              []DataType{DataType_ASCII},
-	TagType_ExtraSamples:               []DataType{DataType_Byte},
-	TagType_SampleFormat:               []DataType{DataType_Short},
-	TagType_TransferRange:              []DataType{DataType_Short},
-	TagType_JPEGProc:                   []DataType{DataType_Short},
-	TagType_JPEGInterchangeFormat:      []DataType{DataType_Long},
-	TagType_JPEGInterchangeFormatLngth: []DataType{DataType_Long},
-	TagType_JPEGRestartInterval:        []DataType{DataType_Short},
-	TagType_JPEGLosslessPredictors:     []DataType{DataType_Short},
-	TagType_JPEGPointTransforms:        []DataType{DataType_Short},
-	TagType_JPEGQTables:                []DataType{DataType_Long},
-	TagType_JPEGDCTables:               []DataType{DataType_Long},
-	TagType_JPEGACTables:               []DataType{DataType_Long},
-	TagType_YCbCrCoefficients:          []DataType{DataType_Rational},
-	TagType_YCbCrSubSampling:           []DataType{DataType_Short},
-	TagType_YCbCrPositioning:           []DataType{DataType_Short},
-	TagType_ReferenceBlackWhite:        []DataType{DataType_Long},
-	TagType_Copyright:                  []DataType{DataType_ASCII},
-	TagType_GeoKeyDirectoryTag:         []DataType{DataType_Short},
-	TagType_GeoDoubleParamsTag:         []DataType{DataType_Double},
-	TagType_GeoAsciiParamsTag:          []DataType{DataType_ASCII},
-	TagType_ModelTiepointTag:           []DataType{DataType_Double},
-	TagType_ModelPixelScaleTag:         []DataType{DataType_Double},
-	TagType_ModelTransformationTag:     []DataType{DataType_Double},
-	TagType_IntergraphMatrixTag:        []DataType{DataType_Double},
+	TagType_NewSubfileType:              []DataType{DataType_Long},
+	TagType_SubfileType:                 []DataType{DataType_Short},
+	TagType_ImageWidth:                  []DataType{DataType_Short, DataType_Long, DataType_Long8},
+	TagType_ImageLength:                 []DataType{DataType_Short, DataType_Long, DataType_Long8},
+	TagType_BitsPerSample:               []DataType{DataType_Short},
+	TagType_Compression:                 []DataType{DataType_Short},
+	TagType_PhotometricInterpretation:   []DataType{DataType_Short},
+	TagType_Threshholding:               []DataType{DataType_Short},
+	TagType_CellWidth:                   []DataType{DataType_Short},
+	TagType_CellLenght:                  []DataType{DataType_Short},
+	TagType_FillOrder:                   []DataType{DataType_Short},
+	TagType_DocumentName:                []DataType{DataType_ASCII},
+	TagType_ImageDescription:            []DataType{DataType_ASCII},
+	TagType_Make:                        []DataType{DataType_ASCII},
+	TagType_Model:                       []DataType{DataType_ASCII},
+	TagType_StripOffsets:                []DataType{DataType_Short, DataType_Long, DataType_Long8},
+	TagType_Orientation:                 []DataType{DataType_Short},
+	TagType_SamplesPerPixel:             []DataType{DataType_Short},
+	TagType_RowsPerStrip:                []DataType{DataType_Short, DataType_Long, DataType_Long8},
+	TagType_StripByteCounts:             []DataType{DataType_Short, DataType_Long, DataType_Long8},
+	TagType_MinSampleValue:              []DataType{DataType_Short},
+	TagType_MaxSampleValue:              []DataType{DataType_Short},
+	TagType_XResolution:                 []DataType{DataType_Rational},
+	TagType_YResolution:                 []DataType{DataType_Rational},
+	TagType_PlanarConfiguration:         []DataType{DataType_Short},
+	TagType_PageName:                    []DataType{DataType_ASCII},
+	TagType_XPosition:                   []DataType{DataType_Rational},
+	TagType_YPosition:                   []DataType{DataType_Rational},
+	TagType_FreeOffsets:                 []DataType{DataType_Long, DataType_Long8},
+	TagType_FreeByteCounts:              []DataType{DataType_Long, DataType_Long8},
+	TagType_GrayResponseUnit:            []DataType{DataType_Short},
+	TagType_GrayResponseCurve:           []DataType{DataType_Short},
+	TagType_T4Options:                   []DataType{DataType_Long},
+	TagType_T6Options:                   []DataType{DataType_Long},
+	TagType_ResolutionUnit:              []DataType{DataType_Short},
+	TagType_PageNumber:                  []DataType{DataType_Short},
+	TagType_TransferFunction:            []DataType{DataType_Short},
+	TagType_Software:                    []DataType{DataType_ASCII},
+	TagType_DateTime:                    []DataType{DataType_ASCII},
+	TagType_Artist:                      []DataType{DataType_ASCII},
+	TagType_HostComputer:                []DataType{DataType_ASCII},
+	TagType_Predictor:                   []DataType{DataType_Short},
+	TagType_WhitePoint:                  []DataType{DataType_Rational},
+	TagType_PrimaryChromaticities:       []DataType{DataType_Rational},
+	TagType_ColorMap:                    []DataType{DataType_Short},
+	TagType_HalftoneHints:               []DataType{DataType_Short},
+	TagType_TileWidth:                   []DataType{DataType_Short, DataType_Long},
+	TagType_TileLength:                  []DataType{DataType_Short, DataType_Long},
+	TagType_TileOffsets:                 []DataType{DataType_Long, DataType_Long8},
+	TagType_TileByteCounts:              []DataType{DataType_Short, DataType_Long},
+	TagType_SubIFD:                      []DataType{DataType_IFD},
+	TagType_InkSet:                      []DataType{DataType_Short},
+	TagType_InkNames:                    []DataType{DataType_ASCII},
+	TagType_NumberOfInks:                []DataType{DataType_Short},
+	TagType_DotRange:                    []DataType{DataType_Byte, DataType_Short},
+	TagType_TargetPrinter:               []DataType{DataType_ASCII},
+	TagType_ExtraSamples:                []DataType{DataType_Byte},
+	TagType_SampleFormat:                []DataType{DataType_Short},
+	TagType_TransferRange:               []DataType{DataType_Short},
+	TagType_JPEGProc:                    []DataType{DataType_Short},
+	TagType_JPEGInterchangeFormat:       []DataType{DataType_Long},
+	TagType_JPEGInterchangeFormatLength: []DataType{DataType_Long},
+	TagType_JPEGRestartInterval:         []DataType{DataType_Short},
+	TagType_JPEGLosslessPredictors:      []DataType{DataType_Short},
+	TagType_JPEGPointTransforms:         []DataType{DataType_Short},
+	TagType_JPEGQTables:                 []DataType{DataType_Long},
+	TagType_JPEGDCTables:                []DataType{DataType_Long},
+	TagType_JPEGACTables:                []DataType{DataType_Long},
+	TagType_YCbCrCoefficients:           []DataType{DataType_Rational},
+	TagType_YCbCrSubSampling:            []DataType{DataType_Short},
+	TagType_YCbCrPositioning:            []DataType{DataType_Short},
+	TagType_ReferenceBlackWhite:         []DataType{DataType_Long},
+	TagType_Copyright:                   []DataType{DataType_ASCII},
+	TagType_ModelPixelScaleTag:          []DataType{DataType_Double},
+	TagType_IrasBTransformationMatrix:   []DataType{DataType_Double},
+	TagType_ModelTiepointTag:            []DataType{DataType_Double},
+	TagType_ModelTransformationTag:      []DataType{DataType_Double},
+	TagType_ExifIFD:                     []DataType{DataType_IFD},
+	TagType_GeoKeyDirectoryTag:          []DataType{DataType_Short},
+	TagType_GeoDoubleParamsTag:          []DataType{DataType_Double},
+	TagType_GeoAsciiParamsTag:           []DataType{DataType_ASCII},
+	TagType_GPSIFD:                      []DataType{DataType_IFD},
+	TagType_InteroperabilityIFD:         []DataType{DataType_IFD},
 }
 
 var _TagType_NumsTable = map[TagType][]int{
-	TagType_NewSubfileType:             []int{1},
-	TagType_SubfileType:                []int{1},
-	TagType_ImageWidth:                 []int{1},
-	TagType_ImageLength:                []int{1},
-	TagType_Compression:                []int{1},
-	TagType_PhotometricInterpretation:  []int{1},
-	TagType_Threshholding:              []int{1},
-	TagType_CellWidth:                  []int{1},
-	TagType_CellLenght:                 []int{1},
-	TagType_FillOrder:                  []int{1},
-	TagType_Orientation:                []int{1},
-	TagType_SamplesPerPixel:            []int{1},
-	TagType_RowsPerStrip:               []int{1},
-	TagType_XResolution:                []int{1},
-	TagType_YResolution:                []int{1},
-	TagType_PlanarConfiguration:        []int{1},
-	TagType_XPosition:                  []int{1},
-	TagType_YPosition:                  []int{1},
-	TagType_GrayResponseUnit:           []int{1},
-	TagType_T4Options:                  []int{1},
-	TagType_T6Options:                  []int{1},
-	TagType_ResolutionUnit:             []int{1},
-	TagType_PageNumber:                 []int{2},
-	TagType_DateTime:                   []int{20},
-	TagType_Predictor:                  []int{1},
-	TagType_WhitePoint:                 []int{2},
-	TagType_PrimaryChromaticities:      []int{6},
-	TagType_HalftoneHints:              []int{2},
-	TagType_TileWidth:                  []int{1},
-	TagType_TileLength:                 []int{1},
-	TagType_InkSet:                     []int{1},
-	TagType_NumberOfInks:               []int{1},
-	TagType_ExtraSamples:               []int{1},
-	TagType_TransferRange:              []int{6},
-	TagType_JPEGProc:                   []int{1},
-	TagType_JPEGInterchangeFormat:      []int{1},
-	TagType_JPEGInterchangeFormatLngth: []int{1},
-	TagType_JPEGRestartInterval:        []int{1},
-	TagType_YCbCrCoefficients:          []int{3},
-	TagType_YCbCrSubSampling:           []int{2},
-	TagType_YCbCrPositioning:           []int{1},
-	TagType_ModelTransformationTag:     []int{16},
-	TagType_IntergraphMatrixTag:        []int{17},
+	TagType_NewSubfileType:              []int{1},
+	TagType_SubfileType:                 []int{1},
+	TagType_ImageWidth:                  []int{1},
+	TagType_ImageLength:                 []int{1},
+	TagType_Compression:                 []int{1},
+	TagType_PhotometricInterpretation:   []int{1},
+	TagType_Threshholding:               []int{1},
+	TagType_CellWidth:                   []int{1},
+	TagType_CellLenght:                  []int{1},
+	TagType_FillOrder:                   []int{1},
+	TagType_Orientation:                 []int{1},
+	TagType_SamplesPerPixel:             []int{1},
+	TagType_RowsPerStrip:                []int{1},
+	TagType_XResolution:                 []int{1},
+	TagType_YResolution:                 []int{1},
+	TagType_PlanarConfiguration:         []int{1},
+	TagType_XPosition:                   []int{1},
+	TagType_YPosition:                   []int{1},
+	TagType_GrayResponseUnit:            []int{1},
+	TagType_T4Options:                   []int{1},
+	TagType_T6Options:                   []int{1},
+	TagType_ResolutionUnit:              []int{1},
+	TagType_PageNumber:                  []int{2},
+	TagType_DateTime:                    []int{20},
+	TagType_Predictor:                   []int{1},
+	TagType_WhitePoint:                  []int{2},
+	TagType_PrimaryChromaticities:       []int{6},
+	TagType_HalftoneHints:               []int{2},
+	TagType_TileWidth:                   []int{1},
+	TagType_TileLength:                  []int{1},
+	TagType_InkSet:                      []int{1},
+	TagType_NumberOfInks:                []int{1},
+	TagType_ExtraSamples:                []int{1},
+	TagType_TransferRange:               []int{6},
+	TagType_JPEGProc:                    []int{1},
+	TagType_JPEGInterchangeFormat:       []int{1},
+	TagType_JPEGInterchangeFormatLength: []int{1},
+	TagType_JPEGRestartInterval:         []int{1},
+	TagType_YCbCrCoefficients:           []int{3},
+	TagType_YCbCrSubSampling:            []int{2},
+	TagType_YCbCrPositioning:            []int{1},
+	TagType_IrasBTransformationMatrix:   []int{17},
+	TagType_ModelTransformationTag:      []int{16},
 }
 
 type TagGetter interface {
@@ -347,7 +437,7 @@ type TagGetter interface {
 	GetTransferRange() (value []int64, ok bool)
 	GetJPEGProc() (value int64, ok bool)
 	GetJPEGInterchangeFormat() (value int64, ok bool)
-	GetJPEGInterchangeFormatLngth() (value int64, ok bool)
+	GetJPEGInterchangeFormatLength() (value int64, ok bool)
 	GetJPEGRestartInterval() (value int64, ok bool)
 	GetJPEGLosslessPredictors() (value []int64, ok bool)
 	GetJPEGPointTransforms() (value []int64, ok bool)
@@ -359,13 +449,16 @@ type TagGetter interface {
 	GetYCbCrPositioning() (value int64, ok bool)
 	GetReferenceBlackWhite() (value []int64, ok bool)
 	GetCopyright() (value string, ok bool)
+	GetModelPixelScaleTag() (value []float64, ok bool)
+	GetIrasBTransformationMatrix() (value []float64, ok bool)
+	GetModelTiepointTag() (value []float64, ok bool)
+	GetModelTransformationTag() (value []float64, ok bool)
+	GetExifIFD() (value []int64, ok bool)
 	GetGeoKeyDirectoryTag() (value []int64, ok bool)
 	GetGeoDoubleParamsTag() (value []float64, ok bool)
 	GetGeoAsciiParamsTag() (value string, ok bool)
-	GetModelTiepointTag() (value []float64, ok bool)
-	GetModelPixelScaleTag() (value []float64, ok bool)
-	GetModelTransformationTag() (value []float64, ok bool)
-	GetIntergraphMatrixTag() (value []float64, ok bool)
+	GetGPSIFD() (value []int64, ok bool)
+	GetInteroperabilityIFD() (value []int64, ok bool)
 
 	GetUnknown(tag TagType) (value []byte, ok bool)
 
@@ -436,7 +529,7 @@ type TagSetter interface {
 	SetTransferRange(value []int64) (ok bool)
 	SetJPEGProc(value int64) (ok bool)
 	SetJPEGInterchangeFormat(value int64) (ok bool)
-	SetJPEGInterchangeFormatLngth(value int64) (ok bool)
+	SetJPEGInterchangeFormatLength(value int64) (ok bool)
 	SetJPEGRestartInterval(value int64) (ok bool)
 	SetJPEGLosslessPredictors(value []int64) (ok bool)
 	SetJPEGPointTransforms(value []int64) (ok bool)
@@ -448,13 +541,16 @@ type TagSetter interface {
 	SetYCbCrPositioning(value int64) (ok bool)
 	SetReferenceBlackWhite(value []int64) (ok bool)
 	SetCopyright(value string) (ok bool)
+	SetModelPixelScaleTag(value []float64) (ok bool)
+	SetIrasBTransformationMatrix(value []float64) (ok bool)
+	SetModelTiepointTag(value []float64) (ok bool)
+	SetModelTransformationTag(value []float64) (ok bool)
+	SetExifIFD(value []int64) (ok bool)
 	SetGeoKeyDirectoryTag(value []int64) (ok bool)
 	SetGeoDoubleParamsTag(value []float64) (ok bool)
 	SetGeoAsciiParamsTag(value string) (ok bool)
-	SetModelTiepointTag(value []float64) (ok bool)
-	SetModelPixelScaleTag(value []float64) (ok bool)
-	SetModelTransformationTag(value []float64) (ok bool)
-	SetIntergraphMatrixTag(value []float64) (ok bool)
+	SetGPSIFD(value []int64) (ok bool)
+	SetInteroperabilityIFD(value []int64) (ok bool)
 
 	SetUnknown(tag TagType, value interface{}) (ok bool)
 
@@ -468,22 +564,35 @@ func (p TagType) String() string {
 	return fmt.Sprintf("TagType_Unknown(%d)", uint16(p))
 }
 
-var _TagValue_PhotometricTypeTable = map[TagValue_PhotometricType]string{
-	TagValue_PhotometricType_WhiteIsZero: `TagValue_PhotometricType_WhiteIsZero`, //
-	TagValue_PhotometricType_BlackIsZero: `TagValue_PhotometricType_BlackIsZero`, //
-	TagValue_PhotometricType_RGB:         `TagValue_PhotometricType_RGB`,         //
-	TagValue_PhotometricType_Paletted:    `TagValue_PhotometricType_Paletted`,    //
-	TagValue_PhotometricType_TransMask:   `TagValue_PhotometricType_TransMask`,   // # transparency mask
-	TagValue_PhotometricType_CMYK:        `TagValue_PhotometricType_CMYK`,        //
-	TagValue_PhotometricType_YCbCr:       `TagValue_PhotometricType_YCbCr`,       //
-	TagValue_PhotometricType_CIELab:      `TagValue_PhotometricType_CIELab`,      //
+var _TagValue_NewSubfileTypeTable = map[TagValue_NewSubfileType]string{
+	TagValue_NewSubfileType_Nil:               `TagValue_NewSubfileType_Nil`,               //
+	TagValue_NewSubfileType_Reduced:           `TagValue_NewSubfileType_Reduced`,           // # bit0, reduced resolution version
+	TagValue_NewSubfileType_Page:              `TagValue_NewSubfileType_Page`,              // # bit1, one page of many
+	TagValue_NewSubfileType_Reduced_Page:      `TagValue_NewSubfileType_Reduced_Page`,      //
+	TagValue_NewSubfileType_Mask:              `TagValue_NewSubfileType_Mask`,              // # bit2, transparency mask
+	TagValue_NewSubfileType_Reduced_Mask:      `TagValue_NewSubfileType_Reduced_Mask`,      //
+	TagValue_NewSubfileType_Page_Mask:         `TagValue_NewSubfileType_Page_Mask`,         //
+	TagValue_NewSubfileType_Reduced_Page_Mask: `TagValue_NewSubfileType_Reduced_Page_Mask`, //
 }
 
-func (p TagValue_PhotometricType) String() string {
-	if name, ok := _TagValue_PhotometricTypeTable[p]; ok {
+func (p TagValue_NewSubfileType) String() string {
+	if name, ok := _TagValue_NewSubfileTypeTable[p]; ok {
 		return name
 	}
-	return fmt.Sprintf("TagValue_PhotometricType_Unknown(%d)", uint16(p))
+	return fmt.Sprintf("TagValue_NewSubfileType_Unknown(%d)", uint16(p))
+}
+
+var _TagValue_SubfileTypeTable = map[TagValue_SubfileType]string{
+	TagValue_SubfileType_Image:        `TagValue_SubfileType_Image`,        // # full resolution image data
+	TagValue_SubfileType_ReducedImage: `TagValue_SubfileType_ReducedImage`, // # reduced size image data
+	TagValue_SubfileType_Page:         `TagValue_SubfileType_Page`,         // # one page of many
+}
+
+func (p TagValue_SubfileType) String() string {
+	if name, ok := _TagValue_SubfileTypeTable[p]; ok {
+		return name
+	}
+	return fmt.Sprintf("TagValue_SubfileType_Unknown(%d)", uint16(p))
 }
 
 var _TagValue_CompressionTypeTable = map[TagValue_CompressionType]string{
@@ -505,6 +614,24 @@ func (p TagValue_CompressionType) String() string {
 		return name
 	}
 	return fmt.Sprintf("TagValue_CompressionType_Unknown(%d)", uint16(p))
+}
+
+var _TagValue_PhotometricTypeTable = map[TagValue_PhotometricType]string{
+	TagValue_PhotometricType_WhiteIsZero: `TagValue_PhotometricType_WhiteIsZero`, //
+	TagValue_PhotometricType_BlackIsZero: `TagValue_PhotometricType_BlackIsZero`, //
+	TagValue_PhotometricType_RGB:         `TagValue_PhotometricType_RGB`,         //
+	TagValue_PhotometricType_Paletted:    `TagValue_PhotometricType_Paletted`,    //
+	TagValue_PhotometricType_TransMask:   `TagValue_PhotometricType_TransMask`,   // # transparency mask
+	TagValue_PhotometricType_CMYK:        `TagValue_PhotometricType_CMYK`,        //
+	TagValue_PhotometricType_YCbCr:       `TagValue_PhotometricType_YCbCr`,       //
+	TagValue_PhotometricType_CIELab:      `TagValue_PhotometricType_CIELab`,      //
+}
+
+func (p TagValue_PhotometricType) String() string {
+	if name, ok := _TagValue_PhotometricTypeTable[p]; ok {
+		return name
+	}
+	return fmt.Sprintf("TagValue_PhotometricType_Unknown(%d)", uint16(p))
 }
 
 var _TagValue_PredictorTypeTable = map[TagValue_PredictorType]string{
@@ -530,4 +657,18 @@ func (p TagValue_ResolutionUnitType) String() string {
 		return name
 	}
 	return fmt.Sprintf("TagValue_ResolutionUnitType_Unknown(%d)", uint16(p))
+}
+
+var _TagValue_SampleFormatTypeTable = map[TagValue_SampleFormatType]string{
+	TagValue_SampleFormatType_Uint:      `TagValue_SampleFormatType_Uint`,      //
+	TagValue_SampleFormatType_TwoInt:    `TagValue_SampleFormatType_TwoInt`,    //
+	TagValue_SampleFormatType_Float:     `TagValue_SampleFormatType_Float`,     //
+	TagValue_SampleFormatType_Undefined: `TagValue_SampleFormatType_Undefined`, //
+}
+
+func (p TagValue_SampleFormatType) String() string {
+	if name, ok := _TagValue_SampleFormatTypeTable[p]; ok {
+		return name
+	}
+	return fmt.Sprintf("TagValue_SampleFormatType_Unknown(%d)", uint16(p))
 }

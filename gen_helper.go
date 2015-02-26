@@ -26,6 +26,8 @@ type Type struct {
 	TypeCommentMap map[string]string
 	TagTypeMap     map[string][]string
 	TagNumMap      map[string][]int
+	TagIFDMap      map[string]string
+	TagIngoreMap   map[string]bool
 	MapCode        string
 }
 
@@ -49,11 +51,19 @@ func main() {
 		},
 
 		Type{
-			TypeName: "TagValue_PhotometricType",
+			TypeName: "TagValue_NewSubfileType",
+			FileName: "tiff_types.go",
+		},
+		Type{
+			TypeName: "TagValue_SubfileType",
 			FileName: "tiff_types.go",
 		},
 		Type{
 			TypeName: "TagValue_CompressionType",
+			FileName: "tiff_types.go",
+		},
+		Type{
+			TypeName: "TagValue_PhotometricType",
 			FileName: "tiff_types.go",
 		},
 		Type{
@@ -62,6 +72,10 @@ func main() {
 		},
 		Type{
 			TypeName: "TagValue_ResolutionUnitType",
+			FileName: "tiff_types.go",
+		},
+		Type{
+			TypeName: "TagValue_SampleFormatType",
 			FileName: "tiff_types.go",
 		},
 	}
@@ -110,6 +124,12 @@ func (p *Type) Init() {
 	if p.TagNumMap == nil {
 		p.TagNumMap = make(map[string][]int)
 	}
+	if p.TagIFDMap == nil {
+		p.TagIFDMap = make(map[string]string)
+	}
+	if p.TagIngoreMap == nil {
+		p.TagIngoreMap = make(map[string]bool)
+	}
 
 	data, err := ioutil.ReadFile(p.FileName)
 	if err != nil {
@@ -153,6 +173,22 @@ func (p *Type) parseTagComment() {
 		}
 		if idx := strings.Index(comment, "#"); idx >= 0 {
 			comment = comment[:idx]
+		}
+		comment = strings.TrimSpace(comment)
+
+		if strings.Contains(comment, "TagType_ExifIFD") {
+			p.TagIFDMap[typeName] = "TagType_ExifIFD"
+		}
+		if strings.Contains(comment, "TagType_GPSIFD") {
+			p.TagIFDMap[typeName] = "TagType_GPSIFD"
+		}
+		if strings.Contains(comment, "TagType_InteroperabilityIFD") {
+			p.TagIFDMap[typeName] = "TagType_InteroperabilityIFD"
+		}
+
+		if strings.Contains(comment, "ingore") {
+			p.TagIngoreMap[typeName] = true
+			continue
 		}
 		if comment == "" {
 			continue
@@ -219,6 +255,9 @@ func (p *Type) GenMapCode() {
 	var buf bytes.Buffer
 	fmt.Fprintf(&buf, "var _%sTable = map[%s]string {\n", p.TypeName, p.TypeName)
 	for _, s := range p.TypeList {
+		if _, ok := p.TagIFDMap[s]; ok {
+			continue
+		}
 		fmt.Fprintf(&buf, "\t%s: `%s`, %s\n", s, s, p.TypeCommentMap[s])
 	}
 	fmt.Fprintf(&buf, "}\n")
@@ -226,6 +265,9 @@ func (p *Type) GenMapCode() {
 	if p.TypeName == "TagType" && len(p.TagTypeMap) > 0 {
 		fmt.Fprintf(&buf, "\nvar _TagType_TypesTable = map[TagType][]DataType {\n")
 		for _, s := range p.TypeList {
+			if _, ok := p.TagIFDMap[s]; ok {
+				continue
+			}
 			if v, ok := p.TagTypeMap[s]; ok && len(v) > 0 {
 				fmt.Fprintf(&buf, "%s: []DataType{ ", s)
 				for j := 0; j < len(v); j++ {
@@ -240,6 +282,9 @@ func (p *Type) GenMapCode() {
 	if p.TypeName == "TagType" && len(p.TagNumMap) > 0 {
 		fmt.Fprintf(&buf, "\nvar _TagType_NumsTable = map[TagType][]int {\n")
 		for _, s := range p.TypeList {
+			if _, ok := p.TagIFDMap[s]; ok {
+				continue
+			}
 			if v, ok := p.TagNumMap[s]; ok && len(v) > 0 {
 				fmt.Fprintf(&buf, "%s: []int{ ", s)
 				for j := 0; j < len(v); j++ {
@@ -254,7 +299,12 @@ func (p *Type) GenMapCode() {
 	if p.TypeName == "TagType" {
 		fmt.Fprintf(&buf, "\ntype TagGetter interface {\n")
 		for _, s := range p.TypeList {
-			fmt.Fprintf(&buf, "Get%s() (value %s, ok bool)\n", s[len("TagType_"):], p.getValueType(s))
+			if _, ok := p.TagIFDMap[s]; ok {
+				continue
+			}
+			if _, ingore := p.TagIngoreMap[s]; !ingore {
+				fmt.Fprintf(&buf, "Get%s() (value %s, ok bool)\n", s[len("TagType_"):], p.getValueType(s))
+			}
 		}
 		fmt.Fprintf(&buf, "\n")
 		fmt.Fprintf(&buf, "GetUnknown(tag TagType) (value []byte, ok bool)\n")
@@ -264,7 +314,12 @@ func (p *Type) GenMapCode() {
 
 		fmt.Fprintf(&buf, "\ntype TagSetter interface {\n")
 		for _, s := range p.TypeList {
-			fmt.Fprintf(&buf, "Set%s(value %s) (ok bool)\n", s[len("TagType_"):], p.getValueType(s))
+			if _, ok := p.TagIFDMap[s]; ok {
+				continue
+			}
+			if _, ingore := p.TagIngoreMap[s]; !ingore {
+				fmt.Fprintf(&buf, "Set%s(value %s) (ok bool)\n", s[len("TagType_"):], p.getValueType(s))
+			}
 		}
 		fmt.Fprintf(&buf, "\n")
 		fmt.Fprintf(&buf, "SetUnknown(tag TagType, value interface{}) (ok bool)\n")

@@ -753,9 +753,9 @@ func (p *tifTagGetter) GetJPEGInterchangeFormat() (value int64, ok bool) {
 	return
 }
 
-func (p *tifTagGetter) GetJPEGInterchangeFormatLngth() (value int64, ok bool) {
+func (p *tifTagGetter) GetJPEGInterchangeFormatLength() (value int64, ok bool) {
 	var entry *IFDEntry
-	if entry, ok = p.EntryMap[TagType_JPEGInterchangeFormatLngth]; !ok {
+	if entry, ok = p.EntryMap[TagType_JPEGInterchangeFormatLength]; !ok {
 		return
 	}
 	if v := entry.GetInts(); len(v) == 1 {
@@ -877,6 +877,51 @@ func (p *tifTagGetter) GetCopyright() (value string, ok bool) {
 	return
 }
 
+func (p *tifTagGetter) GetModelPixelScaleTag() (value []float64, ok bool) {
+	var entry *IFDEntry
+	if entry, ok = p.EntryMap[TagType_ModelPixelScaleTag]; !ok {
+		return
+	}
+	value = entry.GetFloats()
+	return
+}
+
+func (p *tifTagGetter) GetIrasBTransformationMatrix() (value []float64, ok bool) {
+	var entry *IFDEntry
+	if entry, ok = p.EntryMap[TagType_IrasBTransformationMatrix]; !ok {
+		return
+	}
+	value = entry.GetFloats()
+	return
+}
+
+func (p *tifTagGetter) GetModelTiepointTag() (value []float64, ok bool) {
+	var entry *IFDEntry
+	if entry, ok = p.EntryMap[TagType_ModelTiepointTag]; !ok {
+		return
+	}
+	value = entry.GetFloats()
+	return
+}
+
+func (p *tifTagGetter) GetModelTransformationTag() (value []float64, ok bool) {
+	var entry *IFDEntry
+	if entry, ok = p.EntryMap[TagType_ModelTransformationTag]; !ok {
+		return
+	}
+	value = entry.GetFloats()
+	return
+}
+
+func (p *tifTagGetter) GetExifIFD() (value []int64, ok bool) {
+	var entry *IFDEntry
+	if entry, ok = p.EntryMap[TagType_ExifIFD]; !ok {
+		return
+	}
+	value = entry.GetInts()
+	return
+}
+
 func (p *tifTagGetter) GetGeoKeyDirectoryTag() (value []int64, ok bool) {
 	var entry *IFDEntry
 	if entry, ok = p.EntryMap[TagType_GeoKeyDirectoryTag]; !ok {
@@ -904,45 +949,27 @@ func (p *tifTagGetter) GetGeoAsciiParamsTag() (value string, ok bool) {
 	return
 }
 
-func (p *tifTagGetter) GetModelTiepointTag() (value []float64, ok bool) {
+func (p *tifTagGetter) GetGPSIFD() (value []int64, ok bool) {
 	var entry *IFDEntry
-	if entry, ok = p.EntryMap[TagType_ModelTiepointTag]; !ok {
+	if entry, ok = p.EntryMap[TagType_GPSIFD]; !ok {
 		return
 	}
-	value = entry.GetFloats()
+	value = entry.GetInts()
 	return
 }
 
-func (p *tifTagGetter) GetModelPixelScaleTag() (value []float64, ok bool) {
+func (p *tifTagGetter) GetInteroperabilityIFD() (value []int64, ok bool) {
 	var entry *IFDEntry
-	if entry, ok = p.EntryMap[TagType_ModelPixelScaleTag]; !ok {
+	if entry, ok = p.EntryMap[TagType_InteroperabilityIFD]; !ok {
 		return
 	}
-	value = entry.GetFloats()
-	return
-}
-
-func (p *tifTagGetter) GetModelTransformationTag() (value []float64, ok bool) {
-	var entry *IFDEntry
-	if entry, ok = p.EntryMap[TagType_ModelTransformationTag]; !ok {
-		return
-	}
-	value = entry.GetFloats()
-	return
-}
-
-func (p *tifTagGetter) GetIntergraphMatrixTag() (value []float64, ok bool) {
-	var entry *IFDEntry
-	if entry, ok = p.EntryMap[TagType_IntergraphMatrixTag]; !ok {
-		return
-	}
-	value = entry.GetFloats()
+	value = entry.GetInts()
 	return
 }
 
 func (p *tifTagGetter) GetUnknown(tag TagType) (value []byte, ok bool) {
 	var entry *IFDEntry
-	if entry, ok = p.EntryMap[TagType_IntergraphMatrixTag]; !ok {
+	if entry, ok = p.EntryMap[tag]; !ok {
 		return
 	}
 	value = entry.Data
