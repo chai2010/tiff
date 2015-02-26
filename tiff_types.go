@@ -222,11 +222,9 @@ const (
 	TagType_ReferenceBlackWhite               TagType                     = 532   // LONG , *, # 2*SamplesPerPixel
 	TagType_StripRowCounts                    TagType                     = 559   // ingore # Defined in the Mixed Raster Content part of RFC 2301, used to replace RowsPerStrip for IFDs with variable-sized strips.
 	TagType_XMP                               TagType                     = 700   // ingore # XML packet containing XMP metadata
-	_                                                                     = 0     //
 	TagType_ImageID                           TagType                     = 32781 // ingore # OPI-related.
 	TagType_ImageLayer                        TagType                     = 34732 // ingore # Defined in the Mixed Raster Content part of RFC 2301, used to denote the particular function of this Image in the mixed raster scheme.
 	TagType_Copyright                         TagType                     = 33432 // ASCII
-	_                                                                     = 0     //
 	TagType_WangAnnotation                    TagType                     = 32932 // ingore # Annotation data, as used in 'Imaging for Windows'.
 	TagType_MDFileTag                         TagType                     = 33445 // ingore # Specifies the pixel data format encoding in the Molecular Dynamics GEL file format.
 	TagType_MDScalePixel                      TagType                     = 33446 // ingore # Specifies a scale factor in the Molecular Dynamics GEL file format.
@@ -249,7 +247,6 @@ const (
 	TagType_GeoKeyDirectoryTag                TagType                     = 34735 // SHORT, *, # >= 4
 	TagType_GeoDoubleParamsTag                TagType                     = 34736 // DOUBLE
 	TagType_GeoAsciiParamsTag                 TagType                     = 34737 // ASCII
-	_                                                                     = 0     //
 	TagType_GPSIFD                            TagType                     = 34853 // IFD    # A pointer to the Exif-related GPS Info IFD.
 	TagType_HylaFAXFaxRecvParams              TagType                     = 34908 // ingore # Used by HylaFAX.
 	TagType_HylaFAXFaxSubAddress              TagType                     = 34909 // ingore # Used by HylaFAX.
@@ -306,7 +303,6 @@ const (
 
 // EXIF Tags
 const (
-	_                                        = 0     //
 	TagType_ExposureTime             TagType = 33434 // TagType_ExifIFD, ingore # Exposure time, given in seconds.
 	TagType_FNumber                  TagType = 33437 // TagType_ExifIFD, ingore # The F number.
 	TagType_ExposureProgram          TagType = 34850 // TagType_ExifIFD, ingore # The class of the program used by the camera to set exposure when the picture is taken.
@@ -363,12 +359,10 @@ const (
 	TagType_DeviceSettingDescription TagType = 41995 // TagType_ExifIFD, ingore # This tag indicates information on the picture-taking conditions of a particular camera model.
 	TagType_SubjectDistanceRange     TagType = 41996 // TagType_ExifIFD, ingore # Indicates the distance to the subject.
 	TagType_ImageUniqueID            TagType = 42016 // TagType_ExifIFD, ingore # Indicates an identifier assigned uniquely to each image.
-	_                                        = 0     //
 )
 
 // GPS Tags
 const (
-	_                                   = 0  //
 	TagType_GPSVersionID        TagType = 0  // TagType_GPSIFD, ingore # Indicates the version of GPSInfoIFD.
 	TagType_GPSLatitudeRef      TagType = 1  // TagType_GPSIFD, ingore # Indicates whether the latitude is north or south latitude.
 	TagType_GPSLatitude         TagType = 2  // TagType_GPSIFD, ingore # Indicates the latitude.
@@ -400,12 +394,9 @@ const (
 	TagType_GPSAreaInformation  TagType = 28 // TagType_GPSIFD, ingore # A character string recording the name of the GPS area.
 	TagType_GPSDateStamp        TagType = 29 // TagType_GPSIFD, ingore # A character string recording date and time information relative to UTC (Coordinated Universal Time).
 	TagType_GPSDifferential     TagType = 30 // TagType_GPSIFD, ingore # Indicates whether differential correction is applied to the GPS receiver.
-	_                                   = 0  //
 )
 
 // Interoperability Tags
 const (
-	_                                     = 0 //
 	TagType_InteroperabilityIndex TagType = 1 // TagType_InteroperabilityIFD, ingore # Indicates the identification of the Interoperability rule.
-	_                                     = 0 //
 )
