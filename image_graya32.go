@@ -12,7 +12,7 @@ import (
 	"reflect"
 )
 
-type GrayA32 struct {
+type imageGrayA32 struct {
 	M struct {
 		Pix    []uint8
 		Stride int
@@ -20,13 +20,13 @@ type GrayA32 struct {
 	}
 }
 
-// NewGrayA32 returns a new GrayA32 with the given bounds.
-func NewGrayA32(r image.Rectangle) *GrayA32 {
-	return new(GrayA32).Init(make([]uint8, 4*r.Dx()*r.Dy()), 4*r.Dx(), r)
+// newImageGrayA32 returns a new imageGrayA32 with the given bounds.
+func newImageGrayA32(r image.Rectangle) *imageGrayA32 {
+	return new(imageGrayA32).Init(make([]uint8, 4*r.Dx()*r.Dy()), 4*r.Dx(), r)
 }
 
-func (p *GrayA32) Init(pix []uint8, stride int, rect image.Rectangle) *GrayA32 {
-	*p = GrayA32{
+func (p *imageGrayA32) Init(pix []uint8, stride int, rect image.Rectangle) *imageGrayA32 {
+	*p = imageGrayA32{
 		M: struct {
 			Pix    []uint8
 			Stride int
@@ -40,21 +40,21 @@ func (p *GrayA32) Init(pix []uint8, stride int, rect image.Rectangle) *GrayA32 {
 	return p
 }
 
-func (p *GrayA32) Pix() []byte           { return p.M.Pix }
-func (p *GrayA32) Stride() int           { return p.M.Stride }
-func (p *GrayA32) Rect() image.Rectangle { return p.M.Rect }
-func (p *GrayA32) Channels() int         { return 2 }
-func (p *GrayA32) Depth() reflect.Kind   { return reflect.Uint16 }
+func (p *imageGrayA32) Pix() []byte           { return p.M.Pix }
+func (p *imageGrayA32) Stride() int           { return p.M.Stride }
+func (p *imageGrayA32) Rect() image.Rectangle { return p.M.Rect }
+func (p *imageGrayA32) Channels() int         { return 2 }
+func (p *imageGrayA32) Depth() reflect.Kind   { return reflect.Uint16 }
 
-func (p *GrayA32) ColorModel() color.Model { return colorGrayA32Model }
+func (p *imageGrayA32) ColorModel() color.Model { return colorGrayA32Model }
 
-func (p *GrayA32) Bounds() image.Rectangle { return p.M.Rect }
+func (p *imageGrayA32) Bounds() image.Rectangle { return p.M.Rect }
 
-func (p *GrayA32) At(x, y int) color.Color {
+func (p *imageGrayA32) At(x, y int) color.Color {
 	return p.GrayA32At(x, y)
 }
 
-func (p *GrayA32) GrayA32At(x, y int) colorGrayA32 {
+func (p *imageGrayA32) GrayA32At(x, y int) colorGrayA32 {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return colorGrayA32{}
 	}
@@ -64,11 +64,11 @@ func (p *GrayA32) GrayA32At(x, y int) colorGrayA32 {
 
 // PixOffset returns the index of the first element of Pix that corresponds to
 // the pixel at (x, y).
-func (p *GrayA32) PixOffset(x, y int) int {
+func (p *imageGrayA32) PixOffset(x, y int) int {
 	return (y-p.M.Rect.Min.Y)*p.M.Stride + (x-p.M.Rect.Min.X)*4
 }
 
-func (p *GrayA32) Set(x, y int, c color.Color) {
+func (p *imageGrayA32) Set(x, y int, c color.Color) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -78,7 +78,7 @@ func (p *GrayA32) Set(x, y int, c color.Color) {
 	return
 }
 
-func (p *GrayA32) SetGrayA32(x, y int, c colorGrayA32) {
+func (p *imageGrayA32) SetGrayA32(x, y int, c colorGrayA32) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -89,16 +89,16 @@ func (p *GrayA32) SetGrayA32(x, y int, c colorGrayA32) {
 
 // SubImage returns an image representing the portion of the image p visible
 // through r. The returned value shares pixels with the original image.
-func (p *GrayA32) SubImage(r image.Rectangle) image.Image {
+func (p *imageGrayA32) SubImage(r image.Rectangle) image.Image {
 	r = r.Intersect(p.M.Rect)
 	// If r1 and r2 are Rectangles, r1.Intersect(r2) is not guaranteed to be inside
 	// either r1 or r2 if the intersection is empty. Without explicitly checking for
 	// this, the Pix[i:] expression below can panic.
 	if r.Empty() {
-		return &GrayA32{}
+		return &imageGrayA32{}
 	}
 	i := p.PixOffset(r.Min.X, r.Min.Y)
-	return new(GrayA32).Init(
+	return new(imageGrayA32).Init(
 		p.M.Pix[i:],
 		p.M.Stride,
 		r,
@@ -106,7 +106,7 @@ func (p *GrayA32) SubImage(r image.Rectangle) image.Image {
 }
 
 // Opaque scans the entire image and reports whether it is fully opaque.
-func (p *GrayA32) Opaque() bool {
+func (p *imageGrayA32) Opaque() bool {
 	if p.M.Rect.Empty() {
 		return true
 	}

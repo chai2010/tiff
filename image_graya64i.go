@@ -12,7 +12,7 @@ import (
 	"reflect"
 )
 
-type GrayA64i struct {
+type imageGrayA64i struct {
 	M struct {
 		Pix    []uint8
 		Stride int
@@ -20,13 +20,13 @@ type GrayA64i struct {
 	}
 }
 
-// NewGrayA64i returns a new GrayA64i with the given bounds.
-func NewGrayA64i(r image.Rectangle) *GrayA64i {
-	return new(GrayA64i).Init(make([]uint8, 8*r.Dx()*r.Dy()), 8*r.Dx(), r)
+// newImageGrayA64i returns a new imageGrayA64i with the given bounds.
+func newImageGrayA64i(r image.Rectangle) *imageGrayA64i {
+	return new(imageGrayA64i).Init(make([]uint8, 8*r.Dx()*r.Dy()), 8*r.Dx(), r)
 }
 
-func (p *GrayA64i) Init(pix []uint8, stride int, rect image.Rectangle) *GrayA64i {
-	*p = GrayA64i{
+func (p *imageGrayA64i) Init(pix []uint8, stride int, rect image.Rectangle) *imageGrayA64i {
+	*p = imageGrayA64i{
 		M: struct {
 			Pix    []uint8
 			Stride int
@@ -40,21 +40,21 @@ func (p *GrayA64i) Init(pix []uint8, stride int, rect image.Rectangle) *GrayA64i
 	return p
 }
 
-func (p *GrayA64i) Pix() []byte           { return p.M.Pix }
-func (p *GrayA64i) Stride() int           { return p.M.Stride }
-func (p *GrayA64i) Rect() image.Rectangle { return p.M.Rect }
-func (p *GrayA64i) Channels() int         { return 2 }
-func (p *GrayA64i) Depth() reflect.Kind   { return reflect.Int32 }
+func (p *imageGrayA64i) Pix() []byte           { return p.M.Pix }
+func (p *imageGrayA64i) Stride() int           { return p.M.Stride }
+func (p *imageGrayA64i) Rect() image.Rectangle { return p.M.Rect }
+func (p *imageGrayA64i) Channels() int         { return 2 }
+func (p *imageGrayA64i) Depth() reflect.Kind   { return reflect.Int32 }
 
-func (p *GrayA64i) ColorModel() color.Model { return colorGrayA64iModel }
+func (p *imageGrayA64i) ColorModel() color.Model { return colorGrayA64iModel }
 
-func (p *GrayA64i) Bounds() image.Rectangle { return p.M.Rect }
+func (p *imageGrayA64i) Bounds() image.Rectangle { return p.M.Rect }
 
-func (p *GrayA64i) At(x, y int) color.Color {
+func (p *imageGrayA64i) At(x, y int) color.Color {
 	return p.GrayA64iAt(x, y)
 }
 
-func (p *GrayA64i) GrayA64iAt(x, y int) colorGrayA64i {
+func (p *imageGrayA64i) GrayA64iAt(x, y int) colorGrayA64i {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return colorGrayA64i{}
 	}
@@ -64,11 +64,11 @@ func (p *GrayA64i) GrayA64iAt(x, y int) colorGrayA64i {
 
 // PixOffset returns the index of the first element of Pix that corresponds to
 // the pixel at (x, y).
-func (p *GrayA64i) PixOffset(x, y int) int {
+func (p *imageGrayA64i) PixOffset(x, y int) int {
 	return (y-p.M.Rect.Min.Y)*p.M.Stride + (x-p.M.Rect.Min.X)*8
 }
 
-func (p *GrayA64i) Set(x, y int, c color.Color) {
+func (p *imageGrayA64i) Set(x, y int, c color.Color) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -78,7 +78,7 @@ func (p *GrayA64i) Set(x, y int, c color.Color) {
 	return
 }
 
-func (p *GrayA64i) SetGrayA64i(x, y int, c colorGrayA64i) {
+func (p *imageGrayA64i) SetGrayA64i(x, y int, c colorGrayA64i) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -89,16 +89,16 @@ func (p *GrayA64i) SetGrayA64i(x, y int, c colorGrayA64i) {
 
 // SubImage returns an image representing the portion of the image p visible
 // through r. The returned value shares pixels with the original image.
-func (p *GrayA64i) SubImage(r image.Rectangle) image.Image {
+func (p *imageGrayA64i) SubImage(r image.Rectangle) image.Image {
 	r = r.Intersect(p.M.Rect)
 	// If r1 and r2 are Rectangles, r1.Intersect(r2) is not guaranteed to be inside
 	// either r1 or r2 if the intersection is empty. Without explicitly checking for
 	// this, the Pix[i:] expression below can panic.
 	if r.Empty() {
-		return &GrayA64i{}
+		return &imageGrayA64i{}
 	}
 	i := p.PixOffset(r.Min.X, r.Min.Y)
-	return new(GrayA64i).Init(
+	return new(imageGrayA64i).Init(
 		p.M.Pix[i:],
 		p.M.Stride,
 		r,
@@ -106,7 +106,7 @@ func (p *GrayA64i) SubImage(r image.Rectangle) image.Image {
 }
 
 // Opaque scans the entire image and reports whether it is fully opaque.
-func (p *GrayA64i) Opaque() bool {
+func (p *imageGrayA64i) Opaque() bool {
 	if p.M.Rect.Empty() {
 		return true
 	}

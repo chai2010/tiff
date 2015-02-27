@@ -12,7 +12,7 @@ import (
 	"reflect"
 )
 
-type RGB192i struct {
+type imageRGB192i struct {
 	M struct {
 		Pix    []uint8
 		Stride int
@@ -20,13 +20,13 @@ type RGB192i struct {
 	}
 }
 
-// NewRGB192i returns a new RGB192i with the given bounds.
-func NewRGB192i(r image.Rectangle) *RGB192i {
-	return new(RGB192i).Init(make([]uint8, 24*r.Dx()*r.Dy()), 24*r.Dx(), r)
+// newImageRGB192i returns a new imageRGB192i with the given bounds.
+func newImageRGB192i(r image.Rectangle) *imageRGB192i {
+	return new(imageRGB192i).Init(make([]uint8, 24*r.Dx()*r.Dy()), 24*r.Dx(), r)
 }
 
-func (p *RGB192i) Init(pix []uint8, stride int, rect image.Rectangle) *RGB192i {
-	*p = RGB192i{
+func (p *imageRGB192i) Init(pix []uint8, stride int, rect image.Rectangle) *imageRGB192i {
+	*p = imageRGB192i{
 		M: struct {
 			Pix    []uint8
 			Stride int
@@ -40,21 +40,21 @@ func (p *RGB192i) Init(pix []uint8, stride int, rect image.Rectangle) *RGB192i {
 	return p
 }
 
-func (p *RGB192i) Pix() []byte           { return p.M.Pix }
-func (p *RGB192i) Stride() int           { return p.M.Stride }
-func (p *RGB192i) Rect() image.Rectangle { return p.M.Rect }
-func (p *RGB192i) Channels() int         { return 3 }
-func (p *RGB192i) Depth() reflect.Kind   { return reflect.Int64 }
+func (p *imageRGB192i) Pix() []byte           { return p.M.Pix }
+func (p *imageRGB192i) Stride() int           { return p.M.Stride }
+func (p *imageRGB192i) Rect() image.Rectangle { return p.M.Rect }
+func (p *imageRGB192i) Channels() int         { return 3 }
+func (p *imageRGB192i) Depth() reflect.Kind   { return reflect.Int64 }
 
-func (p *RGB192i) ColorModel() color.Model { return colorRGB192iModel }
+func (p *imageRGB192i) ColorModel() color.Model { return colorRGB192iModel }
 
-func (p *RGB192i) Bounds() image.Rectangle { return p.M.Rect }
+func (p *imageRGB192i) Bounds() image.Rectangle { return p.M.Rect }
 
-func (p *RGB192i) At(x, y int) color.Color {
+func (p *imageRGB192i) At(x, y int) color.Color {
 	return p.RGB192iAt(x, y)
 }
 
-func (p *RGB192i) RGB192iAt(x, y int) colorRGB192i {
+func (p *imageRGB192i) RGB192iAt(x, y int) colorRGB192i {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return colorRGB192i{}
 	}
@@ -64,11 +64,11 @@ func (p *RGB192i) RGB192iAt(x, y int) colorRGB192i {
 
 // PixOffset returns the index of the first element of Pix that corresponds to
 // the pixel at (x, y).
-func (p *RGB192i) PixOffset(x, y int) int {
+func (p *imageRGB192i) PixOffset(x, y int) int {
 	return (y-p.M.Rect.Min.Y)*p.M.Stride + (x-p.M.Rect.Min.X)*24
 }
 
-func (p *RGB192i) Set(x, y int, c color.Color) {
+func (p *imageRGB192i) Set(x, y int, c color.Color) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -78,7 +78,7 @@ func (p *RGB192i) Set(x, y int, c color.Color) {
 	return
 }
 
-func (p *RGB192i) SetRGB192i(x, y int, c colorRGB192i) {
+func (p *imageRGB192i) SetRGB192i(x, y int, c colorRGB192i) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -89,16 +89,16 @@ func (p *RGB192i) SetRGB192i(x, y int, c colorRGB192i) {
 
 // SubImage returns an image representing the portion of the image p visible
 // through r. The returned value shares pixels with the original image.
-func (p *RGB192i) SubImage(r image.Rectangle) image.Image {
+func (p *imageRGB192i) SubImage(r image.Rectangle) image.Image {
 	r = r.Intersect(p.M.Rect)
 	// If r1 and r2 are Rectangles, r1.Intersect(r2) is not guaranteed to be inside
 	// either r1 or r2 if the intersection is empty. Without explicitly checking for
 	// this, the Pix[i:] expression below can panic.
 	if r.Empty() {
-		return &RGB192i{}
+		return &imageRGB192i{}
 	}
 	i := p.PixOffset(r.Min.X, r.Min.Y)
-	return new(RGB192i).Init(
+	return new(imageRGB192i).Init(
 		p.M.Pix[i:],
 		p.M.Stride,
 		r,
@@ -106,6 +106,6 @@ func (p *RGB192i) SubImage(r image.Rectangle) image.Image {
 }
 
 // Opaque scans the entire image and reports whether it is fully opaque.
-func (p *RGB192i) Opaque() bool {
+func (p *imageRGB192i) Opaque() bool {
 	return true
 }

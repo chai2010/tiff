@@ -12,7 +12,7 @@ import (
 	"reflect"
 )
 
-type GrayA128i struct {
+type imageGrayA128i struct {
 	M struct {
 		Pix    []uint8
 		Stride int
@@ -20,13 +20,13 @@ type GrayA128i struct {
 	}
 }
 
-// NewGrayA128i returns a new GrayA128i with the given bounds.
-func NewGrayA128i(r image.Rectangle) *GrayA128i {
-	return new(GrayA128i).Init(make([]uint8, 16*r.Dx()*r.Dy()), 16*r.Dx(), r)
+// newImageGrayA128i returns a new imageGrayA128i with the given bounds.
+func newImageGrayA128i(r image.Rectangle) *imageGrayA128i {
+	return new(imageGrayA128i).Init(make([]uint8, 16*r.Dx()*r.Dy()), 16*r.Dx(), r)
 }
 
-func (p *GrayA128i) Init(pix []uint8, stride int, rect image.Rectangle) *GrayA128i {
-	*p = GrayA128i{
+func (p *imageGrayA128i) Init(pix []uint8, stride int, rect image.Rectangle) *imageGrayA128i {
+	*p = imageGrayA128i{
 		M: struct {
 			Pix    []uint8
 			Stride int
@@ -40,21 +40,21 @@ func (p *GrayA128i) Init(pix []uint8, stride int, rect image.Rectangle) *GrayA12
 	return p
 }
 
-func (p *GrayA128i) Pix() []byte           { return p.M.Pix }
-func (p *GrayA128i) Stride() int           { return p.M.Stride }
-func (p *GrayA128i) Rect() image.Rectangle { return p.M.Rect }
-func (p *GrayA128i) Channels() int         { return 2 }
-func (p *GrayA128i) Depth() reflect.Kind   { return reflect.Int64 }
+func (p *imageGrayA128i) Pix() []byte           { return p.M.Pix }
+func (p *imageGrayA128i) Stride() int           { return p.M.Stride }
+func (p *imageGrayA128i) Rect() image.Rectangle { return p.M.Rect }
+func (p *imageGrayA128i) Channels() int         { return 2 }
+func (p *imageGrayA128i) Depth() reflect.Kind   { return reflect.Int64 }
 
-func (p *GrayA128i) ColorModel() color.Model { return colorGrayA128iModel }
+func (p *imageGrayA128i) ColorModel() color.Model { return colorGrayA128iModel }
 
-func (p *GrayA128i) Bounds() image.Rectangle { return p.M.Rect }
+func (p *imageGrayA128i) Bounds() image.Rectangle { return p.M.Rect }
 
-func (p *GrayA128i) At(x, y int) color.Color {
+func (p *imageGrayA128i) At(x, y int) color.Color {
 	return p.GrayA128iAt(x, y)
 }
 
-func (p *GrayA128i) GrayA128iAt(x, y int) colorGrayA128i {
+func (p *imageGrayA128i) GrayA128iAt(x, y int) colorGrayA128i {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return colorGrayA128i{}
 	}
@@ -64,11 +64,11 @@ func (p *GrayA128i) GrayA128iAt(x, y int) colorGrayA128i {
 
 // PixOffset returns the index of the first element of Pix that corresponds to
 // the pixel at (x, y).
-func (p *GrayA128i) PixOffset(x, y int) int {
+func (p *imageGrayA128i) PixOffset(x, y int) int {
 	return (y-p.M.Rect.Min.Y)*p.M.Stride + (x-p.M.Rect.Min.X)*16
 }
 
-func (p *GrayA128i) Set(x, y int, c color.Color) {
+func (p *imageGrayA128i) Set(x, y int, c color.Color) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -78,7 +78,7 @@ func (p *GrayA128i) Set(x, y int, c color.Color) {
 	return
 }
 
-func (p *GrayA128i) SetGrayA128i(x, y int, c colorGrayA128i) {
+func (p *imageGrayA128i) SetGrayA128i(x, y int, c colorGrayA128i) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -89,16 +89,16 @@ func (p *GrayA128i) SetGrayA128i(x, y int, c colorGrayA128i) {
 
 // SubImage returns an image representing the portion of the image p visible
 // through r. The returned value shares pixels with the original image.
-func (p *GrayA128i) SubImage(r image.Rectangle) image.Image {
+func (p *imageGrayA128i) SubImage(r image.Rectangle) image.Image {
 	r = r.Intersect(p.M.Rect)
 	// If r1 and r2 are Rectangles, r1.Intersect(r2) is not guaranteed to be inside
 	// either r1 or r2 if the intersection is empty. Without explicitly checking for
 	// this, the Pix[i:] expression below can panic.
 	if r.Empty() {
-		return &GrayA128i{}
+		return &imageGrayA128i{}
 	}
 	i := p.PixOffset(r.Min.X, r.Min.Y)
-	return new(GrayA128i).Init(
+	return new(imageGrayA128i).Init(
 		p.M.Pix[i:],
 		p.M.Stride,
 		r,
@@ -106,7 +106,7 @@ func (p *GrayA128i) SubImage(r image.Rectangle) image.Image {
 }
 
 // Opaque scans the entire image and reports whether it is fully opaque.
-func (p *GrayA128i) Opaque() bool {
+func (p *imageGrayA128i) Opaque() bool {
 	if p.M.Rect.Empty() {
 		return true
 	}

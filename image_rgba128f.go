@@ -12,7 +12,7 @@ import (
 	"reflect"
 )
 
-type RGBA128f struct {
+type imageRGBA128f struct {
 	M struct {
 		Pix    []uint8
 		Stride int
@@ -20,13 +20,13 @@ type RGBA128f struct {
 	}
 }
 
-// NewRGBA128f returns a new RGBA128f with the given bounds.
-func NewRGBA128f(r image.Rectangle) *RGBA128f {
-	return new(RGBA128f).Init(make([]uint8, 16*r.Dx()*r.Dy()), 16*r.Dx(), r)
+// newImageRGBA128f returns a new imageRGBA128f with the given bounds.
+func newImageRGBA128f(r image.Rectangle) *imageRGBA128f {
+	return new(imageRGBA128f).Init(make([]uint8, 16*r.Dx()*r.Dy()), 16*r.Dx(), r)
 }
 
-func (p *RGBA128f) Init(pix []uint8, stride int, rect image.Rectangle) *RGBA128f {
-	*p = RGBA128f{
+func (p *imageRGBA128f) Init(pix []uint8, stride int, rect image.Rectangle) *imageRGBA128f {
+	*p = imageRGBA128f{
 		M: struct {
 			Pix    []uint8
 			Stride int
@@ -40,21 +40,21 @@ func (p *RGBA128f) Init(pix []uint8, stride int, rect image.Rectangle) *RGBA128f
 	return p
 }
 
-func (p *RGBA128f) Pix() []byte           { return p.M.Pix }
-func (p *RGBA128f) Stride() int           { return p.M.Stride }
-func (p *RGBA128f) Rect() image.Rectangle { return p.M.Rect }
-func (p *RGBA128f) Channels() int         { return 4 }
-func (p *RGBA128f) Depth() reflect.Kind   { return reflect.Float32 }
+func (p *imageRGBA128f) Pix() []byte           { return p.M.Pix }
+func (p *imageRGBA128f) Stride() int           { return p.M.Stride }
+func (p *imageRGBA128f) Rect() image.Rectangle { return p.M.Rect }
+func (p *imageRGBA128f) Channels() int         { return 4 }
+func (p *imageRGBA128f) Depth() reflect.Kind   { return reflect.Float32 }
 
-func (p *RGBA128f) ColorModel() color.Model { return colorRGBA128fModel }
+func (p *imageRGBA128f) ColorModel() color.Model { return colorRGBA128fModel }
 
-func (p *RGBA128f) Bounds() image.Rectangle { return p.M.Rect }
+func (p *imageRGBA128f) Bounds() image.Rectangle { return p.M.Rect }
 
-func (p *RGBA128f) At(x, y int) color.Color {
+func (p *imageRGBA128f) At(x, y int) color.Color {
 	return p.RGBA128fAt(x, y)
 }
 
-func (p *RGBA128f) RGBA128fAt(x, y int) colorRGBA128f {
+func (p *imageRGBA128f) RGBA128fAt(x, y int) colorRGBA128f {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return colorRGBA128f{}
 	}
@@ -64,11 +64,11 @@ func (p *RGBA128f) RGBA128fAt(x, y int) colorRGBA128f {
 
 // PixOffset returns the index of the first element of Pix that corresponds to
 // the pixel at (x, y).
-func (p *RGBA128f) PixOffset(x, y int) int {
+func (p *imageRGBA128f) PixOffset(x, y int) int {
 	return (y-p.M.Rect.Min.Y)*p.M.Stride + (x-p.M.Rect.Min.X)*16
 }
 
-func (p *RGBA128f) Set(x, y int, c color.Color) {
+func (p *imageRGBA128f) Set(x, y int, c color.Color) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -78,7 +78,7 @@ func (p *RGBA128f) Set(x, y int, c color.Color) {
 	return
 }
 
-func (p *RGBA128f) SetRGBA128f(x, y int, c colorRGBA128f) {
+func (p *imageRGBA128f) SetRGBA128f(x, y int, c colorRGBA128f) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -89,16 +89,16 @@ func (p *RGBA128f) SetRGBA128f(x, y int, c colorRGBA128f) {
 
 // SubImage returns an image representing the portion of the image p visible
 // through r. The returned value shares pixels with the original image.
-func (p *RGBA128f) SubImage(r image.Rectangle) image.Image {
+func (p *imageRGBA128f) SubImage(r image.Rectangle) image.Image {
 	r = r.Intersect(p.M.Rect)
 	// If r1 and r2 are Rectangles, r1.Intersect(r2) is not guaranteed to be inside
 	// either r1 or r2 if the intersection is empty. Without explicitly checking for
 	// this, the Pix[i:] expression below can panic.
 	if r.Empty() {
-		return &RGBA128f{}
+		return &imageRGBA128f{}
 	}
 	i := p.PixOffset(r.Min.X, r.Min.Y)
-	return new(RGBA128f).Init(
+	return new(imageRGBA128f).Init(
 		p.M.Pix[i:],
 		p.M.Stride,
 		r,
@@ -106,7 +106,7 @@ func (p *RGBA128f) SubImage(r image.Rectangle) image.Image {
 }
 
 // Opaque scans the entire image and reports whether it is fully opaque.
-func (p *RGBA128f) Opaque() bool {
+func (p *imageRGBA128f) Opaque() bool {
 	if p.M.Rect.Empty() {
 		return true
 	}

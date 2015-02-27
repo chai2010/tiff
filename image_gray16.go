@@ -12,7 +12,7 @@ import (
 	"reflect"
 )
 
-type Gray16 struct {
+type imageGray16 struct {
 	M struct {
 		Pix    []uint8
 		Stride int
@@ -20,13 +20,13 @@ type Gray16 struct {
 	}
 }
 
-// NewGray16 returns a new Gray16 with the given bounds.
-func NewGray16(r image.Rectangle) *Gray16 {
-	return new(Gray16).Init(make([]uint8, 2*r.Dx()*r.Dy()), 2*r.Dx(), r)
+// newImageGray16 returns a new imageGray16 with the given bounds.
+func newImageGray16(r image.Rectangle) *imageGray16 {
+	return new(imageGray16).Init(make([]uint8, 2*r.Dx()*r.Dy()), 2*r.Dx(), r)
 }
 
-func (p *Gray16) Init(pix []uint8, stride int, rect image.Rectangle) *Gray16 {
-	*p = Gray16{
+func (p *imageGray16) Init(pix []uint8, stride int, rect image.Rectangle) *imageGray16 {
+	*p = imageGray16{
 		M: struct {
 			Pix    []uint8
 			Stride int
@@ -40,21 +40,21 @@ func (p *Gray16) Init(pix []uint8, stride int, rect image.Rectangle) *Gray16 {
 	return p
 }
 
-func (p *Gray16) Pix() []byte           { return p.M.Pix }
-func (p *Gray16) Stride() int           { return p.M.Stride }
-func (p *Gray16) Rect() image.Rectangle { return p.M.Rect }
-func (p *Gray16) Channels() int         { return 1 }
-func (p *Gray16) Depth() reflect.Kind   { return reflect.Uint16 }
+func (p *imageGray16) Pix() []byte           { return p.M.Pix }
+func (p *imageGray16) Stride() int           { return p.M.Stride }
+func (p *imageGray16) Rect() image.Rectangle { return p.M.Rect }
+func (p *imageGray16) Channels() int         { return 1 }
+func (p *imageGray16) Depth() reflect.Kind   { return reflect.Uint16 }
 
-func (p *Gray16) ColorModel() color.Model { return colorGray16Model }
+func (p *imageGray16) ColorModel() color.Model { return colorGray16Model }
 
-func (p *Gray16) Bounds() image.Rectangle { return p.M.Rect }
+func (p *imageGray16) Bounds() image.Rectangle { return p.M.Rect }
 
-func (p *Gray16) At(x, y int) color.Color {
+func (p *imageGray16) At(x, y int) color.Color {
 	return p.Gray16At(x, y)
 }
 
-func (p *Gray16) Gray16At(x, y int) colorGray16 {
+func (p *imageGray16) Gray16At(x, y int) colorGray16 {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return colorGray16{}
 	}
@@ -64,11 +64,11 @@ func (p *Gray16) Gray16At(x, y int) colorGray16 {
 
 // PixOffset returns the index of the first element of Pix that corresponds to
 // the pixel at (x, y).
-func (p *Gray16) PixOffset(x, y int) int {
+func (p *imageGray16) PixOffset(x, y int) int {
 	return (y-p.M.Rect.Min.Y)*p.M.Stride + (x-p.M.Rect.Min.X)*2
 }
 
-func (p *Gray16) Set(x, y int, c color.Color) {
+func (p *imageGray16) Set(x, y int, c color.Color) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -78,7 +78,7 @@ func (p *Gray16) Set(x, y int, c color.Color) {
 	return
 }
 
-func (p *Gray16) SetGray16(x, y int, c colorGray16) {
+func (p *imageGray16) SetGray16(x, y int, c colorGray16) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -89,16 +89,16 @@ func (p *Gray16) SetGray16(x, y int, c colorGray16) {
 
 // SubImage returns an image representing the portion of the image p visible
 // through r. The returned value shares pixels with the original image.
-func (p *Gray16) SubImage(r image.Rectangle) image.Image {
+func (p *imageGray16) SubImage(r image.Rectangle) image.Image {
 	r = r.Intersect(p.M.Rect)
 	// If r1 and r2 are Rectangles, r1.Intersect(r2) is not guaranteed to be inside
 	// either r1 or r2 if the intersection is empty. Without explicitly checking for
 	// this, the Pix[i:] expression below can panic.
 	if r.Empty() {
-		return &Gray16{}
+		return &imageGray16{}
 	}
 	i := p.PixOffset(r.Min.X, r.Min.Y)
-	return new(Gray16).Init(
+	return new(imageGray16).Init(
 		p.M.Pix[i:],
 		p.M.Stride,
 		r,
@@ -106,6 +106,6 @@ func (p *Gray16) SubImage(r image.Rectangle) image.Image {
 }
 
 // Opaque scans the entire image and reports whether it is fully opaque.
-func (p *Gray16) Opaque() bool {
+func (p *imageGray16) Opaque() bool {
 	return true
 }

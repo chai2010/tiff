@@ -12,7 +12,7 @@ import (
 	"reflect"
 )
 
-type RGBA64 struct {
+type imageRGBA64 struct {
 	M struct {
 		Pix    []uint8
 		Stride int
@@ -20,13 +20,13 @@ type RGBA64 struct {
 	}
 }
 
-// NewRGBA64 returns a new RGBA64 with the given bounds.
-func NewRGBA64(r image.Rectangle) *RGBA64 {
-	return new(RGBA64).Init(make([]uint8, 8*r.Dx()*r.Dy()), 8*r.Dx(), r)
+// newImageRGBA64 returns a new imageRGBA64 with the given bounds.
+func newImageRGBA64(r image.Rectangle) *imageRGBA64 {
+	return new(imageRGBA64).Init(make([]uint8, 8*r.Dx()*r.Dy()), 8*r.Dx(), r)
 }
 
-func (p *RGBA64) Init(pix []uint8, stride int, rect image.Rectangle) *RGBA64 {
-	*p = RGBA64{
+func (p *imageRGBA64) Init(pix []uint8, stride int, rect image.Rectangle) *imageRGBA64 {
+	*p = imageRGBA64{
 		M: struct {
 			Pix    []uint8
 			Stride int
@@ -40,21 +40,21 @@ func (p *RGBA64) Init(pix []uint8, stride int, rect image.Rectangle) *RGBA64 {
 	return p
 }
 
-func (p *RGBA64) Pix() []byte           { return p.M.Pix }
-func (p *RGBA64) Stride() int           { return p.M.Stride }
-func (p *RGBA64) Rect() image.Rectangle { return p.M.Rect }
-func (p *RGBA64) Channels() int         { return 4 }
-func (p *RGBA64) Depth() reflect.Kind   { return reflect.Uint16 }
+func (p *imageRGBA64) Pix() []byte           { return p.M.Pix }
+func (p *imageRGBA64) Stride() int           { return p.M.Stride }
+func (p *imageRGBA64) Rect() image.Rectangle { return p.M.Rect }
+func (p *imageRGBA64) Channels() int         { return 4 }
+func (p *imageRGBA64) Depth() reflect.Kind   { return reflect.Uint16 }
 
-func (p *RGBA64) ColorModel() color.Model { return colorRGBA64Model }
+func (p *imageRGBA64) ColorModel() color.Model { return colorRGBA64Model }
 
-func (p *RGBA64) Bounds() image.Rectangle { return p.M.Rect }
+func (p *imageRGBA64) Bounds() image.Rectangle { return p.M.Rect }
 
-func (p *RGBA64) At(x, y int) color.Color {
+func (p *imageRGBA64) At(x, y int) color.Color {
 	return p.RGBA64At(x, y)
 }
 
-func (p *RGBA64) RGBA64At(x, y int) colorRGBA64 {
+func (p *imageRGBA64) RGBA64At(x, y int) colorRGBA64 {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return colorRGBA64{}
 	}
@@ -64,11 +64,11 @@ func (p *RGBA64) RGBA64At(x, y int) colorRGBA64 {
 
 // PixOffset returns the index of the first element of Pix that corresponds to
 // the pixel at (x, y).
-func (p *RGBA64) PixOffset(x, y int) int {
+func (p *imageRGBA64) PixOffset(x, y int) int {
 	return (y-p.M.Rect.Min.Y)*p.M.Stride + (x-p.M.Rect.Min.X)*8
 }
 
-func (p *RGBA64) Set(x, y int, c color.Color) {
+func (p *imageRGBA64) Set(x, y int, c color.Color) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -78,7 +78,7 @@ func (p *RGBA64) Set(x, y int, c color.Color) {
 	return
 }
 
-func (p *RGBA64) SetRGBA64(x, y int, c colorRGBA64) {
+func (p *imageRGBA64) SetRGBA64(x, y int, c colorRGBA64) {
 	if !(image.Point{x, y}.In(p.M.Rect)) {
 		return
 	}
@@ -89,16 +89,16 @@ func (p *RGBA64) SetRGBA64(x, y int, c colorRGBA64) {
 
 // SubImage returns an image representing the portion of the image p visible
 // through r. The returned value shares pixels with the original image.
-func (p *RGBA64) SubImage(r image.Rectangle) image.Image {
+func (p *imageRGBA64) SubImage(r image.Rectangle) image.Image {
 	r = r.Intersect(p.M.Rect)
 	// If r1 and r2 are Rectangles, r1.Intersect(r2) is not guaranteed to be inside
 	// either r1 or r2 if the intersection is empty. Without explicitly checking for
 	// this, the Pix[i:] expression below can panic.
 	if r.Empty() {
-		return &RGBA64{}
+		return &imageRGBA64{}
 	}
 	i := p.PixOffset(r.Min.X, r.Min.Y)
-	return new(RGBA64).Init(
+	return new(imageRGBA64).Init(
 		p.M.Pix[i:],
 		p.M.Stride,
 		r,
@@ -106,7 +106,7 @@ func (p *RGBA64) SubImage(r image.Rectangle) image.Image {
 }
 
 // Opaque scans the entire image and reports whether it is fully opaque.
-func (p *RGBA64) Opaque() bool {
+func (p *imageRGBA64) Opaque() bool {
 	if p.M.Rect.Empty() {
 		return true
 	}
