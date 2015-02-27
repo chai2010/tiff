@@ -5,6 +5,7 @@
 package tiff
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
@@ -53,6 +54,7 @@ type internalImage interface {
 	Depth() reflect.Kind
 
 	draw.Image
+	SubImage(r image.Rectangle) image.Image
 }
 
 type Image struct {
@@ -87,15 +89,27 @@ func (p *Image) Bounds() image.Rectangle {
 }
 
 func (p *Image) ColorModel() color.Model {
-	return nil
+	m, err := p.asInternalImage()
+	if err != nil {
+		return nil
+	}
+	return m.ColorModel()
 }
 
 func (p *Image) At(x, y int) color.Color {
-	return nil
+	m, err := p.asInternalImage()
+	if err != nil {
+		return nil
+	}
+	return m.At(x, y)
 }
 
 func (p *Image) Set(x, y int, c color.Color) {
-	//
+	m, err := p.asInternalImage()
+	if err != nil {
+		return
+	}
+	m.Set(x, y, c)
 }
 
 func (p *Image) PixOffset(x, y int) int {
@@ -103,13 +117,123 @@ func (p *Image) PixOffset(x, y int) int {
 }
 
 func (p *Image) SubImage(r image.Rectangle) image.Image {
-	return nil
+	m, err := p.asInternalImage()
+	if err != nil {
+		return nil
+	}
+	return m.SubImage(r)
 }
 
-func (p *Image) StdImage() (image.Image, bool) {
-	return nil, false
+func (p *Image) StdImage() image.Image {
+	switch channels, depth := p.Channels, p.DataType; {
+	case channels == 1 && depth == reflect.Uint8:
+		return &image.Gray{
+			Pix:    p.Pix,
+			Stride: p.Stride,
+			Rect:   p.Rect,
+		}
+	case channels == 1 && depth == reflect.Uint16:
+		return &image.Gray16{
+			Pix:    p.Pix,
+			Stride: p.Stride,
+			Rect:   p.Rect,
+		}
+	case channels == 4 && depth == reflect.Uint8:
+		return &image.RGBA{
+			Pix:    p.Pix,
+			Stride: p.Stride,
+			Rect:   p.Rect,
+		}
+	case channels == 4 && depth == reflect.Uint16:
+		return &image.RGBA64{
+			Pix:    p.Pix,
+			Stride: p.Stride,
+			Rect:   p.Rect,
+		}
+	}
+	return p
 }
 
-func (p *Image) Opaque() bool {
-	return true
+func (p *Image) asInternalImage() (m internalImage, err error) {
+	switch channels, depth := p.Channels, p.DataType; {
+	case channels == 1 && depth == reflect.Uint8:
+		m = new(imageGray).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 1 && depth == reflect.Uint16:
+		m = new(imageGray16).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 1 && depth == reflect.Int32:
+		m = new(imageGray32i).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 1 && depth == reflect.Float32:
+		m = new(imageGray32f).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 1 && depth == reflect.Int64:
+		m = new(imageGray64i).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 1 && depth == reflect.Float64:
+		m = new(imageGray64f).Init(p.Pix, p.Stride, p.Rect)
+		return
+
+	case channels == 2 && depth == reflect.Uint8:
+		m = new(imageGrayA).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 2 && depth == reflect.Uint16:
+		m = new(imageGrayA32).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 2 && depth == reflect.Int32:
+		m = new(imageGrayA64i).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 2 && depth == reflect.Float32:
+		m = new(imageGrayA64f).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 2 && depth == reflect.Int64:
+		m = new(imageGrayA128i).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 2 && depth == reflect.Float64:
+		m = new(imageGrayA128f).Init(p.Pix, p.Stride, p.Rect)
+		return
+
+	case channels == 3 && depth == reflect.Uint8:
+		m = new(imageRGB).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 3 && depth == reflect.Uint16:
+		m = new(imageRGB48).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 3 && depth == reflect.Int32:
+		m = new(imageRGB96i).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 3 && depth == reflect.Float32:
+		m = new(imageRGB96f).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 3 && depth == reflect.Int64:
+		m = new(imageRGB192i).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 3 && depth == reflect.Float64:
+		m = new(imageRGB192f).Init(p.Pix, p.Stride, p.Rect)
+		return
+
+	case channels == 4 && depth == reflect.Uint8:
+		m = new(imageRGBA).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 4 && depth == reflect.Uint16:
+		m = new(imageRGBA64).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 4 && depth == reflect.Int32:
+		m = new(imageRGBA128i).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 4 && depth == reflect.Float32:
+		m = new(imageRGBA128f).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 4 && depth == reflect.Int64:
+		m = new(imageRGBA256i).Init(p.Pix, p.Stride, p.Rect)
+		return
+	case channels == 4 && depth == reflect.Float64:
+		m = new(imageRGBA256f).Init(p.Pix, p.Stride, p.Rect)
+		return
+
+	default:
+		err = fmt.Errorf("tiff: Image.asInternalImage, invalid format: channels = %v, depth = %v", channels, depth)
+		return
+	}
 }
