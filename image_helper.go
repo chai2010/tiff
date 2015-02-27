@@ -25,10 +25,6 @@ func getPixelSize(channels int, dataType reflect.Kind) int {
 	}
 }
 
-func (p *Image) ColorAt(x, y int) Color {
-	return Color{}
-}
-
 func (p *Image) GrayAt(x, y int) color.Gray {
 	return color.Gray{}
 }
@@ -57,10 +53,6 @@ func (p *Image) RGBA64At(x, y int) color.RGBA64 {
 }
 func (p *Image) RGBA128fAt(x, y int) [4]float32 {
 	return [4]float32{}
-}
-
-func (p *Image) SetColor(x, y int, c Color) {
-	//
 }
 
 func (p *Image) SetGray(x, y int, c color.Gray) {

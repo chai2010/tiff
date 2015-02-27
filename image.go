@@ -21,7 +21,7 @@ type Image struct {
 
 	// 1:Gray, 2:GrayA, 3:RGB, 4:RGBA
 	Channels int
-	// Uint8/Uint16/Uint32/Uint64/Int32/Int64/Float32/Float64
+	// Uint8/Uint16/Int32/Int64/Float32/Float64
 	DataType reflect.Kind
 }
 
@@ -42,7 +42,7 @@ func (p *Image) Bounds() image.Rectangle {
 }
 
 func (p *Image) ColorModel() color.Model {
-	return ColorModel
+	return nil
 }
 
 func (p *Image) At(x, y int) color.Color {
