@@ -69,45 +69,30 @@ func (p *Reader) ImageConfig(i, j int) (image.Config, error) {
 	return p.Ifd[i][j].ImageConfig()
 }
 
+func (p *Reader) ImageBlocksAcross(i, j int) int {
+	return p.Ifd[i][j].BlocksAcross()
+}
+
+func (p *Reader) ImageBlocksDown(i, j int) int {
+	return p.Ifd[i][j].BlocksDown()
+}
+
+func (p *Reader) ImageBlockBounds(i, j, col, row int) image.Rectangle {
+	return p.Ifd[i][j].BlockBounds(col, row)
+}
+
 func (p *Reader) DecodeImage(i, j int) (m image.Image, err error) {
 	cfg, err := p.ImageConfig(i, j)
 	if err != nil {
 		return
 	}
 	imgRect := image.Rect(0, 0, cfg.Width, cfg.Height)
-	imageType := p.Ifd[i][j].ImageType()
-
-	switch imageType {
-	case ImageType_Bilevel, ImageType_BilevelInvert:
-		m = image.NewGray(imgRect)
-	case ImageType_Gray, ImageType_GrayInvert:
-		if p.Ifd[i][j].Depth() == 16 {
-			m = image.NewGray16(imgRect)
-		} else {
-			m = image.NewGray(imgRect)
-		}
-	case ImageType_Paletted:
-		m = image.NewPaletted(imgRect, p.Ifd[i][j].ColorMap())
-	case ImageType_NRGBA:
-		if p.Ifd[i][j].Depth() == 16 {
-			m = image.NewNRGBA64(imgRect)
-		} else {
-			m = image.NewNRGBA(imgRect)
-		}
-	case ImageType_RGB, ImageType_RGBA:
-		if p.Ifd[i][j].Depth() == 16 {
-			m = image.NewRGBA64(imgRect)
-		} else {
-			m = image.NewRGBA(imgRect)
-		}
-	}
-	if m == nil {
-		err = fmt.Errorf("tiff: Decode, unknown format")
+	if m, err = NewImageWithIFD(imgRect, p.Ifd[i][j]); err != nil {
 		return
 	}
 
-	blocksAcross := p.Ifd[i][j].BlocksAcross()
-	blocksDown := p.Ifd[i][j].BlocksDown()
+	blocksAcross := p.ImageBlocksAcross(i, j)
+	blocksDown := p.ImageBlocksDown(i, j)
 
 	for col := 0; col < blocksAcross; col++ {
 		for row := 0; row < blocksDown; row++ {
@@ -115,6 +100,17 @@ func (p *Reader) DecodeImage(i, j int) (m image.Image, err error) {
 				return
 			}
 		}
+	}
+	return
+}
+
+func (p *Reader) DecodeImageBlock(i, j, col, row int) (m image.Image, err error) {
+	r := p.ImageBlockBounds(i, j, col, row)
+	if m, err = NewImageWithIFD(r, p.Ifd[i][j]); err != nil {
+		return
+	}
+	if err = p.Ifd[i][j].DecodeBlock(p.rs, col, row, m); err != nil {
+		return
 	}
 	return
 }
