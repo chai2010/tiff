@@ -141,4 +141,3 @@ GDALChecksumImage( GDALRasterBandH hBand,
     return nChecksum;
 }
 */
-
