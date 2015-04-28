@@ -166,6 +166,10 @@ func (p *IFD) decodePredictor(data []byte, r image.Rectangle) (out []byte, err e
 		for y := r.Min.Y; y < r.Max.Y; y++ {
 			off += spp * 2
 			for x := 0; x < (r.Dx()-1)*spp*2; x += 2 {
+				if off+2 > len(data) {
+					err = fmt.Errorf("tiff: IFD.decodePredictor, not enough pixel data")
+					return
+				}
 				v0 := p.Header.ByteOrder.Uint16(data[off-spp*2 : off-spp*2+2])
 				v1 := p.Header.ByteOrder.Uint16(data[off : off+2])
 				p.Header.ByteOrder.PutUint16(data[off:off+2], v1+v0)
@@ -177,6 +181,10 @@ func (p *IFD) decodePredictor(data []byte, r image.Rectangle) (out []byte, err e
 		for y := r.Min.Y; y < r.Max.Y; y++ {
 			off += spp
 			for x := 0; x < (r.Dx()-1)*spp; x++ {
+				if off >= len(data) {
+					err = fmt.Errorf("tiff: IFD.decodePredictor, not enough pixel data")
+					return
+				}
 				data[off] += data[off-spp]
 				off++
 			}
@@ -197,12 +205,16 @@ func (p *IFD) decodeBlock(buf []byte, dst image.Image, r image.Rectangle) (err e
 	rMaxY := minInt(ymax, dst.Bounds().Max.Y)
 
 	switch p.ImageType() {
-	case ImageType_Gray, ImageType_GrayInvert:
+	case ImageType_Gray, ImageType_GrayInvert, ImageType_Bilevel, ImageType_BilevelInvert:
 		if p.Depth() == 16 {
 			var off int
 			img := dst.(*image.Gray16)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
+					if off+2 > len(buf) {
+						err = fmt.Errorf("tiff: IFD.decodeBlock, not enough pixel data")
+						return
+					}
 					v := p.Header.ByteOrder.Uint16(buf[off : off+2])
 					off += 2
 					if p.ImageType() == ImageType_GrayInvert {
@@ -212,25 +224,38 @@ func (p *IFD) decodeBlock(buf []byte, dst image.Image, r image.Rectangle) (err e
 				}
 			}
 		} else {
+			bpp := uint(p.Depth())
 			bitReader := newBitsReader(buf)
 			img := dst.(*image.Gray)
 			max := uint32((1 << uint(p.Depth())) - 1)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
-					v := uint8(bitReader.ReadBits(uint(p.Depth())) * 0xff / max)
+					v, ok := bitReader.ReadBits(bpp)
+					if !ok {
+						err = fmt.Errorf("tiff: IFD.decodeBlock, not enough pixel data")
+						return
+					}
+					v = v * 0xff / max
 					if p.ImageType() == ImageType_GrayInvert {
 						v = 0xff - v
 					}
-					img.SetGray(x, y, color.Gray{v})
+					img.SetGray(x, y, color.Gray{uint8(v)})
 				}
+				bitReader.flushBits()
 			}
 		}
 	case ImageType_Paletted:
+		bpp := uint(p.Depth())
 		bitReader := newBitsReader(buf)
 		img := dst.(*image.Paletted)
 		for y := ymin; y < rMaxY; y++ {
 			for x := xmin; x < rMaxX; x++ {
-				img.SetColorIndex(x, y, uint8(bitReader.ReadBits(uint(p.Depth()))))
+				v, ok := bitReader.ReadBits(bpp)
+				if !ok {
+					err = fmt.Errorf("tiff: IFD.decodeBlock, not enough pixel data")
+					return
+				}
+				img.SetColorIndex(x, y, uint8(v))
 			}
 			bitReader.flushBits()
 		}
@@ -240,6 +265,10 @@ func (p *IFD) decodeBlock(buf []byte, dst image.Image, r image.Rectangle) (err e
 			img := dst.(*image.RGBA64)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
+					if off+6 > len(buf) {
+						err = fmt.Errorf("tiff: IFD.decodeBlock, not enough pixel data")
+						return
+					}
 					r := p.Header.ByteOrder.Uint16(buf[off+0 : off+2])
 					g := p.Header.ByteOrder.Uint16(buf[off+2 : off+4])
 					b := p.Header.ByteOrder.Uint16(buf[off+4 : off+6])
@@ -254,6 +283,10 @@ func (p *IFD) decodeBlock(buf []byte, dst image.Image, r image.Rectangle) (err e
 				max := img.PixOffset(rMaxX, y)
 				off := (y - ymin) * (xmax - xmin) * 3
 				for i := min; i < max; i += 4 {
+					if off+3 > len(buf) {
+						err = fmt.Errorf("tiff: IFD.decodeBlock, not enough pixel data")
+						return
+					}
 					img.Pix[i+0] = buf[off+0]
 					img.Pix[i+1] = buf[off+1]
 					img.Pix[i+2] = buf[off+2]
@@ -268,6 +301,10 @@ func (p *IFD) decodeBlock(buf []byte, dst image.Image, r image.Rectangle) (err e
 			img := dst.(*image.NRGBA64)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
+					if off+8 > len(buf) {
+						err = fmt.Errorf("tiff: IFD.decodeBlock, not enough pixel data")
+						return
+					}
 					r := p.Header.ByteOrder.Uint16(buf[off+0 : off+2])
 					g := p.Header.ByteOrder.Uint16(buf[off+2 : off+4])
 					b := p.Header.ByteOrder.Uint16(buf[off+4 : off+6])
@@ -281,7 +318,12 @@ func (p *IFD) decodeBlock(buf []byte, dst image.Image, r image.Rectangle) (err e
 			for y := ymin; y < rMaxY; y++ {
 				min := img.PixOffset(xmin, y)
 				max := img.PixOffset(rMaxX, y)
-				copy(img.Pix[min:max], buf[(y-ymin)*(xmax-xmin)*4:(y-ymin+1)*(xmax-xmin)*4])
+				i0, i1 := (y-ymin)*(xmax-xmin)*4, (y-ymin+1)*(xmax-xmin)*4
+				if i1 > len(buf) {
+					err = fmt.Errorf("tiff: IFD.decodeBlock, not enough pixel data")
+					return
+				}
+				copy(img.Pix[min:max], buf[i0:i1])
 			}
 		}
 	case ImageType_RGBA:
@@ -290,6 +332,10 @@ func (p *IFD) decodeBlock(buf []byte, dst image.Image, r image.Rectangle) (err e
 			img := dst.(*image.RGBA64)
 			for y := ymin; y < rMaxY; y++ {
 				for x := xmin; x < rMaxX; x++ {
+					if off+8 > len(buf) {
+						err = fmt.Errorf("tiff: IFD.decodeBlock, not enough pixel data")
+						return
+					}
 					r := p.Header.ByteOrder.Uint16(buf[off+0 : off+2])
 					g := p.Header.ByteOrder.Uint16(buf[off+2 : off+4])
 					b := p.Header.ByteOrder.Uint16(buf[off+4 : off+6])
@@ -303,9 +349,17 @@ func (p *IFD) decodeBlock(buf []byte, dst image.Image, r image.Rectangle) (err e
 			for y := ymin; y < rMaxY; y++ {
 				min := img.PixOffset(xmin, y)
 				max := img.PixOffset(rMaxX, y)
-				copy(img.Pix[min:max], buf[(y-ymin)*(xmax-xmin)*4:(y-ymin+1)*(xmax-xmin)*4])
+				i0, i1 := (y-ymin)*(xmax-xmin)*4, (y-ymin+1)*(xmax-xmin)*4
+				if i1 > len(buf) {
+					err = fmt.Errorf("tiff: IFD.decodeBlock, not enough pixel data")
+					return
+				}
+				copy(img.Pix[min:max], buf[i0:i1])
 			}
 		}
+	default:
+		err = fmt.Errorf("tiff: IFD.decodeBlock, unknown imageType: %v", p.ImageType())
+		return
 	}
 
 	return

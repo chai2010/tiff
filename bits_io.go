@@ -18,9 +18,12 @@ func newBitsReader(data []byte) *bitsReader {
 }
 
 // readBits reads n bits from the internal buffer starting at the current offset.
-func (p *bitsReader) ReadBits(n uint) uint32 {
+func (p *bitsReader) ReadBits(n uint) (v uint32, ok bool) {
 	for p.nbits < n {
 		p.v <<= 8
+		if p.off >= len(p.buf) {
+			return 0, false
+		}
 		p.v |= uint32(p.buf[p.off])
 		p.off++
 		p.nbits += 8
@@ -28,7 +31,7 @@ func (p *bitsReader) ReadBits(n uint) uint32 {
 	p.nbits -= n
 	rv := p.v >> p.nbits
 	p.v &^= rv << p.nbits
-	return rv
+	return rv, true
 }
 
 // flushBits discards the unread bits in the buffer used by readBits.
