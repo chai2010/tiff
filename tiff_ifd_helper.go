@@ -174,14 +174,6 @@ func (p *IFD) ImageConfig() (config image.Config, err error) {
 		bitsPerSample, _ = p.TagGetter().GetBitsPerSample()
 		extraSamples, _  = p.TagGetter().GetExtraSamples()
 	)
-	if imageWidth == 0 {
-		err = fmt.Errorf("tiff: IFD.ImageWidth, zero width")
-		return
-	}
-	if imageHeight == 0 {
-		err = fmt.Errorf("tiff: IFD.ImageLength, zero length")
-		return
-	}
 	if len(bitsPerSample) == 0 {
 		err = fmt.Errorf("tiff: IFD.ColorModel, bad bitsPerSample length")
 		return

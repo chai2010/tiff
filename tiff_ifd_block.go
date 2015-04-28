@@ -12,28 +12,31 @@ import (
 )
 
 func (p *IFD) BlocksAcross() int {
-	if _, ok := p.TagGetter().GetTileWidth(); ok {
-		imageWidth, _ := p.TagGetter().GetImageWidth()
-		blockWidth, _ := p.TagGetter().GetTileWidth()
-		return int((imageWidth + blockWidth - 1) / blockWidth)
-	} else {
-		return 1
+	imageWidth, _ := p.TagGetter().GetImageWidth()
+	if imageWidth == 0 {
+		return 0
 	}
+	blockWidth, _ := p.TagGetter().GetTileWidth()
+	if blockWidth > 0 {
+		return int((imageWidth + blockWidth - 1) / blockWidth)
+	}
+	return 1
 }
 
 func (p *IFD) BlocksDown() int {
-	if _, ok := p.TagGetter().GetTileLength(); ok {
-		imageHeight, _ := p.TagGetter().GetImageLength()
-		blockHeight, _ := p.TagGetter().GetTileLength()
-		return int((imageHeight + blockHeight - 1) / blockHeight)
-	} else {
-		imageHeight, _ := p.TagGetter().GetImageLength()
-		blockHeight, ok := p.TagGetter().GetRowsPerStrip()
-		if !ok || blockHeight == 0 || blockHeight > imageHeight {
-			blockHeight = imageHeight
-		}
+	imageHeight, _ := p.TagGetter().GetImageLength()
+	if imageHeight == 0 {
+		return 0
+	}
+	blockHeight, _ := p.TagGetter().GetTileLength()
+	if blockHeight > 0 {
 		return int((imageHeight + blockHeight - 1) / blockHeight)
 	}
+	blockHeight, _ = p.TagGetter().GetRowsPerStrip()
+	if blockHeight == 0 || blockHeight > imageHeight {
+		blockHeight = imageHeight
+	}
+	return int((imageHeight + blockHeight - 1) / blockHeight)
 }
 
 func (p *IFD) BlockBounds(col, row int) image.Rectangle {
