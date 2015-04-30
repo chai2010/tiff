@@ -64,12 +64,19 @@ func readIFD(r io.ReadSeeker, h *Header, offset int64) (p *IFD, err error) {
 	if err = binary.Read(r, h.ByteOrder, &entryNum); err != nil {
 		return
 	}
+
+	var prevTag TagType
 	for i := 0; i < int(entryNum); i++ {
 		var entry *IFDEntry
 		if entry, err = readIFDEntry(r, h); err != nil {
 			return
 		}
+		if entry.Tag <= prevTag {
+			err = fmt.Errorf("tiff: readIFD, tags are not sorted in ascending order")
+			return
+		}
 		p.EntryMap[entry.Tag] = entry
+		prevTag = entry.Tag
 	}
 	var nextIfdOffset uint32
 	if err = binary.Read(r, h.ByteOrder, &nextIfdOffset); err != nil {
@@ -105,12 +112,19 @@ func readIFD8(r io.ReadSeeker, h *Header, offset int64) (p *IFD, err error) {
 	if err = binary.Read(r, h.ByteOrder, &entryNum); err != nil {
 		return
 	}
+
+	var prevTag TagType
 	for i := 0; i < int(entryNum); i++ {
 		var entry *IFDEntry
 		if entry, err = readIFDEntry8(r, h); err != nil {
 			return
 		}
+		if entry.Tag <= prevTag {
+			err = fmt.Errorf("tiff: readIFD8, tags are not sorted in ascending order")
+			return
+		}
 		p.EntryMap[entry.Tag] = entry
+		prevTag = entry.Tag
 	}
 	var nextIfdOffset uint64
 	if err = binary.Read(r, h.ByteOrder, &nextIfdOffset); err != nil {
