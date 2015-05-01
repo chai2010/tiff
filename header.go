@@ -164,9 +164,9 @@ func (p *Header) String() string {
 	}
 	return fmt.Sprintf(
 		`tiff.Header{
-  ByteOrder:%s
-  TiffType:%v
-  Offset:%#08x
+	ByteOrder: %s,
+	TiffType: %v,
+	Offset: %#08x,
 }`,
 		orderName, p.TiffType, p.FirstIFD,
 	)

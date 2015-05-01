@@ -544,7 +544,7 @@ func (p *IFDEntry) String() string {
 			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, v)
 		}
 	case p.DataType.IsStringType():
-		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.GetString())
+		return fmt.Sprintf("%v(%v): %q", p.Tag, p.DataType, p.GetString())
 	default:
 		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.Data)
 	}

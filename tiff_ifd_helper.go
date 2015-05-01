@@ -316,9 +316,9 @@ func (p *IFD) String() string {
 	sort.Sort(byIFDEntry(tagList))
 
 	for _, v := range tagList {
-		fmt.Fprintf(&buf, "  %v\n", v)
+		fmt.Fprintf(&buf, "\t%v,\n", v)
 	}
-	fmt.Fprintf(&buf, "  Next: %#08x\n", p.NextIFD)
+	fmt.Fprintf(&buf, "\tNext: %#08x,\n", p.NextIFD)
 	fmt.Fprintf(&buf, "}")
 	return buf.String()
 }
