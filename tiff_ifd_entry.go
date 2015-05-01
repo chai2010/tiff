@@ -197,7 +197,7 @@ func (p *IFDEntry) GetFloats() []float64 {
 		rats := p.GetRationals()
 		floats := make([]float64, len(rats))
 		for i := 0; i < len(rats); i++ {
-			floats[i] = float64(rats[i][0]) / float64(rats[i][0])
+			floats[i] = float64(rats[i][0]) / float64(rats[i][1])
 		}
 		return floats
 	default:
