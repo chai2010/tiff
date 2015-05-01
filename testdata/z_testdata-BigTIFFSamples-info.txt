@@ -1,237 +1,237 @@
 file: ..\testdata\BigTIFFSamples\BigTIFF.tif
 tiff.Header{
-  ByteOrder:LittleEndian
-  TiffType:TiffType_BigTIFF
-  Offset:0x00003010
+	ByteOrder: LittleEndian,
+	TiffType: TiffType_BigTIFF,
+	Offset: 0x00003010,
 }
 tiff.IFD(0x00003010) {
-  TagType_ImageWidth(DataType_Short): 64
-  TagType_ImageLength(DataType_Short): 64
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Short): [0x00000010]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 64
-  TagType_StripByteCounts(DataType_Short): [12288]
-  Next: 0x00000000
+	TagType_ImageWidth(DataType_Short): 64,
+	TagType_ImageLength(DataType_Short): 64,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Short): [0x00000010],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 64,
+	TagType_StripByteCounts(DataType_Short): [12288],
+	Next: 0x00000000,
 }
 
 file: ..\testdata\BigTIFFSamples\BigTIFFLong.tif
 tiff.Header{
-  ByteOrder:LittleEndian
-  TiffType:TiffType_BigTIFF
-  Offset:0x00003010
+	ByteOrder: LittleEndian,
+	TiffType: TiffType_BigTIFF,
+	Offset: 0x00003010,
 }
 tiff.IFD(0x00003010) {
-  TagType_ImageWidth(DataType_Short): 64
-  TagType_ImageLength(DataType_Short): 64
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Long): [0x00000010]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 64
-  TagType_StripByteCounts(DataType_Long): [12288]
-  Next: 0x00000000
+	TagType_ImageWidth(DataType_Short): 64,
+	TagType_ImageLength(DataType_Short): 64,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Long): [0x00000010],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 64,
+	TagType_StripByteCounts(DataType_Long): [12288],
+	Next: 0x00000000,
 }
 
 file: ..\testdata\BigTIFFSamples\BigTIFFLong8.tif
 tiff.Header{
-  ByteOrder:LittleEndian
-  TiffType:TiffType_BigTIFF
-  Offset:0x00003010
+	ByteOrder: LittleEndian,
+	TiffType: TiffType_BigTIFF,
+	Offset: 0x00003010,
 }
 tiff.IFD(0x00003010) {
-  TagType_ImageWidth(DataType_Short): 64
-  TagType_ImageLength(DataType_Short): 64
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Long8): [0x00000010]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 64
-  TagType_StripByteCounts(DataType_Long8): [0 48 0 0 0 0 0 0]
-  Next: 0x00000000
+	TagType_ImageWidth(DataType_Short): 64,
+	TagType_ImageLength(DataType_Short): 64,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Long8): [0x00000010],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 64,
+	TagType_StripByteCounts(DataType_Long8): [0 48 0 0 0 0 0 0],
+	Next: 0x00000000,
 }
 
 file: ..\testdata\BigTIFFSamples\BigTIFFLong8Tiles.tif
 tiff.Header{
-  ByteOrder:LittleEndian
-  TiffType:TiffType_BigTIFF
-  Offset:0x00003050
+	ByteOrder: LittleEndian,
+	TiffType: TiffType_BigTIFF,
+	Offset: 0x00003050,
 }
 tiff.IFD(0x00003050) {
-  TagType_ImageWidth(DataType_Short): 64
-  TagType_ImageLength(DataType_Short): 64
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_TileWidth(DataType_Short): 32
-  TagType_TileLength(DataType_Short): 32
-  TagType_TileOffsets(DataType_Long8): [0x00000010 0x00000c10 0x00001810 0x00002410]
-  TagType_TileByteCounts(DataType_Long8): [0 12 0 0 0 0 0 0 0 12 0 0 0 0 0 0 0 12 0 0 0 0 0 0 0 12 0 0 0 0 0 0]
-  Next: 0x00000000
+	TagType_ImageWidth(DataType_Short): 64,
+	TagType_ImageLength(DataType_Short): 64,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_TileWidth(DataType_Short): 32,
+	TagType_TileLength(DataType_Short): 32,
+	TagType_TileOffsets(DataType_Long8): [0x00000010 0x00000c10 0x00001810 0x00002410],
+	TagType_TileByteCounts(DataType_Long8): [0 12 0 0 0 0 0 0 0 12 0 0 0 0 0 0 0 12 0 0 0 0 0 0 0 12 0 0 0 0 0 0],
+	Next: 0x00000000,
 }
 
 file: ..\testdata\BigTIFFSamples\BigTIFFMotorola.tif
 tiff.Header{
-  ByteOrder:BigEndian
-  TiffType:TiffType_BigTIFF
-  Offset:0x00003010
+	ByteOrder: BigEndian,
+	TiffType: TiffType_BigTIFF,
+	Offset: 0x00003010,
 }
 tiff.IFD(0x00003010) {
-  TagType_ImageWidth(DataType_Short): 64
-  TagType_ImageLength(DataType_Short): 64
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Short): [0x00000010]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 64
-  TagType_StripByteCounts(DataType_Short): [12288]
-  Next: 0x00000000
+	TagType_ImageWidth(DataType_Short): 64,
+	TagType_ImageLength(DataType_Short): 64,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Short): [0x00000010],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 64,
+	TagType_StripByteCounts(DataType_Short): [12288],
+	Next: 0x00000000,
 }
 
 file: ..\testdata\BigTIFFSamples\BigTIFFMotorolaLongStrips.tif
 tiff.Header{
-  ByteOrder:BigEndian
-  TiffType:TiffType_BigTIFF
-  Offset:0x00003010
+	ByteOrder: BigEndian,
+	TiffType: TiffType_BigTIFF,
+	Offset: 0x00003010,
 }
 tiff.IFD(0x00003010) {
-  TagType_ImageWidth(DataType_Short): 64
-  TagType_ImageLength(DataType_Short): 64
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Long): [0x00000010 0x00001810]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 32
-  TagType_StripByteCounts(DataType_Long): [6144 6144]
-  Next: 0x00000000
+	TagType_ImageWidth(DataType_Short): 64,
+	TagType_ImageLength(DataType_Short): 64,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Long): [0x00000010 0x00001810],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 32,
+	TagType_StripByteCounts(DataType_Long): [6144 6144],
+	Next: 0x00000000,
 }
 
 file: ..\testdata\BigTIFFSamples\BigTIFFSubIFD4.tif
 tiff.Header{
-  ByteOrder:LittleEndian
-  TiffType:TiffType_BigTIFF
-  Offset:0x00003cd4
+	ByteOrder: LittleEndian,
+	TiffType: TiffType_BigTIFF,
+	Offset: 0x00003cd4,
 }
 tiff.IFD(0x00003cd4) {
-  TagType_ImageWidth(DataType_Short): 64
-  TagType_ImageLength(DataType_Short): 64
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Short): [0x00000cd4]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 64
-  TagType_StripByteCounts(DataType_Short): [12288]
-  TagType_SubIFD(DataType_IFD): [0x00000c10]
-  Next: 0x00007a5c
+	TagType_ImageWidth(DataType_Short): 64,
+	TagType_ImageLength(DataType_Short): 64,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Short): [0x00000cd4],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 64,
+	TagType_StripByteCounts(DataType_Short): [12288],
+	TagType_SubIFD(DataType_IFD): [0x00000c10],
+	Next: 0x00007a5c,
 }
 tiff.IFD(0x00000c10) {
-  TagType_NewSubfileType(DataType_Long): TagValue_NewSubfileType_Reduced
-  TagType_ImageWidth(DataType_Short): 32
-  TagType_ImageLength(DataType_Short): 32
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Short): [0x00000010]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 32
-  TagType_StripByteCounts(DataType_Short): [3072]
-  Next: 0x00000000
+	TagType_NewSubfileType(DataType_Long): TagValue_NewSubfileType_Reduced,
+	TagType_ImageWidth(DataType_Short): 32,
+	TagType_ImageLength(DataType_Short): 32,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Short): [0x00000010],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 32,
+	TagType_StripByteCounts(DataType_Short): [3072],
+	Next: 0x00000000,
 }
 tiff.IFD(0x00007a5c) {
-  TagType_ImageWidth(DataType_Short): 64
-  TagType_ImageLength(DataType_Short): 64
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Short): [0x00004a5c]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 64
-  TagType_StripByteCounts(DataType_Short): [12288]
-  TagType_SubIFD(DataType_IFD): [0x00004998]
-  Next: 0x00000000
+	TagType_ImageWidth(DataType_Short): 64,
+	TagType_ImageLength(DataType_Short): 64,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Short): [0x00004a5c],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 64,
+	TagType_StripByteCounts(DataType_Short): [12288],
+	TagType_SubIFD(DataType_IFD): [0x00004998],
+	Next: 0x00000000,
 }
 tiff.IFD(0x00004998) {
-  TagType_NewSubfileType(DataType_Long): TagValue_NewSubfileType_Reduced
-  TagType_ImageWidth(DataType_Short): 32
-  TagType_ImageLength(DataType_Short): 32
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Short): [0x00003d98]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 32
-  TagType_StripByteCounts(DataType_Short): [3072]
-  Next: 0x00000000
+	TagType_NewSubfileType(DataType_Long): TagValue_NewSubfileType_Reduced,
+	TagType_ImageWidth(DataType_Short): 32,
+	TagType_ImageLength(DataType_Short): 32,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Short): [0x00003d98],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 32,
+	TagType_StripByteCounts(DataType_Short): [3072],
+	Next: 0x00000000,
 }
 
 file: ..\testdata\BigTIFFSamples\BigTIFFSubIFD8.tif
 tiff.Header{
-  ByteOrder:LittleEndian
-  TiffType:TiffType_BigTIFF
-  Offset:0x00003cd4
+	ByteOrder: LittleEndian,
+	TiffType: TiffType_BigTIFF,
+	Offset: 0x00003cd4,
 }
 tiff.IFD(0x00003cd4) {
-  TagType_ImageWidth(DataType_Short): 64
-  TagType_ImageLength(DataType_Short): 64
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Short): [0x00000cd4]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 64
-  TagType_StripByteCounts(DataType_Short): [12288]
-  TagType_SubIFD(DataType_IFD8): [0x00000c10]
-  Next: 0x00007a5c
+	TagType_ImageWidth(DataType_Short): 64,
+	TagType_ImageLength(DataType_Short): 64,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Short): [0x00000cd4],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 64,
+	TagType_StripByteCounts(DataType_Short): [12288],
+	TagType_SubIFD(DataType_IFD8): [0x00000c10],
+	Next: 0x00007a5c,
 }
 tiff.IFD(0x00000c10) {
-  TagType_NewSubfileType(DataType_Long): TagValue_NewSubfileType_Reduced
-  TagType_ImageWidth(DataType_Short): 32
-  TagType_ImageLength(DataType_Short): 32
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Short): [0x00000010]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 32
-  TagType_StripByteCounts(DataType_Short): [3072]
-  Next: 0x00000000
+	TagType_NewSubfileType(DataType_Long): TagValue_NewSubfileType_Reduced,
+	TagType_ImageWidth(DataType_Short): 32,
+	TagType_ImageLength(DataType_Short): 32,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Short): [0x00000010],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 32,
+	TagType_StripByteCounts(DataType_Short): [3072],
+	Next: 0x00000000,
 }
 tiff.IFD(0x00007a5c) {
-  TagType_ImageWidth(DataType_Short): 64
-  TagType_ImageLength(DataType_Short): 64
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Short): [0x00004a5c]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 64
-  TagType_StripByteCounts(DataType_Short): [12288]
-  TagType_SubIFD(DataType_IFD8): [0x00004998]
-  Next: 0x00000000
+	TagType_ImageWidth(DataType_Short): 64,
+	TagType_ImageLength(DataType_Short): 64,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Short): [0x00004a5c],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 64,
+	TagType_StripByteCounts(DataType_Short): [12288],
+	TagType_SubIFD(DataType_IFD8): [0x00004998],
+	Next: 0x00000000,
 }
 tiff.IFD(0x00004998) {
-  TagType_NewSubfileType(DataType_Long): TagValue_NewSubfileType_Reduced
-  TagType_ImageWidth(DataType_Short): 32
-  TagType_ImageLength(DataType_Short): 32
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Short): [0x00003d98]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 32
-  TagType_StripByteCounts(DataType_Short): [3072]
-  Next: 0x00000000
+	TagType_NewSubfileType(DataType_Long): TagValue_NewSubfileType_Reduced,
+	TagType_ImageWidth(DataType_Short): 32,
+	TagType_ImageLength(DataType_Short): 32,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Short): [0x00003d98],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 32,
+	TagType_StripByteCounts(DataType_Short): [3072],
+	Next: 0x00000000,
 }
 
 file: ..\testdata\BigTIFFSamples\Classic.tif
 tiff.Header{
-  ByteOrder:LittleEndian
-  TiffType:TiffType_ClassicTIFF
-  Offset:0x0000300e
+	ByteOrder: LittleEndian,
+	TiffType: TiffType_ClassicTIFF,
+	Offset: 0x0000300e,
 }
 tiff.IFD(0x0000300e) {
-  TagType_ImageWidth(DataType_Short): 64
-  TagType_ImageLength(DataType_Short): 64
-  TagType_BitsPerSample(DataType_Short): [8 8 8]
-  TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB
-  TagType_StripOffsets(DataType_Short): [0x00000008]
-  TagType_SamplesPerPixel(DataType_Short): 3
-  TagType_RowsPerStrip(DataType_Short): 64
-  TagType_StripByteCounts(DataType_Short): [12288]
-  Next: 0x00000000
+	TagType_ImageWidth(DataType_Short): 64,
+	TagType_ImageLength(DataType_Short): 64,
+	TagType_BitsPerSample(DataType_Short): [8 8 8],
+	TagType_PhotometricInterpretation(DataType_Short): TagValue_PhotometricType_RGB,
+	TagType_StripOffsets(DataType_Short): [0x00000008],
+	TagType_SamplesPerPixel(DataType_Short): 3,
+	TagType_RowsPerStrip(DataType_Short): 64,
+	TagType_StripByteCounts(DataType_Short): [12288],
+	Next: 0x00000000,
 }
 
