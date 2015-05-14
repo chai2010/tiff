@@ -197,7 +197,7 @@ func (p *IFDEntry) GetFloats() []float64 {
 		rats := p.GetRationals()
 		floats := make([]float64, len(rats))
 		for i := 0; i < len(rats); i++ {
-			floats[i] = float64(rats[i][0]) / float64(rats[i][0])
+			floats[i] = float64(rats[i][0]) / float64(rats[i][1])
 		}
 		return floats
 	default:
@@ -544,7 +544,7 @@ func (p *IFDEntry) String() string {
 			return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, v)
 		}
 	case p.DataType.IsStringType():
-		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.GetString())
+		return fmt.Sprintf("%v(%v): %q", p.Tag, p.DataType, p.GetString())
 	default:
 		return fmt.Sprintf("%v(%v): %v", p.Tag, p.DataType, p.Data)
 	}
