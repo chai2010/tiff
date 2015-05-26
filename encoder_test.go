@@ -32,6 +32,28 @@ func openImage(filename string) (image.Image, error) {
 	return Decode(f)
 }
 
+func Test_loadAndSave(t *testing.T) {
+	tmpname := "_test_loadAndSave_temp.tiff"
+	defer os.Remove(tmpname)
+
+	for _, rt := range roundtripTests {
+		img, err := Load(testdataDir + rt.filename)
+		if err != nil {
+			t.Fatal(err)
+		}
+		err = Save(tmpname, img, nil)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		img2, err := Load(tmpname)
+		if err != nil {
+			t.Fatal(err)
+		}
+		compare(t, img, img2)
+	}
+}
+
 func TestRoundtrip(t *testing.T) {
 	for _, rt := range roundtripTests {
 		img, err := openImage(rt.filename)
