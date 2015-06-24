@@ -87,7 +87,7 @@ func (p *Reader) DecodeImage(i, j int) (m image.Image, err error) {
 		return
 	}
 	imgRect := image.Rect(0, 0, cfg.Width, cfg.Height)
-	if m, err = NewImageWithIFD(imgRect, p.Ifd[i][j]); err != nil {
+	if m, err = newImageWithIFD(imgRect, p.Ifd[i][j]); err != nil {
 		return
 	}
 
@@ -106,7 +106,7 @@ func (p *Reader) DecodeImage(i, j int) (m image.Image, err error) {
 
 func (p *Reader) DecodeImageBlock(i, j, col, row int) (m image.Image, err error) {
 	r := p.ImageBlockBounds(i, j, col, row)
-	if m, err = NewImageWithIFD(r, p.Ifd[i][j]); err != nil {
+	if m, err = newImageWithIFD(r, p.Ifd[i][j]); err != nil {
 		return
 	}
 	if err = p.Ifd[i][j].DecodeBlock(p.rs, col, row, m); err != nil {

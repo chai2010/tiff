@@ -9,7 +9,7 @@ import (
 	"image"
 )
 
-func NewImageWithIFD(r image.Rectangle, ifd *IFD) (m image.Image, err error) {
+func newImageWithIFD(r image.Rectangle, ifd *IFD) (m image.Image, err error) {
 	switch ifd.ImageType() {
 	case ImageType_Bilevel, ImageType_BilevelInvert:
 		m = image.NewGray(r)
