@@ -5,83 +5,220 @@
 package tiff
 
 import (
-	"fmt"
 	"image"
 	"image/color"
-	"image/draw"
 	"reflect"
+	"runtime"
+)
+
+const (
+	MemPMagic = "MemP" // See https://github.com/chai2010/memp
+)
+
+const (
+	isLittleEndian = (runtime.GOARCH == "386" ||
+		runtime.GOARCH == "amd64" ||
+		runtime.GOARCH == "arm" ||
+		runtime.GOARCH == "arm64")
 )
 
 var (
-	_ internalImage = (*imageGray)(nil)
-	_ internalImage = (*imageGray16)(nil)
-	_ internalImage = (*imageGray32i)(nil)
-	_ internalImage = (*imageGray32f)(nil)
-	_ internalImage = (*imageGray64i)(nil)
-	_ internalImage = (*imageGray64f)(nil)
-	_ internalImage = (*imageGrayA)(nil)
-	_ internalImage = (*imageGrayA32)(nil)
-	_ internalImage = (*imageGrayA64i)(nil)
-	_ internalImage = (*imageGrayA64f)(nil)
-	_ internalImage = (*imageGrayA128i)(nil)
-	_ internalImage = (*imageGrayA128f)(nil)
-	_ internalImage = (*imageRGB)(nil)
-	_ internalImage = (*imageRGB48)(nil)
-	_ internalImage = (*imageRGB96i)(nil)
-	_ internalImage = (*imageRGB96f)(nil)
-	_ internalImage = (*imageRGB192i)(nil)
-	_ internalImage = (*imageRGB192f)(nil)
-	_ internalImage = (*imageRGBA)(nil)
-	_ internalImage = (*imageRGBA64)(nil)
-	_ internalImage = (*imageRGBA128i)(nil)
-	_ internalImage = (*imageRGBA128f)(nil)
-	_ internalImage = (*imageRGBA256i)(nil)
-	_ internalImage = (*imageRGBA256f)(nil)
+	_ image.Image = (*Image)(nil)
 )
 
-type internalImage interface {
-	// Pix holds the image's pixels, as pixel values in big-endian order format. The pixel at
-	// (x, y) starts at Pix[(y-Rect.Min.Y)*Stride + (x-Rect.Min.X)*PixelSize].
-	Pix() []byte
-	// Stride is the Pix stride (in bytes) between vertically adjacent pixels.
-	Stride() int
-	// Rect is the image's bounds.
-	Rect() image.Rectangle
-
-	// 1:Gray, 2:GrayA, 3:RGB, 4:RGBA
-	Channels() int
-	// Uint8/Uint16/Int32/Int64/Float32/Float64
-	Depth() reflect.Kind
-
-	draw.Image
-	SubImage(r image.Rectangle) image.Image
-}
-
+// MemP Image Spec (Native Endian), see https://github.com/chai2010/memp.
 type Image struct {
-	// Pix holds the image's pixels, as pixel values in big-endian order format. The pixel at
-	// (x, y) starts at Pix[(y-Rect.Min.Y)*Stride + (x-Rect.Min.X)*PixelSize].
-	Pix []byte
-	// Stride is the Pix stride (in bytes) between vertically adjacent pixels.
-	Stride int
-	// Rect is the image's bounds.
-	Rect image.Rectangle
+	MemPMagic string // MemP
+	Rect      image.Rectangle
+	Channels  int
+	DataType  reflect.Kind
+	Pix       PixSilce
 
-	// 1:Gray, 2:GrayA, 3:RGB, 4:RGBA
-	Channels int
-	// Uint8/Uint16/Int32/Int64/Float32/Float64
-	DataType reflect.Kind
+	// Stride is the Pix stride (in bytes)
+	// between vertically adjacent pixels.
+	Stride int
 }
 
 func NewImage(r image.Rectangle, channels int, dataType reflect.Kind) *Image {
-	pixSize := getPixelSize(channels, dataType)
-	stride := pixSize * r.Dx()
-	return &Image{
-		Pix:      make([]uint8, pixSize*r.Dy()),
-		Stride:   stride,
-		Rect:     r,
-		Channels: channels,
-		DataType: dataType,
+	m := &Image{
+		MemPMagic: MemPMagic,
+		Rect:      r,
+		Stride:    r.Dx() * channels * SizeofKind(dataType),
+		Channels:  channels,
+		DataType:  dataType,
 	}
+	m.Pix = make([]byte, r.Dy()*m.Stride)
+	return m
+}
+
+func AsMemPImage(m interface{}) (p *Image, ok bool) {
+	if p, ok := m.(*Image); ok {
+		return p, true
+	}
+
+	switch m := m.(type) {
+	case *image.Gray:
+		return &Image{
+			MemPMagic: MemPMagic,
+			Rect:      m.Bounds(),
+			Stride:    m.Stride,
+			Channels:  1,
+			DataType:  reflect.Uint8,
+			Pix:       m.Pix,
+		}, true
+	case *image.RGBA:
+		return &Image{
+			MemPMagic: MemPMagic,
+			Rect:      m.Bounds(),
+			Stride:    m.Stride,
+			Channels:  4,
+			DataType:  reflect.Uint8,
+			Pix:       m.Pix,
+		}, true
+	}
+
+	p = new(Image)
+	pType := reflect.TypeOf(*p)
+	pValue := reflect.ValueOf(p)
+	mValue := reflect.ValueOf(m)
+
+	for pValue.Kind() == reflect.Ptr {
+		pValue = pValue.Elem()
+	}
+	for mValue.Kind() == reflect.Ptr {
+		mValue = mValue.Elem()
+	}
+
+	if mValue.Kind() != reflect.Struct {
+		return nil, false
+	}
+	for i := pType.NumField() - 1; i >= 0; i-- {
+		pField := pValue.Field(i)
+		mField := mValue.FieldByName(pType.Field(i).Name)
+
+		if mField.Kind() != pField.Kind() {
+			return nil, false
+		}
+		pField.Set(mField)
+	}
+
+	if p.MemPMagic != MemPMagic {
+		// ingore MemPMagic value
+	}
+
+	return p, true
+}
+
+func NewImageFrom(m image.Image) *Image {
+	if p, ok := m.(*Image); ok {
+		return p.Clone()
+	}
+	if p, ok := AsMemPImage(m); ok {
+		return p.Clone()
+	}
+
+	switch m := m.(type) {
+	case *image.Gray:
+		b := m.Bounds()
+		p := NewImage(b, 1, reflect.Uint8)
+
+		for y := b.Min.Y; y < b.Max.Y; y++ {
+			off0 := m.PixOffset(0, y)
+			off1 := p.PixOffset(0, y)
+			copy(p.Pix[off1:][:p.Stride], m.Pix[off0:][:m.Stride])
+			off0 += m.Stride
+			off1 += p.Stride
+		}
+		return p
+
+	case *image.Gray16:
+		b := m.Bounds()
+		p := NewImage(b, 1, reflect.Uint16)
+
+		for y := b.Min.Y; y < b.Max.Y; y++ {
+			off0 := m.PixOffset(0, y)
+			off1 := p.PixOffset(0, y)
+			copy(p.Pix[off1:][:p.Stride], m.Pix[off0:][:m.Stride])
+			off0 += m.Stride
+			off1 += p.Stride
+		}
+		if isLittleEndian {
+			p.Pix.SwapEndian(p.DataType)
+		}
+		return p
+
+	case *image.RGBA:
+		b := m.Bounds()
+		p := NewImage(b, 4, reflect.Uint8)
+
+		for y := b.Min.Y; y < b.Max.Y; y++ {
+			off0 := m.PixOffset(0, y)
+			off1 := p.PixOffset(0, y)
+			copy(p.Pix[off1:][:p.Stride], m.Pix[off0:][:m.Stride])
+			off0 += m.Stride
+			off1 += p.Stride
+		}
+		return p
+
+	case *image.RGBA64:
+		b := m.Bounds()
+		p := NewImage(b, 4, reflect.Uint16)
+
+		for y := b.Min.Y; y < b.Max.Y; y++ {
+			off0 := m.PixOffset(0, y)
+			off1 := p.PixOffset(0, y)
+			copy(p.Pix[off1:][:p.Stride], m.Pix[off0:][:m.Stride])
+			off0 += m.Stride
+			off1 += p.Stride
+		}
+		if isLittleEndian {
+			p.Pix.SwapEndian(p.DataType)
+		}
+		return p
+
+	case *image.YCbCr:
+		b := m.Bounds()
+		p := NewImage(b, 4, reflect.Uint8)
+		for y := b.Min.Y; y < b.Max.Y; y++ {
+			for x := b.Min.X; x < b.Max.X; x++ {
+				R, G, B, A := m.At(x, y).RGBA()
+
+				i := p.PixOffset(x, y)
+				p.Pix[i+0] = uint8(R >> 8)
+				p.Pix[i+1] = uint8(G >> 8)
+				p.Pix[i+2] = uint8(B >> 8)
+				p.Pix[i+3] = uint8(A >> 8)
+			}
+		}
+		return p
+
+	default:
+		b := m.Bounds()
+		p := NewImage(b, 4, reflect.Uint16)
+		for y := b.Min.Y; y < b.Max.Y; y++ {
+			for x := b.Min.X; x < b.Max.X; x++ {
+				R, G, B, A := m.At(x, y).RGBA()
+
+				i := p.PixOffset(x, y)
+				p.Pix[i+0] = uint8(R >> 8)
+				p.Pix[i+1] = uint8(R)
+				p.Pix[i+2] = uint8(G >> 8)
+				p.Pix[i+3] = uint8(G)
+				p.Pix[i+4] = uint8(B >> 8)
+				p.Pix[i+5] = uint8(B)
+				p.Pix[i+6] = uint8(A >> 8)
+				p.Pix[i+7] = uint8(A)
+			}
+		}
+		return p
+	}
+}
+
+func (p *Image) Clone() *Image {
+	q := new(Image)
+	*q = *p
+	q.Pix = append([]byte(nil), p.Pix...)
+	return q
 }
 
 func (p *Image) Bounds() image.Rectangle {
@@ -89,151 +226,112 @@ func (p *Image) Bounds() image.Rectangle {
 }
 
 func (p *Image) ColorModel() color.Model {
-	m, err := p.asInternalImage()
-	if err != nil {
-		return nil
-	}
-	return m.ColorModel()
+	return ColorModel(p.Channels, p.DataType)
 }
 
 func (p *Image) At(x, y int) color.Color {
-	m, err := p.asInternalImage()
-	if err != nil {
+	if !(image.Point{x, y}.In(p.Rect)) {
+		return Color{
+			Channels: p.Channels,
+			DataType: p.DataType,
+		}
+	}
+	i := p.PixOffset(x, y)
+	n := SizeofPixel(p.Channels, p.DataType)
+	return Color{
+		Channels: p.Channels,
+		DataType: p.DataType,
+		Pix:      p.Pix[i:][:n],
+	}
+}
+
+func (p *Image) PixelAt(x, y int) []byte {
+	if !(image.Point{x, y}.In(p.Rect)) {
 		return nil
 	}
-	return m.At(x, y)
+	i := p.PixOffset(x, y)
+	n := SizeofPixel(p.Channels, p.DataType)
+	return p.Pix[i:][:n]
 }
 
 func (p *Image) Set(x, y int, c color.Color) {
-	m, err := p.asInternalImage()
-	if err != nil {
+	if !(image.Point{x, y}.In(p.Rect)) {
 		return
 	}
-	m.Set(x, y, c)
+	i := p.PixOffset(x, y)
+	n := SizeofPixel(p.Channels, p.DataType)
+	v := p.ColorModel().Convert(c).(Color)
+	copy(p.Pix[i:][:n], v.Pix)
+}
+
+func (p *Image) SetPixel(x, y int, c []byte) {
+	if !(image.Point{x, y}.In(p.Rect)) {
+		return
+	}
+	i := p.PixOffset(x, y)
+	n := SizeofPixel(p.Channels, p.DataType)
+	copy(p.Pix[i:][:n], c)
 }
 
 func (p *Image) PixOffset(x, y int) int {
-	return (y-p.Rect.Min.Y)*p.Stride + (x-p.Rect.Min.X)*2
+	return (y-p.Rect.Min.Y)*p.Stride + (x-p.Rect.Min.X)*SizeofPixel(p.Channels, p.DataType)
 }
 
 func (p *Image) SubImage(r image.Rectangle) image.Image {
-	m, err := p.asInternalImage()
-	if err != nil {
-		return nil
+	r = r.Intersect(p.Rect)
+	// If r1 and r2 are Rectangles, r1.Intersect(r2) is not guaranteed to be inside
+	// either r1 or r2 if the intersection is empty. Without explicitly checking for
+	// this, the Pix[i:] expression below can panic.
+	if r.Empty() {
+		return &Image{}
 	}
-	return m.SubImage(r)
+	i := p.PixOffset(r.Min.X, r.Min.Y)
+	return &Image{
+		Pix:      p.Pix[i:],
+		Stride:   p.Stride,
+		Rect:     r,
+		Channels: p.Channels,
+		DataType: p.DataType,
+	}
 }
 
 func (p *Image) StdImage() image.Image {
-	switch channels, depth := p.Channels, p.DataType; {
-	case channels == 1 && depth == reflect.Uint8:
+	switch {
+	case p.Channels == 1 && p.DataType == reflect.Uint8:
 		return &image.Gray{
 			Pix:    p.Pix,
 			Stride: p.Stride,
 			Rect:   p.Rect,
 		}
-	case channels == 1 && depth == reflect.Uint16:
-		return &image.Gray16{
+	case p.Channels == 1 && p.DataType == reflect.Uint16:
+		m := &image.Gray16{
 			Pix:    p.Pix,
 			Stride: p.Stride,
 			Rect:   p.Rect,
 		}
-	case channels == 4 && depth == reflect.Uint8:
+		if isLittleEndian {
+			m.Pix = append([]byte(nil), m.Pix...)
+			PixSilce(m.Pix).SwapEndian(p.DataType)
+		}
+		return m
+	case p.Channels == 4 && p.DataType == reflect.Uint8:
 		return &image.RGBA{
 			Pix:    p.Pix,
 			Stride: p.Stride,
 			Rect:   p.Rect,
 		}
-	case channels == 4 && depth == reflect.Uint16:
-		return &image.RGBA64{
+	case p.Channels == 4 && p.DataType == reflect.Uint16:
+		m := &image.RGBA64{
 			Pix:    p.Pix,
 			Stride: p.Stride,
 			Rect:   p.Rect,
 		}
+		if isLittleEndian {
+			m.Pix = append([]byte(nil), m.Pix...)
+			PixSilce(m.Pix).SwapEndian(p.DataType)
+		}
+		return m
 	}
+
 	return p
-}
-
-func (p *Image) asInternalImage() (m internalImage, err error) {
-	switch channels, depth := p.Channels, p.DataType; {
-	case channels == 1 && depth == reflect.Uint8:
-		m = new(imageGray).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 1 && depth == reflect.Uint16:
-		m = new(imageGray16).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 1 && depth == reflect.Int32:
-		m = new(imageGray32i).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 1 && depth == reflect.Float32:
-		m = new(imageGray32f).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 1 && depth == reflect.Int64:
-		m = new(imageGray64i).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 1 && depth == reflect.Float64:
-		m = new(imageGray64f).Init(p.Pix, p.Stride, p.Rect)
-		return
-
-	case channels == 2 && depth == reflect.Uint8:
-		m = new(imageGrayA).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 2 && depth == reflect.Uint16:
-		m = new(imageGrayA32).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 2 && depth == reflect.Int32:
-		m = new(imageGrayA64i).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 2 && depth == reflect.Float32:
-		m = new(imageGrayA64f).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 2 && depth == reflect.Int64:
-		m = new(imageGrayA128i).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 2 && depth == reflect.Float64:
-		m = new(imageGrayA128f).Init(p.Pix, p.Stride, p.Rect)
-		return
-
-	case channels == 3 && depth == reflect.Uint8:
-		m = new(imageRGB).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 3 && depth == reflect.Uint16:
-		m = new(imageRGB48).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 3 && depth == reflect.Int32:
-		m = new(imageRGB96i).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 3 && depth == reflect.Float32:
-		m = new(imageRGB96f).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 3 && depth == reflect.Int64:
-		m = new(imageRGB192i).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 3 && depth == reflect.Float64:
-		m = new(imageRGB192f).Init(p.Pix, p.Stride, p.Rect)
-		return
-
-	case channels == 4 && depth == reflect.Uint8:
-		m = new(imageRGBA).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 4 && depth == reflect.Uint16:
-		m = new(imageRGBA64).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 4 && depth == reflect.Int32:
-		m = new(imageRGBA128i).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 4 && depth == reflect.Float32:
-		m = new(imageRGBA128f).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 4 && depth == reflect.Int64:
-		m = new(imageRGBA256i).Init(p.Pix, p.Stride, p.Rect)
-		return
-	case channels == 4 && depth == reflect.Float64:
-		m = new(imageRGBA256f).Init(p.Pix, p.Stride, p.Rect)
-		return
-
-	default:
-		err = fmt.Errorf("tiff: Image.asInternalImage, invalid format: channels = %v, depth = %v", channels, depth)
-		return
-	}
 }
