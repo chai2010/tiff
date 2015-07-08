@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	MemPMagic = "MemP" // See https://github.com/chai2010/memp
+	MemPMagic = "MemP" // See https://github.com/chai2010/image
 )
 
 const (
@@ -26,7 +26,7 @@ var (
 	_ image.Image = (*Image)(nil)
 )
 
-// MemP Image Spec (Native Endian), see https://github.com/chai2010/memp.
+// MemP Image Spec (Native Endian), see https://github.com/chai2010/image.
 type Image struct {
 	MemPMagic string // MemP
 	Rect      image.Rectangle
@@ -34,7 +34,7 @@ type Image struct {
 	DataType  reflect.Kind
 	Pix       PixSilce
 
-	// Stride is the Pix stride (in bytes)
+	// Stride is the Pix stride (in bytes, must align with SizeofKind(p.DataType))
 	// between vertically adjacent pixels.
 	Stride int
 }
@@ -92,7 +92,7 @@ func AsMemPImage(m interface{}) (p *Image, ok bool) {
 	if mValue.Kind() != reflect.Struct {
 		return nil, false
 	}
-	for i := pType.NumField() - 1; i >= 0; i-- {
+	for i := 0; i < pType.NumField(); i++ {
 		pField := pValue.Field(i)
 		mField := mValue.FieldByName(pType.Field(i).Name)
 
