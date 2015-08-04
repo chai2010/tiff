@@ -365,6 +365,6 @@ func (p *IFD) decodeBlock(buf []byte, dst image.Image, r image.Rectangle) (err e
 	return
 }
 
-func (p *IFD) EncodeBlock(w io.Writer, col, row int, dst *Image) (err error) {
+func (p *IFD) EncodeBlock(w io.Writer, col, row int, dst *MemPImage) (err error) {
 	return
 }

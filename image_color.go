@@ -9,13 +9,13 @@ import (
 	"reflect"
 )
 
-type Color struct {
+type MemPColor struct {
 	Channels int
 	DataType reflect.Kind
 	Pix      PixSilce
 }
 
-func (c Color) RGBA() (r, g, b, a uint32) {
+func (c MemPColor) RGBA() (r, g, b, a uint32) {
 	if len(c.Pix) == 0 {
 		return
 	}
@@ -118,13 +118,13 @@ func ColorModel(channels int, dataType reflect.Kind) color.Model {
 }
 
 func colorModelConvert(channels int, dataType reflect.Kind, c color.Color) color.Color {
-	c2 := Color{
+	c2 := MemPColor{
 		Channels: channels,
 		DataType: dataType,
 		Pix:      make(PixSilce, channels*SizeofKind(dataType)),
 	}
 
-	if c1, ok := c.(Color); ok {
+	if c1, ok := c.(MemPColor); ok {
 		if c1.Channels == c2.Channels && c1.DataType == c2.DataType {
 			copy(c2.Pix, c1.Pix)
 			return c2
