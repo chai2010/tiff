@@ -1,7 +1,8 @@
 TIFF for Go
 ===========
 
-PkgDoc: [http://godoc.org/github.com/chai2010/tiff](http://godoc.org/github.com/chai2010/tiff)
+[![Build Status](https://travis-ci.org/chai2010/tiff.svg)](https://travis-ci.org/chai2010/tiff)
+[![GoDoc](https://godoc.org/github.com/chai2010/tiff?status.svg)](https://godoc.org/github.com/chai2010/tiff)
 
 
 **Features:**
