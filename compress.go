@@ -10,18 +10,20 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+
+	"github.com/chai2010/tiff/internal/fax"
 )
 
-func (p TagValue_CompressionType) Decode(r io.Reader) (data []byte, err error) {
+func (p TagValue_CompressionType) Decode(r io.Reader, width, height int) (data []byte, err error) {
 	switch p {
 	case TagValue_CompressionType_None, TagValue_CompressionType_Nil:
 		return p.decode_None(r)
 	case TagValue_CompressionType_CCITT:
 		return p.decode_CCITT(r)
 	case TagValue_CompressionType_G3:
-		return p.decode_G3(r)
+		return p.decode_G3(r, width, height)
 	case TagValue_CompressionType_G4:
-		return p.decode_G4(r)
+		return p.decode_G4(r, width, height)
 	case TagValue_CompressionType_LZW:
 		return p.decode_LZW(r)
 	case TagValue_CompressionType_JPEGOld:
@@ -49,14 +51,17 @@ func (p TagValue_CompressionType) decode_CCITT(r io.Reader) (data []byte, err er
 	return
 }
 
-func (p TagValue_CompressionType) decode_G3(r io.Reader) (data []byte, err error) {
-	err = fmt.Errorf("tiff: unsupport TagValue_CompressionType, %d", int(p))
-	return
+func (p TagValue_CompressionType) decode_G3(r io.Reader, width, height int) (data []byte, err error) {
+	return p.decode_G4(r, width, height)
 }
 
-func (p TagValue_CompressionType) decode_G4(r io.Reader) (data []byte, err error) {
-	err = fmt.Errorf("tiff: unsupport TagValue_CompressionType, %d", int(p))
-	return
+func (p TagValue_CompressionType) decode_G4(r io.Reader, width, height int) (data []byte, err error) {
+	br, ok := r.(io.ByteReader)
+	if !ok {
+		br = bufio.NewReader(r)
+	}
+
+	return fax.DecodeG4Pixels(br, width, height)
 }
 
 func (p TagValue_CompressionType) decode_LZW(r io.Reader) (data []byte, err error) {

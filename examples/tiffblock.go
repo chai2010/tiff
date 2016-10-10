@@ -19,6 +19,8 @@ import (
 
 var files = []string{
 	"../testdata/video-001-tile-64x64.tiff",
+	"../testdata/compress/compress_type_g4.tif",
+	"../testdata/compress/red.tiff",
 }
 
 func main() {
@@ -50,7 +52,7 @@ func main() {
 
 				for col := 0; col < blocksAcross; col++ {
 					for row := 0; row < blocksDown; row++ {
-						newname := fmt.Sprintf("%s-%02d-%02d-%02d-%02d.tiff", filepath.Base(name), i, j, col, row)
+						newname := fmt.Sprintf("z_%s-%02d-%02d-%02d-%02d.tiff", filepath.Base(name), i, j, col, row)
 
 						m, err := p.DecodeImageBlock(i, j, col, row)
 						if err != nil {

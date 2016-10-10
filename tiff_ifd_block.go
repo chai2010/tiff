@@ -131,6 +131,7 @@ func (p *IFD) DecodeBlock(r io.ReadSeeker, col, row int, dst image.Image) (err e
 		return
 	}
 
+	bounds := p.BlockBounds(col, row)
 	offset := p.BlockOffset(col, row)
 	count := p.BlockCount(col, row)
 
@@ -140,19 +141,18 @@ func (p *IFD) DecodeBlock(r io.ReadSeeker, col, row int, dst image.Image) (err e
 	limitReader := io.LimitReader(r, count)
 
 	var data []byte
-	if data, err = p.Compression().Decode(limitReader); err != nil {
+	if data, err = p.Compression().Decode(limitReader, bounds.Dx(), bounds.Dy()); err != nil {
 		return
 	}
 
-	rect := p.BlockBounds(col, row)
 	predictor, ok := p.TagGetter().GetPredictor()
 	if ok && predictor == TagValue_PredictorType_Horizontal {
-		if data, err = p.decodePredictor(data, rect); err != nil {
+		if data, err = p.decodePredictor(data, bounds); err != nil {
 			return
 		}
 	}
 
-	err = p.decodeBlock(data, dst, rect)
+	err = p.decodeBlock(data, dst, bounds)
 	return
 }
 
@@ -204,8 +204,26 @@ func (p *IFD) decodeBlock(buf []byte, dst image.Image, r image.Rectangle) (err e
 	rMaxX := minInt(xmax, dst.Bounds().Max.X)
 	rMaxY := minInt(ymax, dst.Bounds().Max.Y)
 
+	b := p.Bounds()
+	rMaxX = minInt(rMaxX, b.Max.X)
+	rMaxY = minInt(rMaxY, b.Max.Y)
+
 	switch p.ImageType() {
 	case ImageType_Gray, ImageType_GrayInvert, ImageType_Bilevel, ImageType_BilevelInvert:
+		if x, bpp := p.Compression(), p.Depth(); bpp == 1 && (x == TagValue_CompressionType_G3 || x == TagValue_CompressionType_G4) {
+			img := dst.(*image.Gray)
+			for y := ymin; y < rMaxY; y++ {
+				min := img.PixOffset(xmin, y)
+				max := img.PixOffset(rMaxX, y)
+				off := (y - ymin) * (xmax - xmin) * 1
+				for i := min; i < max; i++ {
+					img.Pix[i+0] = buf[off+0]
+					off++
+				}
+			}
+			return
+		}
+
 		if p.Depth() == 16 {
 			var off int
 			img := dst.(*image.Gray16)
