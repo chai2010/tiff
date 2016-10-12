@@ -21,6 +21,7 @@ var files = []string{
 	"../testdata/video-001-tile-64x64.tiff",
 	"../testdata/compress/compress_type_g4.tif",
 	"../testdata/compress/red.tiff",
+	"../testdata/lena512color.jpeg.tiff",
 }
 
 func main() {
@@ -56,7 +57,8 @@ func main() {
 
 						m, err := p.DecodeImageBlock(i, j, col, row)
 						if err != nil {
-							return
+							log.Println(col, row, err)
+							continue
 						}
 
 						var buf bytes.Buffer

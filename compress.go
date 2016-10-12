@@ -37,7 +37,7 @@ func (p TagValue_CompressionType) Decode(r io.Reader, width, height int) (data [
 	case TagValue_CompressionType_DeflateOld:
 		return p.decode_DeflateOld(r)
 	}
-	err = fmt.Errorf("tiff: unknown TagValue_CompressionType, %d", int(p))
+	err = fmt.Errorf("tiff: unsupport %v compression type", int(p))
 	return
 }
 
@@ -47,7 +47,7 @@ func (p TagValue_CompressionType) decode_None(r io.Reader) (data []byte, err err
 }
 
 func (p TagValue_CompressionType) decode_CCITT(r io.Reader) (data []byte, err error) {
-	err = fmt.Errorf("tiff: unsupport TagValue_CompressionType, %d", int(p))
+	err = fmt.Errorf("tiff: unsupport %v compression type", "CCITT")
 	return
 }
 
@@ -72,12 +72,13 @@ func (p TagValue_CompressionType) decode_LZW(r io.Reader) (data []byte, err erro
 }
 
 func (p TagValue_CompressionType) decode_JPEGOld(r io.Reader) (data []byte, err error) {
-	err = fmt.Errorf("tiff: unsupport TagValue_CompressionType, %d", int(p))
+	println("decode_JPEGOld")
+	err = fmt.Errorf("tiff: unsupport %v compression type", "JPEGOld")
 	return
 }
 
 func (p TagValue_CompressionType) decode_JPEG(r io.Reader) (data []byte, err error) {
-	err = fmt.Errorf("tiff: unsupport TagValue_CompressionType, %d", int(p))
+	err = fmt.Errorf("tiff: unsupport %v compression type", "JPEG")
 	return
 }
 
